@@ -1,0 +1,65 @@
+﻿<Properties StartupConfiguration="{95503883-8AF5-4A26-8F54-C10426599DFA}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ModelDTO/Account/RegisterForm.cs">
+    <Files>
+      <File FileName="Startup.cs" Line="90" Column="16" />
+      <File FileName="Controllers/LoginController.cs" Line="61" Column="57" />
+      <File FileName="appsettings.json" />
+      <File FileName="appsettings.Development.json" />
+      <File FileName="Program.cs" />
+      <File FileName="Controllers/PhieunhapsanphamController.cs" />
+      <File FileName="Models/ModelDTO/Account/LoginForm.cs" Line="9" Column="26" />
+      <File FileName="Controllers/LaptopController.cs" />
+      <File FileName="Controllers/MobileController.cs" />
+      <File FileName="Common/RawJsonBodyInputFormatter.cs" />
+      <File FileName="Controllers/TaikhoankhachhangController.cs" />
+      <File FileName="Models/Taikhoannhanvien.cs" />
+      <File FileName="Models/Taikhoankhachhang.cs" />
+      <File FileName="Models/lavenderContext.cs" />
+      <File FileName="Common/MyTokenHandler.cs" />
+      <File FileName="Models/Vanchuyen.cs" />
+      <File FileName="Models/Hoadon.cs" />
+      <File FileName="Models/Khachhang.cs" />
+      <File FileName="Models/Nhanvien.cs" />
+      <File FileName="Controllers/ExcelController.cs" />
+      <File FileName="../../../../.nuget/packages/epplus/4.0.1.1/readme.txt" />
+      <File FileName="../../../../.nuget/packages/epplus/5.0.3/readme.txt" />
+      <File FileName="../../../../.nuget/packages/gembox.spreadsheet/47.0.1345/readme.txt" />
+      <File FileName="Controllers/HoadonController.cs" />
+      <File FileName="Models/Khachhangdangnhap.cs" />
+      <File FileName="Models/Nhanviendangnhap.cs" />
+      <File FileName="Models/Chitietsanpham.cs" />
+      <File FileName="Controllers/CartController.cs" />
+      <File FileName="Controllers/DanhgiaController.cs" />
+      <File FileName="Controllers/CustomerController.cs" />
+      <File FileName="Controllers/RegisterController.cs" Line="1" Column="1" />
+      <File FileName="Models/ModelDTO/Account/RegisterForm.cs" Line="13" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Back" expanded="True">
+            <Node name="Back" expanded="True">
+              <Node name="Common" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="ModelDTO" expanded="True">
+                  <Node name="Account" expanded="True">
+                    <Node name="RegisterForm.cs" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Back PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
