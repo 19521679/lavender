@@ -28,7 +28,7 @@ class index extends Component {
       case 1:
         return ;
       case 2:
-        return (<HoadonDagiao makhachhang={this.props.customer.makhachhang}></HoadonDagiao>);
+        return (<HoadonDagiao makhachhang={this.props.makhachhang}></HoadonDagiao>);
       default:
         return;
     }
@@ -118,12 +118,12 @@ class index extends Component {
     }
 }
 index.propTypes = {
-  customer: PropTypes.object,
+  makhachhang: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
-    customer: state.login.customer,
+    makhachhang: state.login.makhachhang,
   };
 };
 

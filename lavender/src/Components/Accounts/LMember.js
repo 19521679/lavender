@@ -96,6 +96,16 @@ class index extends Component {
                             <span>Sản phẩm yêu thích</span>
                           </Link>
                         </li>
+                        <li>
+                          <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich">
+                          
+                            <span>
+                            <i class="fas fa-sign-out-alt"></i>
+                              Đăng xuất
+                            
+                            </span>
+                          </a>
+                        </li>
                       </ul>
                     </aside>
                   </div>
@@ -135,12 +145,12 @@ class index extends Component {
   };
 }
 index.propTypes = {
-  customer: PropTypes.object,
+  makhachhang: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
-    customer: state.login.customer,
+    makhachhang: state.login.makhachhang,
   };
 };
 
