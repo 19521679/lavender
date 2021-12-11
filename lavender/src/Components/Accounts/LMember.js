@@ -98,11 +98,9 @@ class index extends Component {
                         </li>
                         <li>
                           <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich">
-                          
                             <span>
                             <i class="fas fa-sign-out-alt"></i>
                               Đăng xuất
-                            
                             </span>
                           </a>
                         </li>

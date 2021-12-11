@@ -3,6 +3,8 @@ import HoadonDagiao from './HoadonDagiao';
 import "./QuanLyDonHang.css";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Dangxuly from './Dangxuly';
+import Danggiao from './Danggiao';
 
 class index extends Component {
   state = { active: 0}
@@ -24,9 +26,9 @@ class index extends Component {
   renderItem(n) {
     switch (n) {
       case 0:
-        return ;
+        return (<Dangxuly></Dangxuly>);
       case 1:
-        return ;
+        return (<Danggiao></Danggiao>);
       case 2:
         return (<HoadonDagiao makhachhang={this.props.makhachhang}></HoadonDagiao>);
       default:
