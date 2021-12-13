@@ -27,15 +27,16 @@ namespace Back.Controllers
         {
             var baivietlist = await (from bv in lavenderContext.Baiviets
                                      select bv).ToListAsync();
-            /*   foreach (var i in baivietlist)
-               {
-                   var e = lavenderContext.Entry(i);
-                   await e.Reference(x => x.ManhacungcapNavigation).LoadAsync();
-                   await e.Reference(x => x.MasanphamNavigation).LoadAsync();
-               }*/
             return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
-            //   return StatusCode(200, baivietlist);
+        }
 
+        
+        [Route("/baiviet/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetBaiViet(int id)
+        {
+            var baivietlist = await (from bv in lavenderContext.Baiviets where bv.mabaiviet==id select bv ).ToListAsync();
+            return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
         }
     }
 }

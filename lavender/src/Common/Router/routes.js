@@ -2,7 +2,6 @@ import Home from "../../Components/Home.js";
 import NotFoundPage from "./NotFoundPage.js";
 import Mobile from "../../Components/Mobile";
 import Laptop from "../../Components/Laptop";
-import Blog from "../../Components/Blog";
 import Cart from "../../Components/Cart";
 import Login from "../../Components/Accounts/Login.js";
 import Register from "../../Components/Accounts/Register.js";
@@ -20,6 +19,9 @@ import PromotionDashboard from "../../Components/Admin/PromotionDashboard";
 import CustomerAccountDashboard from "../../Components/Admin/CustomerAccountDashboard"
 import GuaranteeDashboard from "../../Components/Admin/GuaranteeDashboard"
 import TrademarkDashboard from "../../Components/Admin/TrademarkDashboard"
+import Article from "../../Components/Article/index"
+import ArticleDetail from "../../Components/Article/ArticleDetail"
+
 
 import LMember from "../../Components/Accounts/LMember.js";
 
@@ -33,6 +35,16 @@ const routes = [
     path: "/:loai/:hang/:dong/:sanpham",
     exact: true,
     main: ({ match }) => <Product match={match}></Product>,
+  },
+  {
+    path: "/article",
+    exact: true,
+    main: () => <Article ></Article>,
+  },
+  {
+    path: "/article/:mabaiviet",
+    exact: true,
+    main: () => <ArticleDetail></ArticleDetail >
   },
   {
     path: "/mobile/:trademark",
@@ -53,11 +65,6 @@ const routes = [
     path: "/laptop",
     exact: false,
     main: () => <Laptop ></Laptop>,
-  },
-  {
-    path: "/blog",
-    exact: false,
-    main: () => <Blog></Blog>,
   },
   {
     path: "/cart",
