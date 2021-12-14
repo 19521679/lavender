@@ -31,6 +31,7 @@ namespace Back.Common
                     new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(int.Parse(configuration["RefreshTokenExpiryInDays"])),
+                //Expires = DateTime.UtcNow.AddMilliseconds(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -50,6 +51,7 @@ namespace Back.Common
                     new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddHours(int.Parse(configuration["AccessTokenExpiryInHours"])),
+                //Expires = DateTime.UtcNow.AddSeconds(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -111,12 +111,9 @@ namespace Back.Controllers
         [Route("/refresh-token")]
         [HttpGet]
         //[Authorize(Policy = "Bearer")]
-        public async Task<IActionResult> RefreshToken()
+        public async Task<IActionResult> RefreshToken(string refreshtoken)
         {
-            string authHeader = HttpContext.Request.Headers["Authorization"];
-            string encodedBearer = authHeader.Substring("Bearer ".Length).Trim();
-
-            Dictionary<string, string> payload = MyTokenHandler.TokenPayloadHandler(encodedBearer);
+            Dictionary<string, string> payload = MyTokenHandler.TokenPayloadHandler(refreshtoken);
             if (payload["role"].Equals(MyTokenHandler.GUEST))
             {
                 if (payload.IsNullOrEmpty()) return StatusCode(401);
@@ -126,14 +123,14 @@ namespace Back.Controllers
                 if (taikhoan == null) return StatusCode(401);
 
                 var khachhangdangnhap = await (from x in lavenderContext.Khachhangdangnhap
-                                               where x.Refreshtoken.Equals(encodedBearer)
+                                               where x.Refreshtoken.Equals(refreshtoken)
                                                select x).FirstOrDefaultAsync();
                 if (khachhangdangnhap == null) return StatusCode(401);
 
-                var refreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, MyTokenHandler.GUEST, _configuration);
+                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, MyTokenHandler.GUEST, _configuration);
 
                 var newkhachhangdangnhap = new Khachhangdangnhap();
-                newkhachhangdangnhap.Refreshtoken = refreshtoken;
+                newkhachhangdangnhap.Refreshtoken = newrefreshtoken;
                 newkhachhangdangnhap.Makhachhang = khachhangdangnhap.Makhachhang;
                 lavenderContext.Remove(khachhangdangnhap);
 
@@ -141,7 +138,7 @@ namespace Back.Controllers
                 await lavenderContext.SaveChangesAsync();
 
                 var token = MyTokenHandler.GenerateAccessToken(taikhoan.Username, MyTokenHandler.GUEST, _configuration);
-                return StatusCode(200, Json(new { token = token, refreshtoken = refreshtoken, makhachhang = taikhoan.Makhachhang }));
+                return StatusCode(200, Json(new { token = token, refreshtoken = newrefreshtoken, makhachhang = taikhoan.Makhachhang }));
             }
             else if (payload["role"].Equals(MyTokenHandler.ADMINISTRATOR)|| payload["role"].Equals(MyTokenHandler.STAFF))
             {
@@ -152,14 +149,14 @@ namespace Back.Controllers
                 if (taikhoan == null) return StatusCode(401);
 
                 var nhanviendangnhap = await (from x in lavenderContext.Nhanviendangnhap
-                                               where x.Refreshtoken.Equals(encodedBearer)
+                                               where x.Refreshtoken.Equals(refreshtoken)
                                                select x).FirstOrDefaultAsync();
                 if (nhanviendangnhap == null) return StatusCode(401);
 
-                var refreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, payload["role"], _configuration);
+                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, payload["role"], _configuration);
 
                 var newnhanviendangnhap = new Nhanviendangnhap();
-                newnhanviendangnhap.Refreshtoken = refreshtoken;
+                newnhanviendangnhap.Refreshtoken = newrefreshtoken;
                 newnhanviendangnhap.Manhanvien = nhanviendangnhap.Manhanvien;
                 lavenderContext.Remove(nhanviendangnhap);
 
@@ -167,7 +164,7 @@ namespace Back.Controllers
                 await lavenderContext.SaveChangesAsync();
 
                 var token = MyTokenHandler.GenerateAccessToken(taikhoan.Username, payload["role"], _configuration);
-                return StatusCode(200, Json(new { token = token, refreshtoken = refreshtoken, manhanvien = taikhoan.Manhanvien }));
+                return StatusCode(200, Json(new { token = token, refreshtoken = newrefreshtoken, manhanvien = taikhoan.Manhanvien }));
             }
             return StatusCode(204);
         }

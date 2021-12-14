@@ -40,6 +40,7 @@ namespace Back.Models
         public virtual DbSet<Vanchuyen> Vanchuyen { get; set; }
         public virtual DbSet<Khachhangdangnhap> Khachhangdangnhap { get; set; }
         public virtual DbSet<Nhanviendangnhap> Nhanviendangnhap { get; set; }
+        public virtual DbSet<Thongsokithuat> Thongsokithuat { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -861,6 +862,35 @@ namespace Back.Models
                 .HasForeignKey(d => d.Manhanvien)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_NHANVIENDANGNHAP_NHANVIEN");
+            });
+
+
+            modelBuilder.Entity<Thongsokithuat>(entity =>
+            {
+                entity.HasKey(e => e.Mathongso)
+                    .IsClustered(false);
+
+                entity.ToTable("THONGSOKITHUAT");
+
+                entity.Property(e => e.Mathongso).HasColumnName("MATHONGSO");
+
+                entity.Property(e => e.Masanpham).HasColumnName("MASANPHAM");
+
+                entity.Property(e => e.Ten)
+                        .HasMaxLength(45)
+                 .IsUnicode(true)
+                 .HasColumnName("TEN");
+
+                entity.Property(e => e.Noidung)
+                       .HasMaxLength(500)
+                .IsUnicode(true)
+                .HasColumnName("NOIDUNG");
+
+                entity.HasOne(d => d.MasanphamNavigation)
+                    .WithMany(p => p.Thongsokithuats)
+                    .HasForeignKey(d => d.Masanpham)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_THONGSOKITHUAT_SANPHAMM");
             });
 
             OnModelCreatingPartial(modelBuilder);

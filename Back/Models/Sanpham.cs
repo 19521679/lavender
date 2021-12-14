@@ -38,6 +38,8 @@ namespace Back.Models
         public virtual ICollection<Danhgia> Danhgia { get; set; }
         [JsonIgnore]
         public virtual ICollection<Phieunhapsanpham> Phieunhapsanphams { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Thongsokithuat> Thongsokithuats { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
