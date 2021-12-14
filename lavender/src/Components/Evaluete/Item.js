@@ -2,15 +2,20 @@ import React, {useState, useEffect} from 'react'
 import * as imageApi from "../apis/image";
 import * as customerApi from "../apis/customer";
 import logo from "../../Common/images/logo.png";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default function Item(props) {
   const [khachhang, setKhachhang] = useState(undefined)
   useEffect(() => {
-    customerApi.findCustomerByCustomerId(props.evaluete.makhachhang)
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+
+    customerApi.findCustomerByCustomerId(props.evaluete.makhachhang, token, refreshtoken)
     .then(success => {
       if (success.status===200) {
         setKhachhang(success.data.value);
-        console.log(success.data.value);
       }
     })
     .catch(error => {

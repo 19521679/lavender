@@ -27,7 +27,7 @@ export const addToCart = async (data, token, refreshtoken) => {
 
   var newtoken = undefined;
   var connect = await axiosServices
-    .get(API_ENDPOINT + url, data, { headers: { Authorization: `Bearer ${token}`}})
+    .post(API_ENDPOINT + url, data, { headers: { Authorization: `Bearer ${token}`}})
     .catch((error) => {
       
       if (error.response.status === 401) {
@@ -39,7 +39,7 @@ export const addToCart = async (data, token, refreshtoken) => {
     });
   if (newtoken !== undefined) {
     return await axiosServices
-    .get(API_ENDPOINT + url, data, { headers: { Authorization: `Bearer ${newtoken}`}});
+    .post(API_ENDPOINT + url, data, { headers: { Authorization: `Bearer ${newtoken}`}});
   }
   return connect;
 };
