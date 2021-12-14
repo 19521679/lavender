@@ -71,7 +71,6 @@ namespace Back
                      .AllowAnyMethod()
                      .AllowAnyHeader()
                      ;
-
              }));
 
             services.AddDbContext<lavenderContext>(options =>

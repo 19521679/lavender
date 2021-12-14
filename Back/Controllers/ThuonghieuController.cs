@@ -202,7 +202,6 @@ namespace Back.Controllers
         }
 
         [Route("/tim-thuonghieu")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> TimThuonghieu(string timkiem)
         {

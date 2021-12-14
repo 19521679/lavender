@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Back.Models;
+using Back.Models.ModelDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -142,124 +143,128 @@ namespace Back.Controllers
        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
+            [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia,
+            [FromForm] ThongsokithuatForm[] thongsokithuat)
         {
-            Sanpham s = new Sanpham();
-            s.Tensanpham = tensanpham;
-            s.Maloai = maloai;
-            s.Mathuonghieu = mathuonghieu;
-            s.Soluongton = soluongton;
-            s.Mota = mota;
-            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
-            s.Dongia = dongia;
 
-            string loai = "";
-            switch (maloai)
-            {
-                case 1:
-                    loai = "mobile";
-                    break;
-                case 2:
-                    loai = "laptop";
-                    break;
-                default:
-                    break;
-            }
+            Console.WriteLine(thongsokithuat[0].ten);
+            return Ok();
+       //     Sanpham s = new Sanpham();
+       //     s.Tensanpham = tensanpham;
+       //     s.Maloai = maloai;
+       //     s.Mathuonghieu = mathuonghieu;
+       //     s.Soluongton = soluongton;
+       //     s.Mota = mota;
+       //     s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
+       //     s.Dongia = dongia;
 
-            string hang = await (from t in lavenderContext.Thuonghieu
-                                 where t.Mathuonghieu == mathuonghieu
-                                 select t.Tenthuonghieu).FirstOrDefaultAsync();
-            string[] tokens = tensanpham.Split(' ');
-            string dong = tokens[0];
-            string sanpham = tokens[1];
-            string path = $"/{loai}/{hang}/{dong}/{sanpham}";
+       //     string loai = "";
+       //     switch (maloai)
+       //     {
+       //         case 1:
+       //             loai = "mobile";
+       //             break;
+       //         case 2:
+       //             loai = "laptop";
+       //             break;
+       //         default:
+       //             break;
+       //     }
 
-            s.Image = path;
+       //     string hang = await (from t in lavenderContext.Thuonghieu
+       //                          where t.Mathuonghieu == mathuonghieu
+       //                          select t.Tenthuonghieu).FirstOrDefaultAsync();
+       //     string[] tokens = tensanpham.Split(' ');
+       //     string dong = tokens[0];
+       //     string sanpham = tokens[1];
+       //     string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
-            await lavenderContext.AddAsync(s);
-            await lavenderContext.SaveChangesAsync();
+       //     s.Image = path;
 
-            if (image == null || image.Length==0) return StatusCode(200, Json(s));
+       //     await lavenderContext.AddAsync(s);
+       //     await lavenderContext.SaveChangesAsync();
 
-            string NewDir = _env.ContentRootPath + "/wwwroot" + path;
+       //     if (image == null || image.Length==0) return StatusCode(200, Json(s));
 
-            if (!Directory.Exists(NewDir))
-            {
-                // Create the directory.
-                Directory.CreateDirectory(NewDir);
-            }
-            using (var memoryStream = new MemoryStream())
-            {
-                await image.CopyToAsync(memoryStream);
-                using (var img = Image.FromStream(memoryStream))
-                {
-                    // TODO: ResizeImage(img, 100, 100);
-                    img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
-                }
-            }
-            return StatusCode(200, Json(s));
-        }
+       //     string NewDir = _env.ContentRootPath + "/wwwroot" + path;
 
-        [Route("/sua-sanpham")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
-        [HttpPost]
-        public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
-        {
-            string loai = "";
-            switch (maloai)
-            {
-                case 1:
-                    loai = "mobile";
-                    break;
-                case 2:
-                    loai = "laptop";
-                    break;
-                default:
-                    break;
-            }
+       //     if (!Directory.Exists(NewDir))
+       //     {
+       //         // Create the directory.
+       //         Directory.CreateDirectory(NewDir);
+       //     }
+       //     using (var memoryStream = new MemoryStream())
+       //     {
+       //         await image.CopyToAsync(memoryStream);
+       //         using (var img = Image.FromStream(memoryStream))
+       //         {
+       //             // TODO: ResizeImage(img, 100, 100);
+       //             img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
+       //         }
+       //     }
+       //     return StatusCode(200, Json(s));
+       // }
 
-            string hang = await (from t in lavenderContext.Thuonghieu
-                                 where t.Mathuonghieu == mathuonghieu
-                                 select t.Tenthuonghieu).FirstOrDefaultAsync();
-            string[] tokens = tensanpham.Split(' ');
-            string dong = tokens[0];
-            string sanpham = tokens[1];
-            string path = $"/{loai}/{hang}/{dong}/{sanpham}";
+       // [Route("/sua-sanpham")]
+       //[Authorize(Roles = "ADMINISTRATOR, STAFF")]
+       // [HttpPost]
+       // public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
+       //     [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
+       // {
+       //     string loai = "";
+       //     switch (maloai)
+       //     {
+       //         case 1:
+       //             loai = "mobile";
+       //             break;
+       //         case 2:
+       //             loai = "laptop";
+       //             break;
+       //         default:
+       //             break;
+       //     }
 
-            var s = await (from p in lavenderContext.Sanpham
-                           where p.Masanpham == masanpham
-                           select p).FirstOrDefaultAsync();
-            s.Tensanpham = tensanpham;
-            s.Maloai = maloai;
-            s.Mathuonghieu = mathuonghieu;
-            s.Soluongton = soluongton;
-            s.Mota = mota;
-            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
-            s.Dongia = dongia;
-            s.Image = path;
+       //     string hang = await (from t in lavenderContext.Thuonghieu
+       //                          where t.Mathuonghieu == mathuonghieu
+       //                          select t.Tenthuonghieu).FirstOrDefaultAsync();
+       //     string[] tokens = tensanpham.Split(' ');
+       //     string dong = tokens[0];
+       //     string sanpham = tokens[1];
+       //     string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
-            if (image == null || image.Length == 0) return StatusCode(200, Json(s));
+       //     var s = await (from p in lavenderContext.Sanpham
+       //                    where p.Masanpham == masanpham
+       //                    select p).FirstOrDefaultAsync();
+       //     s.Tensanpham = tensanpham;
+       //     s.Maloai = maloai;
+       //     s.Mathuonghieu = mathuonghieu;
+       //     s.Soluongton = soluongton;
+       //     s.Mota = mota;
+       //     s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
+       //     s.Dongia = dongia;
+       //     s.Image = path;
 
-            await lavenderContext.SaveChangesAsync();
+       //     if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-            string NewDir = _env.ContentRootPath + "/wwwroot" + path;
+       //     await lavenderContext.SaveChangesAsync();
 
-            if (!Directory.Exists(NewDir))
-            {
-                // Create the directory.
-                Directory.CreateDirectory(NewDir);
-            }
-            using (var memoryStream = new MemoryStream())
-            {
-                await image.CopyToAsync(memoryStream);
-                using (var img = Image.FromStream(memoryStream))
-                {
-                    // TODO: ResizeImage(img, 100, 100);
-                    img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
-                }
-            }
-            return StatusCode(200, Json(s));
+       //     string NewDir = _env.ContentRootPath + "/wwwroot" + path;
+
+       //     if (!Directory.Exists(NewDir))
+       //     {
+       //         // Create the directory.
+       //         Directory.CreateDirectory(NewDir);
+       //     }
+       //     using (var memoryStream = new MemoryStream())
+       //     {
+       //         await image.CopyToAsync(memoryStream);
+       //         using (var img = Image.FromStream(memoryStream))
+       //         {
+       //             // TODO: ResizeImage(img, 100, 100);
+       //             img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
+       //         }
+       //     }
+       //     return StatusCode(200, Json(s));
         }
 
         [Route("/tatca-dienthoai")]
