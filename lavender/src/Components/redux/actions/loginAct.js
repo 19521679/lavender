@@ -1,7 +1,5 @@
 import * as loginApi from "../../apis/login";
 import * as loginConst from "../constrants/loginConst";
-import jwt from "jwt-decode";
-import Cookies from "universal-cookie";
 
 export const postLogin = () => {
   return {
@@ -42,7 +40,7 @@ export const postLoginReport = (req) => {
   };
 };
 
-
+/*REFRESHTOKEN*/
 export const postRefresh = () => {
   return {
     type: loginConst.POST_REFRESH,
@@ -78,6 +76,45 @@ export const postRefreshReport = (refreshToken) => {
       })
       .catch((error) => {
         dispatch(postRefreshFailed(error));
+      });
+  };
+};
+
+//logout
+
+export const postLogout = () => {
+  return {
+    type: loginConst.POST_LOGOUT,
+  };
+};
+export const postLogoutSuccess = (data) => {
+  return {
+    type: loginConst.POST_LOGOUT_SUCCESS,
+    payload: {
+    },
+  };
+};
+
+export const postLogoutFailed = (error) => {
+  return {
+    type: loginConst.POST_LOGOUT_FAILED,
+    payload: {
+      error,
+    },
+  };
+};
+export const postLogoutReport = (ma, loaitaikhoan, token, refreshtoken) => {
+  if (refreshtoken===undefined) return async (dispatch)=>(dispatch(postLogoutSuccess()))
+  return async (dispatch) => {
+    await loginApi
+      .logout(ma,loaitaikhoan, token, refreshtoken)
+      .then((success) => {
+        if (success.status === 200) {
+          dispatch(postLogoutSuccess());
+        } else dispatch(postLogoutFailed(success));
+      })
+      .catch((error) => {
+        dispatch(postLogoutFailed(error));
       });
   };
 };

@@ -4,6 +4,9 @@ import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
@@ -16,8 +19,10 @@ export default function Index(props) {
   }
 
   async function loadtrademark() {
-    trademarkApi
-      .allTrademark()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    await trademarkApi
+      .allTrademark(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setList(success.data.value.$values);

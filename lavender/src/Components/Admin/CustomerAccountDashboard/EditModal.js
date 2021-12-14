@@ -3,6 +3,9 @@ import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as customerAccountApi from "../../apis/customeraccount";
 import * as myToast from "../../../Common/helper/toastHelper";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -23,13 +26,15 @@ export default function EditModal(props) {
   const [progress, setProgress] = useState(0);
 
   function submitHandler() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     const fd = new FormData();
     fd.append("makhachhang", makhachhang);
     fd.append("username", username);
     fd.append("password", password);
 
     customerAccountApi
-      .editAccount(fd, runProgress)
+      .editAccount(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -64,7 +69,7 @@ export default function EditModal(props) {
           </div>
 
           <div className="form-main-add-edit">
-          <div className="row mb-1">
+            <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Mã khách hàng
               </div>
@@ -80,7 +85,9 @@ export default function EditModal(props) {
             </div>
 
             <div className="row mb-1">
-              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Username</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Username
+              </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                 <input
                   className="form-control border"
@@ -106,7 +113,6 @@ export default function EditModal(props) {
                 ></input>
               </div>
             </div>
-
           </div>
 
           <hr></hr>

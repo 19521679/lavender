@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
 import * as imageApi from "../../apis/image";
@@ -10,14 +10,15 @@ export default function Item(props) {
   function closeModal() {
     setShowModal(0);
   }
-  useEffect(()=>{
-    productApi.findProductById(props.productdetail.masanpham)
-    .then(success=>{
-      if (success.status===200) {
-        setProduct(success.data.value);
-      }
-    })
-  }, [props.productdetail.masanpham])
+  useEffect(() => {
+    productApi
+      .findProductById(props.productdetail.masanpham)
+      .then((success) => {
+        if (success.status === 200) {
+          setProduct(success.data.value);
+        }
+      });
+  }, [props.productdetail.masanpham]);
   return (
     <tr>
       <EditModal

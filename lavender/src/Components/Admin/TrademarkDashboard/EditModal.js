@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import * as trademarkApi from "../../apis/trademark";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as imageApi from "../../apis/image";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -17,8 +20,12 @@ const customStyles = {
 };
 
 export default function EditModal(props) {
-  const [mathuonghieu, setMathuonghieu] = useState(props.trademark.mathuonghieu);
-  const [tenthuonghieu, setTenthuonghieu] = useState(props.trademark.tenthuonghieu);
+  const [mathuonghieu, setMathuonghieu] = useState(
+    props.trademark.mathuonghieu
+  );
+  const [tenthuonghieu, setTenthuonghieu] = useState(
+    props.trademark.tenthuonghieu
+  );
   const [xuatxu, setXuatxu] = useState(props.trademark.xuatxu);
   const [image, setImage] = useState(undefined);
   const [progress, setProgress] = useState(0);
@@ -30,8 +37,10 @@ export default function EditModal(props) {
     fd.append("xuatxu", xuatxu);
     fd.append("image", image);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     trademarkApi
-      .editTrademark(fd, runProgress)
+      .editTrademark(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -122,7 +131,6 @@ export default function EditModal(props) {
                   placeholder=""
                   onChange={(e) => setTenthuonghieu(e.target.value)}
                   value={tenthuonghieu}
-                  
                 ></input>
               </div>
             </div>

@@ -420,13 +420,11 @@ namespace Back.Models
                 entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
 
                 entity.Property(e => e.Diachi)
-                    .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("DIACHI");
 
                 entity.Property(e => e.Cccd)
-                   .IsRequired()
                    .HasMaxLength(20)
                    .IsUnicode(false)
                    .HasColumnName("CCCD");
@@ -452,13 +450,11 @@ namespace Back.Models
                     .HasColumnName("NGAYSINH");
 
                 entity.Property(e => e.Sodienthoai)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("SODIENTHOAI");
 
                 entity.Property(e => e.Tenkhachhang)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("TENKHACHHANG");
@@ -711,11 +707,12 @@ namespace Back.Models
 
                 entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(20)
+                entity.Property(e => e.Token)
+                    .HasMaxLength(4000)
                     .IsUnicode(false)
-                    .HasColumnName("PASSWORD");
+                    .HasColumnName("TOKEN");
+
+                entity.Property(e => e.Kichhoat).HasColumnName("KICHHOAT");
 
                 entity.HasOne(d => d.MakhachhangNavigation)
                     .WithMany(p => p.Taikhoankhachhangs)

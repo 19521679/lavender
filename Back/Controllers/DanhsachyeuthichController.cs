@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using Back.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -63,6 +63,7 @@ namespace Back.Controllers
         }
 
         [Route("/yeuthich")]
+
         [HttpGet]
         public async Task<IActionResult> Themyeuthich(int makhachhang, int masanpham)
         {

@@ -3,6 +3,10 @@ import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as productApi from "../../apis/product";
 import * as myToast from "../../../Common/helper/toastHelper";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
+
 const customStyles = {
   content: {
     top: "40%",
@@ -21,8 +25,10 @@ export default class DeleteModal extends Component {
   }
 
   submitHandler() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     productApi
-      .deleteProduct(this.props.product.masanpham)
+      .deleteProduct(this.props.product.masanpham, token, refreshtoken)
       .then((success) => {
         if (success.status) {
           myToast.toastSucces("Xoá sản phẩm thành công");
@@ -56,7 +62,7 @@ export default class DeleteModal extends Component {
               <button
                 type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal"  
+                data-dismiss="modal"
                 onClick={this.props.closeModal}
               >
                 Đóng

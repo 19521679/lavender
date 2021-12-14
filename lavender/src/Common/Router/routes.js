@@ -19,6 +19,7 @@ import PromotionDashboard from "../../Components/Admin/PromotionDashboard";
 import CustomerAccountDashboard from "../../Components/Admin/CustomerAccountDashboard"
 import GuaranteeDashboard from "../../Components/Admin/GuaranteeDashboard"
 import TrademarkDashboard from "../../Components/Admin/TrademarkDashboard"
+import MyAccountDashboard from "../../Components/Admin/MyAccountDashboard"
 import Article from "../../Components/Article/index"
 import ArticleDetail from "../../Components/Article/ArticleDetail"
 
@@ -150,6 +151,11 @@ const routes = [
     path: "/admin/trademark",
     exact: true,
     main: () => <TrademarkDashboard></TrademarkDashboard>
+  },
+  {
+    path: "/admin/myaccount",
+    exact: true,
+    main: () => <MyAccountDashboard></MyAccountDashboard>
   },
   {
     path: "/lmember",

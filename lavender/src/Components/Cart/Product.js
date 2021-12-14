@@ -4,6 +4,10 @@ import * as imageApi from "../apis/image";
 import * as productApi from "../apis/product";
 import * as detailCartApi from "../apis/detailCart";
 import DeleteDetailCartModal from "./DeleteDetailCartModal";
+import Cookies from "universal-cookie"
+import logo from "../../Common/images/logo.png";
+
+const cookie = new Cookies();
 
 class Product extends Component {
   state = { product: {}, checked: false, showModal: false };
@@ -14,10 +18,14 @@ class Product extends Component {
     this.setState({ showModal: false });
   }
   async deleteProduct() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     detailCartApi
       .deleteDetailCart(
         this.props.detailCart.magiohang,
-        this.props.detailCart.masanpham
+        this.props.detailCart.masanpham,
+        token, 
+        refreshtoken
       )
       .then((success) => {
         if (success.status === 200) this.props.reload();
@@ -28,11 +36,14 @@ class Product extends Component {
   }
   setValue(quantity) {
     let soluong = 0;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     soluong = this.props.detailCart.soluong + quantity;
     detailCartApi
       .setQuantityForDetailCart({
         ...this.props.detailCart,
         soluong: this.props.detailCart.soluong + quantity,
+        token, refreshtoken
       })
       .then((success) => {
         if (success.status === 200) {
@@ -50,8 +61,10 @@ class Product extends Component {
   }
 
   async componentDidMount() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await productApi
-      .findProductById(this.props.detailCart.masanpham)
+      .findProductById(this.props.detailCart.masanpham, token, refreshtoken)
       .then((success) => {
         this.setState({ product: success.data.value });
       })
@@ -68,7 +81,7 @@ class Product extends Component {
       checked
     );
   }
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props) {
     return {
       checked: props.detailCart.chon,
     };
@@ -119,12 +132,12 @@ class Product extends Component {
                       data-view-index="d7159dd0-3bda-11ec-a1bf-f256c406ec5c"
                     >
                       <img
-                        src="https://salt.tikicdn.com/ts/upload/2a/47/46/0e038f5927f3af308b4500e5b243bcf6.png"
+                        src={logo}
                         alt="tiki-fast"
                         className="intended__icon intended__icon--fast"
                       />
                       <div className="product-name">
-                        {this.state.product.tensanpham}
+                        {this.state.product.tensanpham} - {this.props.detailCart.dungluong} - {this.props.detailCart.mausac}
                       </div>
                     </a>
                   </div>

@@ -5,8 +5,7 @@ import DeleteModal from "./DeleteModal";
 
 export default class Item extends Component {
   state = { giamoi: 0, showModal: 0 };
-  componentDidMount() {
-  }
+  componentDidMount() {}
   closeModal() {
     this.setState({ showModal: 0 });
   }
@@ -28,10 +27,13 @@ export default class Item extends Component {
 
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-          <img
+            <img
               alt="img"
               style={{ width: "80px", height: "80px" }}
-              src= {imageApi.image(this.props.staff.image, this.props.staff.manhanvien)}
+              src={imageApi.image(
+                this.props.staff.image,
+                this.props.staff.manhanvien
+              )}
             ></img>
           </span>
         </td>
@@ -100,7 +102,8 @@ export default class Item extends Component {
             {"  "}Sửa
           </div>
           <div
-            className="btn btn-link text-danger px-3 mb-0 " style={{ position: 'relative', zIndex: '0' }}
+            className="btn btn-link text-danger px-3 mb-0 "
+            style={{ position: "relative", zIndex: "0" }}
             onClick={() => this.setState({ showModal: 2 })}
           >
             <i class="bi bi-trash"></i>

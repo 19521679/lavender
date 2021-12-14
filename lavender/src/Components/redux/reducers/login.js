@@ -1,9 +1,11 @@
 import * as loginConst from "../constrants/loginConst";
-// import * as myToast from "../../../Common/helper/toastHelper";
+import * as myToast from "../../../Common/helper/toastHelper";
 import Cookies from "universal-cookie";
+
 const cookie = new Cookies();
 const initialState = {
   makhachhang: undefined,
+  manhanvien: undefined,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,12 +13,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         makhachhang: action.payload.data.value.makhachhang,
+        manhanvien: action.payload.data.value.manhanvien,
       };
     }
     case loginConst.POST_LOGIN_SUCCESS: {
       const { data } = action.payload;
-      
-      console.log(data.value)
+      if (data.value.token === undefined) {
+        cookie.remove("token");
+      } else {
       let dtoken = new Date();
       dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
       cookie.set("token", data.value.token, {
@@ -26,11 +30,10 @@ const reducer = (state = initialState, action) => {
         secure: true,
         sameSite: true,
       });
-
-      if(data.value.refreshtoken===undefined){
-        cookie.remove("refreshtoken")
-      }
-      else{
+    }
+      if (data.value.refreshtoken === undefined) {
+        cookie.remove("refreshtoken");
+      } else {
         let drefresh = new Date();
         drefresh.setTime(drefresh.getTime() + 10 * 24 * 60 * 60 * 1000);
         cookie.set("refreshtoken", data.value.refreshtoken, {
@@ -45,12 +48,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         makhachhang: action.payload.data.value.makhachhang,
+        manhanvien: action.payload.data.value.manhanvien,
       };
     }
     case loginConst.POST_LOGIN_FAILED: {
-      
-      cookie.remove("token");
-      cookie.remove("refreshtoken");
       return {
         ...state,
       };
@@ -60,6 +61,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         makhachhang: action.payload.data.value.makhachhang,
+        manhanvien: action.payload.data.value.manhanvien,
       };
     }
     case loginConst.POST_REFRESH_SUCCESS: {
@@ -74,8 +76,6 @@ const reducer = (state = initialState, action) => {
         sameSite: true,
       });
 
-      console.log("newfrtoken"+data.value.refreshtoken)
-
       let drefresh = new Date();
       drefresh.setTime(drefresh.getTime() + 10 * 24 * 60 * 60 * 1000);
       cookie.set("refreshtoken", data.value.refreshtoken, {
@@ -88,11 +88,30 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         makhachhang: action.payload.data.value.makhachhang,
+        manhanvien: action.payload.data.value.manhanvien,
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("token");
-  cookie.remove("refreshtoken");
+      return {
+        ...state,
+      };
+    }
+    //Logout
+    case loginConst.POST_LOGOUT: {
+      return {
+        ...state
+      };
+    }
+    case loginConst.POST_LOGOUT_SUCCESS: {
+      cookie.remove("refreshtoken"); cookie.remove("token")
+      return {
+        ...state,
+        makhachhang: undefined,
+        manhanvien: undefined,
+      };
+    }
+    case loginConst.POST_LOGOUT_FAILED: {
+      myToast.toastError("Đăng xuất thất bại")
       return {
         ...state,
       };

@@ -4,6 +4,9 @@ import "./style.css";
 import * as staffApi from "../../apis/staff";
 import Item from "./Item";
 import _ from "lodash";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default class index extends Component {
   state = {
@@ -17,10 +20,12 @@ export default class index extends Component {
     this.setState({ showModal: true });
   }
 
-
   async loadStaff() {
-    staffApi
-      .allStaff()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+
+    await staffApi
+      .allStaff(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           this.setState({ liststaff: success.data.value.$values });
@@ -35,7 +40,6 @@ export default class index extends Component {
     this.loadStaff();
   }
 
-
   async edit(staff) {
     var listtemp = this.state.liststaff;
     _.remove(listtemp, (n) => {
@@ -49,7 +53,7 @@ export default class index extends Component {
 
   async add(staff) {
     var listtemp = this.state.liststaff;
-    
+
     listtemp.push(staff);
 
     await this.setState({ liststaff: listtemp });
@@ -57,12 +61,11 @@ export default class index extends Component {
 
   async delete(staff) {
     var listtemp = this.state.liststaff;
-  
 
     _.remove(listtemp, (n) => {
       return n.manhanvien === staff.manhanvien;
     });
-   await this.setState({ liststaff: listtemp });
+    await this.setState({ liststaff: listtemp });
   }
 
   render() {
@@ -174,7 +177,6 @@ export default class index extends Component {
             </div>
           </div>
         </div>
-
       </main>
     );
   }

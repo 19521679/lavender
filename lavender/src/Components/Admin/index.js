@@ -1,9 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
-import * as hoadonAPI from "../apis/billing";
-import BillItem from "./BillItem";
-import ProcessingBill from "./ProcessingBill";
-
 // export default class index extends Component {
 //   state = {
 //     allBilling: [],
@@ -537,12 +533,12 @@ export default function Index() {
           </label>
           <input
             type="email"
-            name = "email"
+            name="email"
             className="form-control"
             id="exampleFormControlInput1"
             placeholder="name@example.com"
-            onChange={e=>setEmail(e.target.value)}
-            value = {email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
         <div className="mb-3">

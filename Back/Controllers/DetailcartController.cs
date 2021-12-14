@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Back.Common;
 using Back.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -40,17 +41,9 @@ namespace Back.Controllers
             _env = env;
             this.lavenderContext = lavenderContext;
         }
-        /* GET  /chitietgiohang-bang-magiohang?magiohang=1
-         * POST 
-         * 
-         * {
-         *  magiohang: 1,
-         *  tengiohang: a
-         *
-         * }
-         * A
-         * */
+
         [Route("/chitietgiohang-bang-magiohang")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> LoadDetailCartByCartId([FromQuery]int magiohang)
         {
@@ -62,6 +55,7 @@ namespace Back.Controllers
         }
 
         [Route("dat-soluong-cho-chitietgiohang")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SetQuantityForDetailCart(JsonElement json)
         {
@@ -76,6 +70,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-chitietgiohang")]
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> deleteDetailCart(int magiohang, int masanpham)
         {
@@ -91,6 +86,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-tatca-chitietgiohang")]
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> deleteAllDetailCart(int magiohang)
         {

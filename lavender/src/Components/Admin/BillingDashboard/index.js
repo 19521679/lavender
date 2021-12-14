@@ -6,6 +6,9 @@ import ImportItem from "./ImportItem";
 import "./style.css";
 import AddBill from "./AddBill";
 import AddNote from "./AddNote";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default class index extends Component {
   state = {
@@ -21,12 +24,16 @@ export default class index extends Component {
   };
   async loadBill() {
     let billing = [];
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await hoadonAPI
-      .twentyhoadon()
+      .twentyhoadon(token, refreshtoken)
       .then((success) => {
         billing = success.data.value.$values;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error);
+      });
 
     this.setState({
       billing: billing,
@@ -34,8 +41,10 @@ export default class index extends Component {
   }
   async loadImport() {
     let importBilling = [];
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await noteAPI
-      .importNote()
+      .importNote(token, refreshtoken)
       .then((success) => {
         importBilling = success.data.value.$values;
       })
@@ -55,23 +64,23 @@ export default class index extends Component {
               return (
                 <AddBill
                   handleClose={this.hideModal.bind(this)}
-                  handleSave={(() => {
+                  handleSave={() => {
                     this.loadBill();
                     this.hideModal.bind(this)();
-                  }).bind(this)}
+                  }}
                 ></AddBill>
               );
             else if (this.state.modal === 2)
               return (
                 <AddNote
                   handleClose={this.hideModal.bind(this)}
-                  handleSave={(() => {
+                  handleSave={() => {
                     this.loadImport();
                     this.hideModal.bind(this)();
-                  }).bind(this)}
+                  }}
                 ></AddNote>
               );
-          }).bind(this)()}
+          })()}
         </>
         <nav
           className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -92,7 +101,7 @@ export default class index extends Component {
               <ul className="navbar-nav  justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
-                    href="javascript:;"
+                    href={() => false}
                     className="nav-link text-body font-weight-bold px-0"
                   >
                     <i className="fa fa-user me-sm-1" />
@@ -101,7 +110,7 @@ export default class index extends Component {
                 </li>
                 <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
                   <a
-                    href="javascript:;"
+                    href={() => false}
                     className="nav-link text-body p-0"
                     id="iconNavbarSidenav"
                   >
@@ -113,13 +122,13 @@ export default class index extends Component {
                   </a>
                 </li>
                 <li className="nav-item px-3 d-flex align-items-center">
-                  <a href="javascript:;" className="nav-link text-body p-0">
+                  <a href={() => false} className="nav-link text-body p-0">
                     <i className="fa fa-cog fixed-plugin-button-nav cursor-pointer" />
                   </a>
                 </li>
                 <li className="nav-item dropdown pe-2 d-flex align-items-center">
                   <a
-                    href="javascript:;"
+                    href={() => false}
                     className="nav-link text-body p-0"
                     id="dropdownMenuButton"
                     data-bs-toggle="dropdown"
@@ -133,12 +142,13 @@ export default class index extends Component {
                   >
                     <li className="mb-2">
                       <a
+                        href={() => false}
                         className="dropdown-item border-radius-md"
-                        href="javascript:;"
                       >
                         <div className="d-flex py-1">
                           <div className="my-auto">
                             <img
+                              alt=""
                               src="../assets/img/team-2.jpg"
                               className="avatar avatar-sm  me-3 "
                             />
@@ -160,12 +170,13 @@ export default class index extends Component {
                     </li>
                     <li className="mb-2">
                       <a
+                        href={() => false}
                         className="dropdown-item border-radius-md"
-                        href="javascript:;"
                       >
                         <div className="d-flex py-1">
                           <div className="my-auto">
                             <img
+                              alt=""
                               src="../assets/img/small-logos/logo-spotify.svg"
                               className="avatar avatar-sm bg-gradient-dark  me-3 "
                             />
@@ -187,7 +198,7 @@ export default class index extends Component {
                     <li>
                       <a
                         className="dropdown-item border-radius-md"
-                        href="javascript:;"
+                        href={() => false}
                       >
                         <div className="d-flex py-1">
                           <div className="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
@@ -418,6 +429,7 @@ export default class index extends Component {
                       <div className="col-6 text-end">
                         <div className="btn-add-bill">
                           <a
+                            href={() => false}
                             className="btn bg-gradient-dark mb-0 mt-4 "
                             onClick={() => this.showModal(1)}
                           >
@@ -434,7 +446,13 @@ export default class index extends Component {
                     {function () {
                       let result = null;
                       result = this.state.billing.map((value, key) => {
-                        return <BillItem bill={value} key={key} handleSave={this.loadBill.bind(this)}></BillItem>;
+                        return (
+                          <BillItem
+                            bill={value}
+                            key={key}
+                            handleSave={this.loadBill.bind(this)}
+                          ></BillItem>
+                        );
                       });
                       return result;
                     }.bind(this)()}
@@ -452,7 +470,11 @@ export default class index extends Component {
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div className="col-6 text-end">
                         <div className="btn-import-bill">
-                          <a className="btn bg-gradient-dark mb-0 mt-4" onClick={() => this.showModal(2)}>
+                          <a
+                            href={() => false}
+                            className="btn bg-gradient-dark mb-0 mt-4"
+                            onClick={() => this.showModal(2)}
+                          >
                             <i class="bi bi-plus"></i> Thêm mới phiếu nhập
                           </a>
                         </div>
@@ -466,7 +488,13 @@ export default class index extends Component {
                     {function () {
                       let result = null;
                       result = this.state.importBilling.map((value, key) => {
-                        return <ImportItem bill={value} key={key} handleSave={this.loadImport.bind(this)}></ImportItem>;
+                        return (
+                          <ImportItem
+                            bill={value}
+                            key={key}
+                            handleSave={this.loadImport.bind(this)}
+                          ></ImportItem>
+                        );
                       });
                       return result;
                     }.bind(this)()}
@@ -475,65 +503,6 @@ export default class index extends Component {
               </div>
             </div>
           </div>
-          <footer className="footer py-4  ">
-            <div className="container-fluid">
-              <div className="row align-items-center justify-content-lg-between">
-                <div className="col-lg-6 mb-lg-0 mb-4">
-                  <div className="copyright text-center text-sm text-muted text-lg-start">
-                    © , made with <i className="fa fa-heart" /> by
-                    <a
-                      href="https://www.creative-tim.com"
-                      className="font-weight-bold"
-                      target="_blank"
-                    >
-                      Creative Tim
-                    </a>
-                    for a better web.
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <ul className="nav nav-footer justify-content-center justify-content-lg-end">
-                    <li className="nav-item">
-                      <a
-                        href="https://www.creative-tim.com"
-                        className="nav-link text-muted"
-                        target="_blank"
-                      >
-                        Creative Tim
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        href="https://www.creative-tim.com/presentation"
-                        className="nav-link text-muted"
-                        target="_blank"
-                      >
-                        About Us
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        href="https://www.creative-tim.com/blog"
-                        className="nav-link text-muted"
-                        target="_blank"
-                      >
-                        Blog
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        href="https://www.creative-tim.com/license"
-                        className="nav-link pe-0 text-muted"
-                        target="_blank"
-                      >
-                        License
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </footer>
         </div>
       </main>
     );

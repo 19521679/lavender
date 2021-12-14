@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import * as suplierApi from "../../apis/suplier";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as imageApi from "../../apis/image";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -25,7 +28,7 @@ export default class EditModal extends Component {
       email: this.props.suplier.email,
       sodienthoai: this.props.suplier.sodienthoai,
       diachi: this.props.suplier.diachi,
-      image:undefined,
+      image: undefined,
       progress: 0,
     };
   }
@@ -37,8 +40,11 @@ export default class EditModal extends Component {
     fd.append("sodienthoai", this.state.sodienthoai);
     fd.append("diachi", this.state.diachi);
     fd.append("image", this.state.image);
+
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     suplierApi
-      .editSuplier(fd, this.setProgress.bind(this))
+      .editSuplier(fd, this.setProgress.bind(this), token, refreshtoken)
       .then((success) => {
         this.props.edit(success.data.value);
         this.props.closeModal();
@@ -76,18 +82,18 @@ export default class EditModal extends Component {
             <hr></hr>
 
             <div className="form-main-add-edit">
-            <div className="row mb-3">
+              <div className="row mb-3">
                 <span className="text-secondary text-xs font-weight-bold">
                   <img
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                     src={
                       this.state.image === undefined
-                      ? imageApi.image(
-                          this.props.suplier.image,
-                          this.props.suplier.tennhacungcap
-                        )
-                      : URL.createObjectURL(this.state.image)
+                        ? imageApi.image(
+                            this.props.suplier.image,
+                            this.props.suplier.tennhacungcap
+                          )
+                        : URL.createObjectURL(this.state.image)
                     }
                   ></img>
                 </span>

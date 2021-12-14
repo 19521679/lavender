@@ -5,6 +5,9 @@ import * as productApi from "../../apis/product";
 import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
 import FindTrademarkModal from "./FindTrademarkModal";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -30,7 +33,7 @@ export default class AddModal extends Component {
       thoidiemramat: new Date(),
       dongia: undefined,
       progress: 0,
-      showModal:false
+      showModal: false,
     };
   }
   submitHandler = () => {
@@ -48,8 +51,10 @@ export default class AddModal extends Component {
     );
     fd.append("dongia", this.state.dongia);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     productApi
-      .addProduct(fd, this.setProgress.bind(this))
+      .addProduct(fd, this.setProgress.bind(this), token, refreshtoken)
       .then((success) => {
         this.props.addProduct(success.data.value);
         this.props.closeModal();
@@ -67,12 +72,10 @@ export default class AddModal extends Component {
     }
     this.setState({ progress: percent });
   }
-  
-  
-  chooseFunction(trademark){
-    this.setState({mathuonghieu: trademark.mathuonghieu})
-  }
 
+  chooseFunction(trademark) {
+    this.setState({ mathuonghieu: trademark.mathuonghieu });
+  }
 
   render() {
     return (
@@ -82,11 +85,11 @@ export default class AddModal extends Component {
         style={customStyles}
         contentLabel="Example Modal"
       >
-           <FindTrademarkModal
-        showModal={this.state.showModal}
-        closeModal={() => this.setState({showModal: false})}
-        chooseFunction={this.chooseFunction.bind(this)}
-      ></FindTrademarkModal>
+        <FindTrademarkModal
+          showModal={this.state.showModal}
+          closeModal={() => this.setState({ showModal: false })}
+          chooseFunction={this.chooseFunction.bind(this)}
+        ></FindTrademarkModal>
         <div class="add-item-modal" role="document">
           <div class="">
             <div class="modal-header">
@@ -96,14 +99,15 @@ export default class AddModal extends Component {
             </div>
 
             <div className="form-main-add-edit">
-            <div className="row mb-3">
+              <div className="row mb-3">
                 <span className="text-secondary text-xs font-weight-bold">
                   <img
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                     src={
-                      this.state.image !== undefined ?
-                      URL.createObjectURL(this.state.image):""
+                      this.state.image !== undefined
+                        ? URL.createObjectURL(this.state.image)
+                        : ""
                     }
                   ></img>
                 </span>
@@ -157,11 +161,14 @@ export default class AddModal extends Component {
                     }}
                     value={this.state.mathuonghieu}
                   ></input>
-                   <div className="mr-1" onClick={(() => this.setState({showModal: true}))}>
-                  <div onClick={(() => this.setState({showModal:true}))}>
-                  <i class="bi bi-arrow-right-circle "></i>
+                  <div
+                    className="mr-1"
+                    onClick={() => this.setState({ showModal: true })}
+                  >
+                    <div onClick={() => this.setState({ showModal: true })}>
+                      <i class="bi bi-arrow-right-circle "></i>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
 

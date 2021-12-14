@@ -11,12 +11,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Back.ModelDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back.Controllers
 {
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
 
     [ApiController]
+    [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+    //[Authorize(Roles = "STAFF")]
     public class HoadonController : Controller
     {
         private readonly ILogger<HoadonController> _logger;

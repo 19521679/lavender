@@ -3,6 +3,8 @@ import Modal from "../MyModal/index";
 import * as hoadonApi from "../../apis/billing";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as detailBill from "../../apis/detailBill";
+import Cookies from "universal-cookie";
+const cookie = new Cookies();
 
 export default class AddBill extends Component {
   constructor(props) {
@@ -14,7 +16,9 @@ export default class AddBill extends Component {
       makhuyenmai:
         this.props.bill !== undefined ? this.props.bill.makhuyenmai : 0,
       ngayhoadon:
-        this.props.bill !== undefined ? new Date(this.props.bill.ngayhoadon) : new Date(),
+        this.props.bill !== undefined
+          ? new Date(this.props.bill.ngayhoadon)
+          : new Date(),
       manhanvien:
         this.props.bill !== undefined ? this.props.bill.manhanvien : 0,
       tongtien: this.props.bill !== undefined ? this.props.bill.tongtien : 0,
@@ -27,9 +31,11 @@ export default class AddBill extends Component {
     this.setState({ chitiethoadon: newchitiethoadon });
   }
   async componentDidMount() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     if (this.props.bill !== undefined)
       await detailBill
-        .detailByBillId(this.props.bill.sohoadon)
+        .detailByBillId(this.props.bill.sohoadon, token, refreshtoken)
         .then((success) => {
           this.setState({ chitiethoadon: success.data.value.$values });
         })
@@ -92,7 +98,7 @@ export default class AddBill extends Component {
               placeholder=""
               onChange={((e) => {
                 this.setState({ makhachhang: e.target.value });
-              }).bind(this)}
+              })}
               value={this.state.makhachhang}
             ></input>
           </div>
@@ -106,9 +112,9 @@ export default class AddBill extends Component {
               className="form-control border"
               id="makhuyenmai"
               placeholder=""
-              onChange={((e) => {
+              onChange={(e) => {
                 this.setState({ makhuyenmai: e.target.value });
-              })}
+              }}
               value={this.state.makhuyenmai}
             ></input>
           </div>
@@ -123,10 +129,10 @@ export default class AddBill extends Component {
               type="date"
               id="ngayhoadon"
               name="trip-start"
-              onChange={((e) => {
+              onChange={(e) => {
                 this.setState({ ngayhoadon: new Date(e.target.value) });
-              })}
-              value={(this.state.ngayhoadon).toISOString().split('T')[0]}
+              }}
+              value={this.state.ngayhoadon.toISOString().split("T")[0]}
             ></input>
           </div>
         </div>
@@ -139,9 +145,9 @@ export default class AddBill extends Component {
               className="form-control border"
               id="manhanvien"
               placeholder=""
-              onChange={((e) => {
+              onChange={(e) => {
                 this.setState({ manhanvien: e.target.value });
-              })}
+              }}
               value={this.state.manhanvien}
             ></input>
           </div>
@@ -153,9 +159,9 @@ export default class AddBill extends Component {
               className="form-control border"
               id="tongtien"
               placeholder=""
-              onChange={((e) => {
+              onChange={(e) => {
                 this.setState({ tongtien: e.target.value });
-              })}
+              }}
               value={this.state.tongtien}
             ></input>
           </div>

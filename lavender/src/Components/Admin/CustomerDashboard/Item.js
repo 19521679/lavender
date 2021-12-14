@@ -77,10 +77,12 @@ export default function Item(props) {
         <td className="align-middle text-center text-sm">
           <span className="badge badge-sm bg-gradient-success">Thành viên</span>
         </td>
-      ) : props.customer.loaikhachhang === "Thường" &&(
-        <td className="align-middle text-center text-sm">
-          <span className="badge badge-sm bg-gradient-secondary">Thường</span>
-        </td>
+      ) : (
+        props.customer.loaikhachhang === "Thường" && (
+          <td className="align-middle text-center text-sm">
+            <span className="badge badge-sm bg-gradient-secondary">Thường</span>
+          </td>
+        )
       )}
       <td className="align-middle">
         <div

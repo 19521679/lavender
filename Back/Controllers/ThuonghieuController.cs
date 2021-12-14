@@ -9,14 +9,13 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Back.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
 
 namespace Back.Controllers
 {
@@ -66,7 +65,7 @@ namespace Back.Controllers
                 bool timthaycaigido = false;
                 foreach (var j in danhsachthuonghieu)
                 {
-                    if (i.Mathuonghieu==j)
+                    if (i.Mathuonghieu == j)
                     {
                         timthaycaigido = true;
                     }
@@ -82,7 +81,7 @@ namespace Back.Controllers
                                        where t.Mathuonghieu == i
                                        select t).FirstOrDefaultAsync());
             }
-            
+
             return StatusCode(200, Json(thuonghieus));
         }
 
@@ -107,6 +106,7 @@ namespace Back.Controllers
         }
 
         [Route("/them-thuonghieu")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddTrademark([FromForm] string tenthuonghieu,
             [FromForm] string xuatxu,
@@ -147,6 +147,7 @@ namespace Back.Controllers
         }
 
         [Route("/sua-thuonghieu")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditTrademark([FromForm] int mathuonghieu, [FromForm] string tenthuonghieu,
             [FromForm] IFormFile image,
@@ -185,6 +186,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-thuonghieu")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteTrademark(int mathuonghieu)
         {
@@ -200,6 +202,7 @@ namespace Back.Controllers
         }
 
         [Route("/tim-thuonghieu")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> TimThuonghieu(string timkiem)
         {

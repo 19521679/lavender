@@ -3,7 +3,9 @@ import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as staffAccountApi from "../../apis/staffaccount";
 import * as myToast from "../../../Common/helper/toastHelper";
+import Cookies from "universal-cookie";
 
+const cookie = new Cookies();
 const customStyles = {
   content: {
     top: "40%",
@@ -28,8 +30,10 @@ export default function EditModal(props) {
     fd.append("username", username);
     fd.append("password", password);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     staffAccountApi
-      .editAccount(fd, runProgress)
+      .editAccount(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -64,7 +68,7 @@ export default function EditModal(props) {
           </div>
 
           <div className="form-main-add-edit">
-          <div className="row mb-1">
+            <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Mã nhân viên
               </div>
@@ -80,7 +84,9 @@ export default function EditModal(props) {
             </div>
 
             <div className="row mb-1">
-              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Username</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Username
+              </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                 <input
                   className="form-control border"
@@ -106,7 +112,6 @@ export default function EditModal(props) {
                 ></input>
               </div>
             </div>
-
           </div>
 
           <hr></hr>

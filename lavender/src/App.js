@@ -27,16 +27,20 @@ class App extends React.Component {
           {this.showContentMenus(routes)}
           {this.props.location.pathname.includes("/admin") ? null : <Footer />}
         </div>
-        {
-          !localStorage.getItem("acceptCookie")&&
-          <CookieConsent debug={true} location="bottom" expires={60}
-          onAccept= {()=>{localStorage.setItem("acceptCookie",true)}}
-          buttonText = "Có tôi đồng ý!"
+        {!localStorage.getItem("acceptCookie") && (
+          <CookieConsent
+            debug={true}
+            location="bottom"
+            expires={60}
+            onAccept={() => {
+              localStorage.setItem("acceptCookie", true);
+            }}
+            buttonText="Có tôi đồng ý!"
           >
             Trang này sử dụng cookie. Xem thêm{" "}
             <Link to="/privacy"> chính sách bảo mật </Link> ở đây.
           </CookieConsent>
-        }
+        )}
       </Provider>
     );
   }

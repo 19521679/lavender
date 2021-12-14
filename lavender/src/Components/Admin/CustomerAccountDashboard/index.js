@@ -4,6 +4,8 @@ import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
+import Cookies from "universal-cookie";
+const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
@@ -16,8 +18,10 @@ export default function Index(props) {
   }
 
   async function loadaccount() {
-    customerAccountApi
-      .allAccount()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    await customerAccountApi
+      .allAccount(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setList(success.data.value.$values);
@@ -30,7 +34,7 @@ export default function Index(props) {
 
   useEffect(() => {
     loadaccount();
-  },[]);
+  }, []);
 
   async function editFunction(account) {
     var listtemp = list;
@@ -43,7 +47,7 @@ export default function Index(props) {
 
   async function addFunction(account) {
     var listtemp = list;
-    listtemp.push(account);  
+    listtemp.push(account);
     await setList([...listtemp]);
   }
 
@@ -51,7 +55,7 @@ export default function Index(props) {
     var listtemp = list;
     _.remove(listtemp, (n) => {
       return n.makhachhang === account.makhachhang;
-    }); 
+    });
     await setList([...listtemp]);
   }
 
@@ -94,7 +98,7 @@ export default function Index(props) {
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Password</b>
                         </th>
-                        
+
                         <th className="text-secondary opacity-7" />
                       </tr>
                     </thead>

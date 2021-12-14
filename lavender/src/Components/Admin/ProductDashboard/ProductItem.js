@@ -102,7 +102,8 @@ export default class ProductItem extends Component {
             {"  "}Sửa
           </div>
           <div
-            className="btn btn-link text-danger px-3 mb-0 " style={{ position: 'relative', zIndex: '0' }}
+            className="btn btn-link text-danger px-3 mb-0 "
+            style={{ position: "relative", zIndex: "0" }}
             onClick={() => this.setState({ showModal: 2 })}
           >
             <i class="bi bi-trash"></i>

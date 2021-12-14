@@ -618,29 +618,6 @@ div.card .card-header-danger {
   position: relative;
   cursor:pointer;
 }
-footer{
-  margin-top:100px;
-  color: #555;
-  background: #fff;
-  padding: 25px;
-  font-weight: 300;
-  
-}
-.footer p{
-  margin-bottom: 0;
-  font-size: 14px;
-  margin: 0 0 10px;
-  font-weight: 300;
-}
-footer p a{
-  color: #555;
-  font-weight: 400;
-}
-
-footer p a:hover {
-  color: #9f26aa;
-  text-decoration: none;
-}
 
 .swatch-link {
   cursor:pointer;

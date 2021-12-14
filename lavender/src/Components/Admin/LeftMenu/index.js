@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import logo from "../../../Asset/logo/logo.png";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as loginAct from "../../redux/actions/loginAct";
+import PropTypes from "prop-types";
+import Cookies from "universal-cookie";
+import { withRouter } from "react-router-dom";
+import "./style.css";
+
+const cookie = new Cookies();
+
 const table = [
   {
     name: "Tổng quan",
@@ -60,7 +70,7 @@ var MenuLink = ({ lable, to }) => {
         return (
           <li className="nav-item">
             <Link
-            to={to}
+              to={to}
               className={
                 match
                   ? "nav-link text-white bg-gradient-primary"
@@ -79,7 +89,15 @@ var MenuLink = ({ lable, to }) => {
   );
 };
 
-export default class index extends Component {
+class Index extends Component {
+  componentDidMount() {
+    const refreshtoken = cookie.get("refreshtoken");
+    const { loginActionCreators } = this.props;
+    const { postRefreshReport } = loginActionCreators;
+    if (refreshtoken !== undefined) {
+      postRefreshReport(refreshtoken);
+    }
+  }
   render() {
     return (
       <aside
@@ -92,21 +110,18 @@ export default class index extends Component {
             aria-hidden="true"
             id="iconSidenav"
           />
-          <a
-            className="navbar-brand m-0"
-            target="_blank"
-          >
+          <a href={() => false} className="navbar-brand m-0">
             <img
               src={logo}
               className="navbar-brand-img h-100"
               alt="main_logo"
             />
-            <span className="ms-1 font-weight-normal text-white">
-              Lavender
-            </span>
+            <span className="ms-1 font-weight-normal text-white">Lavender</span>
           </a>
         </div>
+
         <hr className="horizontal light mt-0 mb-2" />
+
         <div
           className="collapse navbar-collapse  w-auto  max-height-vh-100"
           id="sidenav-collapse-main"
@@ -127,7 +142,37 @@ export default class index extends Component {
             })()}
           </ul>
         </div>
-      </aside>  
+
+        <div className="sidenav-footer position-absolute w-100 bottom-0 ">
+          <div className="mx-3 group-btn-taikhoan text-center">
+            <Link to = "/admin/myaccount"
+              className="btn bg-gradient-primary mt-4 w-100"
+              href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree"
+              type="button"
+            >
+              Tài khoản
+            </Link>
+          </div>
+        </div>
+      </aside>
     );
   }
 }
+Index.propTypes = {
+  loginActionCreators: PropTypes.shape({
+    postLoginReport: PropTypes.func,
+  }),
+  manhanvien: PropTypes.number,
+};
+const mapStateToProps = (state) => {
+  return {
+    manhanvien: state.login.manhanvien,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginActionCreators: bindActionCreators(loginAct, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Index));

@@ -5,6 +5,9 @@ import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
 import * as productdetailApi from "../../apis/productdetail";
 import FindProductModal from "./FindProductModal";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -36,8 +39,11 @@ export default function AddModal(props) {
 
   const loadMausac = (masanpham) => {
     if (masanpham === "") return;
+
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
-      .timMausacBangMasanpham(masanpham)
+      .timMausacBangMasanpham(masanpham, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setDanhsachmausac(success.data.value.$values);
@@ -49,8 +55,10 @@ export default function AddModal(props) {
   };
   const loadDungluong = (masanpham) => {
     if (masanpham === "") return;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
-      .timDungluongBangMasanpham(masanpham)
+      .timDungluongBangMasanpham(masanpham, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setDanhsachdungluong(success.data.value.$values);
@@ -74,8 +82,10 @@ export default function AddModal(props) {
     fd.append("giamoi", giamoi);
     fd.append("image", image);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
-      .addProductdetail(fd, runProgress)
+      .addProductdetail(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -94,7 +104,7 @@ export default function AddModal(props) {
     setProgress(percent);
   }
 
-  function chooseProduct(product){
+  function chooseProduct(product) {
     setMasanpham(product.masanpham);
     setTensanpham(product.tensanpham);
     loadDungluong(product.masanpham);

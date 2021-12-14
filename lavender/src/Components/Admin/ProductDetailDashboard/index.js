@@ -4,6 +4,9 @@ import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
@@ -16,8 +19,10 @@ export default function Index(props) {
   }
 
   async function loadproductdetail() {
-    productdetailApi
-      .allProductdetail()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    await productdetailApi
+      .allProductdetail(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setList(success.data.value.$values);
@@ -30,7 +35,7 @@ export default function Index(props) {
 
   useEffect(() => {
     loadproductdetail();
-  },[]);
+  }, []);
 
   async function editFunction(productdetail) {
     var listtemp = list;
@@ -86,7 +91,7 @@ export default function Index(props) {
                   <table className="table align-items-center mb-0">
                     <thead>
                       <tr>
-                      <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Ảnh</b>
                         </th>
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -110,7 +115,7 @@ export default function Index(props) {
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Giá mới</b>
                         </th>
-                        
+
                         <th className="text-secondary opacity-7" />
                       </tr>
                     </thead>

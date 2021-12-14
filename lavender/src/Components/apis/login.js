@@ -1,11 +1,32 @@
 import axiosServices from "./axiosServices";
-import {API_ENDPOINT} from "../../Common/constants/index";
+import { API_ENDPOINT } from "../../Common/constants/index";
 
-const url="/login";
-    
-export const login=(data, config)=>{
-    return axiosServices.post(API_ENDPOINT+url, data, config);
+const url = "/login";
+
+export const login = (data, config) => {
+  return axiosServices.post(API_ENDPOINT + url, data, config);
 };
-export const refreshToken = (token)=>{
-    return axiosServices.get(API_ENDPOINT+"/refresh-token", { headers: { Authorization: `Bearer ${token}`}});
-}
+export const logout = async (ma,loaitaikhoan, token, refreshtoken) => {
+  
+  var connect = await axiosServices
+    .post(
+      API_ENDPOINT + "/logout",
+      { "ma":ma, loaitaikhoan, refreshtoken },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+  
+  return connect;
+};
+export const test = () => {
+  return axiosServices.get(API_ENDPOINT + "/test", {
+    withCredentials: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
+  });
+};
+export const refreshToken = (token) => {
+  return axiosServices.get(API_ENDPOINT + "/refresh-token", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

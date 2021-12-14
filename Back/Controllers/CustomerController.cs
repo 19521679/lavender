@@ -36,6 +36,7 @@ namespace Back.Controllers
         }
 
         [Route("/tim-khachhang-theo-sohoadon")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> FindCustomerByBillId(int sohoadon)
         {
@@ -50,6 +51,7 @@ namespace Back.Controllers
         }
 
         [Route("/tatca-khachhang")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> AllKhachhang()
         {
@@ -60,6 +62,7 @@ namespace Back.Controllers
         }
 
         [Route("/khachhang/thaydoi")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ThayDoiThongTin(JsonElement json)
         {
@@ -76,6 +79,7 @@ namespace Back.Controllers
         }
 
         [Route("/tim-khachhang-theo-makhachhang")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> TimKhachangTheoMakhachhang(int makhachhang)
         {
@@ -84,6 +88,7 @@ namespace Back.Controllers
         }
 
         [Route("/khachhang/thaydoi/sdt")]
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> ThayDoiSDT(JsonElement json)
         {
@@ -95,6 +100,7 @@ namespace Back.Controllers
         }
 
         [Route("/khachhang/thaydoi/email")]
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> ThayDoiEmail(JsonElement json)
         {
@@ -106,11 +112,12 @@ namespace Back.Controllers
         }
 
         [Route("/them-khachhang")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddStaff([FromForm] string tenkhachhang, [FromForm] string email,
             [FromForm] string sodienthoai, [FromForm] string diachi, [FromForm] IFormFile image,
             [FromForm] string cccd, [FromForm] string ngaysinh, [FromForm] string loaikhachhang)
-        {
+         {
             Khachhang s = new Khachhang();
             s.Tenkhachhang = tenkhachhang;
             s.Email = email;
@@ -151,6 +158,7 @@ namespace Back.Controllers
         }
 
         [Route("/sua-khachhang")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditStaff([FromForm] int makhachhang, [FromForm] string tenkhachhang, [FromForm] string email,
        [FromForm] string sodienthoai, [FromForm] string diachi, [FromForm] IFormFile image,
@@ -194,6 +202,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-khachhang")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteStaff(int makhachhang)
         {
@@ -209,6 +218,7 @@ namespace Back.Controllers
         }
 
         [Route("/hoadon-dagiao-theo-makhachhang")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> HoadonDagiao(int makhachhang)
         {

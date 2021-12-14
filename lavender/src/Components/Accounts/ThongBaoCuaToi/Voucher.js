@@ -3,6 +3,9 @@ import * as myVoucherApi from "../../apis/myvoucher";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import VoucherItem from "./VoucherItem";
+import Cookies from "universal-cookie"
+
+const cookie = new Cookies();
 
 function Voucher(props) {
   const [listVoucher, setListVoucher]= useState([]);
@@ -10,8 +13,10 @@ function Voucher(props) {
     loadListVoucher();
   }, [])
   function loadListVoucher() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     myVoucherApi
-      .myVoucher(props.makhachhang.makhachhang)
+      .myVoucher(props.makhachhang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setListVoucher(success.data.value.$values);

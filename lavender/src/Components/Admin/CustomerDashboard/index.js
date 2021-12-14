@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import * as customerApi from "../../apis/customer";
 import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
+
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
@@ -17,8 +21,10 @@ export default function Index(props) {
   }
 
   async function loadCustomer() {
-    customerApi
-      .allCustomer()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    await customerApi
+      .allCustomer(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           setListcustomer(success.data.value.$values);
@@ -32,7 +38,7 @@ export default function Index(props) {
   useEffect(() => {
     // Update the document title using the browser API
     loadCustomer();
-  },[]);
+  }, []);
 
   async function editFunction(customer) {
     var listtemp = listcustomer;
@@ -69,7 +75,7 @@ export default function Index(props) {
         addFunction={addFunction}
       ></AddModal>
       {/* End Navbar */}
-      {    console.log(listcustomer)}
+      {console.log(listcustomer)}
       <div className="container-fluid py-4">
         <div className="row">
           <div className="col-12">

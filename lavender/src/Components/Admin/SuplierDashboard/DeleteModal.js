@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
-import * as productApi from "../../apis/product";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as suplierApi from "../../apis/suplier";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -23,8 +25,10 @@ export default class DeleteModal extends Component {
   }
 
   submitHandler() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     suplierApi
-      .deleteSuplier(this.props.suplier.manhanvien)
+      .deleteSuplier(this.props.suplier.manhanvien, token, refreshtoken)
       .then((success) => {
         if (success.status) {
           myToast.toastSucces("Xoá nhà cung cấp thành công");
@@ -58,7 +62,7 @@ export default class DeleteModal extends Component {
               <button
                 type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal"  
+                data-dismiss="modal"
                 onClick={this.props.closeModal}
               >
                 Đóng

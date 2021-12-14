@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import * as staffAccountApi from "../../apis/staffaccount";
 import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -28,8 +31,10 @@ export default function AddModal(props) {
     fd.append("username", username);
     fd.append("password", password);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     staffAccountApi
-      .addAccount(fd, runProgress)
+      .addAccount(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -63,8 +68,6 @@ export default function AddModal(props) {
           </div>
 
           <div className="form-main-add-edit">
-           
-
             <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Mã nhân viên
@@ -81,7 +84,9 @@ export default function AddModal(props) {
             </div>
 
             <div className="row mb-1">
-              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Username</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Username
+              </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                 <input
                   className="form-control border"
@@ -107,7 +112,6 @@ export default function AddModal(props) {
                 ></input>
               </div>
             </div>
-
           </div>
 
           <hr></hr>

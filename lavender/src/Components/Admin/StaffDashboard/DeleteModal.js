@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
-import * as productApi from "../../apis/product";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as staffApi from "../../apis/staff";
+import Cookies from "universal-cookie"
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -23,8 +25,10 @@ export default class DeleteModal extends Component {
   }
 
   submitHandler() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     staffApi
-      .deleteStaff(this.props.staff.manhanvien)
+      .deleteStaff(this.props.staff.manhanvien, token, refreshtoken)
       .then((success) => {
         if (success.status) {
           myToast.toastSucces("Xoá nhân viên thành công");

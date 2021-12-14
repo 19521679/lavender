@@ -4,7 +4,9 @@ import Modal from "react-modal";
 import * as staffApi from "../../apis/staff";
 import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
-import * as imageApi from "../../apis/image";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -52,8 +54,10 @@ export default class AddModal extends Component {
     fd.append("image", this.state.image);
     fd.append("chucvu", this.state.chucvu);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     staffApi
-      .addStaff(fd, this.setProgress.bind(this))
+      .addStaff(fd, this.setProgress.bind(this), token, refreshtoken)
       .then((success) => {
         this.props.add(success.data.value);
         this.props.closeModal();
@@ -89,14 +93,15 @@ export default class AddModal extends Component {
             </div>
 
             <div className="form-main-add-edit">
-            <div className="row mb-3">
+              <div className="row mb-3">
                 <span className="text-secondary text-xs font-weight-bold">
                   <img
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                     src={
-                      this.state.image !== undefined ?
-                      URL.createObjectURL(this.state.image):""
+                      this.state.image !== undefined
+                        ? URL.createObjectURL(this.state.image)
+                        : ""
                     }
                   ></img>
                 </span>
@@ -135,9 +140,7 @@ export default class AddModal extends Component {
               </div>
 
               <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Email
-                </div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Email</div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input
                     className="form-control border"
@@ -208,9 +211,7 @@ export default class AddModal extends Component {
               </div>
 
               <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  CCCD
-                </div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">CCCD</div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input
                     className="form-control border"
@@ -245,7 +246,9 @@ export default class AddModal extends Component {
               </div>
 
               <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Chức vụ</div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  Chức vụ
+                </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input
                     className="form-control border"
@@ -258,7 +261,6 @@ export default class AddModal extends Component {
                   ></input>
                 </div>
               </div>
-              
             </div>
 
             <hr></hr>

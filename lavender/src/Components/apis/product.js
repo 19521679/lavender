@@ -1,52 +1,126 @@
 import axiosServices from "./axiosServices";
-import {API_ENDPOINT} from "../../Common/constants/index";
+import { API_ENDPOINT } from "../../Common/constants/index";
+import { refreshToken } from "../service/refreshtoken";
 
-    
-export const findProductByBillId=(sohoadon)=>{
-    return axiosServices.get(`${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`);
-};
-    
-export const findProductById=(masanpham)=>{
-    return axiosServices.get(`${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`);
-};
-
-export const addProduct=(fd, progress)=>{
-    return axiosServices.post(`${API_ENDPOINT}/them-sanpham`, fd, {
-       onUploadProgress: progressEvent=>{
-        progress(progressEvent.loaded/progressEvent.total*100);
-       }
+export const findProductByBillId = async (sohoadon, token, refreshtoken) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
     });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+  return connect;
 };
 
-export const editProduct=(fd, progress)=>{
-    return axiosServices.post(`${API_ENDPOINT}/sua-sanpham`, fd, {
-       onUploadProgress: progressEvent=>{
-        progress(progressEvent.loaded/progressEvent.total*100);
-       }
+export const findProductById = async (masanpham, token, refreshtoken) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
     });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+  return connect;
 };
 
-export const allMobileProduct=()=>{
-    return axiosServices.get(`${API_ENDPOINT}/tatca-dienthoai`);
+export const addProduct = async (fd, progress, token, refreshtoken) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .post(`${API_ENDPOINT}/them-sanpham`, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+      onUploadProgress: (progressEvent) => {
+        progress((progressEvent.loaded / progressEvent.total) * 100);
+      },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.post(`${API_ENDPOINT}/them-sanpham`, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  return connect;
 };
 
-export const allLaptopProduct=()=>{
-    return axiosServices.get(`${API_ENDPOINT}/tatca-laptop`);
+export const editProduct = async (fd, progress, token, refreshtoken) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .post(`${API_ENDPOINT}/sua-sanpham`, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+      onUploadProgress: (progressEvent) => {
+        progress((progressEvent.loaded / progressEvent.total) * 100);
+      },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.post(`${API_ENDPOINT}/sua-sanpham`, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  return connect;
 };
 
-export const deleteProduct=(masanpham)=>{
-    return axiosServices.get(`${API_ENDPOINT}/xoa-sanpham?masanpham=${masanpham}`);
+export const allMobileProduct = () => {
+  return axiosServices.get(`${API_ENDPOINT}/tatca-dienthoai`);
 };
 
-export const findProduct=(timkiem)=>{
-    return axiosServices.get(`${API_ENDPOINT}/tim-sanpham?timkiem=${timkiem}`);
-}
-export const tenNewProduct=()=>{
-    return axiosServices.get(`${API_ENDPOINT}/muoi-sanpham-moinhat`)
-}
-export const timkiem6Sanpham=(timkiem)=>{
-    return axiosServices.get(`${API_ENDPOINT}/timkiem-6-sanpham?timkiem=${timkiem}`)
-}
-export const timCacsanphamTheoSohoadon=(sohoadon)=>{
-    return axiosServices.get(`${API_ENDPOINT}/tim-cacsanpham-theo-sohoadon?sohoadon=${sohoadon}`)
-}
+export const allLaptopProduct = () => {
+  return axiosServices.get(`${API_ENDPOINT}/tatca-laptop`);
+};
+
+export const deleteProduct = (masanpham) => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/xoa-sanpham?masanpham=${masanpham}`
+  );
+};
+
+export const findProduct = (timkiem) => {
+  return axiosServices.get(`${API_ENDPOINT}/tim-sanpham?timkiem=${timkiem}`);
+};
+export const tenNewProduct = () => {
+  return axiosServices.get(`${API_ENDPOINT}/muoi-sanpham-moinhat`);
+};
+export const timkiem6Sanpham = (timkiem) => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/timkiem-6-sanpham?timkiem=${timkiem}`
+  );
+};
+export const timCacsanphamTheoSohoadon = (sohoadon) => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/tim-cacsanpham-theo-sohoadon?sohoadon=${sohoadon}`
+  );
+};

@@ -14,13 +14,14 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back.Controllers
 {
 
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
     [ApiController]
-
+    [Authorize(Roles = "ADMINISTRATOR, STAFF")]
     public class TaikhoankhachhangController : Controller
     {
         private readonly ILogger<TaikhoankhachhangController> _logger;

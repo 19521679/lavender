@@ -5,12 +5,10 @@ import * as myToast from "../../../Common/helper/toastHelper";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as khachhangApi from "../../apis/customer";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookie = new Cookies();
-const token = cookie.get("token");
-const refreshtoken = cookie.get("refreshtoken");
 
 class index extends Component {
   state = {
@@ -31,6 +29,8 @@ class index extends Component {
       diachi: this.state.diachi,
       ngaysinh: new Date(this.state.ngaysinh),
     };
+    const token = cookie.get("token");
+    const refreshtoken = cookie.get("refreshtoken");
     customerApi
       .thayDoiThongTin(request, token, refreshtoken)
       .then((success) => {
@@ -49,6 +49,8 @@ class index extends Component {
     let ngaysinh = new Date();
     let sdt = "";
     let email = "";
+    const token = cookie.get("token");
+    const refreshtoken = cookie.get("refreshtoken");
     await khachhangApi
       .findCustomerByCustomerId(this.props.makhachhang, token, refreshtoken)
       .then((success) => {
@@ -95,7 +97,7 @@ class index extends Component {
                           name="hovaten"
                           maxLength={200}
                           placeholder="Thêm họ tên"
-                          value = {this.state.hovaten}
+                          value={this.state.hovaten}
                           onChange={(e) =>
                             this.setState({ hovaten: e.target.value })
                           }
@@ -117,7 +119,7 @@ class index extends Component {
                           }
                           maxLength={200}
                           placeholder=""
-                          value = {this.state.diachi}
+                          value={this.state.diachi}
                         />
                       </div>
                     </div>
@@ -168,7 +170,12 @@ class index extends Component {
                   </div>
                   <div className="status">
                     <span />
-                    <Link to ="/lmember/thongtintaikhoan/sdt" className="btn btn-primary">Cập nhật</Link>
+                    <Link
+                      to="/lmember/thongtintaikhoan/sdt"
+                      className="btn btn-primary"
+                    >
+                      Cập nhật
+                    </Link>
                   </div>
                 </div>
 
@@ -186,7 +193,12 @@ class index extends Component {
                   </div>
                   <div className="status">
                     <span />
-                    <Link to ="/lmember/thongtintaikhoan/email" className="btn btn-primary">Cập nhật</Link>
+                    <Link
+                      to="/lmember/thongtintaikhoan/email"
+                      className="btn btn-primary"
+                    >
+                      Cập nhật
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -212,7 +224,7 @@ class index extends Component {
                 <div className="list-item">
                   <div>
                     <img
-                    alt="zalo"
+                      alt="zalo"
                       src="https://frontend.tikicdn.com/_desktop-next/static/img/account/zalo.png"
                       className="icon"
                     />
@@ -226,7 +238,7 @@ class index extends Component {
                 <div className="list-item">
                   <div>
                     <img
-                    alt="facebook"
+                      alt="facebook"
                       src="https://frontend.tikicdn.com/_desktop-next/static/img/account/facebook.png"
                       className="icon"
                     />
@@ -240,7 +252,7 @@ class index extends Component {
                 <div className="list-item">
                   <div>
                     <img
-                    alt="google"
+                      alt="google"
                       src="https://frontend.tikicdn.com/_desktop-next/static/img/account/google.png"
                       className="icon"
                     />

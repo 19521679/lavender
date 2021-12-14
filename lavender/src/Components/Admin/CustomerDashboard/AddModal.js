@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import * as customerApi from "../../apis/customer";
 import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -39,8 +42,10 @@ export default function AddModal(props) {
     fd.append("image", image);
     fd.append("loaikhachhang", loaikhachhang);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     customerApi
-      .addCustomer(fd, runProgress)
+      .addCustomer(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();

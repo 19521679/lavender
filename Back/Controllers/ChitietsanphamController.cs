@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Back.Models;
 
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -216,6 +217,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-sanpham")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> DeleteProduct(int masanpham)
         {
@@ -320,6 +322,7 @@ namespace Back.Controllers
 
 
         [Route("/them-chitietsanpham")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddDetail([FromForm] string imei, [FromForm] int masanpham,
             [FromForm] string ngaysanxuat, [FromForm] string tinhtrang, [FromForm] IFormFile image,
@@ -371,6 +374,7 @@ namespace Back.Controllers
         }
 
         [Route("/sua-chitietsanpham")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditDetail([FromForm] string imei, [FromForm] int masanpham,
             [FromForm] string ngaysanxuat, [FromForm] string tinhtrang, [FromForm] IFormFile image,
@@ -418,6 +422,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-chitietsanpham")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDetail(string imei)
         {
@@ -433,6 +438,7 @@ namespace Back.Controllers
         }
 
         [Route("/tatca-chitietsanpham")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> TatcaChitietsanpham()
         {

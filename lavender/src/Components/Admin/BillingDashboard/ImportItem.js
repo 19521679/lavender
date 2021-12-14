@@ -21,7 +21,7 @@ export default class ImportItem extends Component {
             return (
               <AddNote
                 handleClose={this.hideModal.bind(this)}
-                handleSave={(()=>{this.hideModal.bind(this)(); this.props.handleSave()}).bind(this)}
+                handleSave={(()=>{this.hideModal.bind(this)(); this.props.handleSave()})}
                 bill={this.props.bill}
               ></AddNote>
             );
@@ -30,12 +30,12 @@ export default class ImportItem extends Component {
             return (
               <DeleteNote
                 handleClose={this.hideModal.bind(this)}
-                handleSave={(()=>{this.hideModal.bind(this)(); this.props.handleSave()}).bind(this)}
+                handleSave={(()=>{this.hideModal.bind(this)(); this.props.handleSave()})}
                 bill={this.props.bill}
               ></DeleteNote>
             );
           
-        }).bind(this)()}
+        })()}
       <li className="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
         <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <div className="d-flex align-items-center">

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Back.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -138,6 +139,7 @@ namespace Back.Controllers
         }
 
         [Route("/them-sanpham")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] string tensanpham, [FromForm] int maloai,
             [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
@@ -199,6 +201,7 @@ namespace Back.Controllers
         }
 
         [Route("/sua-sanpham")]
+       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
             [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)

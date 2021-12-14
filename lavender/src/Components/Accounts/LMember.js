@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import "./LMember.css";
 import routes from "./routes";
-import { Redirect } from 'react-router';
-import { Route, Switch, BrowserRouter, Link } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Link  } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Cookies from "universal-cookie/es6";
+import { withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as loginAct from "../redux/actions/loginAct";
+
+const cookie = new Cookies();
 
 class index extends Component {
+  logout= ()=>{
+    this.props.logoutActionCreator.postLogoutReport(this.props.makhachhang, "khachhang", cookie.get("token"), cookie.get("refreshtoken"));
+  }
   render() {
     return (
       <section>
+        {this.props.makhachhang===undefined&&<Redirect to = "/login"></Redirect>}
         <BrowserRouter>
+        { this.props.makhachhang!==undefined &&<Redirect to="/lmember/thongtintaikhoan"/>}
           <div className="container">
           <div className="row">
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -97,7 +108,7 @@ class index extends Component {
                           </Link>
                         </li>
                         <li>
-                          <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich">
+                          <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich" onClick={this.logout}>
                             <span>
                             <i class="fas fa-sign-out-alt"></i>
                               Đăng xuất
@@ -114,7 +125,7 @@ class index extends Component {
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
               <div className="rightmember">{this.showContentMenus(routes)}</div>
             </div>
-            <Redirect to="/lmember/thongtintaikhoan"/>
+            
 
             </div>
           </div>
@@ -152,4 +163,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(index);
+const mapDispatchToProps=(dispatch) => {
+  return ({
+    logoutActionCreator: bindActionCreators(loginAct, dispatch),
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(index));

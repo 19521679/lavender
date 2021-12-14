@@ -5,6 +5,10 @@ import * as customerApi from "../../apis/customer";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as imageApi from "../../apis/image";
 
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
+
 const customStyles = {
   content: {
     top: "40%",
@@ -42,8 +46,10 @@ export default function EditModal(props) {
     fd.append("image", image);
     fd.append("loaikhachhang", loaikhachhang);
 
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     customerApi
-      .editCustomer(fd, runProgress)
+      .editCustomer(fd, runProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();

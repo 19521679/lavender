@@ -3,21 +3,28 @@ import * as productApi from "../../apis/product";
 import * as customerApi from "../../apis/customer";
 import AddBill from "./AddBill";
 import DeleteBill from "./DeleteBill";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default class BillItem extends Component {
   state = { product: undefined, customer: undefined, modal: 0 };
   async componentDidMount() {
     let product = undefined;
     let customer = undefined;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await productApi
-      .findProductByBillId(this.props.bill.sohoadon)
+      .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
       .then((success) => {
         product = success.data.value;
       })
       .catch((error) => {});
 
+    token = cookie.get("token");
+    refreshtoken = cookie.get("refreshtoken");
     await customerApi
-      .findCustomerByBillId(this.props.bill.sohoadon)
+      .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
       .then((success) => {
         customer = success.data.value;
       })
@@ -43,7 +50,7 @@ export default class BillItem extends Component {
                 handleSave={(() => {
                   this.hideModal.bind(this)();
                   this.props.handleSave();
-                }).bind(this)}
+                })}
                 bill={this.props.bill}
               ></AddBill>
             );
@@ -54,11 +61,11 @@ export default class BillItem extends Component {
                 handleSave={(() => {
                   this.hideModal.bind(this)();
                   this.props.handleSave();
-                }).bind(this)}
+                })}
                 bill={this.props.bill}
               ></DeleteBill>
             );
-        }).bind(this)()}
+        })()}
         <li className="list-group-item border-0 d-flex p-4 bg-gray-100 border-radius-lg">
           <div className="d-flex flex-column">
             <h6 className="text-sm">

@@ -1,3 +1,10 @@
 .hotline ul li{
     width:200px;
 }
+footer {
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    position: relative;
+}

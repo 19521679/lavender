@@ -19,7 +19,7 @@ export default class index extends Component {
   }
 
   async loadMobile() {
-    productApi
+    await productApi
       .allMobileProduct()
       .then((success) => {
         if (success.status === 200) {
@@ -32,7 +32,7 @@ export default class index extends Component {
   }
 
   async loadLaptop() {
-    productApi
+    await productApi
       .allLaptopProduct()
       .then((success) => {
         if (success.status === 200) {
@@ -48,7 +48,6 @@ export default class index extends Component {
     this.loadMobile();
     this.loadLaptop();
   }
-
 
   async editProduct(product) {
     var listtemp = null;
@@ -98,7 +97,7 @@ export default class index extends Component {
     _.remove(listtemp, (n) => {
       return n.masanpham === product.masanpham;
     });
-   await this.setState({ [stringlist]: listtemp });
+    await this.setState({ [stringlist]: listtemp });
   }
 
   render() {

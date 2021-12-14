@@ -8,12 +8,14 @@ using Microsoft.Extensions.Logging;
 using Back.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back.Controllers
 {
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
 
     [ApiController]
+    [Authorize(Roles = "ADMINISTRATOR, STAFF")]
     public class PhieunhapController : Controller
     {
         private readonly ILogger<PhieunhapController> _logger;

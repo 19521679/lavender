@@ -13,10 +13,10 @@ import DeleteAllModal from "./DeleteAllModal";
 import * as myToast from "../../Common/helper/toastHelper";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import Cookies from "universal-cookie";
+import * as customerApi from "../apis/customer";
 
 var cookie = new Cookies();
-var token = cookie.get("token");
-var refreshtoken = cookie.get("refreshtoken");
+
 class index extends Component {
   state = {
     cart: undefined,
@@ -28,6 +28,7 @@ class index extends Component {
     checkall: false,
     showModal: false,
     loading: true,
+    khachhang: undefined,
   };
 
   muaHang() {
@@ -49,12 +50,16 @@ class index extends Component {
         });
       }
     }
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     billingApi
       .muaHang(
         this.props.makhachhang,
         makhuyenmai,
         this.state.tongcong.toFixed(0),
-        danhsachsanpham
+        danhsachsanpham,
+        token,
+        refreshtoken
       )
       .then((success) => {
         if (
@@ -79,8 +84,10 @@ class index extends Component {
   }
 
   async deleteAllProduct() {
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     detailCartApi
-      .deleteAllDetailCart(this.state.cart.magiohang)
+      .deleteAllDetailCart(this.state.cart.magiohang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) this.loadCart();
       })
@@ -92,6 +99,7 @@ class index extends Component {
   showModal() {
     this.setState({ showModal: true });
   }
+
   closeModal() {
     this.setState({ showModal: false });
   }
@@ -120,6 +128,8 @@ class index extends Component {
   async loadCart() {
     this.setState({ loading: true });
     let cart = undefined;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     if (this.props.makhachhang === undefined) {
       this.props.history.push("/login");
     }
@@ -140,7 +150,7 @@ class index extends Component {
     }
     let detailCarts = undefined;
     await detailCartApi
-      .loadDetailCartByCartId(cart.magiohang)
+      .loadDetailCartByCartId(cart.magiohang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           if (success.data.value !== undefined)
@@ -232,8 +242,21 @@ class index extends Component {
     this.setState({ tongtien: tongtien, tongcong: tongcong });
   }
 
+  async loadCustomer(){
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    customerApi.findCustomerByCustomerId(this.props.makhachhang, token, refreshtoken)
+    .then(success => {
+      if (success.status===200) {this.setState({khachhang:success.data.value})}
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }
+
   async componentDidMount() {
-    await this.loadCart();
+    this.loadCart();
+    this.loadCustomer();
   }
 
   selectAll() {
@@ -334,22 +357,17 @@ class index extends Component {
                       </p>
                       <p className="title">
                         <b className="name">
-                          {this.props.makhachhangNavigation !==
-                            undefined &&
-                            this.props.makhachhangNavigation
-                              .tenkhachhang}
+                          {this.state.khachhang !== undefined &&
+                            this.state.tenkhachhang}
                         </b>
                         <b className="phone">
-                          {this.props.makhachhangNavigation !==
-                            undefined &&
-                            this.props.makhachhangNavigation
-                              .sodienthoai}
+                          {this.state.khachhang !== undefined &&
+                            this.state.khachhang.sodienthoai}
                         </b>
                       </p>
                       <p className="address">
-                        {this.props.makhachhangNavigation !==
-                          undefined &&
-                          this.props.makhachhangNavigation.diachi}
+                        {this.state.khachhang !== undefined &&
+                          this.state.khachhang.diachi}
                       </p>
                     </div>
                     <div className="styles__StyledWrapCoupons-sc-1d6idyr-0 ekRzNN box-shadow">

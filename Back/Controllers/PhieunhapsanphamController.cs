@@ -10,12 +10,14 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back.Controllers
 {
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
 
     [ApiController]
+    [Authorize(Roles = "ADMINISTRATOR, STAFF")]
     public class PhieunhapsanphamController : Controller
     {
         private readonly ILogger<PhieunhapsanphamController> _logger;

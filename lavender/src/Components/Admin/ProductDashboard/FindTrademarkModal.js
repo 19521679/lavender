@@ -3,7 +3,6 @@ import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import "./style.css";
 import * as trademarkApi from "../../apis/trademark";
-import * as imageApi from "../../apis/image";
 
 const customStyles = {
   content: {
@@ -29,7 +28,6 @@ export default function FindTrademarkModal(props) {
       .timThuonghieu(timkiem)
       .then((success) => {
         if (success.status === 200) {
-          console.log(success.data.value);
           setDanhsach(success.data.value.$values);
         }
       })

@@ -4,6 +4,9 @@ import "./style.css";
 import * as suplierApi from "../../apis/suplier";
 import Item from "./Item";
 import _ from "lodash";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 export default class index extends Component {
   state = {
@@ -17,10 +20,11 @@ export default class index extends Component {
     this.setState({ showModal: true });
   }
 
-
   async loadsuplier() {
-    suplierApi
-      .allSuplier()
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    await suplierApi
+      .allSuplier(token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           this.setState({ listsuplier: success.data.value.$values });
@@ -35,7 +39,6 @@ export default class index extends Component {
     this.loadsuplier();
   }
 
-
   async edit(suplier) {
     var listtemp = this.state.listsuplier;
     _.remove(listtemp, (n) => {
@@ -49,7 +52,7 @@ export default class index extends Component {
 
   async add(suplier) {
     var listtemp = this.state.listsuplier;
-    
+
     listtemp.push(suplier);
 
     await this.setState({ listsuplier: listtemp });
@@ -57,12 +60,11 @@ export default class index extends Component {
 
   async delete(suplier) {
     var listtemp = this.state.listsuplier;
-  
 
     _.remove(listtemp, (n) => {
       return n.manhacungcap === suplier.manhacungcap;
     });
-   await this.setState({ listsuplier: listtemp });
+    await this.setState({ listsuplier: listtemp });
   }
 
   render() {
@@ -120,7 +122,7 @@ export default class index extends Component {
                     <table className="table align-items-center mb-0">
                       <thead>
                         <tr>
-                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                             <b>Ảnh</b>
                           </th>
                           <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -161,7 +163,6 @@ export default class index extends Component {
             </div>
           </div>
         </div>
-
       </main>
     );
   }

@@ -22,7 +22,6 @@ export default function Item(props) {
         deleteFunction={props.deleteFunction}
       ></DeleteModal>
 
-
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
           {props.account.makhachhang}
@@ -38,7 +37,7 @@ export default function Item(props) {
           {props.account.password}
         </span>
       </td>
-    
+
       <td className="align-middle">
         <div
           className="btn btn-link text-dark px-3 mb-0"

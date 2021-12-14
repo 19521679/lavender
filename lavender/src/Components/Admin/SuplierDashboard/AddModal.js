@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import * as suplierApi from "../../apis/suplier";
 import * as myToast from "../../../Common/helper/toastHelper";
 import "./style.css";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -25,7 +28,7 @@ export default class AddModal extends Component {
       sodienthoai: "",
       diachi: "",
       progress: 0,
-      image: undefined
+      image: undefined,
     };
   }
   submitHandler = () => {
@@ -35,8 +38,11 @@ export default class AddModal extends Component {
     fd.append("sodienthoai", this.state.sodienthoai);
     fd.append("diachi", this.state.diachi);
     fd.append("image", this.state.image);
+
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     suplierApi
-      .addSuplier(fd, this.setProgress.bind(this))
+      .addSuplier(fd, this.setProgress.bind(this), token, refreshtoken)
       .then((success) => {
         this.props.add(success.data.value);
         this.props.closeModal();
@@ -72,14 +78,15 @@ export default class AddModal extends Component {
             </div>
 
             <div className="form-main-add-edit">
-            <div className="row mb-3">
+              <div className="row mb-3">
                 <span className="text-secondary text-xs font-weight-bold">
                   <img
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                     src={
-                      this.state.image !== undefined ?
-                      URL.createObjectURL(this.state.image):""
+                      this.state.image !== undefined
+                        ? URL.createObjectURL(this.state.image)
+                        : ""
                     }
                   ></img>
                 </span>

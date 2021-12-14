@@ -8,46 +8,58 @@ import { Link, Redirect } from "react-router-dom";
 import * as myToast from "../../Common/helper/toastHelper";
 
 class Login extends Component {
-  state = { username: "", password: "" , savelogin: false};
+  state = { username: "", password: "", savelogin: false, lanhanvien: false  };
   submitSignin = () => {
     let username = this.state.username;
-    if (username==="") {
+    if (username === "") {
       myToast.toastError("Username không được bỏ trống");
       return;
     }
     let password = this.state.password;
-    if (password==="") {
+    if (password === "") {
       myToast.toastError("Password không được bỏ trống");
       return;
     }
-    let { savelogin}= this.state;
+    myToast.toastLoading();
+    let { savelogin } = this.state;
     const { loginActionCreators } = this.props;
     const { postLoginReport } = loginActionCreators;
     postLoginReport({
       username: username,
       password: password,
-      savelogin: savelogin
+      loaitaikhoan: this.state.lanhanvien?"nhanvien":"khachhang",
+      savelogin: savelogin,
     });
   };
-  componentDidMount(){
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <section>
         {this.props.makhachhang !== undefined && <Redirect to="/" />}
-        <section className="vh-100">
+        {this.props.manhanvien !== undefined && <Redirect to="/admin/overview" />}
+        <div className="group-login">
           <div className="container py-5 h-100">
             <div className="row d-flex align-items-center justify-content-center h-100">
-              <div className="col-md-8 col-lg-7 col-xl-6">
-                <img
-                  src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                  className="img-fluid"
-                  alt="Phone"
-                ></img>
+              <div className="col-md-8 col-lg-7 col-xl-6 ">
+              <img
+                src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                className="img-fluid img-login px-2 mt-6"
+                alt="img-login"
+              ></img>
               </div>
-              <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                {/* Email input */}
+              <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1 z-index-2 pt-3 bg-white rounded">
+                <div className="group-switch d-flex justify-content-around">
+                <h5>Khách hàng</h5>
+                <label className="switch">
+                  <input type="checkbox" 
+                  onChange={e=>this.setState({lanhanvien:e.target.checked})}
+                  checked= {this.state.lanhanvien}
+                  />
+                  <span className="slider round" />
+                </label>
+                <h5>Nhân viên</h5>
+                </div>
                 <div className="form-outline mb-4">
                   <input
                     type="email"
@@ -59,7 +71,7 @@ class Login extends Component {
                     value={this.state.username}
                   />
                   <label className="form-label" htmlFor="form1Example13">
-                    Username
+                    Tên đăng nhập
                   </label>
                 </div>
                 {/* Password input */}
@@ -74,7 +86,7 @@ class Login extends Component {
                     value={this.state.password}
                   />
                   <label className="form-label" htmlFor="form1Example23">
-                    Password
+                    Mật khẩu
                   </label>
                 </div>
                 <div className="d-flex justify-content-around align-items-center mb-4">
@@ -86,7 +98,9 @@ class Login extends Component {
                       defaultValue
                       id="form1Example3"
                       defaultChecked
-                      onChange={e=>this.setState({savelogin:e.target.checked})}
+                      onChange={(e) =>
+                        this.setState({ savelogin: e.target.checked })
+                      }
                       checked={this.state.savelogin}
                     />
                     <label className="form-check-label" htmlFor="form1Example3">
@@ -98,39 +112,49 @@ class Login extends Component {
                 {/* Submit button */}
                 <button
                   className="btn btn-primary btn-lg btn-block"
-                  onClick={this.submitSignin}
+                  onClick={() => {
+                    this.submitSignin();
+                  }}
                 >
                   Đăng nhập
                 </button>
                 <div className="divider d-flex align-items-center my-4">
                   <p className="text-center fw-bold mx-3 mb-0 text-muted"></p>
                 </div>
-                <Link
+               
+               {
+                 (<div className="group-expand-login">
+                    <Link
                   className="btn btn-primary btn-lg btn-block"
                   to="/register"
                   role="button"
+                  Suplier
                 >
                   <i className="fab fa-register me-2" />
                   Đăng kí
                 </Link>
                 <Link
-                  className="btn btn-info btn-lg btn-block mx-2"
+                  className="btn btn-info btn-lg btn-block d-block"
                   role="button"
+                  Suplier
                 >
-                  <i className="fab fa-facebook-f me-2" />
+                  <i className="fab fa-facebook-f me-2 " />
                   Đăng nhập bằng Facebook
                 </Link>
                 <Link
-                  className="btn btn-danger btn-lg btn-block "
+                  className="btn btn-warning btn-lg btn-block d-block "
                   role="button"
+                  Suplier
                 >
                   <i className="fab fa-google me-2" />
                   đăng nhập bằng google
                 </Link>
+                   </div>)
+               }
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </section>
     );
   }
@@ -145,6 +169,7 @@ Login.propTypes = {
 const mapStateToProps = (state) => {
   return {
     makhachhang: state.login.makhachhang,
+    manhanvien: state.login.manhanvien,
   };
 };
 const mapDispatchToProps = (dispatch) => {
