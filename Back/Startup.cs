@@ -19,6 +19,7 @@ using Back.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Back.Services;
 
 namespace Back
 {
@@ -57,6 +58,9 @@ namespace Back
                     ValidIssuer = Configuration["JwtIssuer"],
                 };
             });
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddSingleton<IEmailSender, SendMailService>();
 
             services.AddControllersWithViews();
 
