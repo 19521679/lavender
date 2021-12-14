@@ -37,7 +37,7 @@ CREATE TABLE `SANPHAM` (
   KEY `FK_REFERENCE_3` (`MATHUONGHIEU`),
   CONSTRAINT `FK_REFERENCE_1` FOREIGN KEY (`MALOAI`) REFERENCES `LOAISANPHAM` (`MALOAI`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_REFERENCE_3` FOREIGN KEY (`MATHUONGHIEU`) REFERENCES `THUONGHIEU` (`MATHUONGHIEU`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `SANPHAM` (
 
 LOCK TABLES `SANPHAM` WRITE;
 /*!40000 ALTER TABLE `SANPHAM` DISABLE KEYS */;
-INSERT INTO `SANPHAM` VALUES (1,'iPhone 13',1,1,100,'aasdasd','/mobile/Apple/iPhone/13','2021-09-14 07:00:00',30000000),(25,'Iphone 12',1,1,100,NULL,'/mobile/Apple/Iphone/12','2021-11-29 07:00:00',1000000),(26,'Iphone 11',1,1,100,NULL,'/mobile/Apple/Iphone/11','2021-11-29 07:00:00',1000000),(30,'Inspiron 7441',2,16,1,'1','/laptop/Dell/Inspiron/7441','2021-11-29 07:00:00',1000000),(31,'Galaxy S21',1,2,100,NULL,'/mobile/Samsung/Galaxy/S21','2021-12-02 07:00:00',22800000),(32,'Galaxy S20',1,2,100,NULL,'/mobile/Samsung/Galaxy/S20','2021-12-02 07:00:00',16000000),(37,'Galaxy ZFlip',1,2,100,NULL,'/mobile/Samsung/Galaxy/ZFlip','2021-12-02 07:00:00',23990000),(38,'Galaxy Note20',1,2,100,NULL,'/mobile/Samsung/Galaxy/Note20','2021-12-02 07:00:00',21500000),(39,'Mi 11',1,5,100,NULL,'/mobile/Xiaomi/Mi/11','2021-12-02 07:00:00',21900000),(40,'Reno 6',1,3,100,NULL,'/mobile/Oppo/Reno/6','2021-12-02 07:00:00',8589000),(41,'Galaxy Note10',1,2,100,NULL,'/mobile/Samsung/Galaxy/Note10','2021-12-02 07:00:00',7799000);
+INSERT INTO `SANPHAM` VALUES (1,'iPhone 13',1,1,100,'aasdasd','/mobile/Apple/iPhone/13','2021-09-14 07:00:00',30000000),(25,'Iphone 12',1,1,100,NULL,'/mobile/Apple/Iphone/12','2021-11-29 07:00:00',1000000),(26,'Iphone 11',1,1,100,NULL,'/mobile/Apple/Iphone/11','2021-11-29 07:00:00',1000000),(30,'Inspiron 7441',2,16,1,'1','/laptop/Dell/Inspiron/7441','2021-11-29 07:00:00',1000000),(31,'Galaxy S21',1,2,100,NULL,'/mobile/Samsung/Galaxy/S21','2021-12-02 07:00:00',22800000),(32,'Galaxy S20',1,2,100,NULL,'/mobile/Samsung/Galaxy/S20','2021-12-02 07:00:00',16000000),(37,'Galaxy ZFlip',1,2,100,NULL,'/mobile/Samsung/Galaxy/ZFlip','2021-12-02 07:00:00',23990000),(38,'Galaxy Note20',1,2,100,NULL,'/mobile/Samsung/Galaxy/Note20','2021-12-02 07:00:00',21500000),(39,'Mi 11',1,5,100,NULL,'/mobile/Xiaomi/Mi/11','2021-12-02 07:00:00',21900000),(40,'Reno 6',1,3,100,NULL,'/mobile/Oppo/Reno/6','2021-12-02 07:00:00',8589000),(41,'Galaxy Note10',1,2,100,NULL,'/mobile/Samsung/Galaxy/Note10','2021-12-02 07:00:00',7799000),(42,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(43,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(44,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(45,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(46,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(47,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1),(48,'Iphone 1',1,1,1,'1','/mobile/Apple/Iphone/1','2021-12-14 07:00:00',1);
 /*!40000 ALTER TABLE `SANPHAM` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-14 16:10:41
+-- Dump completed on 2021-12-14 20:25:23
