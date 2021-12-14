@@ -102,7 +102,7 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-./Back/bin
+Back/bin
 /Back/obj/
 /Back/TestResults/
 /Back/obj/*
