@@ -6,6 +6,9 @@ import VoucherItem from "./VoucherItem";
 import * as myVoucherApi from "../apis/myvoucher";
 import * as myToast from "../../Common/helper/toastHelper";
 import * as voucherApi from "../apis/voucher";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -40,8 +43,10 @@ export default class AddVoucherModal extends Component {
   }
   async checkVoucher() {
     var khonghople = true;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await voucherApi
-      .checkVoucherById(this.state.makhuyenmaitemp)
+      .checkVoucherById(this.state.makhuyenmaitemp, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           myToast.toastSucces("Mã khuyến mãi hợp lệ");
@@ -71,8 +76,10 @@ export default class AddVoucherModal extends Component {
   }
   async componentDidMount() {
     let listvoucher = null;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await myVoucherApi
-      .detailMyVoucher(this.props.customer.makhachhang)
+      .detailMyVoucher(this.props.customer.makhachhang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           listvoucher = success.data.value.$values;

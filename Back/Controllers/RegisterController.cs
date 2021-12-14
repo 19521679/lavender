@@ -48,7 +48,7 @@ namespace Back.Controllers
         public async Task<IActionResult> Register([FromForm] RegisterForm registerForm)
         {
             string status = "";
-            Console.WriteLine(registerForm.ToString());
+
             {
                 Taikhoankhachhang temp = await (from x in lavenderContext.Taikhoankhachhang
                                                 where x.Username.Equals(registerForm.tendangnhap)

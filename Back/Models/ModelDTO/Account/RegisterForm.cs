@@ -2,12 +2,12 @@ namespace Back.ModelDTO
 {
     public class RegisterForm
     {
-        public string name { get; set; }
+        public string tendangnhap { get; set; }
+        public string hovaten { get; set; }
+        public string sodienthoai { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
-        public override string ToString(){
-            base.ToString();
-            return "name="+name+"email=" + email+ " password=" + password;
-        }
+        public string ngaysinh { get; set; }
+        public string matkhau { get; set; }
+        public string loaitaikhoan { get; set; }
     }
 }

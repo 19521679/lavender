@@ -5,7 +5,8 @@ import { refreshToken } from "../service/refreshtoken";
 export const findCustomerByBillId = async (sohoadon, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .get(`${API_ENDPOINT}/tim-khachhang-theo-sohoadon?sohoadon=${sohoadon}`, {
+    .get(`${API_ENDPOINT}/tim-khachhang-theo-sohoadon?sohoadon=${sohoadon}`, 
+    {
       headers: { Authorization: `Bearer ${token}` },
     })
     .catch((error) => {
