@@ -92,6 +92,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
+      cookie.remove("refreshtoken"); cookie.remove("token")
       return {
         ...state,
       };

@@ -110,7 +110,7 @@ class index extends Component {
                         <li>
                           <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich" onClick={this.logout}>
                             <span>
-                            <i class="fas fa-sign-out-alt"></i>
+                            <i class="fas fa-sign-out-alt btn-logout-lmember-logo"></i>
                               Đăng xuất
                             </span>
                           </a>

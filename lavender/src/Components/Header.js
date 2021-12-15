@@ -55,6 +55,7 @@ var MenuLink = ({ lable, to, activeOnlyWhenExact }) => {
             <Link className={active} to={to}>
               {lable}
             </Link>
+            <i class={active?"fas fa-circle dot-circle-active":""}></i>
           </li>
         );
       }}
@@ -101,23 +102,14 @@ class Header extends Component {
             <ul>
               {showMenu(menus)}
               <li>
-                <Link className="getstarted scrollto " to="/cart">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-cart mr-5"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                  </svg>
-                  Giỏ hàng
+                <Link className="getstarted scrollto button-to-cart" to="/cart">
+                <i className="fas fa-shopping-cart icon-getstarted" style={{fontSize:"17px"}}></i>
+                  GIỎ HÀNG
                 </Link>
               </li>
               {this.props.makhachhang !== undefined && (
                 <li>
-                  <Link className="getstarted scrollto" to="/lmember">
+                  <Link className="getstarted scrollto button-to-cart" to="/lmember">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -132,19 +124,19 @@ class Header extends Component {
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                       />
                     </svg>
-                    LMember
+                    LMEMBER
                   </Link>
                 </li>
               )}
               {this.props.manhanvien !== undefined && (
                 <li>
-                  <Link className="getstarted scrollto" to="/admin/overview">
+                  <Link className="getstarted scrollto button-to-cart" to="/admin/overview">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
                       fill="currentColor"
-                      className="bi bi-person-circle"
+                      className="bi bi-person-circle icon-getstarted"
                       viewBox="0 0 16 16"
                     >
                       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -153,7 +145,7 @@ class Header extends Component {
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                       />
                     </svg>
-                    Admin
+                    ADMIN
                   </Link>
                 </li>
               )}
@@ -161,13 +153,13 @@ class Header extends Component {
                 this.props.manhanvien === undefined &&
                   (
                     <li>
-                      <Link className="getstarted scrollto" to="/login">
+                      <Link className="getstarted scrollto button-to-cart" to="/login">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
                           fill="currentColor"
-                          className="bi bi-person-circle"
+                          className="bi bi-person-circle icon-getstarted"
                           viewBox="0 0 16 16"
                         >
                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -176,7 +168,7 @@ class Header extends Component {
                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                           />
                         </svg>
-                        Login
+                        LOGIN
                       </Link>
                     </li>
                   )}

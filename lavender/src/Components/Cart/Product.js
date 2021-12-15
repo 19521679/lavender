@@ -40,11 +40,15 @@ class Product extends Component {
     var refreshtoken = cookie.get("refreshtoken");
     soluong = this.props.detailCart.soluong + quantity;
     detailCartApi
-      .setQuantityForDetailCart({
-        ...this.props.detailCart,
-        soluong: this.props.detailCart.soluong + quantity,
-        token, refreshtoken
-      })
+      .setQuantityForDetailCart(
+        this.props.detailCart.magiohang,
+        this.props.detailCart.masanpham,
+        this.props.detailCart.dungluong,
+        this.props.detailCart.mausac,
+        this.props.detailCart.soluong + quantity,
+        token, 
+        refreshtoken
+      )
       .then((success) => {
         if (success.status === 200) {
           this.props.changeQuantity(

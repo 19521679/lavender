@@ -33,13 +33,18 @@ export const loadDetailCartByCartId = async (
 };
 export const setQuantityForDetailCart = async (
   magiohang,
+  masanpham,
+  dungluong,
+  mausac,
+  soluong,
   token,
   refreshtoken
 ) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .get(
-      `${API_ENDPOINT}/chitietgiohang-bang-magiohang?magiohang=${magiohang}`,
+    .post(
+      `${API_ENDPOINT}/dat-soluong-cho-chitietgiohang?`,
+      { magiohang, masanpham, dungluong, mausac, soluong },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -51,8 +56,9 @@ export const setQuantityForDetailCart = async (
       }
     });
   if (newtoken !== undefined) {
-    return await axiosServices.get(
-      `${API_ENDPOINT}/chitietgiohang-bang-magiohang?magiohang=${magiohang}`,
+    return await axiosServices.post(
+      `${API_ENDPOINT}/dat-soluong-cho-chitietgiohang?`,
+      { magiohang, masanpham, dungluong, mausac, soluong },
       {
         headers: { Authorization: `Bearer ${token}` },
       }

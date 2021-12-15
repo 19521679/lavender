@@ -48,11 +48,12 @@ export default class ProductItem extends Component {
         <div className="icon-box iconbox-blue">
           <div className="row">
             {function () {
+              if (this.state.giamoi === 0) return;
               if (this.state.giamoi < this.props.product.dongia)
                 return (
                   <div className="box-item-sticker-percent">
                     <p>
-                      Giảm{" "}
+                      Giảm{""}
                       {(
                         100 -
                         (this.state.giamoi / this.props.product.dongia) * 100
@@ -77,52 +78,53 @@ export default class ProductItem extends Component {
                 </div>
               </h4>
             </Link>
-
-            <div className="product-price">
-              {function () {
-                var result = [];
-                if (this.state.giamoi !== this.props.product.dongia) {
+            <div className="row product-price">
+              <div className="">
+                {function () {
+                  var result = [];
+                  if (this.state.giamoi !== this.props.product.dongia) {
+                    result.push(
+                      <p className="old-price">{this.props.product.dongia}₫</p>
+                    );
+                  }
                   result.push(
-                    <p className="old-price">{this.props.product.dongia}₫</p>
+                    <a href={() => false}>
+                      {this.state.giamoi === 0
+                        ? "Hết hàng"
+                        : this.state.giamoi + "₫"}{" "}
+                    </a>
                   );
-                }
-                result.push(
-                  <a href={() => false}>
-                    {this.state.giamoi === 0
-                      ? "Hết hàng"
-                      : this.state.giamoi + "₫"}{" "}
-                  </a>
-                );
-                return result;
-              }.bind(this)()}
-            </div>
-            <div className="item-product__box-raiting mt-4 ">
-              <i
-                className={
-                  this.state.sosao < 1 ? "fas fa-star" : "fas fa-star checked"
-                }
-              />
-              <i
-                className={
-                  this.state.sosao < 2 ? "fas fa-star" : "fas fa-star checked"
-                }
-              />
-              <i
-                className={
-                  this.state.sosao < 3 ? "fas fa-star" : "fas fa-star checked"
-                }
-              />
-              <i
-                className={
-                  this.state.sosao < 4 ? "fas fa-star" : "fas fa-star checked"
-                }
-              />
-              <i
-                className={
-                  this.state.sosao < 5 ? "fas fa-star" : "fas fa-star checked"
-                }
-              />
-              &nbsp;{this.state.sodanhgia} đánh giá
+                  return result;
+                }.bind(this)()}
+              </div>
+              <div className="item-product__box-raiting mt-4 ">
+                <i
+                  className={
+                    this.state.sosao < 1 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 2 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 3 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 4 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 5 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                &nbsp;{this.state.sodanhgia} đánh giá
+              </div>
             </div>
           </div>
 
@@ -133,7 +135,7 @@ export default class ProductItem extends Component {
                   return obj.ten === "cpu" || obj.ten === "chip";
                 });
                 if (x !== undefined) {
-                  return ("Cpu : "+ x.noidung);
+                  return "Cpu : " + x.noidung;
                 }
               })()}
             </p>

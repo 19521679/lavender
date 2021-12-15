@@ -130,36 +130,35 @@
   padding: 10px 10px 10px 10px;
   transition: all ease-in-out 0.5s;
   background: #fff;
-  box-shadow: -4px 65px 90px 20px #ed00000d;
+  box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px, -4px 65px 90px 20px #ed00000d;
 }
 .icon-box:hover {
   height: calc(100% + 100px);
-  margin-bottom: 0;
   position: relative;
   flex: 1;
   z-index: 2;
-  padding-bottom: -300px;
-  margin-bottom: -500px;
-  /* transition: 0.5s ease; */
+  border-radius: 14px;
   transition: all ease-in-out 0.75s;
   border-color: #fff;
-  box-shadow: 0px 0 35px 0 #857ed1bd;
+  box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px, -4px 65px 90px 20px #ed00000d;
 }
 .icon-box .product-info {
-  visibility: hidden;
   margin: 0 10px 0 10px;
-  height: 0px;
+  display: none;
   text-align: left;
   position: absolute;
-  transition: all ease-in-out 20s;
+  z-index: 3;
+  transition: all ease-in-out 2s;
+}
+.icon-box .product-info p {
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .icon-box:hover .product-info {
-  visibility: visible;
-  margin: 0 10px 0 10px;
+  display: block;
   height: 80px;
-  position: absolute;
-  transition: all ease-in-out 20s;
+  transition: all ease-in-out 2s;
 }
 .icon-box img {
   position: relative;
@@ -417,12 +416,17 @@
   margin: 16px auto auto auto;
   text-align: left;
 }
-.product-price a{
+.icon-box .product-price a{
   display: inline-block;
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.4;
   color: #D70018!important;
+}
+.icon-box .product-price {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 0 0;
 }
 
 /* rating*/

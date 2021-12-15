@@ -2,6 +2,7 @@ import * as loginApi from "../apis/login";
 import Cookies from "universal-cookie";
 
 export const refreshToken = async (refreshtoken) => {
+  if (refreshtoken===undefined) return;
   var cookie = new Cookies();
   var newojtoken = undefined;
   await loginApi

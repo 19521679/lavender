@@ -191,6 +191,7 @@ namespace Back.Controllers
             return Ok();
         }
 
+
         [Route("/them-sanpham")]
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
@@ -314,6 +315,49 @@ namespace Back.Controllers
                 }
             }
             return StatusCode(200, Json(s));
+        }
+
+
+        [Route("/xoa-sanpham")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(int masanpham)
+        {
+            var product = await (from s in lavenderContext.Sanpham
+                                 where s.Masanpham == masanpham
+                                 select s).FirstOrDefaultAsync();
+
+            var detailProducts = await (from c in lavenderContext.Chitietsanpham
+                                        where c.Masanpham == masanpham
+                                        select c).ToListAsync();
+
+            lavenderContext.RemoveRange(detailProducts);
+
+            var thongsokithuat = await (from x in lavenderContext.Thongsokithuat
+                                        where x.Masanpham == masanpham
+                                        select x).ToListAsync();
+            lavenderContext.RemoveRange(thongsokithuat);
+
+            foreach (var i in detailProducts)
+            {
+                string path = _env.ContentRootPath + "/wwwroot" + i.Image + "0.Jpeg";
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+            await lavenderContext.SaveChangesAsync();
+
+            lavenderContext.Remove(product);
+            {
+                string path = _env.ContentRootPath + "/wwwroot" + product.Image + "0.Jpeg";
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200, Json(masanpham));
         }
 
         [Route("/tatca-dienthoai")]

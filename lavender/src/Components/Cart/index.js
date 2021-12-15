@@ -148,6 +148,8 @@ class index extends Component {
       this.setState({ cart: {} });
       return;
     }
+     token = cookie.get("token");
+     refreshtoken = cookie.get("refreshtoken");
     let detailCarts = undefined;
     await detailCartApi
       .loadDetailCartByCartId(cart.magiohang, token, refreshtoken)
@@ -189,6 +191,7 @@ class index extends Component {
 
   async changeQuantity(masanpham, dungluong, mausac, quantity) {
     let detailCartsTemp = this.state.detailCarts;
+
     for (let i = 0; i < detailCartsTemp.length; i++) {
       if (
         detailCartsTemp[i].masanpham === masanpham &&

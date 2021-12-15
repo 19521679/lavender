@@ -216,42 +216,6 @@ namespace Back.Controllers
             return StatusCode(200, Json(chitietsanpham.Giamoi));
         }
 
-        [Route("/xoa-sanpham")]
-        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
-        [HttpGet]
-        public async Task<IActionResult> DeleteProduct(int masanpham)
-        {
-            var product = await (from s in lavenderContext.Sanpham
-                                 where s.Masanpham == masanpham
-                                 select s).FirstOrDefaultAsync();
-
-            var detailProducts = await (from c in lavenderContext.Chitietsanpham
-                                       where c.Masanpham == masanpham
-                                       select c).ToListAsync();
-
-            lavenderContext.RemoveRange(detailProducts);
-            foreach (var i in detailProducts)
-            {
-                string path = _env.ContentRootPath + "/wwwroot" + i.Image + "0.Jpeg";
-                if (System.IO.File.Exists(path))
-                {
-                    System.IO.File.Delete(path);
-                }
-            }
-            await lavenderContext.SaveChangesAsync();
-
-            lavenderContext.Remove(product);
-            {
-                string path = _env.ContentRootPath + "/wwwroot" + product.Image + "0.Jpeg";
-                if (System.IO.File.Exists(path))
-                {
-                    System.IO.File.Delete(path);
-                }
-            }
-            await lavenderContext.SaveChangesAsync();
-            return StatusCode(200, Json(masanpham));
-        }
-
         [Route("/tim-mausac-bang-masanpham")]
         [HttpGet]
         public async Task<IActionResult> TimMausacBangMasanpham(int masanpham)
