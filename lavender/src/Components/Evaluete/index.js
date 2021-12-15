@@ -7,6 +7,7 @@ export default function Index(props) {
   const [trungbinh, setTrungbinh] = useState(0);
   const [list, setList] = useState([]);
   useEffect(() => {
+    if (props.product.masanpham===undefined) return;
     evalueteApi
       .getEvaluete(props.product.masanpham)
       .then((success) => {

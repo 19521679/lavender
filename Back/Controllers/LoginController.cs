@@ -69,9 +69,7 @@ namespace Back.Controllers
                     await lavenderContext.SaveChangesAsync();
                     return StatusCode(200, Json(new { token = token, refreshtoken = refreshtoken, makhachhang = khachhang.Makhachhang }));
                 }
-
-
-                
+ 
                 return StatusCode(200, Json(new { token = token, makhachhang = khachhang.Makhachhang }));
             }
             else if (loginForm.loaitaikhoan.Equals("nhanvien"))

@@ -71,6 +71,27 @@ export const addProduct = async (fd, progress, token, refreshtoken) => {
   return connect;
 };
 
+export const addSpecification = async (masanpham, thongsokithuat, token, refreshtoken) => {
+  var newtoken = undefined;
+  var fd= {masanpham, thongsokithuat};
+  var connect = await axiosServices
+    .post(`${API_ENDPOINT}/them-thongsokithuat`, fd, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.post(`${API_ENDPOINT}/them-thongsokithuat`, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  return connect;
+};
+
 export const editProduct = async (fd, progress, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
@@ -124,3 +145,7 @@ export const timCacsanphamTheoSohoadon = (sohoadon) => {
     `${API_ENDPOINT}/tim-cacsanpham-theo-sohoadon?sohoadon=${sohoadon}`
   );
 };
+
+export const thongsokithuatBangMasanpham= (masanpham)=>{
+  return axiosServices.get(`${API_ENDPOINT}/thongsokithuat-bang-masanpham?masanpham=${masanpham}`);
+}

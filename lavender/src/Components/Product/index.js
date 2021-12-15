@@ -14,11 +14,8 @@ import * as myToast from "../../Common/helper/toastHelper";
 import { withRouter } from "react-router-dom";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import Evaluete from "../Evaluete";
-
-function Thongso(props) {
-  return <h1>Thông số kỹ thuật</h1>;
-}
-
+import * as evalueteApi from "../apis/evaluete";
+import Specifications from "./Specifications";
 
 class index extends Component {
   state = {
@@ -32,6 +29,7 @@ class index extends Component {
     chondungluong: "-1",
     chonmausac: "-1",
     loading: true,
+    sosao: 0,sodanhgia:0
   };
   renderTab(n) {
     switch (n) {
@@ -53,7 +51,7 @@ class index extends Component {
       case 0:
         return ;
       case 1:
-        return <Thongso></Thongso>;
+        return <Specifications product={this.state.product}></Specifications>;
       case 2:
         return <Evaluete product={this.state.product} customer={this.props}></Evaluete>;
       default:
@@ -196,8 +194,9 @@ class index extends Component {
       .catch((error) => {
         console.error("error" + error);
       });
-    await this.xemGia();
-    await this.checked();
+      await this.xemGia();
+      await this.checked();
+      await this.xemdanhgia();
     this.setState({ loading: false });
   }
   addToCart = () => {
@@ -221,6 +220,17 @@ class index extends Component {
       },   
     );
   };
+  xemdanhgia= async ()=>{
+    await evalueteApi.evalueteByProductId(this.state.product.masanpham)
+      .then(success => {
+        if (success.status===200) {
+          this.setState({sosao:success.data.value.trungbinh, sodanhgia:success.data.value.sodanhgia})
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   render() {
     return (
       <section>
@@ -232,12 +242,12 @@ class index extends Component {
                 <h1>{this.state.product.tensanpham} </h1>
               </div>
               <div className="box-name__box-raiting">
-                <i className="fas fa-star checked" />
-                <i className="fas fa-star checked" />
-                <i className="fas fa-star checked" />
-                <i className="fas fa-star checked" />
-                <i className="fas fa-star checked" />
-                &nbsp;14 đánh giá
+              <i className={this.state.sosao<1?"fas fa-star":"fas fa-star checked"} />
+        <i className={this.state.sosao<2?"fas fa-star":"fas fa-star checked"} />
+        <i className={this.state.sosao<3?"fas fa-star":"fas fa-star checked"} />
+        <i className={this.state.sosao<4?"fas fa-star":"fas fa-star checked"} />
+        <i className={this.state.sosao<5?"fas fa-star":"fas fa-star checked"} />
+                &nbsp;{this.state.sodanhgia} đánh giá
               </div>
             </div>
           </div>

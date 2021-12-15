@@ -31,7 +31,7 @@ const menus = [
   },
   {
     name: "Bài viết",
-    to: "/blog",
+    to: "/article",
     exact: false,
     list: [],
   },
