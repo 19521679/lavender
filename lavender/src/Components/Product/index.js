@@ -9,13 +9,13 @@ import { connect } from "react-redux";
 import * as cartAct from "../redux/actions/cartAct";
 import PropTypes from "prop-types";
 import * as favoriteApi from "../apis/favorite";
-import * as myToast from "../../Common/helper/toastHelper";
 // import { indexOf } from "lodash";
 import { withRouter } from "react-router-dom";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import Evaluete from "../Evaluete";
 import * as evalueteApi from "../apis/evaluete";
 import Specifications from "./Specifications";
+import * as myToast from "../../Common/helper/toastHelper";
 
 class index extends Component {
   state = {
@@ -29,16 +29,17 @@ class index extends Component {
     chondungluong: "-1",
     chonmausac: "-1",
     loading: true,
-    sosao: 0,sodanhgia:0
+    sosao: 0,
+    sodanhgia: 0,
   };
   renderTab(n) {
     switch (n) {
       case 0:
-        return <i className="material-icons">Mô tả</i>;
+        return <h6 className="">Mô tả</h6>;
       case 1:
-        return <i className="material-icons">Thông số kỹ thuật</i>;
+        return <h6 className="">Thông số kỹ thuật</h6>;
       case 2:
-        return <i className="material-icons">Đánh giá</i>;
+        return <h6 className="">Đánh giá</h6>;
       default:
         return;
     }
@@ -49,11 +50,16 @@ class index extends Component {
   renderItem(n) {
     switch (n) {
       case 0:
-        return ;
+        return;
       case 1:
         return <Specifications product={this.state.product}></Specifications>;
       case 2:
-        return <Evaluete product={this.state.product} customer={this.props}></Evaluete>;
+        return (
+          <Evaluete
+            product={this.state.product}
+            customer={this.props}
+          ></Evaluete>
+        );
       default:
         return;
     }
@@ -61,6 +67,10 @@ class index extends Component {
 
   changeLike() {
     if (this.props === undefined) {
+      this.props.history.push("/login");
+      return;
+    }
+    if (this.props.makhachhang === undefined) {
       this.props.history.push("/login");
       return;
     }
@@ -159,6 +169,9 @@ class index extends Component {
 
   async checked() {
     if (this.props === undefined) return;
+    if (this.props.makhachhang === undefined) {
+      return;
+    }
     await favoriteApi
       .checklike(this.props.makhachhang, this.state.product.masanpham)
       .then((success) => {
@@ -194,13 +207,16 @@ class index extends Component {
       .catch((error) => {
         console.error("error" + error);
       });
-      await this.xemGia();
-      await this.checked();
-      await this.xemdanhgia();
+    await this.xemGia();
+    await this.checked();
+    await this.xemdanhgia();
     this.setState({ loading: false });
   }
   addToCart = () => {
-    if (this.props.makhachhang===undefined) {  this.props.history.push("/login")}
+    if (this.props.makhachhang === undefined) {
+      this.props.history.push("/login");
+      return;
+    }
     let { product } = this.state;
     let { cartActionCreators } = this.props;
     if (this.state.chondungluong === "-1") {
@@ -211,26 +227,28 @@ class index extends Component {
       myToast.toastError("Bạn cần chọn màu sắc");
       return;
     }
-    cartActionCreators.addToCartReport(
-      {
-        makhachhang: this.props.makhachhang,
-        masanpham: product.masanpham,
-        dungluong: this.state.chondungluong,
-        mausac: this.state.chonmausac,
-      },   
-    );
+    cartActionCreators.addToCartReport({
+      makhachhang: this.props.makhachhang,
+      masanpham: product.masanpham,
+      dungluong: this.state.chondungluong,
+      mausac: this.state.chonmausac,
+    });
   };
-  xemdanhgia= async ()=>{
-    await evalueteApi.evalueteByProductId(this.state.product.masanpham)
-      .then(success => {
-        if (success.status===200) {
-          this.setState({sosao:success.data.value.trungbinh, sodanhgia:success.data.value.sodanhgia})
+  xemdanhgia = async () => {
+    await evalueteApi
+      .evalueteByProductId(this.state.product.masanpham)
+      .then((success) => {
+        if (success.status === 200) {
+          this.setState({
+            sosao: success.data.value.trungbinh,
+            sodanhgia: success.data.value.sodanhgia,
+          });
         }
       })
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
   render() {
     return (
       <section>
@@ -242,11 +260,31 @@ class index extends Component {
                 <h1>{this.state.product.tensanpham} </h1>
               </div>
               <div className="box-name__box-raiting">
-              <i className={this.state.sosao<1?"fas fa-star":"fas fa-star checked"} />
-        <i className={this.state.sosao<2?"fas fa-star":"fas fa-star checked"} />
-        <i className={this.state.sosao<3?"fas fa-star":"fas fa-star checked"} />
-        <i className={this.state.sosao<4?"fas fa-star":"fas fa-star checked"} />
-        <i className={this.state.sosao<5?"fas fa-star":"fas fa-star checked"} />
+                <i
+                  className={
+                    this.state.sosao < 1 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 2 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 3 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 4 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
+                <i
+                  className={
+                    this.state.sosao < 5 ? "fas fa-star" : "fas fa-star checked"
+                  }
+                />
                 &nbsp;{this.state.sodanhgia} đánh giá
               </div>
             </div>
@@ -364,7 +402,7 @@ class index extends Component {
                               <a
                                 name="b-c"
                                 id="swatch161"
-                                className="swatch-link swatch-link-80"
+                                className=""
                                 title={value.mausac}
                                 href={() => false}
                                 alt={value.mausac}
@@ -445,13 +483,11 @@ class index extends Component {
                           Giảm 1 triệu khi thanh toán qua ví Moca, thẻ tín dụng
                           ACB, BIDV, Sacombank, mPOS, Shinhan, Standard Charter
                           (số lượng có hạn)&nbsp;
-                          <span className="color-red">(xem chi tiết)</span>
                         </a>
                       </li>
                       <li className="item-promotion general-promotion">
                         <a href={() => false}>
                           Thu cũ lên đời - Trợ giá 1 triệu&nbsp;
-                          <span className="color-red">(xem chi tiết)</span>
                         </a>
                       </li>
                     </ul>

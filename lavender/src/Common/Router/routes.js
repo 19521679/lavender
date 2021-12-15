@@ -47,25 +47,25 @@ const routes = [
     exact: true,
     main: () => <ArticleDetail></ArticleDetail >
   },
-  {
-    path: "/mobile/:trademark",
-    exact: false,
-    main: ({match}) => <Mobile match={match} ></Mobile>,
-  },
-  {
-    path: "/laptop/:trademark",
-    exact: false,
-    main: ({match}) => <Laptop match={match} ></Laptop>,
-  },
+  // {
+  //   path: "/mobile/:trademark",
+  //   exact: false,
+  //   main: ({match}) => <Mobile match={match} ></Mobile>,
+  // },
+  // {
+  //   path: "/laptop/:trademark",
+  //   exact: false,
+  //   main: ({match}) => <Laptop match={match} ></Laptop>,
+  // },
   {
     path: "/mobile",
     exact: false,
-    main: () => <Mobile ></Mobile>,
+    main: ({match, location}) => <Mobile match={match} location={location}></Mobile>,
   },
   {
     path: "/laptop",
     exact: false,
-    main: () => <Laptop ></Laptop>,
+    main: ({match, location}) => <Laptop match={match} location={location}></Laptop>,
   },
   {
     path: "/cart",

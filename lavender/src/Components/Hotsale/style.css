@@ -234,7 +234,7 @@ element.style {
   margin-bottom: 1rem !important;
 }
 .box-products .list-product .item-product .item-product__box-raiting {
-  float: left;
+  margin-left: 33 px;
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }

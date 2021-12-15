@@ -30,6 +30,7 @@ namespace Back.Controllers
         }
 
         [Route("/khuyenmaicuatoi")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> KhuyenmaiCuaToi(int makhachhang)
         {
@@ -40,6 +41,7 @@ namespace Back.Controllers
         }
 
         [Route("/chitietkhuyenmaicuatoi")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ChitietKhuyenmaiCuaToi(int makhachhang)
         {
@@ -59,6 +61,7 @@ namespace Back.Controllers
 
 
         [Route("/khuyenmaicuatoi")]
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> XoaKhuyenmaiCuatoi(int makhachhang, int makhuyenmai)
         {

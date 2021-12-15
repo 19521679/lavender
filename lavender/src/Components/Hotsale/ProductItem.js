@@ -73,7 +73,8 @@ export default function ProductItem(props) {
         <i className={sosao<3?"fas fa-star":"fas fa-star checked"} />
         <i className={sosao<4?"fas fa-star":"fas fa-star checked"} />
         <i className={sosao<5?"fas fa-star":"fas fa-star checked"} />
-        &nbsp;{sodanhgia} đánh giá
+        <div className = "row d-flex justify-content-center">   &nbsp;{sodanhgia} đánh giá</div>
+     
       </div>
     </div>
   );

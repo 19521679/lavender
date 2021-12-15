@@ -248,6 +248,7 @@ class index extends Component {
   async loadCustomer(){
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
+
     customerApi.findCustomerByCustomerId(this.props.makhachhang, token, refreshtoken)
     .then(success => {
       if (success.status===200) {this.setState({khachhang:success.data.value})}
@@ -258,6 +259,7 @@ class index extends Component {
   }
 
   async componentDidMount() {
+    console.log(this.props.makhachhang)
     this.loadCart();
     this.loadCustomer();
   }

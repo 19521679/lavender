@@ -16,7 +16,7 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, [props.product.masanpham]);
   return (
     <div className="block-information__box-right">
       <div id="id_36499" className="block-technical-info">

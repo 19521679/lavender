@@ -22,19 +22,19 @@ export default function Index(props) {
 
   useEffect(() => {
     (async ()=>{
-      const hang =  props.match !== undefined && props.match.params.trademark;
+      const params = new URLSearchParams(props.location.search);
+      const hang = params.get('hang');
       let data = null;
       await mobileApi
         .mobile()
         .then((success) => {
-          data=success.data.value.$values;
-        
+          data=success.data.value.$values;   
         })
         .catch((error) => {
           console.log(error);
         });
-  
-      if (hang !== false) {
+        
+      if (hang !== null) {
         let trademarkid = null;
         await trademarkApi
           .findTrademarkIdByName(hang)
@@ -48,7 +48,7 @@ export default function Index(props) {
       setData(data);
       setLoading(false);
     })()
-  }, [props.match])
+  }, [props.location])
 
   return (
     <div className="container" id="mobile">
@@ -116,7 +116,7 @@ export default function Index(props) {
 
       <div className="row">
         <div className="mt-3">
-          <Trademark type="mobile" hang={props.match !== undefined && props.match.params.trademark}></Trademark>
+          <Trademark type="mobile" hang={(new URLSearchParams(props.location.search)).get('hang')}></Trademark>
         </div>
       </div>
       <div className="row">

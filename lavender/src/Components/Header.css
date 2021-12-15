@@ -85,7 +85,7 @@
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover > a {
-  color: aqua;
+  color: rgb(227, 227, 26);
 }
 
 .navbar .dropdown ul {

@@ -50,7 +50,7 @@ export default class index extends Component {
     result = this.state.trademark.map((value, index) => {
       let url = null;
       if (value === this.props.hang) url = "/" + this.props.type;
-      else url = "/" + this.props.type + "/" + value;
+      else url = "/" + this.props.type + "?hang=" + value;
       return (
         <Link
           to={url}

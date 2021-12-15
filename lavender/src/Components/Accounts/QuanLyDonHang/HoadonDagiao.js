@@ -15,7 +15,6 @@ export default function HoadonDagiao(props) {
       .then((success) => {
         if (success.status === 200) {
           setList(success.data.value.$values);
-          console.log(success.data.value.$values);
         }
       })
       .catch((error) => {

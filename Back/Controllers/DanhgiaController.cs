@@ -14,6 +14,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back.Controllers
 {
@@ -36,6 +37,7 @@ namespace Back.Controllers
         }
 
         [Route("/them-danhgia")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddEvaluete([FromForm] string binhluan, [FromForm] int sao,
             [FromForm] IFormFile image,[FromQuery] int makhachhang, [FromQuery] int masanpham)

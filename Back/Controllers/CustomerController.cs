@@ -79,7 +79,6 @@ namespace Back.Controllers
         }
 
         [Route("/tim-khachhang-theo-makhachhang")]
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> TimKhachangTheoMakhachhang(int makhachhang)
         {

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Back.Common;
+using Back.ModelDTO;
 using Back.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -101,8 +102,66 @@ namespace Back.Controllers
 
             return StatusCode(200, Json(giohang));
         }
-    }
 
+        [Route("/muahang")]
+        [HttpPost]
+        public async Task<IActionResult> MuaHang(int makhachhang, int makhuyenmai, float tongtien, [FromBody] JsonElement json)
+        {
+            CartPayingObject[] cartpayinglist = Newtonsoft.Json.JsonConvert.DeserializeObject<CartPayingObject[]>(json.ToString());
+            //Console.WriteLine("cart" + cartpayinglist[0]);
+            Hoadon hoadon = new Hoadon();
+            hoadon.Makhachhang = makhachhang;
+            if (makhuyenmai != 0) hoadon.Makhuyenmai = makhuyenmai;
+            hoadon.Ngayhoadon = DateTime.Now;
+            hoadon.Tongtien = tongtien;
+            await lavenderContext.AddAsync(hoadon);
+            await lavenderContext.SaveChangesAsync();
+            var newhoadon = await (from h in lavenderContext.Hoadon
+                                   where h.Makhachhang == hoadon.Makhachhang
+                                   && h.Makhuyenmai == hoadon.Makhuyenmai
+                                   orderby h.Ngayhoadon descending
+                                   select h).FirstOrDefaultAsync();
+            List<Chitietsanpham> listsanphamban = new List<Chitietsanpham>();
+            hoadon = newhoadon;
+            foreach (var i in cartpayinglist)
+            {
+                for (int j = 0; j < i.Soluong; j++)
+                {
+                    var chitietsanpham = await (from x in lavenderContext.Chitietsanpham
+                                                where x.Masanpham == i.Masanpham
+                                                && x.Dungluong == i.Dungluong
+                                                && x.Mausac == i.Mausac
+                                                && x.Tinhtrang == "Sẵn có"
+                                                select x).FirstOrDefaultAsync();
+                    if (chitietsanpham == null)
+                    {
+                        lavenderContext.Remove(hoadon);
+                        lavenderContext.SaveChanges();
+                        return StatusCode(200, Json(new { tinhtrang = "hethang" }));
+                    }
+                    chitietsanpham.Tinhtrang = "Đã bán";
+                    await lavenderContext.SaveChangesAsync();
+                    listsanphamban.Add(chitietsanpham);
+
+                    Chitiethoadon chitiethoadon = new Chitiethoadon();
+                    chitiethoadon.Sohoadon = (int)hoadon.Sohoadon;
+                    chitiethoadon.Imei = chitietsanpham.Imei;
+                    chitiethoadon.Tien = chitietsanpham.Giamoi;
+
+                    await lavenderContext.AddAsync(chitiethoadon);
+                    await lavenderContext.SaveChangesAsync();
+                }
+
+            }
+
+            Vanchuyen vanchuyen = new Vanchuyen();
+            vanchuyen.Sohoadon = (int)hoadon.Sohoadon;
+            vanchuyen.Trangthai = "Đang xử lý";
+            await lavenderContext.AddAsync(vanchuyen);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200, Json(new { tinhtrang = "thanhcong" }));
+        }
+    }
 }
 
 

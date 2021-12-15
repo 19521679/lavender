@@ -49,13 +49,12 @@ var MenuLink = ({ lable, to, activeOnlyWhenExact }) => {
       path={to}
       exact={activeOnlyWhenExact}
       children={({ match }) => {
-        var active = match ? "active" : "";
         return (
           <li>
-            <Link className={active} to={to}>
+            <Link to={to}>
               {lable}
             </Link>
-            <i class={active?"fas fa-circle dot-circle-active":""}></i>
+            <i class={match?"fas fa-circle dot-circle-active":""}></i>
           </li>
         );
       }}
