@@ -30,3 +30,7 @@ export const xemgiamoitheomasanpham = (masanpham) => {
     `${API_ENDPOINT}/xem-gia-theo-masanpham?masanpham=${masanpham}`
   );
 };
+
+export const timkiemChitietsanphamImei = (imei)=>{
+  return axiosServices.get(`${API_ENDPOINT}/tim-chitietsanpham-bang-imei?imei=${imei}`);
+}

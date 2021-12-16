@@ -9,10 +9,9 @@ const cookie = new Cookies();
 export default function Item(props) {
   const [khachhang, setKhachhang] = useState(undefined)
   useEffect(() => {
-    var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");
 
-    customerApi.findCustomerByCustomerId(props.evaluete.makhachhang, token, refreshtoken)
+
+    customerApi.findCustomerByCustomerId(props.evaluete.makhachhang)
     .then(success => {
       if (success.status===200) {
         setKhachhang(success.data.value);

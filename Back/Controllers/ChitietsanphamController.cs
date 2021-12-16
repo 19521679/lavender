@@ -144,9 +144,7 @@ namespace Back.Controllers
                     listsanphamtheomausac.Add(i);
                     mausac.Add(new { mausac = i.Mausac, image = i.Image });
                 }
-
             }
-
             return StatusCode(200, Json(mausac));
         }
 
@@ -409,6 +407,17 @@ namespace Back.Controllers
             var list = await (from c in lavenderContext.Chitietsanpham
                               select c).ToListAsync();
             return StatusCode(200, Json(list));
+        }
+
+        [Route("/tim-chitietsanpham-bang-imei")]
+        [HttpGet]
+        public async Task<IActionResult> TimChitietsanphamBangImei(string imei)
+        {
+            var chitietsanpham = await (from x in lavenderContext.Chitietsanpham
+                                        where x.Imei.Equals(imei)
+                                        select x).FirstOrDefaultAsync();
+            if (chitietsanpham == null) return StatusCode(404);
+            return StatusCode(200, Json(chitietsanpham));
         }
     }
 
