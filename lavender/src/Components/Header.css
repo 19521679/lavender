@@ -88,6 +88,13 @@
   color: rgb(227, 227, 26);
 }
 
+.navbar a:hover,
+.navbar .active,
+.navbar .active:focus,
+.navbar li:hover > i {
+  color: rgb(227, 227, 26);
+}
+
 .navbar .dropdown ul {
   display: block;
   position: absolute;

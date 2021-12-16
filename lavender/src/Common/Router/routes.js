@@ -85,7 +85,7 @@ const routes = [
   {
     path: "/register",
     exact: false,
-    main: () => <Register></Register>,
+    main: ({location}) => <Register location={location}></Register>,
   },
   {
     path: "/mobile/:productname/product",

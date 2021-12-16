@@ -13,6 +13,7 @@ namespace Back.Models
         public int Makhachhang { get; set; }
         public string Token { get; set; }
         public int Kichhoat { get; set; }
+        public string Googleid { get; set; }
 
         public virtual Khachhang MakhachhangNavigation { get; set; }
         public override string ToString()

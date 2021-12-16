@@ -6,6 +6,9 @@ const url = "/login";
 export const login = (data, config) => {
   return axiosServices.post(API_ENDPOINT + url, data, config);
 };
+export const loginWithGoogle = (data) =>{
+  return axiosServices.post(API_ENDPOINT + "/login-with-google", data)
+}
 export const logout = async (ma,loaitaikhoan, token, refreshtoken) => {
   
   var connect = await axiosServices
@@ -25,8 +28,6 @@ export const test = () => {
     headers: { "Access-Control-Allow-Origin": "*" },
   });
 };
-export const refreshToken = (token) => {
-  return axiosServices.get(API_ENDPOINT + "/refresh-token", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const refreshToken = (refreshtoken) => {
+  return axiosServices.get(`${API_ENDPOINT}/refresh-token?refreshtoken=${refreshtoken}`);
 };

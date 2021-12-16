@@ -11,7 +11,7 @@ export const findCustomerByBillId = async (sohoadon, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -32,7 +32,7 @@ export const allCustomer = async (token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -53,7 +53,7 @@ export const thayDoiThongTin = async (data, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -80,7 +80,6 @@ export const thayDoiSDT = async (request, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
         return error;
       }
     });
@@ -103,7 +102,7 @@ export const thayDoiEmail = async (request, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -129,7 +128,7 @@ export const addCustomer = async (fd, progress, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -156,7 +155,7 @@ export const editCustomer = async (fd, progress, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -180,7 +179,7 @@ export const deleteCustomer = async (makhachhang, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -206,7 +205,7 @@ export const hoadonDagiao = async (makhachhang, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });

@@ -431,7 +431,7 @@ namespace Back.Models
                    .HasColumnName("CCCD");
 
                 entity.Property(e => e.Image)
-                    .HasMaxLength(45)
+                    .HasMaxLength(1000)
                     .IsUnicode(false)
                     .HasColumnName("IMAGE");
 
@@ -696,7 +696,7 @@ namespace Back.Models
 
             modelBuilder.Entity<Taikhoankhachhang>(entity =>
             {
-                entity.HasKey(e => e.Username)
+                entity.HasKey(e => e.Makhachhang)
                     .IsClustered(false);
 
                 entity.ToTable("TAIKHOANKHACHHANG");
@@ -706,12 +706,22 @@ namespace Back.Models
                     .IsUnicode(false)
                     .HasColumnName("USERNAME");
 
+                entity.Property(e => e.Password)
+                 .HasMaxLength(300)
+                 .IsUnicode(false)
+                 .HasColumnName("PASSWORD");
+
                 entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
 
                 entity.Property(e => e.Token)
                     .HasMaxLength(4000)
                     .IsUnicode(false)
                     .HasColumnName("TOKEN");
+
+                entity.Property(e => e.Googleid)
+                  .HasMaxLength(300)
+                  .IsUnicode(false)
+                  .HasColumnName("GOOGLEID");
 
                 entity.Property(e => e.Kichhoat).HasColumnName("KICHHOAT");
 

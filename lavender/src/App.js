@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Switch, Route, withRouter, Link } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import React from "react";
+import React , {useState, useEffect}from "react";
 import { Provider } from "react-redux";
 import configureStore from "./Components/redux/configureStore";
 import LeftMenu from "./Components/Admin/LeftMenu";
@@ -12,40 +12,9 @@ import "./Components/Admin/scss/material-dashboard/style.scss";
 import CookieConsent from "react-cookie-consent";
 
 const store = configureStore();
-class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <ToastContainer />
-        <div>
-          {this.props.location.pathname.includes("/admin") ? (
-            <LeftMenu>Home</LeftMenu>
-          ) : (
-            <Header />
-          )}
-          {/* {this.props.location.pathname.includes("/lmember")?<LMember></LMember>:null} */}
-          {this.showContentMenus(routes)}
-          {this.props.location.pathname.includes("/admin") ? null : <Footer />}
-        </div>
-        {!localStorage.getItem("acceptCookie") && (
-          <CookieConsent
-            debug={true}
-            location="bottom"
-            expires={60}
-            onAccept={() => {
-              localStorage.setItem("acceptCookie", true);
-            }}
-            buttonText="Có tôi đồng ý!"
-          >
-            Trang này sử dụng cookie. Xem thêm{" "}
-            <Link to="/privacy"> chính sách bảo mật </Link> ở đây.
-          </CookieConsent>
-        )}
-      </Provider>
-    );
-  }
+function App(props) {
 
-  showContentMenus = (routes) => {
+  const showContentMenus = (routes) => {
     var result = null;
     if (routes.length) {
       result = routes.map((value, key) => {
@@ -64,6 +33,39 @@ class App extends React.Component {
     }
     return <Switch>{result}</Switch>;
   };
+
+  useEffect(()=>{
+  //  googleSDK();
+  })
+  return (
+    <Provider store={store}>
+      <ToastContainer />
+      <div>
+        {props.location.pathname.includes("/admin") ? (
+          <LeftMenu>Home</LeftMenu>
+        ) : (
+          <Header />
+        )}
+        {/* {props.location.pathname.includes("/lmember")?<LMember></LMember>:null} */}
+        {showContentMenus(routes)}
+        {props.location.pathname.includes("/admin") ? null : <Footer />}
+      </div>
+      {!localStorage.getItem("acceptCookie") && (
+        <CookieConsent
+          debug={true}
+          location="bottom"
+          expires={60}
+          onAccept={() => {
+            localStorage.setItem("acceptCookie", true);
+          }}
+          buttonText="Có tôi đồng ý!"
+        >
+          Trang này sử dụng cookie. Xem thêm{" "}
+          <Link to="/privacy"> chính sách bảo mật </Link> ở đây.
+        </CookieConsent>
+      )}
+    </Provider>
+  );
 }
 
 export default withRouter(App);

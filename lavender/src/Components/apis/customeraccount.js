@@ -14,7 +14,7 @@ export const addAccount = async (fd, progress, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });

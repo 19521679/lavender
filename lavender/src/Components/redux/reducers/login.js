@@ -21,16 +21,16 @@ const reducer = (state = initialState, action) => {
       if (data.value.token === undefined) {
         cookie.remove("token");
       } else {
-      let dtoken = new Date();
-      dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
-      cookie.set("token", data.value.token, {
-        path: "/",
-        expires: dtoken,
-        httpOnly: false,
-        secure: true,
-        sameSite: true,
-      });
-    }
+        let dtoken = new Date();
+        dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
+        cookie.set("token", data.value.token, {
+          path: "/",
+          expires: dtoken,
+          httpOnly: false,
+          secure: true,
+          sameSite: true,
+        });
+      }
       if (data.value.refreshtoken === undefined) {
         cookie.remove("refreshtoken");
       } else {
@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_LOGIN_FAILED: {
+      myToast.toastError("Đăng nhập thất bại");
       return {
         ...state,
       };
@@ -92,7 +93,8 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("refreshtoken"); cookie.remove("token")
+      cookie.remove("refreshtoken");
+      cookie.remove("token");
       return {
         ...state,
       };
@@ -100,11 +102,13 @@ const reducer = (state = initialState, action) => {
     //Logout
     case loginConst.POST_LOGOUT: {
       return {
-        ...state
+        ...state,
       };
     }
     case loginConst.POST_LOGOUT_SUCCESS: {
-      cookie.remove("refreshtoken"); cookie.remove("token")
+      console.log("logout redux")
+      cookie.remove("refreshtoken");
+      cookie.remove("token");
       return {
         ...state,
         makhachhang: undefined,
@@ -112,7 +116,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_LOGOUT_FAILED: {
-      myToast.toastError("Đăng xuất thất bại")
+      myToast.toastError("Đăng xuất thất bại");
       return {
         ...state,
       };

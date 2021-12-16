@@ -388,8 +388,6 @@ element.style {
   border-radius: 0 100px 100px 0;
   left: -32px;
   left: 0;
-}
-.box-products .swiper-button-prev {
   width: 30px;
   height: 60px;
   display: -webkit-box;
@@ -412,6 +410,7 @@ element.style {
   outline: none;
   opacity: 0.5;
   position: absolute;
+  z-index: 3;
 }
 .swiper-button-prev {
   background-image: url("https://cdn.cellphones.com.vn/skin/frontend/default/cpsdesktop/css/data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E");
@@ -434,7 +433,7 @@ element.style {
 .box-products .swiper-button-next {
   padding-left: 10px;
   border-radius: 100px 0 0 100px;
-
+  z-index: 3;
   right: 0;
   width: 30px;
   height: 60px;

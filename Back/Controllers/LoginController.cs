@@ -57,11 +57,11 @@ namespace Back.Controllers
                                        where x.Makhachhang == taikhoan.Makhachhang
                                        select x).FirstOrDefaultAsync();
                 if (khachhang == null) return StatusCode(401);
-                var token = MyTokenHandler.GenerateAccessToken(loginForm.username, MyTokenHandler.GUEST, _configuration);
+                var token = MyTokenHandler.GenerateAccessToken(khachhang.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
 
                 if (loginForm.savelogin)
                 {
-                    var refreshtoken = MyTokenHandler.GenerateRefreshToken(loginForm.username, MyTokenHandler.GUEST, _configuration);
+                    var refreshtoken = MyTokenHandler.GenerateRefreshToken(khachhang.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
                     Khachhangdangnhap khachhangdangnhap = new Khachhangdangnhap();
                     khachhangdangnhap.Refreshtoken = refreshtoken;
                     khachhangdangnhap.Makhachhang = khachhang.Makhachhang;
@@ -106,17 +106,87 @@ namespace Back.Controllers
             return StatusCode(204);
         }
 
+        [Route("/login-with-google")]
+        [HttpPost]
+        public async Task<IActionResult> LoginWithGoogle(JsonElement json)
+        {
+            Console.WriteLine(json);
+            var khachhang = await (from x in lavenderContext.Khachhang
+                                   where x.Email == json.GetString("email")
+                                   select x).FirstOrDefaultAsync();
+            if (khachhang == null)
+            {
+                khachhang = new Khachhang();
+                khachhang.Tenkhachhang = json.GetString("name");
+                khachhang.Email = json.GetString("email");
+                khachhang.Loaikhachhang = "Thành viên";
+                khachhang.Image = json.GetString("imageUrl");
+                await lavenderContext.AddAsync(khachhang);
+                await lavenderContext.SaveChangesAsync();
+
+                Khachhang khachhangtemp = await (from x in lavenderContext.Khachhang
+                                                 where x.Email.Equals(json.GetString("email"))
+                                                 select x).FirstOrDefaultAsync();
+                Taikhoankhachhang newtaikhoankhachhang = new Taikhoankhachhang();
+                newtaikhoankhachhang.Makhachhang = khachhangtemp.Makhachhang;
+                newtaikhoankhachhang.Googleid = json.GetString("googleId");
+                newtaikhoankhachhang.Kichhoat = 1;
+
+                await lavenderContext.AddAsync(newtaikhoankhachhang);
+                await lavenderContext.SaveChangesAsync();
+            }
+
+
+            khachhang = await (from x in lavenderContext.Khachhang
+                               where x.Email == json.GetString("email")
+                               select x).FirstOrDefaultAsync();
+            if (khachhang == null) return StatusCode(401);
+
+            var taikhoankhachhang = await (from x in lavenderContext.Taikhoankhachhang
+                                           where x.Makhachhang == khachhang.Makhachhang
+                                           select x).FirstOrDefaultAsync();
+            if (taikhoankhachhang==null)
+            {
+                taikhoankhachhang = new Taikhoankhachhang();
+                taikhoankhachhang.Makhachhang = khachhang.Makhachhang;
+                taikhoankhachhang.Kichhoat = 1;
+                taikhoankhachhang.Googleid = json.GetString("googleId");
+                await lavenderContext.AddAsync(taikhoankhachhang);
+            }
+
+            if (string.IsNullOrEmpty(taikhoankhachhang.Googleid))
+            {
+                taikhoankhachhang.Googleid = json.GetString("googleId");
+            }
+            else if (taikhoankhachhang.Googleid!=json.GetString("googleId"))
+            {
+                return StatusCode(401);
+            }
+     
+          
+            var token = MyTokenHandler.GenerateAccessToken(khachhang.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
+            var refreshtoken = MyTokenHandler.GenerateRefreshToken(khachhang.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
+
+            Khachhangdangnhap khachhangdangnhap = new Khachhangdangnhap();
+            khachhangdangnhap.Refreshtoken = refreshtoken;
+            khachhangdangnhap.Makhachhang = khachhang.Makhachhang;
+
+            await lavenderContext.AddAsync(khachhangdangnhap);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200, Json(new { token = token, refreshtoken = refreshtoken, makhachhang = khachhang.Makhachhang }));
+        }
+
         [Route("/refresh-token")]
         [HttpGet]
-        //[Authorize(Policy = "Bearer")]
         public async Task<IActionResult> RefreshToken(string refreshtoken)
         {
+           
             Dictionary<string, string> payload = MyTokenHandler.TokenPayloadHandler(refreshtoken);
             if (payload["role"].Equals(MyTokenHandler.GUEST))
             {
                 if (payload.IsNullOrEmpty()) return StatusCode(401);
                 var taikhoan = await (from x in lavenderContext.Taikhoankhachhang
-                                      where x.Username.Equals(payload["unique_name"])
+                                      where x.Makhachhang==int.Parse((payload["unique_name"]))
                                       select x).FirstOrDefaultAsync();
                 if (taikhoan == null) return StatusCode(401);
 
@@ -125,7 +195,7 @@ namespace Back.Controllers
                                                select x).FirstOrDefaultAsync();
                 if (khachhangdangnhap == null) return StatusCode(401);
 
-                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, MyTokenHandler.GUEST, _configuration);
+                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
 
                 var newkhachhangdangnhap = new Khachhangdangnhap();
                 newkhachhangdangnhap.Refreshtoken = newrefreshtoken;
@@ -135,14 +205,14 @@ namespace Back.Controllers
                 await lavenderContext.AddAsync(newkhachhangdangnhap);
                 await lavenderContext.SaveChangesAsync();
 
-                var token = MyTokenHandler.GenerateAccessToken(taikhoan.Username, MyTokenHandler.GUEST, _configuration);
+                var token = MyTokenHandler.GenerateAccessToken(taikhoan.Makhachhang.ToString(), MyTokenHandler.GUEST, _configuration);
                 return StatusCode(200, Json(new { token = token, refreshtoken = newrefreshtoken, makhachhang = taikhoan.Makhachhang }));
             }
             else if (payload["role"].Equals(MyTokenHandler.ADMINISTRATOR)|| payload["role"].Equals(MyTokenHandler.STAFF))
             {
                 if (payload.IsNullOrEmpty()) return StatusCode(401);
                 var taikhoan = await (from x in lavenderContext.Taikhoannhanvien
-                                      where x.Username.Equals(payload["unique_name"])
+                                      where x.Manhanvien.Equals(payload["unique_name"])
                                       select x).FirstOrDefaultAsync();
                 if (taikhoan == null) return StatusCode(401);
 
@@ -151,7 +221,7 @@ namespace Back.Controllers
                                                select x).FirstOrDefaultAsync();
                 if (nhanviendangnhap == null) return StatusCode(401);
 
-                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Username, payload["role"], _configuration);
+                var newrefreshtoken = MyTokenHandler.GenerateRefreshToken(taikhoan.Manhanvien.ToString(), payload["role"], _configuration);
 
                 var newnhanviendangnhap = new Nhanviendangnhap();
                 newnhanviendangnhap.Refreshtoken = newrefreshtoken;
@@ -161,7 +231,7 @@ namespace Back.Controllers
                 await lavenderContext.AddAsync(newnhanviendangnhap);
                 await lavenderContext.SaveChangesAsync();
 
-                var token = MyTokenHandler.GenerateAccessToken(taikhoan.Username, payload["role"], _configuration);
+                var token = MyTokenHandler.GenerateAccessToken(taikhoan.Manhanvien.ToString(), payload["role"], _configuration);
                 return StatusCode(200, Json(new { token = token, refreshtoken = newrefreshtoken, manhanvien = taikhoan.Manhanvien }));
             }
             return StatusCode(204);

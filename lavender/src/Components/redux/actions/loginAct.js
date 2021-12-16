@@ -63,15 +63,13 @@ export const postRefreshFailed = (error) => {
     },
   };
 };
-export const postRefreshReport = (refreshToken) => {
+export const postRefreshReport = (refreshtoken) => {
   return async (dispatch) => {
     await loginApi
-      .refreshToken(refreshToken)
+      .refreshToken(refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           dispatch(postRefreshSuccess(success.data));
-          // const token = success.data;
-          // const user = jwt(token); // decode your token here
         } else dispatch(postRefreshFailed(success));
       })
       .catch((error) => {
@@ -90,8 +88,7 @@ export const postLogout = () => {
 export const postLogoutSuccess = (data) => {
   return {
     type: loginConst.POST_LOGOUT_SUCCESS,
-    payload: {
-    },
+    payload: {},
   };
 };
 
@@ -104,10 +101,11 @@ export const postLogoutFailed = (error) => {
   };
 };
 export const postLogoutReport = (ma, loaitaikhoan, token, refreshtoken) => {
-  if (refreshtoken===undefined) return async (dispatch)=>(dispatch(postLogoutSuccess()))
+  if (refreshtoken === undefined)
+    return async (dispatch) => dispatch(postLogoutSuccess());
   return async (dispatch) => {
     await loginApi
-      .logout(ma,loaitaikhoan, token, refreshtoken)
+      .logout(ma, loaitaikhoan, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           dispatch(postLogoutSuccess());
@@ -115,6 +113,44 @@ export const postLogoutReport = (ma, loaitaikhoan, token, refreshtoken) => {
       })
       .catch((error) => {
         dispatch(postLogoutFailed(error));
+      });
+  };
+};
+
+/*LOGIN WITH GOOGLE*/
+export const postWithGoogleLogin = () => {
+  return {
+    type: loginConst.POST_LOGIN,
+  };
+};
+export const postLoginWithGoogleSuccess = (data) => {
+  return {
+    type: loginConst.POST_LOGIN_SUCCESS,
+    payload: {
+      data: data,
+    },
+  };
+};
+
+export const postLoginWithGoogleFailed = (error) => {
+  return {
+    type: loginConst.POST_LOGIN_FAILED,
+    payload: {
+      error,
+    },
+  };
+};
+export const postLoginWithGoogleReport = (req) => {
+  return async (dispatch) => {
+    await loginApi
+      .loginWithGoogle(req)
+      .then((success) => {
+        if (success.status === 200) {
+          dispatch(postLoginWithGoogleSuccess(success.data));
+        } else dispatch(postLoginWithGoogleFailed(success));
+      })
+      .catch((error) => {
+        dispatch(postLoginWithGoogleFailed(error));
       });
   };
 };

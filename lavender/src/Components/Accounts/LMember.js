@@ -1,30 +1,72 @@
-import React, { Component } from "react";
+import React, {  } from "react";
 import "./LMember.css";
 import routes from "./routes";
-import { Redirect } from 'react-router-dom';
-import { Route, Switch, BrowserRouter, Link  } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { Route, Switch, BrowserRouter, Link } from "react-router-dom";
+import { useDispatch , useSelector } from "react-redux";
 import Cookies from "universal-cookie/es6";
 import { withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import * as loginAct from "../redux/actions/loginAct";
+import { useGoogleLogout } from "react-google-login";
+import * as myConst from "../../Common/constants/index";
 
 const cookie = new Cookies();
 
-class index extends Component {
-  logout= ()=>{
-    this.props.logoutActionCreator.postLogoutReport(this.props.makhachhang, "khachhang", cookie.get("token"), cookie.get("refreshtoken"));
-  }
-  render() {
-    return (
-      <section>
-        {this.props.makhachhang===undefined&&<Redirect to = "/login"></Redirect>}
-        <BrowserRouter>
-        { this.props.makhachhang!==undefined &&<Redirect to="/lmember/thongtintaikhoan"/>}
-          <div className="container">
+function Lmember(props) {
+  const makhachhang = useSelector(state => state.login.makhachhang)
+  const dispatch = useDispatch();
+  const clientId = myConst.CLIENT_ID;
+  const logout = async () => {
+    dispatch(
+      loginAct.postLogoutReport(
+        makhachhang,
+        "khachhang",
+        cookie.get("token"),
+        cookie.get("refreshtoken")
+      )
+    );
+    signOut();
+  };
+  const onLogoutSuccess = () => {
+    console.log("logout google");
+  };
+  const onFailure = () => {
+    console.log("google logout failure");
+  };
+  const { signOut } = useGoogleLogout({
+    clientId,
+    onLogoutSuccess,
+    onFailure,
+  });
+  const showContentMenus = (routes) => {
+    var result = null;
+    if (routes.length) {
+      result = routes.map((value, key) => {
+        let keyRan = key;
+        if (value.path === "/cart") keyRan = Date.now();
+        return (
+          <Route
+            path={value.path}
+            exact={value.exact}
+            component={value.main}
+            keyProp={key}
+            key={keyRan}
+          ></Route>
+        );
+      });
+    }
+    return <Switch>{result}</Switch>;
+  };
+  return (
+    <section>
+      {makhachhang === undefined && <Redirect to="/login"></Redirect>}
+      <BrowserRouter>
+        {makhachhang !== undefined && (
+          <Redirect to="/lmember/thongtintaikhoan" />
+        )}
+        <div className="container">
           <div className="row">
-          <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               <div className="leftmember">
                 <div className="Container-sc-itwfbd-0 hfMLFx">
                   <div className="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
@@ -108,9 +150,14 @@ class index extends Component {
                           </Link>
                         </li>
                         <li>
-                          <a href= {()=>false} className="text-light btn btn-success" to="/lmember/sanphamyeuthich" onClick={this.logout}>
+                          <a
+                            href={() => false}
+                            className="text-light btn btn-success"
+                            to="/lmember/sanphamyeuthich"
+                            onClick={logout}
+                          >
                             <span>
-                            <i class="fas fa-sign-out-alt btn-logout-lmember-logo"></i>
+                              <i class="fas fa-sign-out-alt btn-logout-lmember-logo"></i>
                               Đăng xuất
                             </span>
                           </a>
@@ -123,50 +170,13 @@ class index extends Component {
             </div>
 
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-              <div className="rightmember">{this.showContentMenus(routes)}</div>
-            </div>
-            
-
+              <div className="rightmember">{showContentMenus(routes)}</div>
             </div>
           </div>
-        </BrowserRouter>
-      </section>
-    );
-  }
-  showContentMenus = (routes) => {
-    var result = null;
-    if (routes.length) {
-      result = routes.map((value, key) => {
-        let keyRan = key;
-        if (value.path === "/cart") keyRan = Date.now();
-        return (
-          <Route
-            path={value.path}
-            exact={value.exact}
-            component={value.main}
-            keyProp={key}
-            key={keyRan}
-          ></Route>
-        );
-      });
-    }
-    return <Switch>{result}</Switch>;
-  };
-}
-index.propTypes = {
-  makhachhang: PropTypes.object,
-};
-
-const mapStateToProps = (state) => {
-  return {
-    makhachhang: state.login.makhachhang,
-  };
-};
-
-const mapDispatchToProps=(dispatch) => {
-  return ({
-    logoutActionCreator: bindActionCreators(loginAct, dispatch),
-  })
+        </div>
+      </BrowserRouter>
+    </section>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(index));
+export default withRouter(Lmember);

@@ -49,10 +49,8 @@ class index extends Component {
     let ngaysinh = new Date();
     let sdt = "";
     let email = "";
-    const token = cookie.get("token");
-    const refreshtoken = cookie.get("refreshtoken");
     await khachhangApi
-      .findCustomerByCustomerId(this.props.makhachhang, token, refreshtoken)
+      .findCustomerByCustomerId(this.props.makhachhang)
       .then((success) => {
         if (success.status === 200) {
           hovaten = success.data.value.tenkhachhang;

@@ -12,7 +12,7 @@ export const twentyhoadon = async (token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -33,7 +33,7 @@ export const processingBilling = async (token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -53,7 +53,7 @@ export const doanhthutheothang = async (thang, nam, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -75,7 +75,7 @@ export const addOrUpdateBilling = async (data, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -96,7 +96,7 @@ export const deleteBill = async (sohoadon, token, refreshtoken) => {
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
@@ -128,7 +128,7 @@ export const muaHang = async (
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken);
+
         return error;
       }
     });
