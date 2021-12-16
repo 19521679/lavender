@@ -85,7 +85,7 @@ export const postLogout = () => {
     type: loginConst.POST_LOGOUT,
   };
 };
-export const postLogoutSuccess = (data) => {
+export const postLogoutSuccess = () => {
   return {
     type: loginConst.POST_LOGOUT_SUCCESS,
     payload: {},

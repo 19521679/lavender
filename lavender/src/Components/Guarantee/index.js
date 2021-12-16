@@ -4,9 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 //import "./style.css";
 import * as productApi from "../apis/product";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
-import Item from "./Guarantee";
- 
-
 
 export default function Index(props) {  
     useEffect(() =>{
