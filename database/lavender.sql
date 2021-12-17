@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2021 at 05:14 AM
+-- Generation Time: Dec 17, 2021 at 05:48 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -32,7 +32,7 @@ CREATE TABLE `baiviet` (
   `TIEUDE` text NOT NULL,
   `MOTA` text NOT NULL,
   `NOIDUNG` longtext NOT NULL,
-  `NGAYDANG` datetime DEFAULT NULL
+  `THUMNAIL` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
