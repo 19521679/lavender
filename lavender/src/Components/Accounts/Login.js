@@ -49,7 +49,7 @@ function Login(props) {
   };
   const onFailure = (res) => {
     console.log("loginfail", res);
-    myToast.toastError("Đăng nhập thất bại");
+    myToast.toastError("sai tài khoản hoặc mật khẩu");
   };
   const { signIn } = useGoogleLogin({
     onSuccess,
@@ -126,7 +126,7 @@ function Login(props) {
                     Ghi nhớ đăng nhập
                   </label>
                 </div>
-                <a>Quên mật khẩu?</a>
+                <Link to="/forgotpassword">Quên mật khẩu?</Link>
               </div>
               {/* Submit button */}
               <button
