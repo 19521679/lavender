@@ -7,11 +7,9 @@ import * as laptopApi from "./apis/laptop";
 import { Link } from "react-router-dom";
 import LoadingContainer from "../Common/helper/loading/LoadingContainer";
 import Hotsale from "./Hotsale";
-<<<<<<< HEAD
 import banner from "../Asset/logo/banner.png";
-=======
 import promotion from "../Asset/logo/promotion.png";
->>>>>>> 3f353365a8aa5ccc05e8427b9ec8fcfc93c83780
+
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
@@ -122,7 +120,7 @@ export default class Home extends Component {
                 </Carousel.Item>
               </Carousel>
             </div>
-<<<<<<< HEAD
+
 
 
 
@@ -135,72 +133,46 @@ export default class Home extends Component {
                   src={banner}
                 /> */}
           
-          <div className="row">
-        <div className="col-md-4">
-          <div className="maincard p-1">
-            <div className="thecard">
-              <div className="thefront text-center"> <img alt="hinh1" src="https://timhangcongnghe.com/uploads/erp/products/product_image/image_url/100238/MSI_Prestige_14_A10RB-028VN_02.jpg" width={70} />
-                <p className="mt-2"><strong>Sale off 5%</strong></p> 
+           <div className="row">
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh1" src="https://timhangcongnghe.com/uploads/erp/products/product_image/image_url/100238/MSI_Prestige_14_A10RB-028VN_02.jpg" width={70} />
+                      <p className="mt-2"><strong>Sale off 5%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 5% CHO LAPTOP: <strong>laptoplavender</strong></p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="theback">
-                  <p>MÃ GIẢM GIÁ 5% CHO LAPTOP: <strong>laptoplavender</strong></p>
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh2" src="https://cdn.fptshop.com.vn/Uploads/Originals/2020/10/26/637393169370871358_ip-11-dd.png" width={45} />
+                      <p className="mt-2 "><strong>Sale off 10%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 10% CHO ĐIỆN THOẠI: <strong>dienthoailavender</strong></p>
+                    </div>
+                  </div>
+                </div>
               </div>
-=======
-            <div className="">
-              <img
-                className="cpslazy loaded border rounded item-banner-right"
-                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                data-ll-status="loaded"
-                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-              />
-
-              <img
-                className="cpslazy loaded border rounded item-banner-right"
-                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                data-ll-status="loaded"
-                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/mn-Right_Banner_Desktop_2_.png"
-              />
-
-              <img
-                className="cpslazy loaded border rounded item-banner-right"
-                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                data-ll-status="loaded"
-                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-              />
->>>>>>> 3f353365a8aa5ccc05e8427b9ec8fcfc93c83780
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="maincard p-1">
-            <div className="thecard">
-              <div className="thefront text-center"> <img alt="hinh2" src="https://cdn.fptshop.com.vn/Uploads/Originals/2020/10/26/637393169370871358_ip-11-dd.png" width={45} />
-                <p className="mt-2 "><strong>Sale off 10%</strong></p> 
-              </div>
-              <div className="theback">
-                  <p>MÃ GIẢM GIÁ 10% CHO ĐIỆN THOẠI: <strong>dienthoailavender</strong></p>
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh3" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/watch-202109-watch-se_GEO_AE_FMT_WHH?wid=520&hei=482&fmt=jpeg&qlt=80&.v=1633230442000" width={50} />
+                      <p className="mt-2 mb-0"><strong>Sale off 15%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 15% CHO PHỤ KIỆN: <strong>phukienlavender</strong></p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-4">
-          <div className="maincard p-1">
-            <div className="thecard">
-              <div className="thefront text-center"> <img alt="hinh3" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/watch-202109-watch-se_GEO_AE_FMT_WHH?wid=520&hei=482&fmt=jpeg&qlt=80&.v=1633230442000" width={50} />
-                <p className="mt-2 mb-0"><strong>Sale off 15%</strong></p> 
-              </div>
-              <div className="theback">
-                  <p>MÃ GIẢM GIÁ 15% CHO PHỤ KIỆN: <strong>phukienlavender</strong></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-            </div>
-          </div>
 
 
 
