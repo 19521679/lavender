@@ -7,6 +7,7 @@ function ForgotPassword() {
         let url = "https://localhost:5001/forgotpassword/" + email.toString();
         console.log(email);
         axios.get(url);
+        window.location.href="https://mail.google.com/mail/u/?authuser="+email.toString();
     }
     return (
         <div className="row d-flex justify-content-center">
@@ -20,7 +21,7 @@ function ForgotPassword() {
                             className="form-control border mb-3" placeholder="Nhập Email hoặc tên đăng nhập" />
                         <small id="emailHelp" className="form-text text-muted"></small>
                     </div>
-                    <Link to={`https://mail.google.com/mail/u/?authuser=${email}`} className="btn btn-success">Lấy mật khẩu</Link>
+                    <button type="button" onClick={saveUser} className="btn btn-primary">Lấy Mật Khẩu</button>
                 </form>
             </div>
         </div>
