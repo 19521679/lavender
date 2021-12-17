@@ -22,15 +22,15 @@ class ThayDoiEmail extends Component {
       });
   }
   luuThayDoi() {
-    var token = cookie.get('token');
-    var refreshtoken = cookie.get('refreshtoken');
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     khachhangApi
-      .thayDoiEmail({
-        makhachhang: this.props.makhachhang,
-        email: this.state.email,
+      .thayDoiEmail(
+        this.props.makhachhang,
+        this.state.email,
         token,
         refreshtoken
-      })
+      )
       .then((success) => {
         if (success.status === 200) {
           myToast.toastSucces("Thay đổi email thành công");

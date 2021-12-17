@@ -25,11 +25,11 @@ class ThayDoiSDT extends Component {
     var token = cookie.get('token');
     var refreshtoken = cookie.get('refreshtoken');
     khachhangApi
-      .thayDoiSDT({
-        makhachhang: this.props.makhachhang,
-        sdt: this.state.sdt,
+      .thayDoiSDT(
+        this.props.makhachhang,
+        this.state.sdt,
         token, refreshtoken
-      })
+      )
       .then((success) => {
         if (success.status === 200) {
           myToast.toastSucces("Thay đổi số điện thoại thành công");

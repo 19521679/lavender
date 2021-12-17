@@ -71,10 +71,10 @@ export const findCustomerByCustomerId = async (makhachhang) => {
   );
 };
 
-export const thayDoiSDT = async (request, token, refreshtoken) => {
+export const thayDoiSDT = async (makhachhang, sdt, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .put(`${API_ENDPOINT}/khachhang/thaydoi/sdt`, request, {
+    .put(`${API_ENDPOINT}/khachhang/thaydoi/sdt`, {makhachhang, sdt}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .catch((error) => {
@@ -86,17 +86,17 @@ export const thayDoiSDT = async (request, token, refreshtoken) => {
   if (newtoken !== undefined) {
     return await axiosServices.put(
       `${API_ENDPOINT}/khachhang/thaydoi/sdt`,
-      request,
+      {makhachhang, sdt},
       { headers: { Authorization: `Bearer ${newtoken}` } }
     );
   }
   return connect;
 };
 
-export const thayDoiEmail = async (request, token, refreshtoken) => {
+export const thayDoiEmail = async (makhachhang, email, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .put(`${API_ENDPOINT}/khachhang/thaydoi/email`, request, {
+    .put(`${API_ENDPOINT}/khachhang/thaydoi/email`, {makhachhang, email}, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .catch((error) => {
@@ -109,7 +109,7 @@ export const thayDoiEmail = async (request, token, refreshtoken) => {
   if (newtoken !== undefined) {
     return await axiosServices.put(
       `${API_ENDPOINT}/khachhang/thaydoi/email`,
-      request,
+      {makhachhang, email},
       { headers: { Authorization: `Bearer ${newtoken}` } }
     );
   }
