@@ -30,8 +30,6 @@ export const postLoginReport = (req) => {
       .then((success) => {
         if (success.status === 200) {
           dispatch(postLoginSuccess(success.data));
-          // const token = success.data;
-          // const user = jwt(token); // decode your token here
         } else dispatch(postLoginFailed(success));
       })
       .catch((error) => {

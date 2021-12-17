@@ -237,3 +237,9 @@ section.cps-section
 .item-banner-right{
   width: 33%;
 }
+.promotion4{
+  margin-top: 20px;
+}
+.promotion4 img{
+  border-radius: 10px;
+}

@@ -79,13 +79,7 @@ var showMenu = (temps) => {
 
 class Header extends Component {
   componentDidMount() {
-    const refreshtoken = cookie.get("refreshtoken");
-    if (refreshtoken===undefined) {return;}
-    const { loginActionCreators } = this.props;
-    const { postRefreshReport } = loginActionCreators;
-    if (refreshtoken !== undefined) {
-      postRefreshReport(refreshtoken);
-    }
+
   }
   render() {
     return (

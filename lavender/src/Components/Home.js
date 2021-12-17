@@ -7,6 +7,7 @@ import * as laptopApi from "./apis/laptop";
 import { Link } from "react-router-dom";
 import LoadingContainer from "../Common/helper/loading/LoadingContainer";
 import Hotsale from "./Hotsale";
+import promotion from "../Asset/logo/promotion.png";
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
@@ -32,21 +33,27 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
-     mobileApi
+    mobileApi
       .mobile()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listmobile: success.data.value.$values, loading: false });
+          this.setState({
+            listmobile: success.data.value.$values,
+            loading: false,
+          });
         }
       })
       .catch((error) => {
         console.log(error);
       });
-      laptopApi
+    laptopApi
       .laptop()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listlaptop: success.data.value.$values, loading: false });
+          this.setState({
+            listlaptop: success.data.value.$values,
+            loading: false,
+          });
         }
       })
       .catch((error) => {
@@ -112,31 +119,29 @@ export default class Home extends Component {
               </Carousel>
             </div>
             <div className="">
+              <img
+                className="cpslazy loaded border rounded item-banner-right"
+                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
+                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
+                data-ll-status="loaded"
+                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
+              />
 
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                  data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                />
-  
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                  data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/mn-Right_Banner_Desktop_2_.png"
-                />
-       
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                  data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                />
-            
+              <img
+                className="cpslazy loaded border rounded item-banner-right"
+                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
+                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
+                data-ll-status="loaded"
+                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/mn-Right_Banner_Desktop_2_.png"
+              />
+
+              <img
+                className="cpslazy loaded border rounded item-banner-right"
+                data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
+                alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
+                data-ll-status="loaded"
+                src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
+              />
             </div>
           </div>
 
@@ -168,7 +173,13 @@ export default class Home extends Component {
           </div>
         </div>
 
-        <div className="row mt-5 promotion2">
+        {/* voucher */}
+
+        <Link to="/promotion" className="row promotion4 ">
+          <img alt="promotion " src={promotion}></img>
+        </Link>
+
+        <div className="row mt-2 promotion2">
           <Hotsale className=""></Hotsale>
         </div>
         {/* Điện thoại nổi bật */}
@@ -180,22 +191,37 @@ export default class Home extends Component {
             </Link>
             <div className="box-related-tag">
               <div className="list-related-tag">
-                <Link to="/mobile?hang=apple" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=apple"
+                  className="btn btn-default btn-sm"
+                >
                   Apple
                 </Link>
-                <Link to="/mobile?hang=samsung" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=samsung"
+                  className="btn btn-default btn-sm"
+                >
                   Samsung
                 </Link>
-                <Link to="/mobile?hang=xiaomi" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=xiaomi"
+                  className="btn btn-default btn-sm"
+                >
                   Xiaomi
                 </Link>
                 <Link to="/mobile?hang=oppo" className="btn btn-default btn-sm">
                   OPPO
                 </Link>
-                <Link to="/mobile?hang=realme" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=realme"
+                  className="btn btn-default btn-sm"
+                >
                   Realme
                 </Link>
-                <Link to="/mobile?hang=nokia" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=nokia"
+                  className="btn btn-default btn-sm"
+                >
                   Nokia
                 </Link>
                 <Link to="/mobile?hang=vivo" className="btn btn-default btn-sm">
@@ -234,7 +260,10 @@ export default class Home extends Component {
                 <Link to="/laptop?hang=hp" className="btn btn-default btn-sm">
                   HP
                 </Link>
-                <Link to="/laptop?hang=surface" className="btn btn-default btn-sm">
+                <Link
+                  to="/laptop?hang=surface"
+                  className="btn btn-default btn-sm"
+                >
                   Surface
                 </Link>
                 <Link to="/laptop?hang=msi" className="btn btn-default btn-sm">

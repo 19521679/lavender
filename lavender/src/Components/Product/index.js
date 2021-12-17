@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as cartAct from "../redux/actions/cartAct";
 import PropTypes from "prop-types";
 import * as favoriteApi from "../apis/favorite";
-// import { indexOf } from "lodash";
+import Article from "./Article";
 import { withRouter } from "react-router-dom";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import Evaluete from "../Evaluete";
@@ -35,7 +35,7 @@ class index extends Component {
   renderTab(n) {
     switch (n) {
       case 0:
-        return <h6 className="">Mô tả</h6>;
+        return <h6 className="">Bài viết</h6>;
       case 1:
         return <h6 className="">Thông số kỹ thuật</h6>;
       case 2:
@@ -49,7 +49,7 @@ class index extends Component {
   };
   renderItem(n) {
     switch (n) {
-      case 0:
+      case 0: <Article product={this.state.product}></Article>
         return;
       case 1:
         return <Specifications product={this.state.product}></Specifications>;

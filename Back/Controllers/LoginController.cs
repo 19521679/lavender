@@ -51,7 +51,8 @@ namespace Back.Controllers
             var matkhau = await (from tkkh in lavenderContext.Taikhoankhachhang
                             where tkkh.Makhachhang.Equals(makkhachhang)
                                              select tkkh.Password).FirstOrDefaultAsync();
-            string htmlemail = $"mật khẩu của bạn :"+matkhau;
+            string htmlemail = $"mật khẩu của bạn là : "+matkhau+$" hãy <a href = 'http://localhost:3000/login'>" +
+                "bấm vào đây</a> để đăng nhập lại ";
             await sendMailService.SendEmailAsync(email, "lấy lại mật khẩu Lavender", htmlemail);
             return StatusCode(200);
         }
@@ -226,7 +227,7 @@ namespace Back.Controllers
             {
                 if (payload.IsNullOrEmpty()) return StatusCode(401);
                 var taikhoan = await (from x in lavenderContext.Taikhoannhanvien
-                                      where x.Manhanvien.Equals(payload["unique_name"])
+                                      where x.Manhanvien==int.Parse((payload["unique_name"]))
                                       select x).FirstOrDefaultAsync();
                 if (taikhoan == null) return StatusCode(401);
 
