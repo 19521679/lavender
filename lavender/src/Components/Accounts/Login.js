@@ -6,7 +6,6 @@ import { Link, Redirect } from "react-router-dom";
 import * as myToast from "../../Common/helper/toastHelper";
 import { useGoogleLogin } from "react-google-login";
 import * as myConst from "../../Common/constants/index";
-import { withRouter } from "react-router";
 import Cookies from "universal-cookie";
 
 const cookie = new Cookies();
@@ -58,7 +57,6 @@ function Login(props) {
     clientId,
     isSignedIn: true,
     accessType: "offline",
-
   });
   return (
     <section>
@@ -143,8 +141,7 @@ function Login(props) {
                 <p className="text-center fw-bold mx-3 mb-0 text-muted"></p>
               </div>
 
-              {
-                <div className="group-expand-login">
+              { !lanhanvien&& (  <div className="group-expand-login">
                   <Link
                     className="btn btn-primary btn-lg btn-block"
                     to="/register"
@@ -171,7 +168,8 @@ function Login(props) {
                     <i className="fab fa-google me-2" />
                     đăng nhập bằng google
                   </button>
-                </div>
+                </div>)
+              
               }
             </div>
           </div>

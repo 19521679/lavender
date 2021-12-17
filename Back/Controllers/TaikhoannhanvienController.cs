@@ -74,7 +74,6 @@ namespace Back.Controllers
             Taikhoannhanvien s = await (from n in lavenderContext.Taikhoannhanvien
                                         where n.Manhanvien == manhanvien
                                          select n).FirstAsync();
-            s.Manhanvien = manhanvien;
             s.Username = username;
             s.Password = password;
 

@@ -11,11 +11,11 @@ class index extends Component {
   renderTab(n) {
     switch (n) {
       case 0:
-        return <i className="material-icons">Đang xử lý</i>;
+        return <i className="">Đang xử lý</i>;
       case 1:
-        return <i className="material-icons">Đang giao</i>;
+        return <i className="">Đang giao</i>;
       case 2:
-        return <i className="material-icons">Đã giao</i>;
+        return <i className="">Đã giao</i>;
       default:
         return;
     }

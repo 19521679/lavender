@@ -7,6 +7,9 @@ import * as laptopApi from "./apis/laptop";
 import { Link } from "react-router-dom";
 import LoadingContainer from "../Common/helper/loading/LoadingContainer";
 import Hotsale from "./Hotsale";
+import banner from "../Asset/logo/banner.png";
+import promotion from "../Asset/logo/promotion.png";
+
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
@@ -32,21 +35,27 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
-     mobileApi
+    mobileApi
       .mobile()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listmobile: success.data.value.$values, loading: false });
+          this.setState({
+            listmobile: success.data.value.$values,
+            loading: false,
+          });
         }
       })
       .catch((error) => {
         console.log(error);
       });
-      laptopApi
+    laptopApi
       .laptop()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listlaptop: success.data.value.$values, loading: false });
+          this.setState({
+            listlaptop: success.data.value.$values,
+            loading: false,
+          });
         }
       })
       .catch((error) => {
@@ -58,7 +67,7 @@ export default class Home extends Component {
       <section className="container section-home">
         <LoadingContainer loading={this.state.loading}></LoadingContainer>
         <div className="row promotion1 ">
-          <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 carousel-title">
+          <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 carousel-title ">
             <div className="">
               <Carousel variant="light" interval={3000}>
                 <Carousel.Item>
@@ -111,36 +120,66 @@ export default class Home extends Component {
                 </Carousel.Item>
               </Carousel>
             </div>
-            <div className="">
 
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
+
+
+
+            <div className="container">
+                {/* <img
+                  className="cpslazy loaded border rounded"
+                  //data-src="http://localhost:3000/details/img/myImage.png "
+                  alt="Sale for Chrismas"
                   data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                />
-  
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                  data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/mn-Right_Banner_Desktop_2_.png"
-                />
-       
-                <img
-                  className="cpslazy loaded border rounded item-banner-right"
-                  data-src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                  alt="GALAXY A52S 5G <BR> Ưu đãi cực lớn"
-                  data-ll-status="loaded"
-                  src="https://cdn.cellphones.com.vn/media/ltsoft/promotion/A52S-RightBanner_Desktop_4_.png"
-                />
-            
+                  src={banner}
+                /> */}
+          
+           <div className="row">
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh1" src="https://timhangcongnghe.com/uploads/erp/products/product_image/image_url/100238/MSI_Prestige_14_A10RB-028VN_02.jpg" width={70} />
+                      <p className="mt-2"><strong>Sale off 5%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 5% CHO LAPTOP: <strong>laptoplavender</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh2" src="https://cdn.fptshop.com.vn/Uploads/Originals/2020/10/26/637393169370871358_ip-11-dd.png" width={45} />
+                      <p className="mt-2 "><strong>Sale off 10%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 10% CHO ĐIỆN THOẠI: <strong>dienthoailavender</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="maincard p-1">
+                  <div className="thecard">
+                    <div className="thefront text-center"> <img alt="hinh3" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/watch-202109-watch-se_GEO_AE_FMT_WHH?wid=520&hei=482&fmt=jpeg&qlt=80&.v=1633230442000" width={50} />
+                      <p className="mt-2 mb-0"><strong>Sale off 15%</strong></p> 
+                    </div>
+                    <div className="theback">
+                        <p>MÃ GIẢM GIÁ 15% CHO PHỤ KIỆN: <strong>phukienlavender</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+
+
+
+
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 p-2">
             <div className="promotion-row promotion2">
               <img
                 className="d-block promotion-img box-shadow"
@@ -168,7 +207,13 @@ export default class Home extends Component {
           </div>
         </div>
 
-        <div className="row mt-5 promotion2">
+        {/* voucher */}
+
+        <Link to="/promotion" className="row promotion4 ">
+          <img alt="promotion " src={promotion}></img>
+        </Link>
+
+        <div className="row mt-2 promotion2">
           <Hotsale className=""></Hotsale>
         </div>
         {/* Điện thoại nổi bật */}
@@ -180,22 +225,37 @@ export default class Home extends Component {
             </Link>
             <div className="box-related-tag">
               <div className="list-related-tag">
-                <Link to="/mobile?hang=apple" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=apple"
+                  className="btn btn-default btn-sm"
+                >
                   Apple
                 </Link>
-                <Link to="/mobile?hang=samsung" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=samsung"
+                  className="btn btn-default btn-sm"
+                >
                   Samsung
                 </Link>
-                <Link to="/mobile?hang=xiaomi" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=xiaomi"
+                  className="btn btn-default btn-sm"
+                >
                   Xiaomi
                 </Link>
                 <Link to="/mobile?hang=oppo" className="btn btn-default btn-sm">
                   OPPO
                 </Link>
-                <Link to="/mobile?hang=realme" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=realme"
+                  className="btn btn-default btn-sm"
+                >
                   Realme
                 </Link>
-                <Link to="/mobile?hang=nokia" className="btn btn-default btn-sm">
+                <Link
+                  to="/mobile?hang=nokia"
+                  className="btn btn-default btn-sm"
+                >
                   Nokia
                 </Link>
                 <Link to="/mobile?hang=vivo" className="btn btn-default btn-sm">
@@ -234,7 +294,10 @@ export default class Home extends Component {
                 <Link to="/laptop?hang=hp" className="btn btn-default btn-sm">
                   HP
                 </Link>
-                <Link to="/laptop?hang=surface" className="btn btn-default btn-sm">
+                <Link
+                  to="/laptop?hang=surface"
+                  className="btn btn-default btn-sm"
+                >
                   Surface
                 </Link>
                 <Link to="/laptop?hang=msi" className="btn btn-default btn-sm">
