@@ -48,7 +48,12 @@ export const detailMyVoucher = async (makhachhang, token, refreshtoken) => {
   return connect;
 };
 
-export const deleteMyVoucher = async (makhachhang, makhuyenmai, token, refreshtoken) => {
+export const deleteMyVoucher = async (
+  makhachhang,
+  makhuyenmai,
+  token,
+  refreshtoken
+) => {
   var newtoken = undefined;
   var connect = await axiosServices
     .delete(
@@ -91,6 +96,39 @@ export const deleteAllMyVoucher = async (makhachhang, token, refreshtoken) => {
   if (newtoken !== undefined) {
     return await axiosServices.delete(
       `${API_ENDPOINT}/xoa-tatca-khuyenmaicuatoi?makhachhang=${makhachhang}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+  return connect;
+};
+
+export const luuVoucher = async (
+  makhachhang,
+  makhuyenmai,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .post(
+      `${API_ENDPOINT}/luu-khuyenmai`,
+      { makhachhang, makhuyenmai },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.post(
+      `${API_ENDPOINT}/luu-khuyenmai`,
+      { makhachhang, makhuyenmai },
       {
         headers: { Authorization: `Bearer ${token}` },
       }

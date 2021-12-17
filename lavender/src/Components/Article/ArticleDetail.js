@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import "./style.css"
 
 function ArticleDetail() {
     const mabaiviet = useParams().mabaiviet;
@@ -19,13 +20,13 @@ function ArticleDetail() {
     }, [])
 
     return (
-        <>
+        <div className="container px-10 pt-7 bg-white text-black  article-detail">
             {
                 posts.map(post => (
                     <div dangerouslySetInnerHTML={{ __html: post.noidung }} />
                 ))
             }
-        </>
+        </div>
     );
 }
 

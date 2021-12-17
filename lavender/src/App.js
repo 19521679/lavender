@@ -10,6 +10,7 @@ import configureStore from "./Components/redux/configureStore";
 import LeftMenu from "./Components/Admin/LeftMenu";
 import "./Components/Admin/scss/material-dashboard/style.scss";
 import CookieConsent from "react-cookie-consent";
+import InitData from "./InitData";
 
 const store = configureStore();
 function App(props) {
@@ -34,11 +35,12 @@ function App(props) {
   };
 
   useEffect(() => {
-    //  googleSDK();
+
   });
   return (
     <Provider store={store}>
       <ToastContainer />
+      <InitData></InitData>
       <div>
         {props.location.pathname.includes("/admin") ? (
           <LeftMenu>Home</LeftMenu>
