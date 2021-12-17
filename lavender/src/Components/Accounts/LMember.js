@@ -86,7 +86,7 @@ function Lmember(props) {
                           alt=""
                         />
                         <div className="info">
-                          Tài khoản của<strong>Khánh Duy Lê</strong>
+                         <strong> Tài khoản của tôi </strong>
                         </div>
                       </div>
                       <ul className="Account__StyledNav-sc-1d5h8iz-4 fAkTRM">
