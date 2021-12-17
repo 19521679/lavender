@@ -41,6 +41,20 @@ namespace Back.Controllers
             this.sendMailService = sendMailService; 
         }
 
+        [Route("/forgotpassword/{email}")]
+        [HttpGet]
+        public async Task<IActionResult> forgotpassword(string email)
+        {
+            var makkhachhang = await (from kh in lavenderContext.Khachhang
+                                             where kh.Email.Equals(email)
+                                             select kh.Makhachhang).FirstOrDefaultAsync();
+            var matkhau = await (from tkkh in lavenderContext.Taikhoankhachhang
+                            where tkkh.Makhachhang.Equals(makkhachhang)
+                                             select tkkh.Password).FirstOrDefaultAsync();
+            string htmlemail = $"mật khẩu của bạn :"+matkhau;
+            await sendMailService.SendEmailAsync(email, "lấy lại mật khẩu Lavender", htmlemail);
+            return StatusCode(200);
+        }
         [Route("/login")]
         [HttpPost]
         public async Task<IActionResult> LoginKhachhangAsync(LoginForm loginForm)

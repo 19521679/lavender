@@ -22,7 +22,7 @@ import TrademarkDashboard from "../../Components/Admin/TrademarkDashboard"
 import MyAccountDashboard from "../../Components/Admin/MyAccountDashboard"
 import Article from "../../Components/Article/index"
 import ArticleDetail from "../../Components/Article/ArticleDetail"
-
+import ForgotPassword from "../../Components/Accounts/ForgotPassword.js"
 
 import LMember from "../../Components/Accounts/LMember.js";
 
@@ -161,6 +161,11 @@ const routes = [
     path: "/lmember",
     exact: true,
     main: () => <LMember></LMember>
+  },
+  {
+    path: "/forgotpassword",
+    exact: true,
+    main: () => <ForgotPassword></ForgotPassword>
   },
   {
     path: "/",
