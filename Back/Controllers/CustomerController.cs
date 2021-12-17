@@ -61,7 +61,7 @@ namespace Back.Controllers
 
         [Route("/khachhang/thaydoi")]
         [Authorize]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> ThayDoiThongTin(JsonElement json)
         {
             Khachhang khachhang = await lavenderContext.Khachhang.SingleOrDefaultAsync(x => x.Makhachhang == int.Parse(json.GetString("makhachhang")));

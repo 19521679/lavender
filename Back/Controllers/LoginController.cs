@@ -212,7 +212,7 @@ namespace Back.Controllers
             {
                 if (payload.IsNullOrEmpty()) return StatusCode(401);
                 var taikhoan = await (from x in lavenderContext.Taikhoannhanvien
-                                      where x.Manhanvien.Equals(payload["unique_name"])
+                                      where x.Manhanvien==int.Parse((payload["unique_name"]))
                                       select x).FirstOrDefaultAsync();
                 if (taikhoan == null) return StatusCode(401);
 

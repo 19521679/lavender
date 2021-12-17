@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Back.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +57,7 @@ namespace Back.Controllers
                 var khuyenmai = await lavenderContext.Khuyenmai.SingleAsync(x => x.Makhuyenmai == i.Makhuyenmai);
                 if (khuyenmai != null) listkhuyenmai.Add(khuyenmai);
             }
-            
+
             return StatusCode(200, Json(listkhuyenmai));
         }
 
@@ -67,7 +69,28 @@ namespace Back.Controllers
         {
             var khuyenmaicuatoi = await lavenderContext.Khuyenmaicuatoi.SingleOrDefaultAsync(x => x.Makhachhang == makhachhang && x.Makhuyenmai == makhuyenmai);
             if (khuyenmaicuatoi == null) return StatusCode(404);
-             lavenderContext.Remove(khuyenmaicuatoi);
+            lavenderContext.Remove(khuyenmaicuatoi);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200);
+        }
+
+        [Route("/luu-khuyenmai")]
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> LuuKhuyenmai(JsonElement json)
+        {
+            var temp = await (from x in lavenderContext.Khuyenmaicuatoi
+                              where x.Makhachhang == int.Parse(json.GetString("makhachhang"))
+                              && x.Makhuyenmai == int.Parse(json.GetString("makhuyenmai"))
+                              select x
+                              ).FirstOrDefaultAsync();
+
+            if (temp != null) return StatusCode(200);
+            var khuyenmaicuatoi = new Khuyenmaicuatoi();
+            khuyenmaicuatoi.Makhachhang = int.Parse(json.GetString("makhachhang"));
+            khuyenmaicuatoi.Makhuyenmai = int.Parse(json.GetString("makhuyenmai"));
+            khuyenmaicuatoi.Ngaythem = DateTime.UtcNow.ToLocalTime();
+            await lavenderContext.AddAsync(khuyenmaicuatoi);
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200);
         }

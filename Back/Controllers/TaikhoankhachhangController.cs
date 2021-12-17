@@ -21,7 +21,7 @@ namespace Back.Controllers
 
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
     [ApiController]
-    [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+   
     public class TaikhoankhachhangController : Controller
     {
         private readonly ILogger<TaikhoankhachhangController> _logger;
@@ -37,6 +37,7 @@ namespace Back.Controllers
         }
 
         [Route("/tatca-taikhoankhachhang")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> AllAccount()
         {
@@ -47,6 +48,7 @@ namespace Back.Controllers
         }
 
         [Route("/them-taikhoankhachhang")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddAccount([FromForm] int makhachhang, [FromForm] string username,
             [FromForm] string password)
@@ -67,6 +69,7 @@ namespace Back.Controllers
         }
 
         [Route("/sua-taikhoankhachhang")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditAccount([FromForm] int makhachhang,
             [FromForm] string username, [FromForm] string password)
@@ -84,6 +87,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-taikhoankhachhang")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteAccount(int makhachhang)
         {

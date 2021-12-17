@@ -22,7 +22,7 @@ import TrademarkDashboard from "../../Components/Admin/TrademarkDashboard"
 import MyAccountDashboard from "../../Components/Admin/MyAccountDashboard"
 import Article from "../../Components/Article/index"
 import ArticleDetail from "../../Components/Article/ArticleDetail"
-
+import Promotion from "../../Components/Promotion";
 
 import LMember from "../../Components/Accounts/LMember.js";
 
@@ -47,16 +47,6 @@ const routes = [
     exact: true,
     main: () => <ArticleDetail></ArticleDetail >
   },
-  // {
-  //   path: "/mobile/:trademark",
-  //   exact: false,
-  //   main: ({match}) => <Mobile match={match} ></Mobile>,
-  // },
-  // {
-  //   path: "/laptop/:trademark",
-  //   exact: false,
-  //   main: ({match}) => <Laptop match={match} ></Laptop>,
-  // },
   {
     path: "/mobile",
     exact: false,
@@ -71,6 +61,11 @@ const routes = [
     path: "/cart",
     exact: false,
     main: () => <Cart></Cart>,
+  },
+  {
+    path: "/promotion",
+    exact: false,
+    main: () => <Promotion></Promotion>,
   },
   {
     path: "/guarantee",
