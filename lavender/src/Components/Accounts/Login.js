@@ -58,6 +58,7 @@ function Login(props) {
     clientId,
     isSignedIn: true,
     accessType: "offline",
+
   });
   return (
     <section>
@@ -180,4 +181,4 @@ function Login(props) {
   );
 }
 
-export default withRouter(Login);
+export default (Login);

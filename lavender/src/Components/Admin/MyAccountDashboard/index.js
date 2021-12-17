@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, {  } from "react";
 import "./style.css";
 import Cookies from "universal-cookie/es6";
 import * as loginAct from "../../redux/actions/loginAct";

@@ -2,6 +2,8 @@
   "name": "react-auth-with-google",
   "version": "0.1.0",
   "private": true,
+  "dev": "react-scripts start",
+  "clear-build-cache": "rm -rf .cache/ dist/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",

@@ -1,9 +1,9 @@
-import React, {  } from "react";
+import React from "react";
 import "./LMember.css";
 import routes from "./routes";
 import { Redirect } from "react-router-dom";
 import { Route, Switch, BrowserRouter, Link } from "react-router-dom";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie/es6";
 import { withRouter } from "react-router-dom";
 import * as loginAct from "../redux/actions/loginAct";
@@ -13,7 +13,7 @@ import * as myConst from "../../Common/constants/index";
 const cookie = new Cookies();
 
 function Lmember(props) {
-  const makhachhang = useSelector(state => state.login.makhachhang)
+  const makhachhang = useSelector((state) => state.login.makhachhang);
   const dispatch = useDispatch();
   const clientId = myConst.CLIENT_ID;
   const logout = async () => {
@@ -29,6 +29,11 @@ function Lmember(props) {
   };
   const onLogoutSuccess = () => {
     console.log("logout google");
+
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    if (auth2 != null) {
+      auth2.signOut().then(auth2.disconnect().then());
+    }
   };
   const onFailure = () => {
     console.log("google logout failure");
@@ -37,6 +42,8 @@ function Lmember(props) {
     clientId,
     onLogoutSuccess,
     onFailure,
+    isSignedIn:false,
+    disabled	:false
   });
   const showContentMenus = (routes) => {
     var result = null;

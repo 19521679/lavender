@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Switch, Route, withRouter, Link } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import React , {useState, useEffect}from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import configureStore from "./Components/redux/configureStore";
 import LeftMenu from "./Components/Admin/LeftMenu";
@@ -13,7 +13,6 @@ import CookieConsent from "react-cookie-consent";
 
 const store = configureStore();
 function App(props) {
-
   const showContentMenus = (routes) => {
     var result = null;
     if (routes.length) {
@@ -34,9 +33,9 @@ function App(props) {
     return <Switch>{result}</Switch>;
   };
 
-  useEffect(()=>{
-  //  googleSDK();
-  })
+  useEffect(() => {
+    //  googleSDK();
+  });
   return (
     <Provider store={store}>
       <ToastContainer />
