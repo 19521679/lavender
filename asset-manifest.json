@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/lavender/static/css/main.44d9946e.chunk.css",
-    "main.js": "/lavender/static/js/main.c8217e6a.chunk.js",
-    "main.js.map": "/lavender/static/js/main.c8217e6a.chunk.js.map",
-    "runtime-main.js": "/lavender/static/js/runtime-main.cd0e2a55.js",
-    "runtime-main.js.map": "/lavender/static/js/runtime-main.cd0e2a55.js.map",
+    "main.css": "/lavender/static/css/main.eb1a4d11.chunk.css",
+    "main.js": "/lavender/static/js/main.e4870930.chunk.js",
+    "main.js.map": "/lavender/static/js/main.e4870930.chunk.js.map",
+    "runtime-main.js": "/lavender/static/js/runtime-main.647ff581.js",
+    "runtime-main.js.map": "/lavender/static/js/runtime-main.647ff581.js.map",
     "static/css/2.4a6c210c.chunk.css": "/lavender/static/css/2.4a6c210c.chunk.css",
-    "static/js/2.c57640e3.chunk.js": "/lavender/static/js/2.c57640e3.chunk.js",
-    "static/js/2.c57640e3.chunk.js.map": "/lavender/static/js/2.c57640e3.chunk.js.map",
-    "static/js/3.a0e597cf.chunk.js": "/lavender/static/js/3.a0e597cf.chunk.js",
-    "static/js/3.a0e597cf.chunk.js.map": "/lavender/static/js/3.a0e597cf.chunk.js.map",
+    "static/js/2.f5bbd847.chunk.js": "/lavender/static/js/2.f5bbd847.chunk.js",
+    "static/js/2.f5bbd847.chunk.js.map": "/lavender/static/js/2.f5bbd847.chunk.js.map",
+    "static/js/3.e4e652e5.chunk.js": "/lavender/static/js/3.e4e652e5.chunk.js",
+    "static/js/3.e4e652e5.chunk.js.map": "/lavender/static/js/3.e4e652e5.chunk.js.map",
     "index.html": "/lavender/index.html",
     "static/css/2.4a6c210c.chunk.css.map": "/lavender/static/css/2.4a6c210c.chunk.css.map",
-    "static/css/main.44d9946e.chunk.css.map": "/lavender/static/css/main.44d9946e.chunk.css.map",
-    "static/js/2.c57640e3.chunk.js.LICENSE.txt": "/lavender/static/js/2.c57640e3.chunk.js.LICENSE.txt",
+    "static/css/main.eb1a4d11.chunk.css.map": "/lavender/static/css/main.eb1a4d11.chunk.css.map",
+    "static/js/2.f5bbd847.chunk.js.LICENSE.txt": "/lavender/static/js/2.f5bbd847.chunk.js.LICENSE.txt",
     "static/media/acer.svg": "/lavender/static/media/acer.f6dd3141.svg",
     "static/media/apple.svg": "/lavender/static/media/apple.b3ae8330.svg",
     "static/media/asus.svg": "/lavender/static/media/asus.a4f91cf1.svg",
@@ -40,10 +40,10 @@
     "static/media/xiaomi.svg": "/lavender/static/media/xiaomi.1c193ce9.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.cd0e2a55.js",
+    "static/js/runtime-main.647ff581.js",
     "static/css/2.4a6c210c.chunk.css",
-    "static/js/2.c57640e3.chunk.js",
-    "static/css/main.44d9946e.chunk.css",
-    "static/js/main.c8217e6a.chunk.js"
+    "static/js/2.f5bbd847.chunk.js",
+    "static/css/main.eb1a4d11.chunk.css",
+    "static/js/main.e4870930.chunk.js"
   ]
 }
