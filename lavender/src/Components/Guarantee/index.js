@@ -431,7 +431,7 @@ export default function Index(props) {
                                 </div>
                                 <div className="d-flex justify-content-between total font-weight-bold mt-4">
                                   <span>Ngày bảo hành</span>
-                                  <span>$7,197.00</span>
+                                  <span>{(lichsubaohanh !== undefined && lichsubaohanh !== undefined) && chitietsanpham.giamoi}</span>
                                 </div>
 
                                 <ul class="list-group">
@@ -440,7 +440,7 @@ export default function Index(props) {
                                     lichsubaohanh.map((value, key) => {
                                       return (<Item item={value} key={key}></Item>)
                                     })
-                                  }
+                                  } 
                                 </ul>
                               </div>
                             </div>
