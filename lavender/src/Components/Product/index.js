@@ -41,8 +41,6 @@ class index extends Component {
         return <h6 className="">Thông số kỹ thuật</h6>;
       case 2:
         return <h6 className="">Đánh giá</h6>;
-      case 3:
-        return <h6 className="">Bình luận</h6>;
       default:
         return;
     }
@@ -63,9 +61,6 @@ class index extends Component {
             customer={this.props}
           ></Evaluete>
         );
-      case 3:
-        // return <Comment link={window.location.href}></Comment>;
-        return (<div class="fb-comments" data-href={window.location.href} data-width="100%" data-numposts="5"></div>);
       default:
         return;
     }
@@ -677,7 +672,10 @@ class index extends Component {
                   </div>
                 </div>
               </div>
-              {/* End Tabs with icons on Card */}
+              <div className="col-9">
+                <div class="fb-comments" data-href={window.location.href} data-width="100%" data-numposts="5"></div>
+                {/* End Tabs with icons on Card */}
+              </div>
             </div>
           </div>
         </div>
