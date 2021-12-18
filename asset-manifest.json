@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lavender/static/css/main.eb1a4d11.chunk.css",
-    "main.js": "/lavender/static/js/main.e4870930.chunk.js",
-    "main.js.map": "/lavender/static/js/main.e4870930.chunk.js.map",
+    "main.js": "/lavender/static/js/main.f7b4ef5a.chunk.js",
+    "main.js.map": "/lavender/static/js/main.f7b4ef5a.chunk.js.map",
     "runtime-main.js": "/lavender/static/js/runtime-main.647ff581.js",
     "runtime-main.js.map": "/lavender/static/js/runtime-main.647ff581.js.map",
     "static/css/2.4a6c210c.chunk.css": "/lavender/static/css/2.4a6c210c.chunk.css",
@@ -17,7 +17,6 @@
     "static/media/acer.svg": "/lavender/static/media/acer.f6dd3141.svg",
     "static/media/apple.svg": "/lavender/static/media/apple.b3ae8330.svg",
     "static/media/asus.svg": "/lavender/static/media/asus.a4f91cf1.svg",
-    "static/media/banner.0d44c39d.png": "/lavender/static/media/banner.0d44c39d.png",
     "static/media/dell.svg": "/lavender/static/media/dell.015ff07b.svg",
     "static/media/all.min.css": "/lavender/static/media/fa-solid-900.eeccf4f6.woff",
     "static/media/hp.svg": "/lavender/static/media/hp.40523095.svg",
@@ -44,6 +43,6 @@
     "static/css/2.4a6c210c.chunk.css",
     "static/js/2.f5bbd847.chunk.js",
     "static/css/main.eb1a4d11.chunk.css",
-    "static/js/main.e4870930.chunk.js"
+    "static/js/main.f7b4ef5a.chunk.js"
   ]
 }
