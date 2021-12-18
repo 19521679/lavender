@@ -64,7 +64,7 @@ export default class ProductItem extends Component {
                 );
             }.bind(this)()}
 
-            <Link to={"/lavender"+this.props.product.image} className="box-click">
+            <Link to={this.props.product.image} className="box-click">
               <div className="icon">
                 <img
                   alt="img"

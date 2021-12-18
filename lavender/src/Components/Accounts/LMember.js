@@ -61,10 +61,10 @@ function Lmember(props) {
   };
   return (
     <section>
-      {makhachhang === undefined && <Redirect to="/lavender/login"></Redirect>}
+      {makhachhang === undefined && <Redirect to="/login"></Redirect>}
       <BrowserRouter>
         {makhachhang !== undefined && (
-          <Redirect to="/lavender/lmember/thongtintaikhoan" />
+          <Redirect to="/lmember/thongtintaikhoan" />
         )}
         <div className="container">
           <div className="row">
@@ -86,7 +86,7 @@ function Lmember(props) {
                       </div>
                       <ul className="Account__StyledNav-sc-1d5h8iz-4 fAkTRM">
                         <li>
-                          <Link className="" to="/lavender/lmember/thongtintaikhoan">
+                          <Link className="" to="/lmember/thongtintaikhoan">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -102,7 +102,7 @@ function Lmember(props) {
                           </Link>
                         </li>
                         <li>
-                          <Link className to="/lavender/lmember/thongbaocuatoi">
+                          <Link className to="/lmember/thongbaocuatoi">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -119,7 +119,7 @@ function Lmember(props) {
                           </Link>
                         </li>
                         <li>
-                          <Link className to="/lavender/lmember/quanlydonhang">
+                          <Link className to="/lmember/quanlydonhang">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -136,7 +136,7 @@ function Lmember(props) {
                         </li>
 
                         <li>
-                          <Link className to="/lavender/lmember/sanphamyeuthich">
+                          <Link className to="/lmember/sanphamyeuthich">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"

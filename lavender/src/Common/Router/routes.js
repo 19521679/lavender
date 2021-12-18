@@ -29,137 +29,137 @@ import LMember from "../../Components/Accounts/LMember.js";
 
 const routes = [
   {
-    path: "/lavender/",
+    path: "/",
     exact: true,
     main: () => <Home></Home>,
   },
   {
-    path: "/lavender/:loai/:hang/:dong/:sanpham",
+    path: "/:loai/:hang/:dong/:sanpham",
     exact: true,
     main: ({ match }) => <Product match={match}></Product>,
   },
   {
-    path: "/lavender/article",
+    path: "/article",
     exact: true,
     main: () => <Article ></Article>,
   },
   {
-    path: "/lavender/articledetail/:mabaiviet",
+    path: "/articledetail/:mabaiviet",
     exact: true,
     main: () => <ArticleDetail></ArticleDetail >
   },
   {
-    path: "/lavender/mobile",
+    path: "/mobile",
     exact: false,
     main: ({match, location}) => <Mobile match={match} location={location}></Mobile>,
   },
   {
-    path: "/lavender/laptop",
+    path: "/laptop",
     exact: false,
     main: ({match, location}) => <Laptop match={match} location={location}></Laptop>,
   },
   {
-    path: "/lavender/cart",
+    path: "/cart",
     exact: false,
     main: () => <Cart></Cart>,
   },
   {
-    path: "/lavender/promotion",
+    path: "/promotion",
     exact: false,
     main: () => <Promotion></Promotion>,
   },
   {
-    path: "/lavender/guarantee",
+    path: "/guarantee",
     exact: false,
     main: () => <Guarantee></Guarantee>
   },
   {
-    path: "/lavender/login",
+    path: "/login",
     exact: false,
     main: () => <Login></Login>,
   },
   {
-    path: "/lavender/register",
+    path: "/register",
     exact: false,
     main: ({location}) => <Register location={location}></Register>,
   },
   {
-    path: "/lavender/mobile/:productname/product",
+    path: "/mobile/:productname/product",
     exact: false,
     main: ({ match }) => <Product match={match}></Product>,
   },
   {
-    path: "/lavender/admin/overview",
+    path: "/admin/overview",
     exact: true,
     main: () => <Admin></Admin>,
   },
   {
-    path: "/lavender/admin/product",
+    path: "/admin/product",
     exact: true,
     main: () => <ProductDashboard></ProductDashboard>
   },
   {
-    path: "/lavender/admin/customer",
+    path: "/admin/customer",
     exact: true,
     main: () => <CustomerDashboard></CustomerDashboard>,
   },
   {
-    path: "/lavender/admin/staff",
+    path: "/admin/staff",
     exact: true,
     main: () => <StaffDashboard></StaffDashboard>
   },
   {
-    path: "/lavender/admin/billing",
+    path: "/admin/billing",
     exact: true,
     main: () => <BillingDashboard></BillingDashboard>
   },
   {
-    path: "/lavender/admin/suplier",
+    path: "/admin/suplier",
     exact: true,
     main: () => <SuplierDashboard></SuplierDashboard>
   },
   {
-    path: "/lavender/admin/productdetail",
+    path: "/admin/productdetail",
     exact: true,
     main: () => <ProductDetailDashboard></ProductDetailDashboard>
   },
   {
-    path: "/lavender/admin/staffaccount",
+    path: "/admin/staffaccount",
     exact: true,
     main: () => <StaffAccountDashboard></StaffAccountDashboard>
   },
   {
-    path: "/lavender/admin/promotion",
+    path: "/admin/promotion",
     exact: true,
     main: () => <PromotionDashboard></PromotionDashboard>
   },
   {
-    path: "/lavender/admin/customeraccount",
+    path: "/admin/customeraccount",
     exact: true,
     main: () => <CustomerAccountDashboard></CustomerAccountDashboard>
   },
   {
-    path: "/lavender/admin/guarantee",
+    path: "/admin/guarantee",
     exact: true,
     main: () => <GuaranteeDashboard></GuaranteeDashboard>
   },
   {
-    path: "/lavender/admin/trademark",
+    path: "/admin/trademark",
     exact: true,
     main: () => <TrademarkDashboard></TrademarkDashboard>
   },
   {
-    path: "/lavender/admin/myaccount",
+    path: "/admin/myaccount",
     exact: true,
     main: () => <MyAccountDashboard></MyAccountDashboard>
   },
   {
-    path: "/lavender/lmember",
+    path: "/lmember",
     exact: true,
     main: () => <LMember></LMember>
   },
   {
-    path: "/lavender/forgotpassword",
+    path: "/forgotpassword",
     exact: true,
     main: () => <ForgotPassword></ForgotPassword>
   },

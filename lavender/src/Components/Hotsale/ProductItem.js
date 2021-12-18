@@ -34,7 +34,7 @@ export default function ProductItem(props) {
   return (
     <div id={35034} className="swiper-slide item-product">
       <div className="item-product__box-img">
-        <Link to={"/lavender"+props.product.image}>
+        <Link to={props.product.image}>
           <img
             className="cpslazy loaded"
             alt="Product-promotion"
@@ -51,7 +51,7 @@ export default function ProductItem(props) {
         </div>
       )}
       <div className="item-product__box-name">
-        <Link to={"/lavender"+props.product.image}>
+        <Link to={props.product.image}>
           <p>{props.product.tensanpham}</p>
         </Link>
       </div>

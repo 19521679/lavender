@@ -65,7 +65,7 @@ var showMenu = (temps) => {
       <MenuLink
         key={key}
         lable={value.name}
-        to={"/lavender" + value.to}
+        to={value.to}
         activeOnlyWhenExact={value.exact}
         list={value.list}
       ></MenuLink>
@@ -81,7 +81,7 @@ class Header extends Component {
         <Social></Social>
         <header id="header" className="fixed-top">
           <div className="container d-flex align-items-center justify-content-between">
-            <Link to="/lavender/">
+            <Link to="/">
               <img alt="logo-img" className="logo-img" src={logo}></img>
             </Link>
 
@@ -93,7 +93,7 @@ class Header extends Component {
                 <li>
                   <Link
                     className="getstarted scrollto button-to-cart"
-                    to="/lavender/cart"
+                    to="/cart"
                   >
                     <i
                       className="fas fa-shopping-cart icon-getstarted"
@@ -106,7 +106,7 @@ class Header extends Component {
                   <li>
                     <Link
                       className="getstarted scrollto button-to-cart"
-                      to="/lavender/lmember"
+                      to="/lmember"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ class Header extends Component {
                   <li>
                     <Link
                       className="getstarted scrollto button-to-cart"
-                      to="/lavender/admin/overview"
+                      to="/admin/overview"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +155,7 @@ class Header extends Component {
                     <li>
                       <Link
                         className="getstarted scrollto button-to-cart"
-                        to="/lavender/login"
+                        to="/login"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

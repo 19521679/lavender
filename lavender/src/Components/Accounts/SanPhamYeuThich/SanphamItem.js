@@ -39,7 +39,7 @@ export default class SanphamItem extends Component {
       <li className="item border rounded">
         <button className="btn-delete">×</button>
         <div className="thumbnail">
-          <Link to={"/lavender/" + this.this.state.sanpham.image}>
+          <Link to={ this.this.state.sanpham.image}>
             <div className="Picture__StyledPicture-sc-10icj7e-0 jDowEZ loaded">
               <img
                 alt="anhsanpham"
@@ -55,7 +55,7 @@ export default class SanphamItem extends Component {
         <div className="body">
           <Link
             className="name"
-            to={"/lavender/" + this.this.state.sanpham.image}
+            to={this.this.state.sanpham.image}
           >
             {this.state.sanpham.tensanpham}
           </Link>
