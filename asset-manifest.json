@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lavender/static/css/main.eb1a4d11.chunk.css",
-    "main.js": "/lavender/static/js/main.1bf6d977.chunk.js",
-    "main.js.map": "/lavender/static/js/main.1bf6d977.chunk.js.map",
+    "main.js": "/lavender/static/js/main.b84d6be1.chunk.js",
+    "main.js.map": "/lavender/static/js/main.b84d6be1.chunk.js.map",
     "runtime-main.js": "/lavender/static/js/runtime-main.647ff581.js",
     "runtime-main.js.map": "/lavender/static/js/runtime-main.647ff581.js.map",
     "static/css/2.4a6c210c.chunk.css": "/lavender/static/css/2.4a6c210c.chunk.css",
@@ -43,6 +43,6 @@
     "static/css/2.4a6c210c.chunk.css",
     "static/js/2.f5bbd847.chunk.js",
     "static/css/main.eb1a4d11.chunk.css",
-    "static/js/main.1bf6d977.chunk.js"
+    "static/js/main.b84d6be1.chunk.js"
   ]
 }
