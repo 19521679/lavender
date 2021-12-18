@@ -9,7 +9,7 @@ export default function Dangxuly() {
             <table>
                 <thead>
                     <tr>
-                        <th>Số hóa đơn</th>
+                        <th>Số hóa đơn 111 </th>
                         <th>Ngày mua</th>
                         <th>Sản phẩm</th>
                         <th>Tổng tiền</th>
@@ -17,7 +17,7 @@ export default function Dangxuly() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr>                            
                         <td><a href="">865997454</a></td>
                         <td>16/12/2021</td>
                         <td>Ốp Lưng Dẻo Dành Cho iPhone 5/iPhone 5S/iPhone 5SE - Trong Suốt- Hàng chính hãng</td>

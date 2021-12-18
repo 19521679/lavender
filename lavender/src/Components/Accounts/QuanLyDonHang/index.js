@@ -87,7 +87,7 @@ class index extends Component {
                       }.bind(this)()}
                     </ul>
                   </div>
-                </div>
+                </div>                 
               </div>
               <div className="card-body ">
                 <div className="tab-content text-center">
@@ -113,7 +113,7 @@ class index extends Component {
                 </div>
               </div>
             </div>
-            {/* End Tabs with icons on Card */}
+            {/* End Tabs with icons on Card dsd */}
           </div>
         </div>
         )

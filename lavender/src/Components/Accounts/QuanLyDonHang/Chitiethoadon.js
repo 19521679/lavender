@@ -45,7 +45,7 @@ export default class Chitiethoadon extends Component {
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div>                              
           </div>
           <div className="ui-card__section">
             <div className="ui-stack ui-stack--wrap ui-stack--distribution-fill">
@@ -64,7 +64,7 @@ export default class Chitiethoadon extends Component {
                       <td />
                       <td />
                       <td className="type--subdued">
-                        Phí giao hàng
+                        Phí giao hàng haha 
                       </td>
                       <td>
                         40.000₫

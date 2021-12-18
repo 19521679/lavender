@@ -9,13 +9,13 @@ export default function Danggiao() {
             <table>
               <thead>
                 <tr>
-                  <th>Số hóa đơn</th>
+                  <th>Số hóa đơn 111</th>
                   <th>Ngày mua</th>
                   <th>Sản phẩm</th>
                   <th>Tổng tiền</th>
                   <th>Trạng thái đơn hàng</th>
                 </tr>
-              </thead>
+              </thead>                       
               <tbody>
                 <tr>
                   <td><a href="">865997454</a></td>
