@@ -41,9 +41,6 @@ function Login(props) {
   };
 
   const onSuccess = (res) => {
-    if (cookie.get("refreshtoken") !== undefined) {
-      return;
-    }
     myToast.toastLoading();
     dispatch(loginAct.postLoginWithGoogleReport(res.profileObj));
   };
@@ -56,7 +53,7 @@ function Login(props) {
     onFailure,
     clientId,
     isSignedIn: true,
-    accessType: "offline",
+    accessType: "online",
   });
   return (
     <section>
