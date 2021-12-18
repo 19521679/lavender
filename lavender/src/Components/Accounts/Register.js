@@ -192,7 +192,7 @@ function Register(props) {
                         />
                         <label className="form-check-label" htmlFor="confirm">
                           Đồng ý với tất cả các tuyên bố trong{" "}
-                          <Link to="/rules">Các điều khoản dịch vụ</Link>
+                          <Link to="/lavender/rules">Các điều khoản dịch vụ</Link>
                         </label>
                       </div>
                     </form>

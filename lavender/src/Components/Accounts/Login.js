@@ -60,8 +60,8 @@ function Login(props) {
   });
   return (
     <section>
-      {makhachhang !== undefined && <Redirect to="/" />}
-      {manhanvien !== undefined && <Redirect to="/admin/overview" />}
+      {makhachhang !== undefined && <Redirect to="/lavender/" />}
+      {manhanvien !== undefined && <Redirect to="/lavender/admin/overview" />}
       <div className="group-login">
         <div className="container py-5 h-100">
           <div className="row d-flex align-items-center justify-content-center h-100">
@@ -126,7 +126,7 @@ function Login(props) {
                     Ghi nhớ đăng nhập
                   </label>
                 </div>
-                <Link to="/forgotpassword" className="forgot-password-link">Quên mật khẩu?</Link>
+                <Link to="/lavender/forgotpassword" className="forgot-password-link">Quên mật khẩu?</Link>
               </div>
               <button
                 className="btn btn-primary btn-lg btn-block"
@@ -143,7 +143,7 @@ function Login(props) {
               { !lanhanvien&& (  <div className="group-expand-login">
                   <Link
                     className="btn btn-success btn-lg btn-block"
-                    to="/register"
+                    to="/lavender/register"
                     role="button"
                     Suplier
                   >

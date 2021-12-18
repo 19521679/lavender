@@ -7,10 +7,7 @@ import * as loginAct from "./redux/actions/loginAct";
 import PropTypes from "prop-types";
 import logo from "../Asset/logo/logo.png";
 import BoxSearch from "./BoxSearch";
-import Cookies from "universal-cookie";
 import Social from "./Social";
-
-const cookie = new Cookies();
 
 const menus = [
   {
@@ -52,7 +49,7 @@ var MenuLink = ({ lable, to, activeOnlyWhenExact }) => {
       children={({ match }) => {
         return (
           <li>
-            <Link to={to}>{lable}</Link>
+            <Link to={"/lavender"+to}>{lable}</Link>
             <i class={match ? "fas fa-circle dot-circle-active" : ""}></i>
           </li>
         );
@@ -87,7 +84,7 @@ class Header extends Component {
         <Social></Social>
         <header id="header" className="fixed-top">
           <div className="container d-flex align-items-center justify-content-between">
-            <Link to="/">
+            <Link to="/lavender/">
               <img alt="logo-img" className="logo-img" src={logo}></img>
             </Link>
 
@@ -99,7 +96,7 @@ class Header extends Component {
                 <li>
                   <Link
                     className="getstarted scrollto button-to-cart"
-                    to="/cart"
+                    to="/lavender/cart"
                   >
                     <i
                       className="fas fa-shopping-cart icon-getstarted"
@@ -112,7 +109,7 @@ class Header extends Component {
                   <li>
                     <Link
                       className="getstarted scrollto button-to-cart"
-                      to="/lmember"
+                      to="/lavender/lmember"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +133,7 @@ class Header extends Component {
                   <li>
                     <Link
                       className="getstarted scrollto button-to-cart"
-                      to="/admin/overview"
+                      to="/lavender/admin/overview"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +158,7 @@ class Header extends Component {
                     <li>
                       <Link
                         className="getstarted scrollto button-to-cart"
-                        to="/login"
+                        to="/lavender/login"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

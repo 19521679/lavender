@@ -169,7 +169,7 @@ class index extends Component {
                   <div className="status">
                     <span />
                     <Link
-                      to="/lmember/thongtintaikhoan/sdt"
+                      to="/lavender/lmember/thongtintaikhoan/sdt"
                       className="btn btn-primary"
                     >
                       Cập nhật
@@ -192,7 +192,7 @@ class index extends Component {
                   <div className="status">
                     <span />
                     <Link
-                      to="/lmember/thongtintaikhoan/email"
+                      to="/lavender/lmember/thongtintaikhoan/email"
                       className="btn btn-primary"
                     >
                       Cập nhật

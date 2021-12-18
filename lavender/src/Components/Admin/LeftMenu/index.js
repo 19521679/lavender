@@ -14,51 +14,51 @@ const cookie = new Cookies();
 const table = [
   {
     name: "Tổng quan",
-    to: "/admin/overview",
+    to: "/lavender/admin/overview",
   },
   {
     name: "Hoá đơn",
-    to: "/admin/billing",
+    to: "/lavender/admin/billing",
   },
   {
     name: "Khách hàng",
-    to: "/admin/customer",
+    to: "/lavender/admin/customer",
   },
   {
     name: "Sản phẩm",
-    to: "/admin/product",
+    to: "/lavender/admin/product",
   },
   {
     name: "Chi tiết sản phẩm",
-    to: "/admin/productdetail",
+    to: "/lavender/admin/productdetail",
   },
   {
     name: "Nhân viên",
-    to: "/admin/staff",
+    to: "/lavender/admin/staff",
   },
   {
     name: "Nhà cung cấp",
-    to: "/admin/suplier",
+    to: "/lavender/admin/suplier",
   },
   {
     name: "Khuyến mãi",
-    to: "/admin/promotion",
+    to: "/lavender/admin/promotion",
   },
   {
     name: "Tài khoản nhân viên",
-    to: "/admin/staffaccount",
+    to: "/lavender/admin/staffaccount",
   },
   {
     name: "Tài khoản khách hàng",
-    to: "/admin/customeraccount",
+    to: "/lavender/admin/customeraccount",
   },
   {
     name: "Bảo hành",
-    to: "/admin/guarantee",
+    to: "/lavender/admin/guarantee",
   },
   {
     name: "Thương hiệu",
-    to: "/admin/trademark",
+    to: "/lavender/admin/trademark",
   },
 ];
 

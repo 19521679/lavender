@@ -29,14 +29,14 @@ function Article() {
                                             <div className="blog-box row mb-4">
                                                 <div className="col-md-4">
                                                     <div className="post-media">
-                                                        <Link to={`/article/${post.mabaiviet}`} className="">
+                                                        <Link to={`/lavender/article/${post.mabaiviet}`} className="">
                                                             <img src={post.thumnail} alt="" className="img-fluid" />
                                                             <div className="hovereffect" />
                                                         </Link>
                                                     </div>
                                                 </div>
                                                 <div className="blog-meta big-meta col-8">
-                                                    <h5><Link  to={`/articledetail/${post.mabaiviet}`} className="post-title">{post.tieude}</Link></h5>
+                                                    <h5><Link  to={`/lavender/articledetail/${post.mabaiviet}`} className="post-title">{post.tieude}</Link></h5>
                                                     {/* <h5><a type="button"
                                                         className=""
                                                         onClick={toDetail(post.mabaiviet)}

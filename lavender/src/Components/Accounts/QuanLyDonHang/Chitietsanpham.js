@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
 import * as imageApi from "../../apis/image";
 import * as productApi from "../../apis/product";
 

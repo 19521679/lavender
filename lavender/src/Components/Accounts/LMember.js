@@ -91,7 +91,7 @@ function Lmember(props) {
                       </div>
                       <ul className="Account__StyledNav-sc-1d5h8iz-4 fAkTRM">
                         <li>
-                          <Link className="" to="/lmember/thongtintaikhoan">
+                          <Link className="" to="/lavender/lmember/thongtintaikhoan">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -107,7 +107,7 @@ function Lmember(props) {
                           </Link>
                         </li>
                         <li>
-                          <Link className to="/lmember/thongbaocuatoi">
+                          <Link className to="/lavender/lmember/thongbaocuatoi">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -124,7 +124,7 @@ function Lmember(props) {
                           </Link>
                         </li>
                         <li>
-                          <Link className to="/lmember/quanlydonhang">
+                          <Link className to="/lavender/lmember/quanlydonhang">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
@@ -141,7 +141,7 @@ function Lmember(props) {
                         </li>
 
                         <li>
-                          <Link className to="/lmember/sanphamyeuthich">
+                          <Link className to="/lavender/lmember/sanphamyeuthich">
                             <svg
                               stroke="currentColor"
                               fill="currentColor"
