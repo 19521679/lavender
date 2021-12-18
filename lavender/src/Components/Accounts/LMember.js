@@ -19,8 +19,9 @@ function Lmember(props) {
   const logout = async () => {
     cookie.remove("token");
     cookie.remove("refreshtoken");
-    dispatch(
-      loginAct.postLogoutReport(
+    console.log("remove cookie");
+    await dispatch(
+      await loginAct.postLogoutReport(
         makhachhang,
         "khachhang",
         cookie.get("token"),
