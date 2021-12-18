@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./style.css"
 import Article from "./index.js";
+import Comment from "../Facebook/Comment/index.js"
 
 function ArticleDetail() {
     const mabaiviet = useParams().mabaiviet;
@@ -26,7 +27,11 @@ function ArticleDetail() {
                 <div className="article-detail px-10 pt-7 bg-white text-black  article-detail ">
                     {
                         posts.map(post => (
+                            <div>
                             <div dangerouslySetInnerHTML={{ __html: post.noidung }} />
+                            {/* <Comment link={window.location.href}></Comment> */}
+                            <div class="fb-comments" data-href={window.location.href} data-width="100%" data-numposts="5"></div> 
+                            </div>
                         ))
                     }
                 </div>

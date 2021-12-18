@@ -16,6 +16,7 @@ import Evaluete from "../Evaluete";
 import * as evalueteApi from "../apis/evaluete";
 import Specifications from "./Specifications";
 import * as myToast from "../../Common/helper/toastHelper";
+import Comment from "../Facebook/Comment/index.js"
 
 class index extends Component {
   state = {
@@ -40,6 +41,8 @@ class index extends Component {
         return <h6 className="">Thông số kỹ thuật</h6>;
       case 2:
         return <h6 className="">Đánh giá</h6>;
+      case 3:
+        return <h6 className="">Bình luận</h6>;
       default:
         return;
     }
@@ -60,6 +63,9 @@ class index extends Component {
             customer={this.props}
           ></Evaluete>
         );
+      case 3:
+        // return <Comment link={window.location.href}></Comment>;
+        return (<div class="fb-comments" data-href={window.location.href} data-width="100%" data-numposts="5"></div>);
       default:
         return;
     }
@@ -314,17 +320,17 @@ class index extends Component {
                           <a
                             className={
                               key ===
-                              (() => {
-                                var i = 0;
-                                for (; i < this.state.dungluong.length; i++) {
-                                  if (
-                                    this.state.dungluong[i].dungluong ===
-                                    this.state.chondungluong
-                                  )
-                                    break;
-                                }
-                                return i;
-                              })()
+                                (() => {
+                                  var i = 0;
+                                  for (; i < this.state.dungluong.length; i++) {
+                                    if (
+                                      this.state.dungluong[i].dungluong ===
+                                      this.state.chondungluong
+                                    )
+                                      break;
+                                  }
+                                  return i;
+                                })()
                                 ? "item-linked box-shadow selected"
                                 : "item-linked box-shadow"
                             }
@@ -384,17 +390,17 @@ class index extends Component {
                               id="option161"
                               className={
                                 key ===
-                                (() => {
-                                  var i = 0;
-                                  for (; i < this.state.mausac.length; i++) {
-                                    if (
-                                      this.state.mausac[i].mausac ===
-                                      this.state.chonmausac
-                                    )
-                                      break;
-                                  }
-                                  return i;
-                                })()
+                                  (() => {
+                                    var i = 0;
+                                    for (; i < this.state.mausac.length; i++) {
+                                      if (
+                                        this.state.mausac[i].mausac ===
+                                        this.state.chonmausac
+                                      )
+                                        break;
+                                    }
+                                    return i;
+                                  })()
                                   ? "item-color option-b-c  wide-swatch swatch box-shadow selected"
                                   : "item-color option-b-c  wide-swatch swatch box-shadow "
                               }

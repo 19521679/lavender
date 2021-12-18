@@ -54,16 +54,16 @@
     ">
   <div id="fb-root"></div>
 
+    <!-- ---------------------------------------------------------------- -->
   <div id="fb-customer-chat" class="fb-customerchat">
   </div>
-
   <script>
     var chatbox = document.getElementById('fb-customer-chat');
     chatbox.setAttribute("page_id", "110678108138368");
     chatbox.setAttribute("attribution", "biz_inbox");
   </script>
-
-  <!-- Your SDK code -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0"
+    nonce="TbNZ7u0M"></script>
   <script>
     window.fbAsyncInit = function () {
       FB.init({
