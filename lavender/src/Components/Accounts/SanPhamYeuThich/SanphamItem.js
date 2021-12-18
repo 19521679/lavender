@@ -44,7 +44,7 @@ export default class SanphamItem extends Component {
           <a
             href={this.state.sanpham.image}
             onClick={() => (
-              <Redirect to={this.this.state.sanpham.image}></Redirect>
+              <Redirect to={"/lavender/"+this.this.state.sanpham.image}></Redirect>
             )}
           >
             <div className="Picture__StyledPicture-sc-10icj7e-0 jDowEZ loaded">
@@ -64,7 +64,7 @@ export default class SanphamItem extends Component {
             className="name"
             href={() => false}
             onClick={() => (
-              <Redirect to={this.this.state.sanpham.image}></Redirect>
+              <Redirect to={"/lavender/"+this.this.state.sanpham.image}></Redirect>
             )}
           >
             {this.state.sanpham.tensanpham}
