@@ -7,7 +7,7 @@ import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import * as detailProductApi from "../apis/detailProduct";
 import * as guaranteeApi from "../apis/guarantee";
 import * as imageApi from "../apis/image";
-import {Collapse} from 'react-collapse';
+import { Collapse } from 'react-collapse';
 import Item from "./Item";
 
 export default function Index(props) {
@@ -23,28 +23,28 @@ export default function Index(props) {
   }, []);
 
   const tracuuBaohanh = async () => {
-      let chitietsanphamtemp;
+    let chitietsanphamtemp;
     await detailProductApi
       .timkiemChitietsanphamImei(timkiem)
       .then((success) => {
         if (success.status === 200) {
-            chitietsanphamtemp=success.data.value;
+          chitietsanphamtemp = success.data.value;
           setChitietsanpham(success.data.value);
         }
         else {
-            setChitietsanpham(undefined);
-            return;
+          setChitietsanpham(undefined);
+          return;
         }
       })
       .catch((error) => {
         console.error(error);
-         setChitietsanpham(undefined)
-         return;
+        setChitietsanpham(undefined)
+        return;
       });
 
-      if (chitietsanphamtemp===undefined) {
-          return;
-      }
+    if (chitietsanphamtemp === undefined) {
+      return;
+    }
     await productApi
       .findProductById(chitietsanphamtemp.masanpham)
       .then((success) => {
@@ -375,17 +375,17 @@ export default function Index(props) {
                               type="button"
                               href="#demo"
                               //onClick={ }
-                            //   data-bs-toggle="collapse"
+                              //   data-bs-toggle="collapse"
                               onClick={tracuuBaohanh}
-                              className="devvn_masp_submit submit submitSearch btn btn-outline-secondary"
+                              className="devvn_masp_submit submit submitSearch btn btn-outline-secondary m-2"
                               id="button-addon2"
                             >
                               Tìm kiếm
                             </button>
                             <button
                               type="button"
-                              //onClick={() => {}}
-                              className="submit submitSearch btn btn-outline-secondary"
+                              onClick={() => { setTimkiem("") }}
+                              className="submit submitSearch btn btn-outline-secondary m-2"
                               id="button-addon3"
                             >
                               Clear
@@ -396,57 +396,58 @@ export default function Index(props) {
                           </h4>
                         </div>
                       </div>
-                            <Collapse isOpened={chitietsanpham!==undefined}>
-                            <div className="container">
-                            <div id="demo" className="">
-                              <div className="d-flex justify-content-center container mt-5">
-                                <div className="card p-3 bg-white">
-                                  <i className="fa fa-apple" />
-                                  <div className="about-product text-center mt-2">
-                                    <img
-                                    alt = ""
-                                      src={(chitietsanpham!==undefined&&chitietsanpham.image!==undefined)?imageApi.image(chitietsanpham.image):""}
-                                      width={300}
-                                    />
-                                    <div>
-                                      <h4>{(sanpham!==undefined&&sanpham.tensanpham!== undefined)&&sanpham.tensanpham}</h4>
-                                      <h6 className="mt-0 text-black-50">
-                                        {/* {chitietsanpham.dungluong} - {chitietsanpham.mausac} */}
-                                      </h6>
-                                    </div>
+                      <Collapse isOpened={chitietsanpham !== undefined}>
+                        <div className="container">
+                          <div id="demo" className="">
+                            <div className="d-flex justify-content-center container mt-5">
+                              <div className="card p-3 bg-white">
+                                <i className="fa fa-apple" />
+                                <div className="about-product text-center mt-2">
+                                  <img
+                                    alt=""
+                                    src={(chitietsanpham !== undefined && chitietsanpham.image !== undefined) ? imageApi.image(chitietsanpham.image) : ""}
+                                    width={300}
+                                  />
+                                  <div>
+                                    <h4>{(sanpham !== undefined && sanpham.tensanpham !== undefined) && sanpham.tensanpham}</h4>
+                                    <h6 className="mt-0 text-black-50">
+                                      {/*{chitietsanpham.dungluong} - {chitietsanpham.mausac}*/}
+                                    </h6>
                                   </div>
-                                  <div className="stats mt-2">
-                                    <div className="d-flex justify-content-between p-price">
-                                      <span>Pro Display XDR</span>
-                                      <span>$5,999</span>
-                                    </div>
-                                    <div className="d-flex justify-content-between p-price">
-                                      <span>Pro stand</span>
-                                      <span>$999</span>
-                                    </div>
-                                    <div className="d-flex justify-content-between p-price">
-                                      <span>Vesa Mount Adapter</span>
-                                      <span>$199</span>
-                                    </div>
-                                  </div>
-                                  <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                                    <span>Total</span>
-                                    <span>$7,197.00</span>
-                                  </div>
-
-                                  <ul class="list-group">
-                                    {
-                                        lichsubaohanh.map((value, key)=>{
-                                            return (<Item item={value} key={key}></Item>)
-                                        })
-                                    }
-</ul>
                                 </div>
+                                <div className="stats mt-2">
+                                  <div className="d-flex justify-content-between p-price">
+                                    <span>Màu sắc</span>
+                                    <span>{(chitietsanpham !== undefined && chitietsanpham.mausac !== undefined) && chitietsanpham.mausac}</span>
+                                  </div>
+                                  <div className="d-flex justify-content-between p-price">
+                                    <span>Dung lượng</span>
+                                    <span>{(chitietsanpham !== undefined && chitietsanpham.dungluong !== undefined) && chitietsanpham.dungluong}</span>
+                                  </div>
+                                  <div className="d-flex justify-content-between p-price">
+                                    <span>Giá</span>
+                                    <span>{(chitietsanpham !== undefined && chitietsanpham.giamoi !== undefined) && chitietsanpham.giamoi}</span>
+                                  </div>
+                                </div>
+                                <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                                  <span>Ngày bảo hành</span>
+                                  <span>$7,197.00</span>
+                                </div>
+
+                                <ul class="list-group">
+                                  <li class="list-group-item active bg-dark mt-3">Lịch sử bảo hành</li>
+                                  {
+                                    lichsubaohanh.map((value, key) => {
+                                      return (<Item item={value} key={key}></Item>)
+                                    })
+                                  }
+                                </ul>
                               </div>
                             </div>
                           </div>
-                          </Collapse>
- 
+                        </div>
+                      </Collapse>
+
                     </div>
                   </div>
                   <div

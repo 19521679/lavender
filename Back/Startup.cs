@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back.Services;
+using Microsoft.AspNetCore.Authentication.Certificate;
 
 namespace Back
 {
@@ -37,6 +38,9 @@ namespace Back
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(
+                CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate();
             services.AddDistributedMemoryCache();
             services.AddAuthentication(x =>
             {
@@ -134,9 +138,6 @@ namespace Back
             });
             app.UseSession();
             app.UseCors("MyPolicy");
-
-
-
 
             app.UseEndpoints(endpoints =>
             {

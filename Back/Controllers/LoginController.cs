@@ -51,7 +51,7 @@ namespace Back.Controllers
             var matkhau = await (from tkkh in lavenderContext.Taikhoankhachhang
                             where tkkh.Makhachhang.Equals(makkhachhang)
                                              select tkkh.Password).FirstOrDefaultAsync();
-            string htmlemail = $"mật khẩu của bạn là : "+matkhau+$" hãy <a href = 'http://localhost:3000/login'>" +
+            string htmlemail = $"mật khẩu của bạn là : "+matkhau+$" hãy <a href = 'http://lavenderhkkm.com:3000/login'>" +
                 "bấm vào đây</a> để đăng nhập lại ";
             await sendMailService.SendEmailAsync(email, "lấy lại mật khẩu Lavender", htmlemail);
             return StatusCode(200);

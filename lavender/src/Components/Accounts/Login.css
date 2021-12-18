@@ -11,7 +11,9 @@
   top: 0;
   left: -20%;
 }
-
+.forgot-password-link{
+  color:#7b809a;
+}
 .group-login{
   height:800px;
   overflow: scroll;

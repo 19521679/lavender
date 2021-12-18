@@ -44,7 +44,7 @@ const routes = [
     main: () => <Article ></Article>,
   },
   {
-    path: "/article/:mabaiviet",
+    path: "/articledetail/:mabaiviet",
     exact: true,
     main: () => <ArticleDetail></ArticleDetail >
   },
