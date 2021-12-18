@@ -126,7 +126,7 @@ function Login(props) {
                     Ghi nhớ đăng nhập
                   </label>
                 </div>
-                <Link to="/forgotpassword">Quên mật khẩu?</Link>
+                <Link to="/forgotpassword" className="forgot-password-link">Quên mật khẩu?</Link>
               </div>
               {/* Submit button */}
               <button
