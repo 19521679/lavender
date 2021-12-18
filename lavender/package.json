@@ -2,6 +2,7 @@
   "name": "lavender",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://19521679.github.io/lavender/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -15,6 +16,7 @@
     "bootstrap-icons": "^1.7.0",
     "embla-carousel-autoplay": "^6.0.2",
     "embla-carousel-react": "^6.0.2",
+    "gh-pages": "^3.2.3",
     "jquery": "^3.6.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
@@ -30,6 +32,7 @@
     "react-cookie-consent": "^6.4.1",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
+    "react-messenger-customer-chat": "^0.8.0",
     "react-modal": "^3.14.4",
     "react-redux": "^7.2.5",
     "react-router": "^5.2.1",
@@ -43,11 +46,12 @@
     "sfcookies": "^1.0.2",
     "three-dots": "^0.2.2",
     "universal-cookie": "^4.0.4",
-    "web-vitals": "^1.1.2",
-    "react-messenger-customer-chat":"^0.8.0"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
