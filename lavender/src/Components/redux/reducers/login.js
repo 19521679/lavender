@@ -19,12 +19,7 @@ const reducer = (state = initialState, action) => {
     case loginConst.POST_LOGIN_SUCCESS: {
       const { data } = action.payload;
       if (data.value.token === undefined) {
-        cookie.set("token", "", {
-          path: "/",
-          httpOnly: false,
-          secure: true,
-          sameSite: true,
-        });
+        cookie.remove("token");
       } else {
         let dtoken = new Date();
         dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
@@ -34,7 +29,7 @@ const reducer = (state = initialState, action) => {
           // httpOnly: false,
           // secure: true,
           // sameSite: true,
-          domain: '19521679.github.io'
+          domain: "19521679.github.io",
         });
       }
       if (data.value.refreshtoken === undefined) {
@@ -48,7 +43,7 @@ const reducer = (state = initialState, action) => {
           // httpOnly: false,
           // secure: true,
           // sameSite: true,
-          domain: '19521679.github.io'
+          domain: "19521679.github.io",
         });
       }
 
@@ -82,7 +77,7 @@ const reducer = (state = initialState, action) => {
         // httpOnly: false,
         // secure: true,
         // sameSite: true,
-        domain: '19521679.github.io'
+        domain: "19521679.github.io",
       });
 
       let drefresh = new Date();
@@ -93,7 +88,7 @@ const reducer = (state = initialState, action) => {
         // httpOnly: false,
         // secure: true,
         // sameSite: true,
-        domain: '19521679.github.io'
+        domain: "19521679.github.io",
       });
       return {
         ...state,
@@ -102,8 +97,14 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("token", {path: "/lavender", domain: "19521679.github.io"})
-      cookie.remove("refreshtoken", {path: "/lavender", domain: "19521679.github"})
+      cookie.remove("token", {
+        path: "/lavender",
+        domain: "19521679.github.io",
+      });
+      cookie.remove("refreshtoken", {
+        path: "/lavender",
+        domain: "19521679.github",
+      });
       return {
         ...state,
       };
@@ -115,9 +116,15 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_LOGOUT_SUCCESS: {
-      console.log("logout redux")
-      cookie.remove("token", {path: "/lavender", domain: "19521679.github.io"})
-      cookie.remove("refreshtoken", {path: "/lavender", domain: "19521679.github"})
+      console.log("logout redux");
+      cookie.remove("token", {
+        path: "/lavender",
+        domain: "19521679.github.io",
+      });
+      cookie.remove("refreshtoken", {
+        path: "/lavender",
+        domain: "19521679.github",
+      });
       return {
         ...state,
         makhachhang: undefined,
