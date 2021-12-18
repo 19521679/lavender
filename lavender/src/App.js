@@ -8,7 +8,6 @@ import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import configureStore from "./Components/redux/configureStore";
 import LeftMenu from "./Components/Admin/LeftMenu";
-import "./Components/Admin/scss/material-dashboard/style.scss";
 import CookieConsent from "react-cookie-consent";
 import InitData from "./InitData";
 
