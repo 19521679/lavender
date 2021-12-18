@@ -17,6 +17,8 @@ function Lmember(props) {
   const dispatch = useDispatch();
   const clientId = myConst.CLIENT_ID;
   const logout = async () => {
+    cookie.remove("token");
+    cookie.remove("refreshtoken");
     dispatch(
       loginAct.postLogoutReport(
         makhachhang,
