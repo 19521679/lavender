@@ -8,7 +8,7 @@
 .iOhDoD .inner {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
-    padding: 1px;
+    padding: 1px;                                         
     min-height: 400px;
 }
 
@@ -28,7 +28,7 @@
     color: rgb(51, 51, 51);
 }
 
-/* San pham da giao */
+/* San pham da è giao */
 
 ._2n4gHk {
     margin: 12px 0;
@@ -511,4 +511,32 @@ button.close {
 
 .fa-star.checked, section.cps-section .block-rating .fa-star-half.checked {
     color: #F59E0B;
+}
+
+.iOhDoD th,
+.iOhDoD td {
+    min-width: 130px;
+    padding: 20px 15px;
+    color: rgb(120, 120, 120);
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.iOhDoD td {
+    font-size: 13px;
+    line-height: 20px;
+    color: rgb(51, 51, 51);
+}
+
+.iOhDoD .inner {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: 1px;
+    min-height: 400px;
+}
+
+.iOhDoD th:last-child,
+.iOhDoD td:last-child {
+    text-align: right;
 }

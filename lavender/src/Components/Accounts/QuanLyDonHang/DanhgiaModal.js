@@ -3,9 +3,6 @@ import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as evalueteApi from "../../apis/evaluete";
 import * as myToast from "../../../Common/helper/toastHelper";
-import Cookies from "universal-cookie";
-
-const cookie = new Cookies();
 
 const customStyles = {
   content: {
@@ -28,10 +25,8 @@ export default function DanhgiaModal(props) {
     fd.append("binhluan", binhluan);
     fd.append("sao", sao);
 
-    var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");
     evalueteApi
-      .addEvalue(fd, props.makhachhang, props.masanpham, token, refreshtoken)
+      .addEvalue(fd, props.makhachhang, props.masanpham)
       .then((success) => {
         if (success.status === 200) {
           myToast.toastSucces("Thêm đánh giá thành công");
