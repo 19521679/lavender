@@ -93,8 +93,8 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("refreshtoken");
-      cookie.remove("token");
+      cookie.remove("refreshtoken", { path: '/lavender' });
+      cookie.remove("token", { path: '/lavender' });
       return {
         ...state,
       };
