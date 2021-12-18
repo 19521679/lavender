@@ -141,3 +141,30 @@ export const muaHang = async (
   }
   return connect;
 };
+
+export const hoadonCuatoiDangxuly = async (
+  makhachhang,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/hoadon-cuatoi-dangxuly?makhachhang=${makhachhang}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/hoadon-cuatoi-dangxuly?makhachhang=${makhachhang}`,
+
+      { headers: { Authorization: `Bearer ${newtoken}` } }
+    );
+  }
+  return connect;
+};

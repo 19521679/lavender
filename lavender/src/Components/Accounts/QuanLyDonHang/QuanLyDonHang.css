@@ -140,27 +140,20 @@
     line-height: 22px;
     max-height: 48px;
     text-align: left;
+    width: 300px;
 }
 ._1CO4Um, ._30COVM {
     vertical-align: middle;
 }
 
-element.style {
-}
 ._1CO4Um, ._30COVM {
     vertical-align: middle;
 }
-._1xHDVY {
-    overflow: hidden;
-    display: -webkit-box;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    margin: 0 0 5px;
-    font-size: 16px;
-    line-height: 22px;
-    max-height: 48px;
+
+._1CO4Um .imei{
+    padding: 0 0 0 40px;
 }
+
 ._1cxKtp {
     min-width: 0;
     padding: 0 0 0 12px;
@@ -187,16 +180,13 @@ element.style {
     color: rgba(0,0,0,.54);
 }
 ._1kvNGb {
-    text-align: right;
+    text-align: left;
 }
 ._3j3LHM, ._34DOjq, .mBERmM {
     vertical-align: middle;
     font-size: 14px;
     line-height: 16px;
     color: rgba(0,0,0,.87);
-}
-._1kvNGb {
-    text-align: right;
 }
 ._1BJEKe, ._3huAcN {
     display: flex;
@@ -210,9 +200,6 @@ element.style {
     font-size: 14px;
     line-height: 16px;
     color: rgba(0,0,0,.87);
-}
-._1kvNGb {
-    text-align: right;
 }
 ._1BJEKe, ._3huAcN {
     display: flex;
@@ -539,4 +526,10 @@ button.close {
 .iOhDoD th:last-child,
 .iOhDoD td:last-child {
     text-align: right;
+}
+
+.xoahoadon-btn{
+    position: relative;
+    margin-left: 633px;
+    margin-top: -63px;
 }

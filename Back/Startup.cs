@@ -57,9 +57,9 @@ namespace Back
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JwtSecurityKey"])),
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidAudience = Configuration["JwtAudience"],
-                    ValidIssuer = Configuration["JwtIssuer"],
+                    ValidateLifetime = true
+                    //ValidAudience = Configuration["JwtAudience"],
+                    //ValidIssuer = Configuration["JwtIssuer"],
                 };
             });
 
