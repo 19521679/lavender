@@ -29,11 +29,6 @@ function Lmember(props) {
   };
   const onLogoutSuccess = () => {
     console.log("logout google");
-
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    if (auth2 != null) {
-      auth2.signOut().then(auth2.disconnect().then());
-    }
   };
   const onFailure = () => {
     console.log("google logout failure");
@@ -66,10 +61,10 @@ function Lmember(props) {
   };
   return (
     <section>
-      {makhachhang === undefined && <Redirect to="/login"></Redirect>}
+      {makhachhang === undefined && <Redirect to="/lavender/login"></Redirect>}
       <BrowserRouter>
         {makhachhang !== undefined && (
-          <Redirect to="/lmember/thongtintaikhoan" />
+          <Redirect to="/lavender/lmember/thongtintaikhoan" />
         )}
         <div className="container">
           <div className="row">
