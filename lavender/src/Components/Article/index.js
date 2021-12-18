@@ -37,8 +37,8 @@ function Article() {
                                                 </div>
                                                 <div className="blog-meta big-meta col-8">
 
-                                                    <h5><Link to={`/article/${post.mabaiviet}`} className="">{post.tieude}</Link></h5>
-                                                    <p>{post.mota}</p>
+                                                    <h5><Link to={`/article/${post.mabaiviet}`} className="post-title">{post.tieude}</Link></h5>
+                                                    <p className="post-description">{post.mota}</p>
                                                 </div>
                                             </div>
                                         ))
