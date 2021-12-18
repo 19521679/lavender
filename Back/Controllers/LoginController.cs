@@ -254,7 +254,7 @@ namespace Back.Controllers
 
         [Route("/test")]
         [AllowAnonymous]
-        public async Task<IActionResult> test()
+        public IActionResult test()
         {
             //await sendMailService.SendEmailAsync("khanhlemaiduy123@gmail.com", "test", "a");
             //CookieOptions option = new CookieOptions
