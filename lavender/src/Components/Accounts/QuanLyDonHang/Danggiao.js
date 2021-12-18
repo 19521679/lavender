@@ -22,7 +22,7 @@ export default function Danggiao() {
                   <td>16/12/2021</td>
                   <td>Iphone 13</td>
                   <td>22.390.000 ₫</td>
-                  <td><a href="">Xem chi tiết</a></td>
+                  <td><a href="#/Chitiethoadon">Xem chi tiết</a></td>
                 </tr>
               </tbody>
             </table>

@@ -22,7 +22,7 @@ export default function Dangxuly() {
                         <td>16/12/2021</td>
                         <td>Ốp Lưng Dẻo Dành Cho iPhone 5/iPhone 5S/iPhone 5SE - Trong Suốt- Hàng chính hãng</td>
                         <td>194.000 ₫</td>
-                        <td><a href="">Xem chi tiết</a></td>
+                        <td><a href=".Chitiethoadon">Xem chi tiết</a></td>
                     </tr>
                     
                 </tbody>
