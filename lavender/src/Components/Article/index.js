@@ -36,8 +36,13 @@ function Article() {
                                                     </div>
                                                 </div>
                                                 <div className="blog-meta big-meta col-8">
-
-                                                    <h5><Link to={`/article/${post.mabaiviet}`} className="post-title">{post.tieude}</Link></h5>
+                                                    <h5><Link  to={`/articledetail/${post.mabaiviet}`} className="post-title">{post.tieude}</Link></h5>
+                                                    {/* <h5><a type="button"
+                                                        className=""
+                                                        onClick={toDetail(post.mabaiviet)}
+                                                    >
+                                                        {post.tieude}
+                                                    </a></h5> */}
                                                     <p className="post-description">{post.mota}</p>
                                                 </div>
                                             </div>

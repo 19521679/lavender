@@ -49,7 +49,7 @@ function Login(props) {
   };
   const onFailure = (res) => {
     console.log("loginfail", res);
-    myToast.toastError("sai tài khoản hoặc mật khẩu");
+    myToast.toastError("đăng nhập thất bại");
   };
   const { signIn } = useGoogleLogin({
     onSuccess,
@@ -128,7 +128,6 @@ function Login(props) {
                 </div>
                 <Link to="/forgotpassword" className="forgot-password-link">Quên mật khẩu?</Link>
               </div>
-              {/* Submit button */}
               <button
                 className="btn btn-primary btn-lg btn-block"
                 onClick={() => {
@@ -143,7 +142,7 @@ function Login(props) {
 
               { !lanhanvien&& (  <div className="group-expand-login">
                   <Link
-                    className="btn btn-primary btn-lg btn-block"
+                    className="btn btn-success btn-lg btn-block"
                     to="/register"
                     role="button"
                     Suplier
@@ -151,14 +150,14 @@ function Login(props) {
                     <i className="fab fa-register me-2" />
                     Đăng kí
                   </Link>
-                  <Link
+                  {/* <Link
                     className="btn btn-info btn-lg btn-block d-block"
                     role="button"
                     Suplier
                   >
                     <i className="fab fa-facebook-f me-2 " />
                     Đăng nhập bằng Facebook
-                  </Link>
+                  </Link> */}
                   <button
                     className="btn btn-warning btn-lg btn-block d-block "
                     onClick={() => {

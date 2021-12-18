@@ -12,6 +12,7 @@ export default function Index(props) {
         if (success.status === 200) {
           setThongsokithuat(success.data.value.$values);
         }
+        
       })
       .catch((error) => {
         console.error(error);
