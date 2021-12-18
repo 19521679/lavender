@@ -14,7 +14,7 @@ export default function InitData() {
     }, [dispatch])
     return (
         <div>
-            
+            asdasdasda
         </div>
     )
 }

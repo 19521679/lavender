@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as productApi from "../../apis/product";
 import * as detailProductapi from "../../apis/detailProduct";
 import * as imageApi from "../../apis/image";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class SanphamItem extends Component {
   state = { sanpham: {}, giamoi: 0 };
@@ -32,21 +32,14 @@ export default class SanphamItem extends Component {
     this.setState({ sanpham: sanpham, giamoi: giamoi });
   }
 
-  async deleteSanphamyeuthich(){
-    
-  }
+  async deleteSanphamyeuthich() {}
 
   render() {
     return (
       <li className="item border rounded">
         <button className="btn-delete">×</button>
         <div className="thumbnail">
-          <a
-            href={this.state.sanpham.image}
-            onClick={() => (
-              <Redirect to={"/lavender/"+this.this.state.sanpham.image}></Redirect>
-            )}
-          >
+          <Link to={"/lavender/" + this.this.state.sanpham.image}>
             <div className="Picture__StyledPicture-sc-10icj7e-0 jDowEZ loaded">
               <img
                 alt="anhsanpham"
@@ -57,18 +50,15 @@ export default class SanphamItem extends Component {
                 }
               />
             </div>
-          </a>
+          </Link>
         </div>
         <div className="body">
-          <a
+          <Link
             className="name"
-            href={() => false}
-            onClick={() => (
-              <Redirect to={"/lavender/"+this.this.state.sanpham.image}></Redirect>
-            )}
+            to={"/lavender/" + this.this.state.sanpham.image}
           >
             {this.state.sanpham.tensanpham}
-          </a>
+          </Link>
           <div className="rating">
             <div className="rating__base">
               <svg

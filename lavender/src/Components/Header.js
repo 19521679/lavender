@@ -49,7 +49,7 @@ var MenuLink = ({ lable, to, activeOnlyWhenExact }) => {
       children={({ match }) => {
         return (
           <li>
-            <Link to={"/lavender"+to}>{lable}</Link>
+            <Link to={to}>{lable}</Link>
             <i class={match ? "fas fa-circle dot-circle-active" : ""}></i>
           </li>
         );
@@ -65,7 +65,7 @@ var showMenu = (temps) => {
       <MenuLink
         key={key}
         lable={value.name}
-        to={value.to}
+        to={"/lavender" + value.to}
         activeOnlyWhenExact={value.exact}
         list={value.list}
       ></MenuLink>
@@ -75,9 +75,6 @@ var showMenu = (temps) => {
 };
 
 class Header extends Component {
-  componentDidMount() {
-
-  }
   render() {
     return (
       <>
