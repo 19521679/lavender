@@ -19,7 +19,12 @@ const reducer = (state = initialState, action) => {
     case loginConst.POST_LOGIN_SUCCESS: {
       const { data } = action.payload;
       if (data.value.token === undefined) {
-        cookie.remove("token");
+        cookie.set("token", "", {
+          path: "/",
+          httpOnly: false,
+          secure: true,
+          sameSite: true,
+        });
       } else {
         let dtoken = new Date();
         dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
@@ -93,8 +98,18 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("refreshtoken", { path: '/', domain: "19521679.github.io" });
-      cookie.remove("token", { path: '/', domain: "19521679.github.io" });
+      cookie.set("token", "", {
+        path: "/",
+        httpOnly: false,
+        secure: true,
+        sameSite: true,
+      });
+      cookie.set("refreshtoken", "", {
+        path: "/",
+        httpOnly: false,
+        secure: true,
+        sameSite: true,
+      });
       return {
         ...state,
       };
@@ -107,8 +122,18 @@ const reducer = (state = initialState, action) => {
     }
     case loginConst.POST_LOGOUT_SUCCESS: {
       console.log("logout redux")
-      cookie.remove("refreshtoken", { path: '/', domain: "19521679.github.io" });
-      cookie.remove("token", { path: '/', domain: "19521679.github.io" });
+      cookie.set("token", "", {
+        path: "/",
+        httpOnly: false,
+        secure: true,
+        sameSite: true,
+      });
+      cookie.set("refreshtoken", "", {
+        path: "/",
+        httpOnly: false,
+        secure: true,
+        sameSite: true,
+      });
       return {
         ...state,
         makhachhang: undefined,

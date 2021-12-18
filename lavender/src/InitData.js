@@ -9,12 +9,11 @@ export default function InitData() {
     const dispatch = useDispatch();
     useEffect(() => {
         const refreshtoken = cookie.get("refreshtoken");
-        if (refreshtoken===undefined) return;
+        if (refreshtoken===undefined|| refreshtoken==="") return;
         dispatch(loginAct.postRefreshReport(refreshtoken))
     }, [dispatch])
     return (
         <div>
-            asdasdasda
         </div>
     )
 }

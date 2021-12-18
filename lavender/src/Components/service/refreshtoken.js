@@ -36,6 +36,16 @@ export const refreshToken = async (refreshtoken) => {
     });
     return newojtoken.token;
   }
-  cookie.remove("refreshtoken", { path: '/', domain: "19521679.github.io" });
-  cookie.remove("token", { path: '/', domain: "19521679.github.io" });
+  cookie.set("token", "", {
+    path: "/",
+    httpOnly: false,
+    secure: true,
+    sameSite: true,
+  });
+  cookie.set("refreshtoken", "", {
+    path: "/",
+    httpOnly: false,
+    secure: true,
+    sameSite: true,
+  });
 };
