@@ -36,16 +36,6 @@ export const refreshToken = async (refreshtoken) => {
     });
     return newojtoken.token;
   }
-  cookie.set("token", "", {
-    path: "/",
-    httpOnly: false,
-    secure: true,
-    sameSite: true,
-  });
-  cookie.set("refreshtoken", "", {
-    path: "/",
-    httpOnly: false,
-    secure: true,
-    sameSite: true,
-  });
+  cookie.remove("token", {path: "/lavender", domain: "19521679.github.io"})
+  cookie.remove("refreshtoken", {path: "/lavender", domain: "19521679.github"})
 };
