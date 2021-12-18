@@ -40,5 +40,16 @@ namespace Back.Controllers
             return StatusCode(200, Json(chitiethoadons));
         }
 
+        [Route("/tracuu-sohoadon")]
+        [HttpGet]
+        public async Task<IActionResult> detailBillByImei(string imei)
+        {
+            
+            var sohoadon = await (from c in lavenderContext.Chitiethoadon
+                                        where c.Imei == imei
+                                        select c.Sohoadon).ToListAsync();
+            return StatusCode(200, Json(sohoadon));
+        }
+
     }
 }

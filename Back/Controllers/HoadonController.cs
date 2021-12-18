@@ -190,6 +190,27 @@ namespace Back.Controllers
 
             return StatusCode(200);
         }
+
+        [Route("/twenty-hoadon")]
+        [HttpGet]
+        public async Task<IActionResult> xemHoadon()
+        {
+            var hoadonlist = await (from h in lavenderContext.Hoadon
+                                    select h).OrderByDescending(x => x.Ngayhoadon).Take(20).ToListAsync();
+            if (hoadonlist.Count == 0) return StatusCode(404);
+            return StatusCode(200, Json(hoadonlist));
+        }
+
+        [Route("/tracuu-ngaymua-theosohoadon")]
+        [HttpGet]
+        public async Task<IActionResult> tracuuNgaymua(int sohoadon)
+        {
+            var ngaymua = await (from x in lavenderContext.Hoadon
+                                     where x.Sohoadon == sohoadon
+                                     select x.Ngayhoadon).ToListAsync();
+            return StatusCode(200, Json(ngaymua));
+        }
+
     }
        
 }

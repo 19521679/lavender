@@ -25,3 +25,10 @@ export const detailByBillId = async (sohoadon, token, refreshtoken) => {
   }
   return connect;
 };
+
+
+export const detailBillByImei = (imei) => {
+  return axiosServices.get(`${API_ENDPOINT}/tracuu-sohoadon?imei=${imei}`);
+};
+
+

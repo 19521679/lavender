@@ -9,12 +9,17 @@ import * as guaranteeApi from "../apis/guarantee";
 import * as imageApi from "../apis/image";
 import { Collapse } from 'react-collapse';
 import Item from "./Item";
+import * as detailBillApi from "../apis/detailBill";
+import * as billingApi from "../apis/billing";
 
 export default function Index(props) {
+  const a ="";
   const [timkiem, setTimkiem] = useState("");
   const [chitietsanpham, setChitietsanpham] = useState(undefined);
   const [sanpham, setSanpham] = useState(undefined);
   const [lichsubaohanh, setLichsubaohanh] = useState([]);
+  const [hoadon, setHoadon] =  useState(undefined);
+  const [chitiethoadon, setChitiethoadon] = useState(undefined);
   useEffect(() => {
     //   (async()=>{
     //         await
@@ -66,6 +71,31 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
+
+    detailBillApi
+      .detailBillByImei(timkiem)
+      .then((success) => {
+        if (success.status === 200) {
+          setChitiethoadon(success.data.value.$values);
+          a = success.data.value.$values;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      billingApi
+        .tracuuNgaymua(a)
+        .then((success) => {
+          if (success.status === 200) {
+            setHoadon(success.data.value);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  
+      
   };
   return (
     <div>
@@ -430,12 +460,12 @@ export default function Index(props) {
                                   </div>
                                 </div>
                                 <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                                  <span>Ngày bảo hành</span>
-                                  <span>{(lichsubaohanh !== undefined && lichsubaohanh !== undefined) && chitietsanpham.giamoi}</span>
+                                  <span>Thời hạn bảo hành</span>
+                                  <span>1 năm 13 ngày {(hoadon !== undefined) && hoadon} </span>
                                 </div>
 
                                 <ul class="list-group">
-                                  <li class="list-group-item active bg-dark mt-3">Lịch sử bảo hành</li>
+                                  <li class="list-group-item active mt-3" style={{textAlign: 'center'}}>Lịch sử bảo hành</li>
                                   {
                                     lichsubaohanh.map((value, key) => {
                                       return (<Item item={value} key={key}></Item>)

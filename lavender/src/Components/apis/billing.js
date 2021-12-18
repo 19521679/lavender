@@ -141,3 +141,9 @@ export const muaHang = async (
   }
   return connect;
 };
+
+
+export const tracuuNgaymua = (sohoadon) => {
+  return axiosServices.get(`${API_ENDPOINT}/tracuu-ngaymua-theosohoadon?sohoadon=${sohoadon}`);
+};
+
