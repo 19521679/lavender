@@ -68,6 +68,7 @@ export default function EditModal(props) {
     // Update the document title using the browser API
   }, [masanpham]);
   function submitHandler() {
+    myToast.toastLoading();
     const fd = new FormData();
     fd.append("imei", imei);
     fd.append("masanpham", masanpham);
