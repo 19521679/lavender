@@ -26,8 +26,8 @@ export default function AddModal(props) {
   const [tensanpham, setTensanpham] = useState("");
   const [ngaysanxuat, setNgaysanxuat] = useState(new Date());
   const [tinhtrang, setTinhtrang] = useState("Sẵn có");
-  const [mausac, setMausac] = useState("");
-  const [dungluong, setDungluong] = useState("");
+  const [mausac, setMausac] = useState("Khác");
+  const [dungluong, setDungluong] = useState("Khác");
   const [giamoi, setGiamoi] = useState(0);
   const [image, setImage] = useState(undefined);
   const [danhsachmausac, setDanhsachmausac] = useState([]);
@@ -70,7 +70,7 @@ export default function AddModal(props) {
   };
   useEffect(() => {
     // Update the document title using the browser API
-  });
+  }, []);
   function submitHandler() {
     const fd = new FormData();
     fd.append("imei", imei);

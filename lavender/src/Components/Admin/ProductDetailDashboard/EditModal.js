@@ -41,7 +41,7 @@ export default function EditModal(props) {
       .timMausacBangMasanpham(masanpham)
       .then((success) => {
         if (success.status === 200) {
-          setDanhsachmausac(success.data.value.$values);
+          setDanhsachmausac(success.data.value.$values, mausac);
           console.log(success.data.value.$values);
         }
       })
@@ -55,7 +55,7 @@ export default function EditModal(props) {
       .timDungluongBangMasanpham(masanpham)
       .then((success) => {
         if (success.status === 200) {
-          setDanhsachdungluong(success.data.value.$values);
+          setDanhsachdungluong(success.data.value.$values, dungluong);
         }
       })
       .catch((error) => {
@@ -63,8 +63,10 @@ export default function EditModal(props) {
       });
   };
   useEffect(() => {
+    loadMausac(masanpham)
+    loadDungluong(masanpham)
     // Update the document title using the browser API
-  });
+  }, [masanpham]);
   function submitHandler() {
     const fd = new FormData();
     fd.append("imei", imei);
@@ -81,8 +83,11 @@ export default function EditModal(props) {
     productdetailApi
       .editProductdetail(fd, runProgress, token, refreshtoken)
       .then((success) => {
-        props.addFunction(success.data.value);
-        props.closeModal();
+        if(success.status===200) {
+          myToast.toastSucces("Sửa thành công");
+          props.editFunction(success.data.value);
+          props.closeModal();
+        }
       })
       .catch((error) => {
         myToast.toastError("Sửa thất bại");
@@ -92,7 +97,6 @@ export default function EditModal(props) {
 
   const runProgress = (percent) => {
     if (percent === 100) {
-      myToast.toastSucces("Sửa thành công");
       props.closeModal();
     }
     setProgress(percent);
@@ -109,7 +113,7 @@ export default function EditModal(props) {
         <div class="">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">
-              Thêm mới chi tiết sản phẩm
+              Sửa chi tiết sản phẩm
             </h5>
           </div>
 
@@ -149,6 +153,7 @@ export default function EditModal(props) {
                   placeholder=""
                   onChange={(e) => setImei(e.target.value)}
                   value={imei}
+                  disabled
                 ></input>
               </div>
             </div>
@@ -321,7 +326,7 @@ export default function EditModal(props) {
               class="btn btn-primary"
               onClick={submitHandler}
             >
-              Thêm
+              Sửa
             </button>
           </div>
         </div>

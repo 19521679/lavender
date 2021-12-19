@@ -343,8 +343,9 @@ namespace Back.Controllers
             [FromForm] string mausac, [FromForm] string dungluong, [FromForm] float giamoi)
         {
             Chitietsanpham s = await (from n in lavenderContext.Chitietsanpham
-                                 where n.Image == imei
-                                 select n).FirstAsync();
+                                 where n.Imei.Equals(imei)
+                                 select n).FirstOrDefaultAsync();
+            if (s == null) return StatusCode(404);
             s.Imei = imei;
             s.Masanpham = masanpham;
             s.Ngaysanxuat = DateTime.Parse(ngaysanxuat).ToLocalTime();
