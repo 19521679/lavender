@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.e33c1343.chunk.css",
-    "main.js": "/static/js/main.8dfbf4fd.chunk.js",
-    "main.js.map": "/static/js/main.8dfbf4fd.chunk.js.map",
+    "main.js": "/static/js/main.49f9faf2.chunk.js",
+    "main.js.map": "/static/js/main.49f9faf2.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.8011ce55.js",
     "runtime-main.js.map": "/static/js/runtime-main.8011ce55.js.map",
     "static/css/2.e3596843.chunk.css": "/static/css/2.e3596843.chunk.css",
-    "static/js/2.faf6034e.chunk.js": "/static/js/2.faf6034e.chunk.js",
-    "static/js/2.faf6034e.chunk.js.map": "/static/js/2.faf6034e.chunk.js.map",
+    "static/js/2.08ec84a9.chunk.js": "/static/js/2.08ec84a9.chunk.js",
+    "static/js/2.08ec84a9.chunk.js.map": "/static/js/2.08ec84a9.chunk.js.map",
     "static/js/3.dac2d030.chunk.js": "/static/js/3.dac2d030.chunk.js",
     "static/js/3.dac2d030.chunk.js.map": "/static/js/3.dac2d030.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.e3596843.chunk.css.map": "/static/css/2.e3596843.chunk.css.map",
     "static/css/main.e33c1343.chunk.css.map": "/static/css/main.e33c1343.chunk.css.map",
-    "static/js/2.faf6034e.chunk.js.LICENSE.txt": "/static/js/2.faf6034e.chunk.js.LICENSE.txt",
+    "static/js/2.08ec84a9.chunk.js.LICENSE.txt": "/static/js/2.08ec84a9.chunk.js.LICENSE.txt",
     "static/media/acer.svg": "/static/media/acer.f6dd3141.svg",
     "static/media/apple.svg": "/static/media/apple.b3ae8330.svg",
     "static/media/asus.svg": "/static/media/asus.a4f91cf1.svg",
@@ -41,8 +41,8 @@
   "entrypoints": [
     "static/js/runtime-main.8011ce55.js",
     "static/css/2.e3596843.chunk.css",
-    "static/js/2.faf6034e.chunk.js",
+    "static/js/2.08ec84a9.chunk.js",
     "static/css/main.e33c1343.chunk.css",
-    "static/js/main.8dfbf4fd.chunk.js"
+    "static/js/main.49f9faf2.chunk.js"
   ]
 }
