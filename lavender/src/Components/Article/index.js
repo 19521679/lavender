@@ -62,7 +62,7 @@ function Article() {
                                                     >
                                                         {post.tieude}
                                                     </a></h5> */}
-                        <p className="post-description">{post.mota}</p>
+                        <h5> <a className="post-title" onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app/articledetail/${post.mabaiviet}` }}>{post.tieude}</a></h5>
                       </div>
                     </div>
                   ))}
