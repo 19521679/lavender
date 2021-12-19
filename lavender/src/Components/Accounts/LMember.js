@@ -17,8 +17,9 @@ function Lmember(props) {
   const dispatch = useDispatch();
   const clientId = myConst.CLIENT_ID;
   const logout = async () => {
-    dispatch(
-      loginAct.postLogoutReport(
+    console.log("remove cookie");
+    await dispatch(
+      await loginAct.postLogoutReport(
         makhachhang,
         "khachhang",
         cookie.get("token"),
@@ -29,11 +30,6 @@ function Lmember(props) {
   };
   const onLogoutSuccess = () => {
     console.log("logout google");
-
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    if (auth2 != null) {
-      auth2.signOut().then(auth2.disconnect().then());
-    }
   };
   const onFailure = () => {
     console.log("google logout failure");

@@ -164,11 +164,6 @@ const routes = [
     main: () => <ForgotPassword></ForgotPassword>
   },
   {
-    path: "/",
-    exact: true,
-    main: () => <Home></Home>,
-  },
-  {
     path: "",
     exact: false,
     main: () => <NotFoundPage></NotFoundPage>,

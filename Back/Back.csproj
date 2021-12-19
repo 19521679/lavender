@@ -36,6 +36,8 @@
   <PackageReference Include="MailKit" Version="3.0.0" />
   <PackageReference Include="AspNetCore.Email" Version="2.1.403" />
   <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="3.1.22" />
+  <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
+  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,11 +67,15 @@
     <None Remove="MailKit" />
     <None Remove="AspNetCore.Email" />
     <None Remove="Microsoft.AspNetCore.Authentication.Certificate" />
+    <None Remove="Swashbuckle.AspNetCore.Swagger" />
+    <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
+    <None Remove="Views %28copy%29\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Models\ModelDTO\" />
     <Folder Include="Models\ModelDTO\Cart\" />
     <Folder Include="Models\ModelDTO\Account\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 </Project>

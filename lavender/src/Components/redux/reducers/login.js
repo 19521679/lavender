@@ -24,11 +24,10 @@ const reducer = (state = initialState, action) => {
         let dtoken = new Date();
         dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
         cookie.set("token", data.value.token, {
-          path: "/",
           expires: dtoken,
-          httpOnly: false,
-          secure: true,
-          sameSite: true,
+          // httpOnly: false,
+          // secure: true,
+          // sameSite: true,
         });
       }
       if (data.value.refreshtoken === undefined) {
@@ -37,11 +36,10 @@ const reducer = (state = initialState, action) => {
         let drefresh = new Date();
         drefresh.setTime(drefresh.getTime() + 10 * 24 * 60 * 60 * 1000);
         cookie.set("refreshtoken", data.value.refreshtoken, {
-          path: "/",
           expires: drefresh,
-          httpOnly: false,
-          secure: true,
-          sameSite: true,
+          // httpOnly: false,
+          // secure: true,
+          // sameSite: true,
         });
       }
 
@@ -70,21 +68,19 @@ const reducer = (state = initialState, action) => {
       let dtoken = new Date();
       dtoken.setTime(dtoken.getTime() + 60 * 60 * 1000);
       cookie.set("token", data.value.token, {
-        path: "/",
         expires: dtoken,
-        httpOnly: false,
-        secure: true,
-        sameSite: true,
+        // httpOnly: false,
+        // secure: true,
+        // sameSite: true,
       });
 
       let drefresh = new Date();
       drefresh.setTime(drefresh.getTime() + 10 * 24 * 60 * 60 * 1000);
       cookie.set("refreshtoken", data.value.refreshtoken, {
-        path: "/",
         expires: drefresh,
-        httpOnly: false,
-        secure: true,
-        sameSite: true,
+        // httpOnly: false,
+        // secure: true,
+        // sameSite: true,
       });
       return {
         ...state,
@@ -93,8 +89,8 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_REFRESH_FAILED: {
-      cookie.remove("refreshtoken");
       cookie.remove("token");
+      cookie.remove("refreshtoken");
       return {
         ...state,
       };
@@ -106,9 +102,9 @@ const reducer = (state = initialState, action) => {
       };
     }
     case loginConst.POST_LOGOUT_SUCCESS: {
-      console.log("logout redux")
-      cookie.remove("refreshtoken");
+      console.log("logout redux");
       cookie.remove("token");
+      cookie.remove("refreshtoken");
       return {
         ...state,
         makhachhang: undefined,

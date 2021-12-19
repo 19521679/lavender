@@ -419,6 +419,18 @@ namespace Back.Controllers
             if (chitietsanpham == null) return StatusCode(404);
             return StatusCode(200, Json(chitietsanpham));
         }
+
+        [Route("/tim-cac-chitietsanpham-bang-sohoadon")]
+        [HttpGet]
+        public async Task<IActionResult> TimCacChitietsanphamBangSohoadon(int sohoadon)
+        {
+            var list = await (from x in lavenderContext.Chitietsanpham
+                              join y in lavenderContext.Chitiethoadon
+                              on x.Imei equals y.Imei
+                              where y.Sohoadon == sohoadon
+                              select x).ToListAsync();
+            return StatusCode(200, Json(list));
+        }
     }
 
 }

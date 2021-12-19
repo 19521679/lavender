@@ -2,7 +2,7 @@
   "name": "lavender",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://19521679.github.io/lavender/",
+  "homepage": "https://19521679.github.io/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -46,16 +46,13 @@
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.2",
     "react-facebook":"^8.1.4",
-    "draft-js": "^0.10.4",
-    "draftjs-to-html": "^0.9.1",
-    "html-to-draftjs": "^1.5.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-draft-wysiwyg": "^1.12.3"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",

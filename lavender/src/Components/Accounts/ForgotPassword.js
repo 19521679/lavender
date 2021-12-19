@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import * as myConst from "../../Common/constants/index"
 import axios from "axios";
 function ForgotPassword() {
     const [email, setEmail] = useState("");
     function saveUser() {
-        let url = "https://localhost:5001/forgotpassword/" + email.toString();
+        let url = `${myConst.API_ENDPOINT}/forgotpassword/` + email.toString();
         console.log(email);
         axios.get(url);
         window.location.href="https://mail.google.com/mail/u/?authuser="+email.toString();

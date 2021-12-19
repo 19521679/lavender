@@ -64,7 +64,7 @@ export default function DeleteModal(props) {
             <button
               type="button"
               class="btn btn-primary"
-              onClick={submitHandler.bind(this)}
+              onClick={submitHandler}
             >
               Xoá
             </button>

@@ -158,7 +158,7 @@ namespace Back.Controllers
 
 
         [Route("/xoa-hoadon")]
-        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteBill(int sohoadon)
         {
@@ -191,6 +191,7 @@ namespace Back.Controllers
             return StatusCode(200);
         }
 
+
         [Route("/twenty-hoadon")]
         [HttpGet]
         public async Task<IActionResult> xemHoadon()
@@ -209,6 +210,20 @@ namespace Back.Controllers
                                      where x.Sohoadon == sohoadon
                                      select x.Ngayhoadon).ToListAsync();
             return StatusCode(200, Json(ngaymua));
+        }
+
+
+        [Route("/hoadon-cuatoi-dangxuly")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> HoadonCuatoiDangxuly(int makhachhang)
+        {
+            var listhoadon = await (from x in lavenderContext.Hoadon
+                                    join y in lavenderContext.Vanchuyen
+                                    on x.Sohoadon equals y.Sohoadon
+                                    where y.Trangthai.Equals("Đang xử lý")
+                                    select x).ToListAsync();
+            return StatusCode(200, Json(listhoadon));
         }
 
     }

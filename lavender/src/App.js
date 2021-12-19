@@ -34,8 +34,7 @@ function App(props) {
   };
 
   useEffect(() => {
-
-  });
+  },[]);
   return (
     <Provider store={store}>
       <ToastContainer />
@@ -46,7 +45,6 @@ function App(props) {
         ) : (
           <Header />
         )}
-        {/* {props.location.pathname.includes("/lmember")?<LMember></LMember>:null} */}
         {showContentMenus(routes)}
         {props.location.pathname.includes("/admin") ? null : <Footer />}
       </div>

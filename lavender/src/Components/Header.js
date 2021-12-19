@@ -7,10 +7,7 @@ import * as loginAct from "./redux/actions/loginAct";
 import PropTypes from "prop-types";
 import logo from "../Asset/logo/logo.png";
 import BoxSearch from "./BoxSearch";
-import Cookies from "universal-cookie";
 import Social from "./Social";
-
-const cookie = new Cookies();
 
 const menus = [
   {
@@ -78,9 +75,6 @@ var showMenu = (temps) => {
 };
 
 class Header extends Component {
-  componentDidMount() {
-
-  }
   render() {
     return (
       <>

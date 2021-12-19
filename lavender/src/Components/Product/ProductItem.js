@@ -73,7 +73,7 @@ export default class ProductItem extends Component {
                 <i className="bx bxl-dribbble" />
               </div>
               <h4>
-                <div className="product-name">
+                <div className="product-name text-dark">
                   {this.props.product.tensanpham}
                 </div>
               </h4>

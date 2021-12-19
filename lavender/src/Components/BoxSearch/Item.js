@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Item(props) {
   return (
     <li className="odd first last">
-      <Link to={props.product.image}>
+      <Link to={ props.product.image}>
         <div className="box-img">
           <img alt="anhthunho" src={imageApi.image(props.product.image)} />
         </div>

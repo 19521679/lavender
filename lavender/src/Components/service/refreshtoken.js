@@ -36,6 +36,6 @@ export const refreshToken = async (refreshtoken) => {
     });
     return newojtoken.token;
   }
-  cookie.remove("token");
-  cookie.remove("refreshtoken");
+  cookie.remove("token")
+  cookie.remove("refreshtoken")
 };
