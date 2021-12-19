@@ -34,36 +34,29 @@ function Article() {
                     <h3 className="pull-left">Tin công nghệ</h3>
                   </div>
                   {posts.map((post) => (
-                    <div className="blog-box row mb-4">
-                      <div className="col-md-4">
-                        <div className="post-media">
-                          <Link to={`/article/${post.mabaiviet}`} className="">
-                            <img
-                              src={post.thumnail}
-                              alt=""
-                              className="img-fluid"
-                            />
-                            <div className="hovereffect" />
-                          </Link>
+                    <div className="blog-box pt-3 pb-2 ">
+                      <a className="" onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app/articledetail/${post.mabaiviet}` }}>
+                        <div>
+                          <div className=" row mb-4">
+                            <div className="col-md-4">
+                              <div className="post-media">
+                                <img
+                                  src={post.thumnail}
+                                  alt=""
+                                  className="img-fluid"
+                                />
+                                <div className="hovereffect" />
+                              </div>
+                            </div>
+                            <div className="blog-meta big-meta col-8">
+                              <h5>
+                                {post.tieude}
+                              </h5>
+                              <p>{post.mota}</p>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="blog-meta big-meta col-8">
-                        <h5>
-                          <Link
-                            to={`/articledetail/${post.mabaiviet}`}
-                            className="post-title"
-                          >
-                            {post.tieude}
-                          </Link>
-                        </h5>
-                        {/* <h5><a type="button"
-                                                        className=""
-                                                        onClick={toDetail(post.mabaiviet)}
-                                                    >
-                                                        {post.tieude}
-                                                    </a></h5> */}
-                        <h5> <a className="post-title" onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app/articledetail/${post.mabaiviet}` }}>{post.tieude}</a></h5>
-                      </div>
+                      </a>
                     </div>
                   ))}
                 </div>
