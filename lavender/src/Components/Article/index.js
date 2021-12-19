@@ -63,7 +63,7 @@ function Article() {
                                                         {post.tieude}
                                                     </a></h5> */}
                         <p className="post-description">{post.mota}</p>
-                      </div>
+                      </div> 
                     </div>
                   ))}
                 </div>
