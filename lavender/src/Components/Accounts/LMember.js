@@ -17,7 +17,6 @@ function Lmember(props) {
   const dispatch = useDispatch();
   const clientId = myConst.CLIENT_ID;
   const logout = async () => {
-    console.log("remove cookie");
     await dispatch(
       await loginAct.postLogoutReport(
         makhachhang,

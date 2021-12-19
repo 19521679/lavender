@@ -6,7 +6,6 @@ import { Link, Redirect } from "react-router-dom";
 import * as myToast from "../../Common/helper/toastHelper";
 import { useGoogleLogin } from "react-google-login";
 import * as myConst from "../../Common/constants/index";
-import Cookies from "universal-cookie";
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -50,8 +49,8 @@ function Login(props) {
     onSuccess,
     onFailure,
     clientId,
-    isSignedIn: true,
-    accessType: "online",
+    isSignedIn: false,
+    accessType: "offline",
   });
   return (
     <section>

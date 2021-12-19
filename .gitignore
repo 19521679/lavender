@@ -5,9 +5,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
+.vscode
+lavender/.vscode
+Back/.vscode
+lavender/build
+lavender/build/
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+lavender/build/Release
 
 # Dependency directories
 node_modules/
