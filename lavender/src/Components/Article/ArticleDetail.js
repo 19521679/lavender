@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import "./style.css"
 import Article from "./index.js";
 import Comment from "../Facebook/Comment/index.js"
+import * as articleApi from "../apis/article";
 
 function ArticleDetail() {
     const mabaiviet = useParams().mabaiviet;
     console.log(mabaiviet);
     const [posts, setPosts] = useState([]);
-    let url = "https://localhost:5001/baiviet/" + mabaiviet.toString();
     useEffect(() => {
-        axios.get(url)
+        articleApi.getArticle(mabaiviet)
             .then(res => {
                 console.log(res);
                 setPosts(res.data);
@@ -19,7 +19,7 @@ function ArticleDetail() {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [mabaiviet])
 
     return (
         <div className="container">

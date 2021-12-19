@@ -7,32 +7,32 @@ import ThayDoiEmail from "./ThongTinTaiKhoan/ThayDoiEmail";
 
 const routes=[
     {
-        path: "/lavender/lmember/thongtintaikhoan",
+        path: "/lmember/thongtintaikhoan",
         exact: true,
         main: () => <ThongTinTaiKhoan></ThongTinTaiKhoan>
       },
       {
-        path: "/lavender/lmember/thongtintaikhoan/sdt",
+        path: "/lmember/thongtintaikhoan/sdt",
         exact: true,
         main: () => <ThayDoiSDT></ThayDoiSDT>
       },
       {
-        path: "/lavender/lmember/thongtintaikhoan/email",
+        path: "/lmember/thongtintaikhoan/email",
         exact: true,
         main: () => <ThayDoiEmail></ThayDoiEmail>
       },
       {
-        path: "/lavender/lmember/quanlydonhang",
+        path: "/lmember/quanlydonhang",
         exact: true,
         main: () => <QuanLyDonHang></QuanLyDonHang>
       },
       {
-        path: "/lavender/lmember/thongbaocuatoi",
+        path: "/lmember/thongbaocuatoi",
         exact: true,
         main: () => <ThongBaoCuaToi></ThongBaoCuaToi>
       },
       {
-        path: "/lavender/lmember/sanphamyeuthich",
+        path: "/lmember/sanphamyeuthich",
         exact: true,
         main: () => <SanPhamYeuThich></SanPhamYeuThich>
       },

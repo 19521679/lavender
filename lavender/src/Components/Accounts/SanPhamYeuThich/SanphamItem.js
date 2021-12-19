@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import * as productApi from "../../apis/product";
 import * as detailProductapi from "../../apis/detailProduct";
 import * as imageApi from "../../apis/image";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default class SanphamItem extends Component {
+class SanphamItem extends Component {
   state = { sanpham: {}, giamoi: 0 };
   async componentDidMount() {
     let sanpham = {};
@@ -39,8 +39,9 @@ export default class SanphamItem extends Component {
       <li className="item border rounded">
         <button className="btn-delete">×</button>
         <div className="thumbnail">
-          <Link to={ this.this.state.sanpham.image}>
-            <div className="Picture__StyledPicture-sc-10icj7e-0 jDowEZ loaded">
+          <div to={ this.state.sanpham.image}>
+            <div className="Picture__StyledPicture-sc-10icj7e-0 jDowEZ loaded"
+            >
               <img
                 alt="anhsanpham"
                 className="image"
@@ -50,15 +51,14 @@ export default class SanphamItem extends Component {
                 }
               />
             </div>
-          </Link>
+          </div>
         </div>
         <div className="body">
-          <Link
+          <div
             className="name"
-            to={this.this.state.sanpham.image}
           >
             {this.state.sanpham.tensanpham}
-          </Link>
+          </div>
           <div className="rating">
             <div className="rating__base">
               <svg
@@ -206,3 +206,5 @@ export default class SanphamItem extends Component {
     );
   }
 }
+
+export default withRouter(SanphamItem);

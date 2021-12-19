@@ -170,9 +170,9 @@ class Product extends Component {
                         alt="decrease"
                       />
                     </span>
-                    <a href={() => false} className="qty-input" id="quantity">
+                    <span className="qty-input" id="quantity">
                       {this.props.detailCart.soluong}
-                    </a>
+                    </span>
                     <span
                       data-view-id="cart_main_quantity.increase"
                       data-view-index="d7159dd0-3bda-11ec-a1bf-f256c406ec5c"

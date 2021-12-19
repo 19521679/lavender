@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 import Product from "./Product.js";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as cartApi from "../apis/cart";
@@ -79,7 +79,7 @@ class index extends Component {
       })
       .catch((error) => {
         myToast.toastError("Mua hàng thất bại");
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -130,14 +130,12 @@ class index extends Component {
     let cart = undefined;
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
-    if (this.props.makhachhang === undefined) {
-      this.props.history.push("/login");
-    }
+
     await cartApi
       .loadCart(this.props.makhachhang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
-          cart = success.data.value.$values[0];
+          cart = success.data.value;
         }
       })
       .catch((error) => {
@@ -150,43 +148,48 @@ class index extends Component {
     }
      token = cookie.get("token");
      refreshtoken = cookie.get("refreshtoken");
+
     let detailCarts = undefined;
     await detailCartApi
       .loadDetailCartByCartId(cart.magiohang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
-          if (success.data.value !== undefined)
+          if (success.data.value !== undefined && success.data.value.$values !== undefined )
             detailCarts = success.data.value.$values;
         }
       })
       .catch((error) => {
         console.error(error);
       });
+
     if (detailCarts === undefined) {
       this.setState({ detailCarts: [] });
       return;
     }
-
+   
     var carttemp = [];
+    
     for (var i = 0; i < detailCarts.length; i++) {
-      var tien = 0;
+     
       await detailProductApi
         .xemgiatheodungluongmausacmasanpham(
           detailCarts[i].masanpham,
           detailCarts[i].dungluong,
           detailCarts[i].mausac
         )
-        .then((success) => {
-          if (success.status === 200) tien = success.data.value;
+        .then(success => {
+          if (success.status === 200) {
+            var temp = { ...detailCarts[i], chon: false, tien: success.data.value };
+            carttemp.push(temp);
+          }          
         })
         .catch((error) => {
           console.error(error);
         });
-      var temp = { ...detailCarts[i], chon: false, tien: tien };
-      carttemp.push(temp);
+
     }
 
-    await this.setState({ cart: cart, detailCarts: carttemp, loading: false });
+     this.setState({ cart: cart, detailCarts: carttemp, loading: false });
   }
 
   async changeQuantity(masanpham, dungluong, mausac, quantity) {
@@ -259,9 +262,9 @@ class index extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.props.makhachhang)
-    this.loadCart();
+    if (this.props.makhachhang===undefined) {return}
     this.loadCustomer();
+    this.loadCart();
   }
 
   selectAll() {
@@ -292,6 +295,7 @@ class index extends Component {
   render() {
     return (
       <section>
+       {this.props.makhachhang===undefined&&  <Redirect to="/login"></Redirect>}
         <LoadingContainer loading={this.state.loading}></LoadingContainer>
         <DeleteAllModal
           showModal={this.state.showModal}

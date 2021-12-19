@@ -8,8 +8,6 @@ import { useGoogleLogin } from "react-google-login";
 import * as myConst from "../../Common/constants/index";
 import Cookies from "universal-cookie";
 
-const cookie = new Cookies();
-
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

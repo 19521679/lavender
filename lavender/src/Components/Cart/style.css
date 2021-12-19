@@ -7,7 +7,7 @@
   margin-bottom: 100px;
 }
 .cart-inner {
-  /* margin-right: 13px; */
+  min-width: 757px;
 }
 .dioUnE {
   position: relative;
@@ -55,7 +55,7 @@
 }
 .dioUnE .col-3 {
   width: 130px;
-  margin: auto ;
+  margin: auto;
   padding: 0px 15px;
 }
 .dioUnE .col-4 {
@@ -199,6 +199,7 @@ input[type="checkbox" i] {
 /* Khu vực tổng tiền */
 .cart-total-prices {
   margin-top: 41px;
+  margin-left: 36px;
 }
 .ljbDGD .cart-total-prices {
   width: calc(100% - 925px);

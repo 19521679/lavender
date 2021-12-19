@@ -85,20 +85,19 @@ namespace Back.Controllers
                 chitietgiohang.Soluong += 1;
                 await lavenderContext.SaveChangesAsync();
             }
-
-            
+   
             return StatusCode(200, Json(chitietgiohang));
         }
 
 
         [Route("/cart")]
         [HttpGet]
-        public async Task<IActionResult> GetCart([FromQuery] string makhachhang)
+        public async Task<IActionResult> GetCart([FromQuery] int makhachhang)
         {
             var giohang = await (from g in lavenderContext.Giohang
-                                 select g).ToListAsync();
-            if (giohang == null||giohang.Count()==0) return StatusCode(404);
-
+                                 where g.Makhachhang==makhachhang
+                                 select g).FirstOrDefaultAsync();
+            if (giohang == null) return StatusCode(404);
 
             return StatusCode(200, Json(giohang));
         }

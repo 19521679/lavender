@@ -2,9 +2,12 @@
     max-width: 260px;
     display:grid;
 }
+.lmember{
+    min-height: 800px;
+}
 .rightmember{
-    max-width: 975px;
-    display:grid;
+    min-width: 836px;
+    display: grid;
 }
 .dLDnti{
     display: flex;
