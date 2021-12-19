@@ -96,6 +96,36 @@ namespace Back.Controllers
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200, Json(manhanvien));
         }
+
+        [Route("/tim-taikhoannhanvien-bang-manhanvien")]
+        [HttpGet]
+        public async Task<IActionResult> TimTaikhoannhanvienBangManhanvien(int manhanvien)
+        {
+            var taikhoan = await (from x in lavenderContext.Taikhoannhanvien
+                                  where x.Manhanvien == manhanvien
+                                  select x).FirstOrDefaultAsync();
+            if (taikhoan == null) return StatusCode(404);
+            return StatusCode(200, Json(taikhoan));
+        }
+
+        [Route("/doi-matkhau")]
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromForm] int manhanvien,
+            [FromForm] string username, [FromForm] string password, [FromForm] string newpassword)
+        {
+            Taikhoannhanvien s = await (from n in lavenderContext.Taikhoannhanvien
+                                        where n.Manhanvien == manhanvien
+                                        select n).FirstAsync();
+            if (s == null) return StatusCode(404);
+            if (s.Username != username || s.Password != password) return StatusCode(401);
+
+            s.Username = username;
+            s.Password = newpassword;
+
+            await lavenderContext.SaveChangesAsync();
+
+            return StatusCode(200, Json(s));
+        }
     }
 
 }

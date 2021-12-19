@@ -62,7 +62,7 @@ namespace Back.Controllers
             s.Ngaysinh = DateTime.Parse(ngaysinh).ToLocalTime();
             s.Chucvu = chucvu;
             s.Image = "/nhanvien";
-           
+
 
             await lavenderContext.AddAsync(s);
             await lavenderContext.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace Back.Controllers
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-            string NewDir = _env.ContentRootPath + "/wwwroot/nhanvien" ;
+            string NewDir = _env.ContentRootPath + "/wwwroot/nhanvien";
 
             if (!Directory.Exists(NewDir))
             {
@@ -99,8 +99,8 @@ namespace Back.Controllers
        [FromForm] string cccd, [FromForm] string ngaysinh, [FromForm] string chucvu)
         {
             Nhanvien s = await (from n in lavenderContext.Nhanvien
-                                where n.Manhanvien==manhanvien
-                                   select n).FirstAsync();
+                                where n.Manhanvien == manhanvien
+                                select n).FirstAsync();
             s.Tennhanvien = tennhanvien;
             s.Email = email;
             s.Sodienthoai = sodienthoai;
@@ -113,7 +113,7 @@ namespace Back.Controllers
 
             await lavenderContext.SaveChangesAsync();
 
-            
+
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
@@ -150,9 +150,17 @@ namespace Back.Controllers
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200, Json(manhanvien));
         }
+
+        [Route("/tim-nhanvien-bang-manhanvien")]
+        [HttpGet]
+        public async Task<IActionResult> TimNhanvienBangManhanvien(int manhanvien)
+        {
+            var nhanvien = await (from x in lavenderContext.Nhanvien
+                                  where x.Manhanvien == manhanvien
+                                  select x).FirstOrDefaultAsync();
+            if (nhanvien == null) return StatusCode(404);
+            return StatusCode(200, Json(nhanvien));
+        }
     }
 
 }
-
-
-

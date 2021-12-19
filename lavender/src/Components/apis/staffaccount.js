@@ -117,3 +117,60 @@ export const deleteAccount=async(manhanvien, token, refreshtoken)=>{
     }
     return connect;
 };
+
+export const timTaikhoannhanvienBangManhanvien = async (
+  manhanvien,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(
+      `${API_ENDPOINT}/tim-taikhoannhanvien-bang-manhanvien?manhanvien=${manhanvien}`,
+
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/tim-taikhoannhanvien-bang-manhanvien?manhanvien=${manhanvien}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+  return connect;
+};
+
+
+export const changePassword=async(fd, token, refreshtoken)=>{
+  var newtoken = undefined;
+  var connect = await axiosServices
+  .post(`${API_ENDPOINT}/doi-matkhau`, fd,
+    
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices
+    .post(`${API_ENDPOINT}/doi-matkhau`, fd,
+     {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+  return connect;
+};
