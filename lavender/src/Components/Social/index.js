@@ -7,8 +7,8 @@ export default function Index() {
       <ul>
         <li>
           <a
-            href="https://www.facebook.com/bii.nhok.1/"
-            title="Facebook khanh"
+            href="https://www.facebook.com/Lavender-UIT-Webshop-107336025144860/"
+            title="Lavender"
             className="blue"
           >
             <span>
