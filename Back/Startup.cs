@@ -123,7 +123,7 @@ namespace Back
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
-
+            app.UseDefaultFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
                 ServeUnknownFileTypes = true,
