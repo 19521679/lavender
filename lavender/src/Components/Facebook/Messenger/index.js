@@ -1,12 +1,13 @@
 import React, { Component} from 'react';
-import { FacebookProvider, Comments } from 'react-facebook';
+import { FacebookProvider, Comments, Messengers } from 'react-facebook';
+import * as myConst from "../../../Common/constants/index";
 
 function Messenger ()  {
     
     var myAppId="229120639337066";
     return (
       <FacebookProvider appId={myAppId}>
-        <Comments  href="http://lavenderhkkm.com:3000" />
+        <Messengers  href={myConst.CLIENT_ENDPOINT} />
       </FacebookProvider>
     );
 }

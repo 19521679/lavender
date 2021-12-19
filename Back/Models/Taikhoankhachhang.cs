@@ -11,7 +11,7 @@ namespace Back.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int Makhachhang { get; set; }
-        public string Token { get; set; }
+        public string Tokenemail { get; set; }
         public int Kichhoat { get; set; }
         public string Googleid { get; set; }
 

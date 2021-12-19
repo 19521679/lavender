@@ -713,10 +713,10 @@ namespace Back.Models
 
                 entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
 
-                entity.Property(e => e.Token)
+                entity.Property(e => e.Tokenemail)
                     .HasMaxLength(4000)
                     .IsUnicode(false)
-                    .HasColumnName("TOKEN");
+                    .HasColumnName("TOKENEMAIL");
 
                 entity.Property(e => e.Googleid)
                   .HasMaxLength(300)

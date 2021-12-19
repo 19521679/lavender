@@ -143,7 +143,7 @@ class index extends Component {
       });
 
     if (cart === undefined || cart.lenght === 0) {
-      this.setState({ cart: {} });
+      this.setState({ cart: {}, loading:false });
       return;
     }
      token = cookie.get("token");
@@ -312,9 +312,9 @@ class index extends Component {
                     <div className="productsV2-heading box-shadow">
                       <div className="row">
                         <div className="col-1">
-                          <label className="stardust-checkbox">
+                          <label className="">
                             <input
-                              className="checkbox-fake border rounded"
+                              className="round"
                               type="checkbox"
                               id="checkall"
                               onChange={(e) =>

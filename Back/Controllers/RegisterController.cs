@@ -81,7 +81,7 @@ namespace Back.Controllers
             taikhoankhachhang.Username = registerForm.tendangnhap;
             taikhoankhachhang.Password = registerForm.matkhau;
             taikhoankhachhang.Makhachhang = khachhangtemp.Makhachhang;
-            taikhoankhachhang.Token = token;
+            taikhoankhachhang.Tokenemail = token;
             taikhoankhachhang.Kichhoat = 0;
 
             await lavenderContext.AddAsync(taikhoankhachhang);
@@ -100,7 +100,7 @@ namespace Back.Controllers
             var taikhoankhachhang = await (from x in lavenderContext.Taikhoankhachhang
                                            where x.Makhachhang == makhachhang
                                            && x.Kichhoat == 0
-                                           && x.Token.Equals(token)
+                                           && x.Tokenemail.Equals(token)
 
                                            select x).FirstOrDefaultAsync();
             string tieude = "";
