@@ -64,7 +64,7 @@ export default class ProductItem extends Component {
                 );
             }.bind(this)()}
 
-            <Link to={this.props.product.image} className="box-click">
+            <a onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app${this.props.product.image}` }} className="box-click">
               <div className="icon">
                 <img
                   alt="img"
@@ -77,7 +77,7 @@ export default class ProductItem extends Component {
                   {this.props.product.tensanpham}
                 </div>
               </h4>
-            </Link>
+            </a>
             <div className="row product-price">
               <div className="">
                 {function () {
