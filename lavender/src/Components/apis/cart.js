@@ -12,7 +12,7 @@ export const loadCart = async (makhachhang, token, refreshtoken) => {
       if (error.response.status === 401) {
         
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken)
+       
         return error;
       }
     });
@@ -33,7 +33,7 @@ export const addToCart = async (data, token, refreshtoken) => {
       if (error.response.status === 401) {
         
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken)
+       
         return error;
       }
     });
@@ -54,7 +54,7 @@ export const updateCart = async (data, token, refreshtoken) => {
       if (error.response.status === 401) {
         
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken)
+       
         return error;
       }
     });
@@ -76,7 +76,7 @@ export const deleteProduct =  async (makhachhang, masanpham, token, refreshtoken
       if (error.response.status === 401) {
         
         newtoken = refreshToken(refreshtoken);
-        console.log(newtoken)
+       
         return error;
       }
     });
