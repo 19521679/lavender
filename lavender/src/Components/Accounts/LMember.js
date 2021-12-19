@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LMember.css";
 import routes from "./routes";
 import { Redirect } from "react-router-dom";
@@ -9,6 +9,9 @@ import { withRouter } from "react-router-dom";
 import * as loginAct from "../redux/actions/loginAct";
 import { useGoogleLogout } from "react-google-login";
 import * as myConst from "../../Common/constants/index";
+import * as imageApi from "../apis/image";
+import * as customerApi from "../apis/customer";
+import logopink from "../../Asset/logo/logopink.png";
 
 const cookie = new Cookies();
 
@@ -16,6 +19,20 @@ function Lmember(props) {
   const makhachhang = useSelector((state) => state.login.makhachhang);
   const dispatch = useDispatch();
   const clientId = myConst.CLIENT_ID;
+  const [khachhang, setKhachhang] = useState();
+
+  useEffect(() => {
+    customerApi
+      .findCustomerByCustomerId(makhachhang)
+      .then((success) => {
+        if (success.status === 200) {
+          setKhachhang(success.data.value);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [makhachhang]);
   const logout = async () => {
     await dispatch(
       await loginAct.postLogoutReport(
@@ -37,8 +54,8 @@ function Lmember(props) {
     clientId,
     onLogoutSuccess,
     onFailure,
-    isSignedIn:false,
-    disabled	:false
+    isSignedIn: false,
+    disabled: false,
   });
   const showContentMenus = (routes) => {
     var result = null;
@@ -76,12 +93,17 @@ function Lmember(props) {
                       <div className="Account__StyledAvatar-sc-1d5h8iz-3 jIFHQL">
                         <img
                           src={
-                            "https://salt.tikicdn.com/desktop/img/avatar.png"
+                            khachhang !== undefined &&
+                            (khachhang.image === undefined
+                              ? logopink
+                              : khachhang.image === "/khachhang"
+                              ? imageApi.image(khachhang.image, makhachhang)
+                              : khachhang.image)
                           }
                           alt=""
                         />
                         <div className="info">
-                         <strong> Tài khoản của tôi </strong>
+                          <strong> Tài khoản của tôi </strong>
                         </div>
                       </div>
                       <ul className="Account__StyledNav-sc-1d5h8iz-4 fAkTRM">

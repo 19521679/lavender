@@ -21,7 +21,7 @@ namespace Back.Controllers
 
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
     [ApiController]
-   
+
     public class TaikhoankhachhangController : Controller
     {
         private readonly ILogger<TaikhoankhachhangController> _logger;
@@ -95,6 +95,28 @@ namespace Back.Controllers
             lavenderContext.Remove(taikhoankhachhang);
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200, Json(makhachhang));
+        }
+
+        [Route("/doi-matkhau-khachhang")]
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromForm] int makhachhang,
+        [FromForm] string username, [FromForm] string password, [FromForm] string newpassword)
+        {
+            Taikhoankhachhang s = await (from n in lavenderContext.Taikhoankhachhang
+                                         where n.Makhachhang == makhachhang
+                                         select n).FirstAsync();
+            if (s == null) return StatusCode(404);
+            if(!(s.Username==null && s.Password==null))
+            {
+                if (s.Username != username || s.Password != password) return StatusCode(401);
+            }
+
+            s.Username = username;
+            s.Password = newpassword;
+
+            await lavenderContext.SaveChangesAsync();
+
+            return StatusCode(200, Json(s));
         }
     }
 

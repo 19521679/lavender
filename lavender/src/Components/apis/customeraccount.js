@@ -112,3 +112,28 @@ export const deleteAccount = async (makhachhang, token, refreshtoken) => {
   }
   return connect;
 };
+
+export const changePassword=async(fd, token, refreshtoken)=>{
+  var newtoken = undefined;
+  var connect = await axiosServices
+  .post(`${API_ENDPOINT}/doi-matkhau-khachhang`, fd,
+    
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices
+    .post(`${API_ENDPOINT}/doi-matkhau-khachhang`, fd,
+     {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+  return connect;
+};

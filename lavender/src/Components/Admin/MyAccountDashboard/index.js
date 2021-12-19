@@ -81,7 +81,7 @@ function Index(props) {
     fd.append("ngayvaolam", new Date(ngayvaolam).toISOString().split("T")[0]);
     fd.append("cccd", cccd);
     fd.append("ngaysinh", new Date(ngaysinh).toISOString().split("T")[0]);
-    fd.append("image", image);
+    if (imageView!==undefined) fd.append("image", image);
     fd.append("sodienthoai", sodienthoai);
     fd.append("chucvu", chucvu);
 
@@ -265,7 +265,7 @@ function Index(props) {
                   onClick={() => setDoimatkhau(!doimatkhau)}
                   style={{ cursor: "pointer" }}
                 >
-                  <i className="fa fa-plus" />
+                  <i class="fas fa-edit"></i>
                   &nbsp;Đổi mật khẩu
                 </span>
               </div>
