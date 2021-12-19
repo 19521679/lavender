@@ -32,7 +32,7 @@ export const addToCartFailed = (error) => {
 };
 
 
-export const addToCartReport = (req) => {
+export const addToCartReport = (req, token, refreshtoken) => {
     return (dispatch) => {
       cartApi
         .addToCart(req, token, refreshtoken)

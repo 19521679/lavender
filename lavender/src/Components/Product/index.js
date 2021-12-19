@@ -17,6 +17,9 @@ import * as evalueteApi from "../apis/evaluete";
 import Specifications from "./Specifications";
 import * as myToast from "../../Common/helper/toastHelper";
 import Comment from "../Facebook/Comment/index.js"
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 class index extends Component {
   state = {
@@ -228,12 +231,16 @@ class index extends Component {
       myToast.toastError("Bạn cần chọn màu sắc");
       return;
     }
-    cartActionCreators.addToCartReport({
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");  
+    cartActionCreators.addToCartReport(
+      {
       makhachhang: this.props.makhachhang,
       masanpham: product.masanpham,
       dungluong: this.state.chondungluong,
       mausac: this.state.chonmausac,
-    });
+    },
+    token, refreshtoken);
   };
   xemdanhgia = async () => {
     await evalueteApi
