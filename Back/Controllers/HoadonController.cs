@@ -192,15 +192,15 @@ namespace Back.Controllers
         }
 
 
-        [Route("/twenty-hoadon")]
-        [HttpGet]
-        public async Task<IActionResult> xemHoadon()
-        {
-            var hoadonlist = await (from h in lavenderContext.Hoadon
-                                    select h).OrderByDescending(x => x.Ngayhoadon).Take(20).ToListAsync();
-            if (hoadonlist.Count == 0) return StatusCode(404);
-            return StatusCode(200, Json(hoadonlist));
-        }
+        //[Route("/twenty-hoadon")]
+        //[HttpGet]
+        //public async Task<IActionResult> xemHoadon()
+        //{
+        //    var hoadonlist = await (from h in lavenderContext.Hoadon
+        //                            select h).OrderByDescending(x => x.Ngayhoadon).Take(20).ToListAsync();
+        //    if (hoadonlist.Count == 0) return StatusCode(404);
+        //    return StatusCode(200, Json(hoadonlist));
+        //}
 
         [Route("/tracuu-ngaymua-theosohoadon")]
         [HttpGet]

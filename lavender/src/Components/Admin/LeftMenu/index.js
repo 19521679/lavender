@@ -91,12 +91,6 @@ var MenuLink = ({ lable, to }) => {
 
 class Index extends Component {
   componentDidMount() {
-    const refreshtoken = cookie.get("refreshtoken");
-    const { loginActionCreators } = this.props;
-    const { postRefreshReport } = loginActionCreators;
-    if (refreshtoken !== undefined) {
-      postRefreshReport(refreshtoken);
-    }
   }
   render() {
     return (
