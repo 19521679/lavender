@@ -19,27 +19,27 @@ const customStyles = {
   },
 };
 
-export default function ItemDangxuly(props) {
+export default function ItemDanggiao(props) {
   const [showModal, setShowModal] = useState(false);
   const [list, setList] = useState([]);
 
-  const xoaHoahoadon = async () => {
-    var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");
-    await billingApi
-      .deleteBill(props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        if (success.status === 200) {
-          myToast.toastSucces("Xoá hoá đơn thành công");
-          props.deleteFunction(props.bill.sohoadon)
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        myToast.toastError("Xoá hoá đơn thất bại");
-      });
-    setShowModal(false);
-  };
+//   const xoaHoahoadon = async () => {
+//     var token = cookie.get("token");
+//     var refreshtoken = cookie.get("refreshtoken");
+//     await billingApi
+//       .deleteBill(props.bill.sohoadon, token, refreshtoken)
+//       .then((success) => {
+//         if (success.status === 200) {
+//           myToast.toastSucces("Xoá hoá đơn thành công");
+//           props.deleteFunction(props.bill.sohoadon)
+//         }
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//         myToast.toastError("Xoá hoá đơn thất bại");
+//       });
+//     setShowModal(false);
+//   };
   useEffect(() => {
     detailProductApi
       .timCacchitietsanphamBangSohoadon(props.bill.sohoadon)
@@ -54,27 +54,7 @@ export default function ItemDangxuly(props) {
   }, [props.bill]);
   return (
     <div className="border rounded">
-      <Modal
-        isOpen={showModal}
-        onRequestClose={() => setShowModal(false)}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        Bạn có chắc chắn huỷ đơn hàng này không?
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-            onClick={()=>setShowModal(false)}
-          >
-            Đóng
-          </button>
-          <button type="button" class="btn btn-primary" onClick={xoaHoahoadon}>
-            Xoá
-          </button>
-        </div>
-      </Modal>
+     /////////////////////////
       <div>
         <div className="GuWdvd">
           <div className="WqnWb-">
@@ -94,18 +74,13 @@ export default function ItemDangxuly(props) {
           <th scope="row"> Số HD: {props.bill.sohoadon}</th>
           <td>Ngày HD: {props.bill.ngayhoadon}</td>
           <td>Mã KM: {props.bill.makhuyenmai}</td>
-          <td><strong>Thành tiền: {props.bill.tongtien} đ</strong> </td>
+          <td> <strong>Thành tiền: {props.bill.tongtien} đ</strong> </td>
         </tr>
       </div>
       <div className="_1J7vLy">
         <div className="DI-rNr tyOBoQ"> </div>
         <div className="DI-rNr _25igL4"> </div>
-        <button
-          className="btn btn-primary xoahoadon-btn"
-          onClick={() => setShowModal(true)}
-        >
-          Xoá hoá đơn
-        </button>
+        {/* <button></button> */}
       </div>
     </div>
   );

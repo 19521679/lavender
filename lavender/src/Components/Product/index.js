@@ -529,21 +529,13 @@ class index extends Component {
                     <strong>MUA NGAY</strong>
                     <span>(Giao tận nơi hoặc lấy tại cửa hàng)</span>
                   </a>
+                  <div class="fb-like" data-href={window.location.href} data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                  {/* <div class="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="large">
+                          Share
+                        </div> */}
+
                   <div className="group-button mb-5">
                     <div className="styles__ProductActionV2Container-sc-1l4uvuo-0 iVoRpG">
-                      <div className="styles__Text-sc-1l4uvuo-1 iBQIpk">
-                        Chia sẻ:
-                      </div>
-                      <img
-                        src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/social-facebook.svg"
-                        alt="social-facebook"
-                        className="styles__Icon-sc-1l4uvuo-2 hUSuHV left"
-                      />
-                      <img
-                        src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/social-messenger.svg"
-                        alt="social-messenger"
-                        className="styles__Icon-sc-1l4uvuo-2 hUSuHV"
-                      />
                       <img
                         src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/social-pinterest.svg"
                         alt="social-pinterest"

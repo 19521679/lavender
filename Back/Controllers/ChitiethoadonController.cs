@@ -17,7 +17,7 @@ namespace Back.Controllers
 {
     // [EnableCors(origins: "*", headers: "accept,content-type,origin,x-my-header", methods: "*")]
 
-    [ApiController]
+    [ApiController]  
     public class ChitiethoadonController : Controller
     {
         private readonly ILogger<ChitiethoadonController> _logger;

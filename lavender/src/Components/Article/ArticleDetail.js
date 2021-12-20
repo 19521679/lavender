@@ -1,9 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import "./style.css"
+import "./addArticle.css";
+import "./style.css";
 import Article from "./index.js";
-import Comment from "../Facebook/Comment/index.js"
 import * as articleApi from "../apis/article";
 
 function ArticleDetail() {

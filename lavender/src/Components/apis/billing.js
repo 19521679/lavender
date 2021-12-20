@@ -176,3 +176,33 @@ export const hoadonCuatoiDangxuly = async (
   return connect;
 };
 
+
+
+
+export const hoadonCuatoiDanggiao = async (
+  makhachhang,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/hoadon-cuatoi-danggiao?makhachhang=${makhachhang}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/hoadon-cuatoi-danggiao?makhachhang=${makhachhang}`,
+
+      { headers: { Authorization: `Bearer ${newtoken}` } }
+    );
+  }
+  return connect;
+};
+
