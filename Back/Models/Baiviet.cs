@@ -12,5 +12,7 @@ namespace Back.Models
         public string thumnail { get; set; }
         public string mota { get; set; }
         public string noidung { get; set; }
+        public int xacnhan { get; set; }
+
     }
 }

@@ -24,6 +24,7 @@ namespace Back.Models
         public string Image { get; set; }
         public DateTime? Thoidiemramat { get; set; }
         public float Dongia { get; set; }
+        public int Soluongton { get; set; }
 
         public virtual Loaisanpham MaloaiNavigation { get; set; }
         public virtual Thuonghieu MathuonghieuNavigation { get; set; }
