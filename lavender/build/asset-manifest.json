@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.1848ab63.chunk.css",
-    "main.js": "/static/js/main.f1e1a5ac.chunk.js",
-    "main.js.map": "/static/js/main.f1e1a5ac.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.8011ce55.js",
-    "runtime-main.js.map": "/static/js/runtime-main.8011ce55.js.map",
+    "main.css": "/static/css/main.eba27285.chunk.css",
+    "main.js": "/static/js/main.e78768cf.chunk.js",
+    "main.js.map": "/static/js/main.e78768cf.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.abf620ef.js",
+    "runtime-main.js.map": "/static/js/runtime-main.abf620ef.js.map",
     "static/css/2.e3596843.chunk.css": "/static/css/2.e3596843.chunk.css",
-    "static/js/2.416f05a1.chunk.js": "/static/js/2.416f05a1.chunk.js",
-    "static/js/2.416f05a1.chunk.js.map": "/static/js/2.416f05a1.chunk.js.map",
-    "static/js/3.dac2d030.chunk.js": "/static/js/3.dac2d030.chunk.js",
-    "static/js/3.dac2d030.chunk.js.map": "/static/js/3.dac2d030.chunk.js.map",
+    "static/js/2.87735685.chunk.js": "/static/js/2.87735685.chunk.js",
+    "static/js/2.87735685.chunk.js.map": "/static/js/2.87735685.chunk.js.map",
+    "static/js/3.2d2a5abb.chunk.js": "/static/js/3.2d2a5abb.chunk.js",
+    "static/js/3.2d2a5abb.chunk.js.map": "/static/js/3.2d2a5abb.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.e3596843.chunk.css.map": "/static/css/2.e3596843.chunk.css.map",
-    "static/css/main.1848ab63.chunk.css.map": "/static/css/main.1848ab63.chunk.css.map",
-    "static/js/2.416f05a1.chunk.js.LICENSE.txt": "/static/js/2.416f05a1.chunk.js.LICENSE.txt",
+    "static/css/main.eba27285.chunk.css.map": "/static/css/main.eba27285.chunk.css.map",
+    "static/js/2.87735685.chunk.js.LICENSE.txt": "/static/js/2.87735685.chunk.js.LICENSE.txt",
     "static/media/acer.svg": "/static/media/acer.f6dd3141.svg",
     "static/media/apple.svg": "/static/media/apple.b3ae8330.svg",
     "static/media/asus.svg": "/static/media/asus.a4f91cf1.svg",
@@ -40,10 +40,10 @@
     "static/media/xiaomi.svg": "/static/media/xiaomi.1c193ce9.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8011ce55.js",
+    "static/js/runtime-main.abf620ef.js",
     "static/css/2.e3596843.chunk.css",
-    "static/js/2.416f05a1.chunk.js",
-    "static/css/main.1848ab63.chunk.css",
-    "static/js/main.f1e1a5ac.chunk.js"
+    "static/js/2.87735685.chunk.js",
+    "static/css/main.eba27285.chunk.css",
+    "static/js/main.e78768cf.chunk.js"
   ]
 }

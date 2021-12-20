@@ -7,6 +7,7 @@ import "./style.css";
 import AddBill from "./AddBill";
 import AddNote from "./AddNote";
 import Cookies from "universal-cookie";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
 const cookie = new Cookies();
 
@@ -15,6 +16,7 @@ export default class index extends Component {
     billing: [],
     importBilling: [],
     modal: 0,
+    loading: true,
   };
   showModal = (index) => {
     this.setState({ modal: index });
@@ -23,6 +25,7 @@ export default class index extends Component {
     this.setState({ modal: 0 });
   };
   async loadBill() {
+    this.setState({ loading: true });
     let billing = [];
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
@@ -38,8 +41,10 @@ export default class index extends Component {
     this.setState({
       billing: billing,
     });
+    this.setState({ loading: false });
   }
   async loadImport() {
+    this.setState({ loading: true });
     let importBilling = [];
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
@@ -50,6 +55,7 @@ export default class index extends Component {
       })
       .catch((error) => {});
     this.setState({ importBilling: importBilling });
+    this.setState({ loading: false });
   }
   async componentDidMount() {
     this.loadBill();
@@ -58,6 +64,7 @@ export default class index extends Component {
   render() {
     return (
       <main className="main-content position-relative border-radius-lg left-menu">
+        <LoadingContainer loading={this.state.loading}></LoadingContainer>
         <>
           {(() => {
             if (this.state.modal === 1)

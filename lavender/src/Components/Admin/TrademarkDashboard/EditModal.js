@@ -35,8 +35,7 @@ export default function EditModal(props) {
     fd.append("mathuonghieu", mathuonghieu);
     fd.append("tenthuonghieu", tenthuonghieu);
     fd.append("xuatxu", xuatxu);
-    fd.append("image", image);
-
+    if (image !== undefined) fd.append("image", image);
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     trademarkApi

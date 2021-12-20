@@ -5,6 +5,7 @@ import * as suplierApi from "../../apis/suplier";
 import Item from "./Item";
 import _ from "lodash";
 import Cookies from "universal-cookie";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
 const cookie = new Cookies();
 
@@ -12,6 +13,7 @@ export default class index extends Component {
   state = {
     showModal: false,
     listsuplier: [],
+    loading: true,
   };
   closeModal() {
     this.setState({ showModal: false });
@@ -21,6 +23,7 @@ export default class index extends Component {
   }
 
   async loadsuplier() {
+    this.setState({ loading: true });
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     await suplierApi
@@ -33,6 +36,7 @@ export default class index extends Component {
       .catch((error) => {
         console.error(error);
       });
+    this.setState({ loading: false });
   }
 
   async componentDidMount() {
@@ -70,6 +74,7 @@ export default class index extends Component {
   render() {
     return (
       <main className="main-content position-relative border-radius-lg left-menu">
+        <LoadingContainer loading={this.state.loading}></LoadingContainer>
         <AddModal
           showModal={this.state.showModal}
           closeModal={this.closeModal.bind(this)}

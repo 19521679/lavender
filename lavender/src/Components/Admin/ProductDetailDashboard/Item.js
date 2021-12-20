@@ -10,6 +10,7 @@ export default function Item(props) {
   function closeModal() {
     setShowModal(0);
   }
+  
   useEffect(() => {
     productApi
       .findProductById(props.productdetail.masanpham)

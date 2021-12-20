@@ -26,12 +26,22 @@ export default function EditModal(props) {
   const [mathuonghieu, setMathuonghieu] = useState(props.product.mathuonghieu);
   const [mota, setMota] = useState(props.product.mota);
   const [image, setImage] = useState();
-  const [thoidiemramat, setThoidiemramat] = useState(new Date(props.product.thoidiemramat));
+  const [thoidiemramat, setThoidiemramat] = useState(
+    new Date(props.product.thoidiemramat)
+  );
   const [dongia, setDongia] = useState(props.product.dongia);
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(0);
   const [thongsokithuat, setThongsokithuat] = useState([]);
 
+  useEffect(() => {
+    setTensanpham(props.product.tensanpham);
+    setMaloai(props.product.maloai);
+    setMathuonghieu(props.product.mathuonghieu);
+    setMota(props.product.mota);
+    setThoidiemramat(new Date(props.product.thoidiemramat));
+    setDongia(props.product.dongia);
+  }, [props.product]);
   useEffect(() => {
     productApi
       .thongsokithuatBangMasanpham(props.product.masanpham)
@@ -115,6 +125,7 @@ export default function EditModal(props) {
         closeModal={() => setShowModal(false)}
         chooseFunction={chooseFunction}
       ></FindTrademarkModal>
+      {props.showModal && console.log(props.product)}
       <div className="add-product-item-modal" role="document">
         <div className="">
           <div className="modal-header">
@@ -142,6 +153,7 @@ export default function EditModal(props) {
               <div className="row mb-1">
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   Tên sản phẩm
+                  {props.showModal && console.log(props.product.tensanpham)}
                 </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input

@@ -34,7 +34,7 @@ export default function AddModal(props) {
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     staffAccountApi
-      .addAccount(fd, runProgress, token, refreshtoken)
+      .addAccount(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -43,14 +43,6 @@ export default function AddModal(props) {
         myToast.toastError("Thêm mới thất bại");
         console.error(error);
       });
-  }
-
-  function runProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
   }
   return (
     <Modal

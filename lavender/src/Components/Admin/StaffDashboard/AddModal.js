@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState} from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as staffApi from "../../apis/staff";
@@ -19,48 +19,42 @@ const customStyles = {
   },
 };
 
-export default class AddModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tennhanvien: "",
-      email: "",
-      sodienthoai: "",
-      diachi: "",
-      ngayvaolam: new Date(),
-      cccd: "",
-      ngaysinh: new Date(),
-      image: undefined,
-
-      chucvu: "",
-      progress: 0,
-    };
-  }
-  submitHandler = () => {
+export default function AddModal (props) {
+  const [tennhanvien, setTennhanvien] = useState("")
+  const [email, setEmail] = useState("");
+  const [sodienthoai, setSodienthoai] = useState("");
+  const [diachi, setDiachi] = useState("");
+  const [ngayvaolam, setNgayvaolam] = useState(new Date());
+  const [cccd, setCccd] = useState("");
+  const [ngaysinh, setNgaysinh] = useState(new Date());
+  const [progress, setProgress] = useState(0);
+  const [chucvu, setChucvu] = useState("");
+  const [image, setImage] = useState();
+  const submitHandler = () => {
     const fd = new FormData();
-    fd.append("tennhanvien", this.state.tennhanvien);
-    fd.append("email", this.state.email);
-    fd.append("sodienthoai", this.state.sodienthoai);
-    fd.append("diachi", this.state.diachi);
+    fd.append("tennhanvien", tennhanvien);
+    fd.append("email", email);
+    fd.append("sodienthoai", sodienthoai);
+    fd.append("diachi", diachi);
     fd.append(
       "ngayvaolam",
-      new Date(this.state.ngayvaolam).toISOString().split("T")[0]
+      new Date(ngayvaolam).toISOString().split("T")[0]
     );
-    fd.append("cccd", this.state.cccd);
+    fd.append("cccd", cccd);
     fd.append(
       "ngaysinh",
-      new Date(this.state.ngaysinh).toISOString().split("T")[0]
+      new Date(ngaysinh).toISOString().split("T")[0]
     );
-    fd.append("image", this.state.image);
-    fd.append("chucvu", this.state.chucvu);
+    if (image!==undefined) fd.append("image", image);
+    fd.append("chucvu", chucvu);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     staffApi
-      .addStaff(fd, this.setProgress.bind(this), token, refreshtoken)
+      .addStaff(fd, setProgress.bind(this), token, refreshtoken)
       .then((success) => {
-        this.props.add(success.data.value);
-        this.props.closeModal();
+        props.add(success.data.value);
+        props.closeModal();
       })
       .catch((error) => {
         myToast.toastError("Thêm mới thất bại");
@@ -68,19 +62,10 @@ export default class AddModal extends Component {
       });
   };
 
-  setProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      this.props.closeModal();
-    }
-    this.setState({ progress: percent });
-  }
-
-  render() {
     return (
       <Modal
-        isOpen={this.props.showModal}
-        onRequestClose={this.props.closeModal}
+        isOpen={props.showModal}
+        onRequestClose={props.closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -99,8 +84,8 @@ export default class AddModal extends Component {
                     alt=""
                     style={{ width: "80px", height: "80px" }}
                     src={
-                      this.state.image !== undefined
-                        ? URL.createObjectURL(this.state.image)
+                      image !== undefined
+                        ? URL.createObjectURL(image)
                         : ""
                     }
                   ></img>
@@ -114,9 +99,8 @@ export default class AddModal extends Component {
                     id="image"
                     type="file"
                     placeholder=""
-                    ref={(fileInput) => (this.fileInput = fileInput)}
                     onChange={(e) => {
-                      this.setState({ image: e.target.files[0] });
+                      setImage(e.target.files[0])
                     }}
                   ></input>
                 </div>
@@ -132,9 +116,9 @@ export default class AddModal extends Component {
                     id="tennhanvien"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ tennhanvien: e.target.value });
+                      setTennhanvien(e.target.value)
                     }}
-                    value={this.state.tennhanvien}
+                    value={tennhanvien}
                   ></input>
                 </div>
               </div>
@@ -148,9 +132,9 @@ export default class AddModal extends Component {
                     type="email"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ email: e.target.value });
+                      setEmail(e.target.value)
                     }}
-                    value={this.state.email}
+                    value={email}
                   ></input>
                 </div>
               </div>
@@ -166,9 +150,9 @@ export default class AddModal extends Component {
                     type="tel"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ sodienthoai: e.target.value });
+                      setSodienthoai(e.target.value);
                     }}
-                    value={this.state.sodienthoai}
+                    value={sodienthoai}
                   ></input>
                 </div>
               </div>
@@ -183,9 +167,9 @@ export default class AddModal extends Component {
                     id="diachi"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ diachi: e.target.value });
+                      setDiachi(e.target.value)
                     }}
-                    value={this.state.diachi}
+                    value={diachi}
                   ></input>
                 </div>
               </div>
@@ -200,12 +184,10 @@ export default class AddModal extends Component {
                     type="date"
                     id="ngayvaolam"
                     name="trip-start"
-                    onChange={(e) => {
-                      this.setState({
-                        ngayvaolam: new Date(e.target.value),
-                      });
-                    }}
-                    value={this.state.ngayvaolam.toISOString().split("T")[0]}
+                    onChange={(e) => 
+                      setNgayvaolam(new Date(e.target.value))
+                    }
+                    value={ngayvaolam.toISOString().split("T")[0]}
                   ></input>
                 </div>
               </div>
@@ -218,9 +200,9 @@ export default class AddModal extends Component {
                     id="cccd"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ cccd: e.target.value });
+                      setCccd(e.target.value)
                     }}
-                    value={this.state.cccd}
+                    value={cccd}
                   ></input>
                 </div>
               </div>
@@ -235,12 +217,10 @@ export default class AddModal extends Component {
                     type="date"
                     id="ngaysinh"
                     name="trip-start"
-                    onChange={(e) => {
-                      this.setState({
-                        ngaysinh: new Date(e.target.value),
-                      });
-                    }}
-                    value={this.state.ngaysinh.toISOString().split("T")[0]}
+                    onChange={(e) => 
+                      setNgaysinh(new Date(e.target.value))
+                    }
+                    value={ngaysinh.toISOString().split("T")[0]}
                   ></input>
                 </div>
               </div>
@@ -255,9 +235,9 @@ export default class AddModal extends Component {
                     id="chucvu"
                     placeholder=""
                     onChange={(e) => {
-                      this.setState({ chucvu: e.target.value });
+                      setChucvu(e.target.value)
                     }}
-                    value={this.state.chucvu}
+                    value={chucvu}
                   ></input>
                 </div>
               </div>
@@ -268,7 +248,7 @@ export default class AddModal extends Component {
               <div
                 className="progress-bar"
                 role="progressbar"
-                style={{ width: this.state.progress + "%" }}
+                style={{ width: progress + "%" }}
               ></div>
             </div>
 
@@ -277,14 +257,14 @@ export default class AddModal extends Component {
                 type="button"
                 class="btn btn-secondary"
                 data-dismiss="modal"
-                onClick={this.props.closeModal}
+                onClick={props.closeModal}
               >
                 Đóng
               </button>
               <button
                 type="button"
                 class="btn btn-primary"
-                onClick={this.submitHandler.bind(this)}
+                onClick={submitHandler.bind(this)}
               >
                 Thêm
               </button>
@@ -293,5 +273,5 @@ export default class AddModal extends Component {
         </div>
       </Modal>
     );
-  }
+
 }

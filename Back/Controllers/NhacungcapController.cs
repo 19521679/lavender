@@ -57,7 +57,7 @@ namespace Back.Controllers
             s.Email = email;
             s.Sodienthoai = sodienthoai;
             s.Diachi = diachi;
-            s.Image = "/nhacungcap";
+            if (image != null) s.Image = "/nhacungcap";
            
 
             await lavenderContext.AddAsync(s);

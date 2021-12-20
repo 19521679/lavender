@@ -5,6 +5,7 @@ import * as productdetailApi from "../../apis/productdetail";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as imageApi from "../../apis/image";
 import Cookies from "universal-cookie";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
 const cookie = new Cookies();
 const customStyles = {
@@ -34,9 +35,21 @@ export default function EditModal(props) {
   const [mausackhac, setMausackhac] = useState("");
   const [dungluongkhac, setDungluongkhac] = useState("");
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    setImei(props.productdetail.imei)
+    setMasanpham(props.productdetail.masanpham)
+    setNgaysanxuat(props.productdetail.ngaysanxuat)
+    setTinhtrang(props.productdetail.tinhtrang)
+    setMausac(props.productdetail.mausac)
+    setDungluong(props.productdetail.dungluong)
+    setGiamoi(props.productdetail.giamoi)
+  }, [props.productdetail])
 
   const loadMausac = (masanpham) => {
     if (masanpham === "") return;
+    setLoading(true);
     productdetailApi
       .timMausacBangMasanpham(masanpham)
       .then((success) => {
@@ -48,9 +61,11 @@ export default function EditModal(props) {
       .catch((error) => {
         console.error(error);
       });
+      setLoading(false);
   };
   const loadDungluong = (masanpham) => {
     if (masanpham === "") return;
+    setLoading(true);
     productdetailApi
       .timDungluongBangMasanpham(masanpham)
       .then((success) => {
@@ -61,10 +76,11 @@ export default function EditModal(props) {
       .catch((error) => {
         console.error(error);
       });
+      setLoading(false);
   };
   useEffect(() => {
-    loadMausac(masanpham)
-    loadDungluong(masanpham)
+    loadMausac(masanpham);
+    loadDungluong(masanpham);
     // Update the document title using the browser API
   }, [masanpham]);
   function submitHandler() {
@@ -77,14 +93,14 @@ export default function EditModal(props) {
     fd.append("mausac", mausac === "Khác" ? mausackhac : mausac);
     fd.append("dungluong", dungluong === "Khác" ? dungluongkhac : dungluong);
     fd.append("giamoi", giamoi);
-    fd.append("image", image);
+    if (image !== undefined) fd.append("image", image);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
-      .editProductdetail(fd, runProgress, token, refreshtoken)
+      .editProductdetail(fd, setProgress, token, refreshtoken)
       .then((success) => {
-        if(success.status===200) {
+        if (success.status === 200) {
           myToast.toastSucces("Sửa thành công");
           props.editFunction(success.data.value);
           props.closeModal();
@@ -96,12 +112,6 @@ export default function EditModal(props) {
       });
   }
 
-  const runProgress = (percent) => {
-    if (percent === 100) {
-      props.closeModal();
-    }
-    setProgress(percent);
-  };
 
   return (
     <Modal
@@ -110,6 +120,7 @@ export default function EditModal(props) {
       style={customStyles}
       contentLabel="Example Modal"
     >
+      <LoadingContainer loading={loading}></LoadingContainer>
       <div class="add-item-modal chitietsanpham-modal" role="document">
         <div class="">
           <div class="modal-header">
@@ -191,7 +202,7 @@ export default function EditModal(props) {
                   id="ngaysanxuat"
                   name="trip-start"
                   onChange={(e) => setNgaysanxuat(new Date(e.target.value))}
-                  value={ngaysanxuat.toISOString().split("T")[0]}
+                  value={ngaysanxuat}
                 ></input>
               </div>
             </div>

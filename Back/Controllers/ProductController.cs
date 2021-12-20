@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Back.Common;
 using Back.Models;
 using Back.Models.ModelDTO;
 using Microsoft.AspNetCore.Authentication;
@@ -293,31 +294,29 @@ namespace Back.Controllers
             s.Mota = mota;
             s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
             s.Dongia = dongia;
-            s.Image = path;
-
-            await lavenderContext.SaveChangesAsync();
 
             string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
             string NewDir = _env.ContentRootPath + "/wwwroot" + path;
 
-            if (!Directory.Exists(NewDir))
+            if (image == null || image.Length == 0 && OldDir != NewDir && Directory.Exists(OldDir))
             {
-                // Create the directory.
-                Directory.CreateDirectory(NewDir);
+                MyDataHandler.MoveDir(OldDir, NewDir);
             }
-            if (Directory.Exists(OldDir))
-            {
-                foreach (var file in new DirectoryInfo(OldDir).GetFiles())
-                {
-                    file.MoveTo($@"{NewDir}\0.Jpeg");
-                }
-            }
+
+            s.Image = path;
+            await lavenderContext.SaveChangesAsync();
 
             if (image == null || image.Length == 0)
             {
                 return StatusCode(200, Json(s));
             }
 
+
+            if (!Directory.Exists(NewDir))
+            {
+                // Create the directory.
+                Directory.CreateDirectory(NewDir);
+            }
             using (var memoryStream = new MemoryStream())
             {
                 await image.CopyToAsync(memoryStream);
@@ -329,7 +328,6 @@ namespace Back.Controllers
             }
             return StatusCode(200, Json(s));
         }
-
 
         [Route("/xoa-sanpham")]
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
@@ -442,6 +440,3 @@ namespace Back.Controllers
     }
 
 }
-
-
-

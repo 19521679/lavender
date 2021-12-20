@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as suplierApi from "../../apis/suplier";
@@ -19,181 +19,185 @@ const customStyles = {
   },
 };
 
-export default class EditModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      manhacungcap: this.props.suplier.manhacungcap,
-      tennhacungcap: this.props.suplier.tennhacungcap,
-      email: this.props.suplier.email,
-      sodienthoai: this.props.suplier.sodienthoai,
-      diachi: this.props.suplier.diachi,
-      image: undefined,
-      progress: 0,
-    };
-  }
-  submitHandler = () => {
+export default function EditModal(props) {
+  const [tennhacungcap, setTennhacungcap] = useState("");
+  const [email, setEmail] = useState("");
+  const [sodienthoai, setSodienthoai] = useState("");
+  const [diachi, setDiachi] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [image, setImage] = useState();
+
+  useEffect(() => {
+    setTennhacungcap(props.suplier.tennhacungcap);
+    setEmail(props.suplier.email);
+    setSodienthoai(props.suplier.sodienthoai);
+    setDiachi(props.suplier.diachi);
+  }, [props.suplier]);
+
+  const submitHandler = () => {
     const fd = new FormData();
-    fd.append("manhacungcap", this.state.manhacungcap);
-    fd.append("tennhacungcap", this.state.tennhacungcap);
-    fd.append("email", this.state.email);
-    fd.append("sodienthoai", this.state.sodienthoai);
-    fd.append("diachi", this.state.diachi);
-    fd.append("image", this.state.image);
+    fd.append("manhacungcap", props.suplier.manhacungcap);
+    fd.append("tennhacungcap", tennhacungcap);
+    fd.append("email", email);
+    fd.append("sodienthoai", sodienthoai);
+    fd.append("diachi", diachi);
+    fd.append("image", image);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     suplierApi
-      .editSuplier(fd, this.setProgress.bind(this), token, refreshtoken)
+      .editSuplier(fd, setProgress, token, refreshtoken)
       .then((success) => {
-        this.props.edit(success.data.value);
-        this.props.closeModal();
+        props.edit(success.data.value);
+        props.closeModal();
       })
       .catch((error) => {
         myToast.toastError("Thêm mới thất bại");
         console.error(error);
       });
   };
+  return (
+    <Modal
+      isOpen={props.showModal}
+      onRequestClose={props.closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      <div class="nhacungcapmodal add-item-modal" role="document">
+        <div class="">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              Sửa nhà cung cấp
+            </h5>
+          </div>
 
-  setProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Sửa thành công");
-      this.props.closeModal();
-    }
-    this.setState({ progress: percent });
-  }
+          <hr></hr>
 
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.showModal}
-        onRequestClose={this.props.closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <div class="nhacungcapmodal add-item-modal" role="document">
-          <div class="">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-                Sửa nhà cung cấp
-              </h5>
+          <div className="form-main-add-edit">
+            <div className="row mb-3">
+              <span className="text-secondary text-xs font-weight-bold">
+                <img
+                  alt=""
+                  style={{ width: "80px", height: "80px" }}
+                  src={
+                    image !== undefined
+                      ? URL.createObjectURL(image)
+                      : imageApi.image(
+                          props.suplier.image,
+                          props.suplier.manhacungcap
+                        )
+                  }
+                ></img>
+              </span>
             </div>
-
-            <hr></hr>
-
-            <div className="form-main-add-edit">
-              <div className="row mb-3">
-                <span className="text-secondary text-xs font-weight-bold">
-                  <img
-                    alt=""
-                    style={{ width: "80px", height: "80px" }}
-                    src={
-                      this.state.image === undefined
-                        ? imageApi.image(
-                            this.props.suplier.image,
-                            this.props.suplier.tennhacungcap
-                          )
-                        : URL.createObjectURL(this.state.image)
-                    }
-                  ></img>
-                </span>
-              </div>
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Tên nhà cung cấp
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border "
-                    id="tennhacungcap"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ tennhacungcap: e.target.value });
-                    }}
-                    value={this.state.tennhacungcap}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Email</div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="email"
-                    type="email"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ email: e.target.value });
-                    }}
-                    value={this.state.email}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Số điện thoại
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="sodienthoai"
-                    type="tel"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ sodienthoai: e.target.value });
-                    }}
-                    value={this.state.sodienthoai}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Địa chỉ
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="diachi"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ diachi: e.target.value });
-                    }}
-                    value={this.state.diachi}
-                  ></input>
-                </div>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Image</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="image"
+                  type="file"
+                  placeholder=""
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                  }}
+                ></input>
               </div>
             </div>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: this.state.progress + "%" }}
-              ></div>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Tên nhà cung cấp
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border "
+                  id="tennhacungcap"
+                  placeholder=""
+                  onChange={(e) => {
+                    setTennhacungcap(e.target.value);
+                  }}
+                  value={tennhacungcap}
+                ></input>
+              </div>
             </div>
 
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={this.props.closeModal}
-              >
-                Đóng
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                onClick={this.submitHandler.bind(this)}
-              >
-                Sửa
-              </button>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Email</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="email"
+                  type="email"
+                  placeholder=""
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Số điện thoại
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="sodienthoai"
+                  type="tel"
+                  placeholder=""
+                  onChange={(e) => {
+                    setSodienthoai(e.target.value);
+                  }}
+                  value={sodienthoai}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Địa chỉ</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="diachi"
+                  placeholder=""
+                  onChange={(e) => {
+                    setDiachi(e.target.value);
+                  }}
+                  value={diachi}
+                ></input>
+              </div>
             </div>
           </div>
+
+          <div className="progress">
+            <div
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: progress + "%" }}
+            ></div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onClick={props.closeModal}
+            >
+              Đóng
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={submitHandler}
+            >
+              Sửa
+            </button>
+          </div>
         </div>
-      </Modal>
-    );
-  }
+      </div>
+    </Modal>
+  );
 }

@@ -106,8 +106,7 @@ namespace Back.Controllers
             s.Cccd = cccd;
             s.Ngaysinh = DateTime.Parse(ngaysinh).ToLocalTime();
             s.Loaikhachhang = loaikhachhang;
-            s.Image = "/khachhang";
-
+            if (image == null || image.Length == 0) s.Image = "/khachhang";
 
             await lavenderContext.AddAsync(s);
             await lavenderContext.SaveChangesAsync();
@@ -154,11 +153,8 @@ namespace Back.Controllers
             s.Cccd = cccd;
             s.Ngaysinh = DateTime.Parse(ngaysinh).ToLocalTime();
             s.Loaikhachhang = loaikhachhang;
-            s.Image = "/khachhang";
-
+            if (image!=null)s.Image = "/khachhang";
             await lavenderContext.SaveChangesAsync();
-
-
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 

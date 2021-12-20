@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as staffApi from "../../apis/staff";
@@ -19,50 +19,49 @@ const customStyles = {
   },
 };
 
-export default class EditModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      manhanvien: this.props.staff.manhanvien,
-      tennhanvien: this.props.staff.tennhanvien,
-      email: this.props.staff.email,
-      sodienthoai: this.props.staff.sodienthoai,
-      diachi: this.props.staff.diachi,
-      ngayvaolam: new Date(this.props.staff.ngayvaolam),
-      cccd: this.props.staff.cccd,
-      ngaysinh: new Date(this.props.staff.ngaysinh),
-      image: undefined,
-      chucvu: this.props.staff.chucvu,
-      progress: 0,
-    };
-  }
-  submitHandler = () => {
+export default function EditModal(props) {
+  const [tennhanvien, setTennhanvien] = useState(props.staff.tennhanvien);
+  const [email, setEmail] = useState(props.staff.email);
+  const [sodienthoai, setSodienthoai] = useState(props.staff.sodienthoai);
+  const [diachi, setDiachi] = useState(props.staff.diachi);
+  const [ngayvaolam, setNgayvaolam] = useState(new Date(props.staff.ngayvaolam));
+  const [cccd, setCccd] = useState(props.staff.cccd);
+  const [ngaysinh, setNgaysinh] = useState(new Date(props.staff.ngaysinh));
+  const [progress, setProgress] = useState(0);
+  const [chucvu, setChucvu] = useState(props.staff.chucvu);
+  const [image, setImage] = useState();
+
+  useEffect(() => {
+    setTennhanvien(props.staff.tennhanvien);
+    setEmail(props.staff.email);
+    setSodienthoai(props.staff.sodienthoai);
+    setDiachi(props.staff.diachi);
+    setNgayvaolam(new Date(props.staff.ngayvaolam));
+    setCccd(props.staff.cccd);
+    setNgaysinh(props.staff.ngaysinh);
+    setChucvu(props.staff.chucvu);
+  }, [props.staff]);
+  const submitHandler = () => {
     const fd = new FormData();
-    fd.append("manhanvien", this.state.manhanvien);
-    fd.append("tennhanvien", this.state.tennhanvien);
-    fd.append("email", this.state.email);
-    fd.append("sodienthoai", this.state.sodienthoai);
-    fd.append("diachi", this.state.diachi);
-    fd.append(
-      "ngayvaolam",
-      new Date(this.state.ngayvaolam).toISOString().split("T")[0]
-    );
-    fd.append("cccd", this.state.cccd);
-    fd.append(
-      "ngaysinh",
-      new Date(this.state.ngaysinh).toISOString().split("T")[0]
-    );
-    fd.append("image", this.state.image);
-    fd.append("chucvu", this.state.chucvu);
+    fd.append("manhanvien", props.staff.manhanvien);
+    fd.append("tennhanvien", tennhanvien);
+    fd.append("email", email);
+    fd.append("sodienthoai", sodienthoai);
+    fd.append("diachi", diachi);
+    fd.append("ngayvaolam", new Date(ngayvaolam));
+    fd.append("cccd", cccd);
+    fd.append("ngaysinh", new Date(ngaysinh));
+    fd.append("image", image);
+    fd.append("chucvu", chucvu);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
 
     staffApi
-      .editStaff(fd, this.setProgress.bind(this, token, refreshtoken))
+      .editStaff(fd, setProgress.bind(this, token, refreshtoken))
       .then((success) => {
-        this.props.edit(success.data.value);
-        this.props.closeModal();
+        props.edit(success.data.value);
+        props.closeModal();
       })
       .catch((error) => {
         myToast.toastError("Thêm mới thất bại");
@@ -70,233 +69,208 @@ export default class EditModal extends Component {
       });
   };
 
-  setProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Sửa thành công");
-      this.props.closeModal();
-    }
-    this.setState({ progress: percent });
-  }
+  return (
+    <Modal
+      isOpen={props.showModal}
+      onRequestClose={props.closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      {console.log(props.staff)}
+      <div class="add-item-modal" role="document">
+        <div class="">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              Sửa nhân viên
+            </h5>
+          </div>
 
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.showModal}
-        onRequestClose={this.props.closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <div class="add-item-modal" role="document">
-          <div class="">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-                Sửa nhân viên
-              </h5>
+          <hr></hr>
+
+          <div className="form-main-add-edit">
+            <div className="row mb-3">
+              <span className="text-secondary text-xs font-weight-bold">
+                <img
+                  alt=""
+                  style={{ width: "80px", height: "80px" }}
+                  src={
+                    image !== undefined
+                      ? URL.createObjectURL(image)
+                      : imageApi.image(props.staff.image, props.staff.manhanvien)
+                  }
+                ></img>
+              </span>
+            </div>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Image</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="image"
+                  type="file"
+                  placeholder=""
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                  }}
+                ></input>
+              </div>
             </div>
 
-            <hr></hr>
-
-            <div className="form-main-add-edit">
-              <div className="row mb-3">
-                <span className="text-secondary text-xs font-weight-bold">
-                  <img
-                    alt="img"
-                    style={{ width: "80px", height: "80px" }}
-                    src={
-                      this.state.image === undefined
-                        ? imageApi.image(
-                            this.props.staff.image,
-                            this.props.staff.manhanvien
-                          )
-                        : URL.createObjectURL(this.state.image)
-                    }
-                  ></img>
-                </span>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Tên nhân viên
               </div>
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Image</div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="image"
-                    type="file"
-                    placeholder=""
-                    ref={(fileInput) => (this.fileInput = fileInput)}
-                    onChange={(e) => {
-                      this.setState({ image: e.target.files[0] });
-                    }}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Tên nhân viên
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border "
-                    id="tennhanvien"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ tennhanvien: e.target.value });
-                    }}
-                    value={this.state.tennhanvien}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Email</div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="email"
-                    type="email"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ email: e.target.value });
-                    }}
-                    value={this.state.email}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Số điện thoại
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="sodienthoai"
-                    type="tel"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ sodienthoai: e.target.value });
-                    }}
-                    value={this.state.sodienthoai}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Địa chỉ
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="diachi"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ diachi: e.target.value });
-                    }}
-                    value={this.state.diachi}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Ngày vào làm
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    type="date"
-                    id="ngayvaolam"
-                    name="trip-start"
-                    onChange={(e) => {
-                      this.setState({
-                        ngayvaolam: new Date(e.target.value),
-                      });
-                    }}
-                    value={this.state.ngayvaolam.toISOString().split("T")[0]}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">CCCD</div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="cccd"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ cccd: e.target.value });
-                    }}
-                    value={this.state.cccd}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Ngày sinh
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    type="date"
-                    id="ngaysinh"
-                    name="trip-start"
-                    onChange={(e) => {
-                      this.setState({
-                        ngaysinh: new Date(e.target.value),
-                      });
-                    }}
-                    value={this.state.ngaysinh.toISOString().split("T")[0]}
-                  ></input>
-                </div>
-              </div>
-
-              <div className="row mb-1">
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                  Chức vụ
-                </div>
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                  <input
-                    className="form-control border"
-                    id="chucvu"
-                    placeholder=""
-                    onChange={(e) => {
-                      this.setState({ chucvu: e.target.value });
-                    }}
-                    value={this.state.chucvu}
-                  ></input>
-                </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border "
+                  id="tennhanvien"
+                  placeholder=""
+                  onChange={(e) => {
+                    setTennhanvien(e.target.value);
+                  }}
+                  value={tennhanvien}
+                ></input>
               </div>
             </div>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: this.state.progress + "%" }}
-              ></div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Email</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="email"
+                  type="email"
+                  placeholder=""
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                ></input>
+              </div>
             </div>
 
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={this.props.closeModal}
-              >
-                Đóng
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                onClick={this.submitHandler.bind(this)}
-              >
-                Sửa
-              </button>
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Số điện thoại
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="sodienthoai"
+                  type="tel"
+                  placeholder=""
+                  onChange={(e) => {
+                    setSodienthoai(e.target.value);
+                  }}
+                  value={sodienthoai}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Địa chỉ</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="diachi"
+                  placeholder=""
+                  onChange={(e) => {
+                    setDiachi(e.target.value);
+                  }}
+                  value={diachi}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Ngày vào làm
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  type="date"
+                  id="ngayvaolam"
+                  name="trip-start"
+                  onChange={(e) => setNgayvaolam(new Date(e.target.value))}
+                  value={ngayvaolam}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">CCCD</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="cccd"
+                  placeholder=""
+                  onChange={(e) => {
+                    setCccd(e.target.value);
+                  }}
+                  value={cccd}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Ngày sinh
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  type="date"
+                  id="ngaysinh"
+                  name="trip-start"
+                  onChange={(e) => setNgaysinh(new Date(e.target.value))}
+                  value={ngaysinh}
+                ></input>
+              </div>
+            </div>
+
+            <div className="row mb-1">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Chức vụ</div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <input
+                  className="form-control border"
+                  id="chucvu"
+                  placeholder=""
+                  onChange={(e) => {
+                    setChucvu(e.target.value);
+                  }}
+                  value={chucvu}
+                ></input>
+              </div>
             </div>
           </div>
+          <div className="progress">
+            <div
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: progress + "%" }}
+            ></div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onClick={props.closeModal}
+            >
+              Đóng
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onClick={submitHandler}
+            >
+              Thêm
+            </button>
+          </div>
         </div>
-      </Modal>
-    );
-  }
+      </div>
+    </Modal>
+  );
 }

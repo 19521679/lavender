@@ -39,13 +39,13 @@ export default function AddModal(props) {
 
     fd.append("cccd", cccd);
     fd.append("ngaysinh", new Date(ngaysinh).toISOString().split("T")[0]);
-    fd.append("image", image);
+    if (image!==undefined) fd.append("image", image);
     fd.append("loaikhachhang", loaikhachhang);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     customerApi
-      .addCustomer(fd, runProgress, token, refreshtoken)
+      .addCustomer(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -54,14 +54,6 @@ export default function AddModal(props) {
         myToast.toastError("Thêm mới thất bại");
         console.error(error);
       });
-  }
-
-  function runProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
   }
   return (
     <Modal
