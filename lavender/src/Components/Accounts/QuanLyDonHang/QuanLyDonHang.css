@@ -22,11 +22,7 @@
     text-align: left;
 }
 
-.iOhDoD td {
-    font-size: 13px;
-    line-height: 20px;
-    color: rgb(51, 51, 51);
-}
+
 
 /* San pham da è giao */
 
@@ -513,7 +509,7 @@ button.close {
 .iOhDoD td {
     font-size: 13px;
     line-height: 20px;
-    color: rgb(51, 51, 51);
+    color: rgb(255,0,0);
 }
 
 .iOhDoD .inner {
