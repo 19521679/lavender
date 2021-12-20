@@ -22,9 +22,9 @@ import TrademarkDashboard from "../../Components/Admin/TrademarkDashboard"
 import MyAccountDashboard from "../../Components/Admin/MyAccountDashboard"
 import Article from "../../Components/Article/index"
 import ArticleDetail from "../../Components/Article/ArticleDetail"
+import AddArticle from "../../Components/Article/addArticle"
 import Promotion from "../../Components/Promotion";
-import ForgotPassword from "../../Components/Accounts/ForgotPassword.js"
-
+import ForgotPassword from "../../Components/Accounts/ForgotPassword"
 import LMember from "../../Components/Accounts/LMember.js";
 
 const routes = [
@@ -49,14 +49,19 @@ const routes = [
     main: () => <ArticleDetail></ArticleDetail >
   },
   {
+    path: "/addArticle",
+    exact: false,
+    main: () => <AddArticle></AddArticle>,
+  },
+  {
     path: "/mobile",
     exact: false,
-    main: ({match, location}) => <Mobile match={match} location={location}></Mobile>,
+    main: ({ match, location }) => <Mobile match={match} location={location}></Mobile>,
   },
   {
     path: "/laptop",
     exact: false,
-    main: ({match, location}) => <Laptop match={match} location={location}></Laptop>,
+    main: ({ match, location }) => <Laptop match={match} location={location}></Laptop>,
   },
   {
     path: "/cart",
@@ -81,7 +86,7 @@ const routes = [
   {
     path: "/register",
     exact: false,
-    main: ({location}) => <Register location={location}></Register>,
+    main: ({ location }) => <Register location={location}></Register>,
   },
   {
     path: "/mobile/:productname/product",
@@ -168,7 +173,7 @@ const routes = [
     exact: false,
     main: () => <NotFoundPage></NotFoundPage>,
   },
-  
-  
+
+
 ];
 export default routes;

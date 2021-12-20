@@ -3,6 +3,9 @@ import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import Article from "./index.js"
+import "./style.css";
+
 
 
 class AddArticle extends Component {
@@ -20,7 +23,8 @@ class AddArticle extends Component {
         const { editorState } = this.state;
         return (
             <div className="addArticle ">
-                <div className="">
+                <div className="mt-7">
+                        <h3>Tạo bài viết</h3>
                     <Editor
                         editorState={editorState}
                         onEditorStateChange={this.onEditorStateChange}
@@ -37,6 +41,7 @@ class AddArticle extends Component {
                         value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
                     />
                 </div>
+                <Article></Article>
             </div>
         );
     }

@@ -1,38 +1,39 @@
-.article-detail h1,h2{
-    font-size:1.5rem!important;
+.article-detail h1,
+h2 {
+    font-size: 1.5rem !important;
 }
 
-.post-title{
+.post-title {
     color: black;
     font-size: 18px;
 }
 
-.post-description{
+.post-description {
     color: black;
     font-size: 14px;
 }
 
 .article-detail a {
-    color: black!important;
+    color: black !important;
 }
 
-.blog-meta h5{
+.blog-meta h5 {
     color: black;
     font-size: 18px;
 }
-.blog-meta p{
+.blog-meta p {
     color: black;
     font-size: 14px;
 }
 
-.blog-box{
+.blog-box {
     border-radius: 20px;
 }
-.blog-box:hover{
+.blog-box:hover {
     cursor: pointer;
-    box-shadow: 0 0 20px 0px rgb(224, 224, 224);
+    box-shadow: 0 0 20px 0 rgb(224, 224, 224);
 }
 
-.addArticle a{
+.addArticle a {
     color: black;
 }
