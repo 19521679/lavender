@@ -24,8 +24,8 @@ namespace Back.Models
         public string Mota { get; set; }
         public string Image { get; set; }
         public DateTime? Thoidiemramat { get; set; }
-        public float Dongia { get; set; }
-
+        public float Dongia { get; set; }  
+        public int Thoigianbaohanh {get; set; }
         public virtual Loaisanpham MaloaiNavigation { get; set; }
         public virtual Thuonghieu MathuonghieuNavigation { get; set; }
         [JsonIgnore]
