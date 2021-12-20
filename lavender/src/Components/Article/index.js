@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as articleApi from "../apis/article";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import { stubTrue } from "lodash";
-
+import { CLIENT_ENDPOINT } from "../../Common/constants";
 function Article() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(stubTrue);
@@ -31,11 +31,12 @@ function Article() {
               <div className="col-9">
                 <div className="page-wrapper">
                   <div className="blog-top clearfix mb-5">
+                    <Link to="/addArticle"><h5 className="text-black">thêm bài viết</h5></Link>
                     <h3 className="pull-left">Tin công nghệ</h3>
                   </div>
                   {posts.map((post) => (
                     <div className="blog-box pt-3 pb-2 ">
-                      <a className="" onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app/articledetail/${post.mabaiviet}` }}>
+                      <a className="" onClick={() => { window.location.href = `${CLIENT_ENDPOINT}/articledetail/${post.mabaiviet}` }}>
                         <div>
                           <div className=" row mb-4">
                             <div className="col-md-4">
