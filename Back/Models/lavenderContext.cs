@@ -60,9 +60,6 @@ namespace Back.Models
                     .HasColumnType("text")
                     .HasColumnName("TIEUDE");
 
-                entity.Property(e => e.thumnail)
-                    .HasColumnType("text")
-                    .HasColumnName("THUMNAIL");
 
                 entity.Property(e => e.mota)
                     .HasColumnType("text")
@@ -71,6 +68,13 @@ namespace Back.Models
                 entity.Property(e => e.noidung)
                     .HasColumnType("text")
                     .HasColumnName("NOIDUNG");
+
+                entity.Property(e => e.thumnail)
+                .HasColumnType("text")
+                .HasColumnName("THUMNAIL");
+
+                entity.Property(e => e.xacnhan)
+                .HasColumnName("XACNHAN");
             });
             modelBuilder.Entity<Baohanh>(entity =>
             {
@@ -666,6 +670,8 @@ namespace Back.Models
                 entity.Property(e => e.Mota)
                     .HasColumnType("text")
                     .HasColumnName("MOTA");
+
+                entity.Property(e => e.Soluongton).HasColumnName("SOLUONGTON");
 
                 entity.Property(e => e.Dongia).HasColumnName("DONGIA");
 
