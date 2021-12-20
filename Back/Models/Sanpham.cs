@@ -20,7 +20,6 @@ namespace Back.Models
         public string Tensanpham { get; set; }
         public int Maloai { get; set; }
         public int Mathuonghieu { get; set; }
-        public int Soluongton { get; set; }
         public string Mota { get; set; }
         public string Image { get; set; }
         public DateTime? Thoidiemramat { get; set; }

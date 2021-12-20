@@ -5,7 +5,7 @@ import { refreshToken } from "../service/refreshtoken";
 export const addSuplier=async(fd, progress, token, refreshtoken)=>{
     var newtoken = undefined;
     var connect = await axiosServices
-    .post(`${API_ENDPOINT}/them-nhacungcap`,
+    .post(`${API_ENDPOINT}/them-nhacungcap`, fd,
       
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -22,7 +22,7 @@ export const addSuplier=async(fd, progress, token, refreshtoken)=>{
       });
     if (newtoken !== undefined) {
       return await axiosServices
-      .post(`${API_ENDPOINT}/them-nhacungcap`,
+      .post(`${API_ENDPOINT}/them-nhacungcap`, fd, 
        {
         headers: { Authorization: `Bearer ${token}` },
         onUploadProgress: progressEvent=>{

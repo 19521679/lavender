@@ -196,14 +196,13 @@ namespace Back.Controllers
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia
+            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia
             )
         {
             Sanpham s = new Sanpham();
             s.Tensanpham = tensanpham;
             s.Maloai = maloai;
             s.Mathuonghieu = mathuonghieu;
-            s.Soluongton = soluongton;
             s.Mota = mota;
             s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
             s.Dongia = dongia;
@@ -224,9 +223,10 @@ namespace Back.Controllers
             string hang = await (from t in lavenderContext.Thuonghieu
                                  where t.Mathuonghieu == mathuonghieu
                                  select t.Tenthuonghieu).FirstOrDefaultAsync();
+            if (s == null) return StatusCode(404);
             string[] tokens = tensanpham.Split(' ');
             string dong = tokens[0];
-            string sanpham = tokens[1];
+            string sanpham = tensanpham.Substring(dong.Length+1);
             string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
             s.Image = path;
@@ -259,7 +259,7 @@ namespace Back.Controllers
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] int soluongton, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
+            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
         {
             string loai = "";
             switch (maloai)
@@ -277,27 +277,28 @@ namespace Back.Controllers
             string hang = await (from t in lavenderContext.Thuonghieu
                                  where t.Mathuonghieu == mathuonghieu
                                  select t.Tenthuonghieu).FirstOrDefaultAsync();
+            if (hang == null) return StatusCode(404);
             string[] tokens = tensanpham.Split(' ');
             string dong = tokens[0];
-            string sanpham = tokens[1];
+            string sanpham = tensanpham.Substring(dong.Length + 1);
             string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
             var s = await (from p in lavenderContext.Sanpham
                            where p.Masanpham == masanpham
                            select p).FirstOrDefaultAsync();
+            if (s == null) return StatusCode(404);
             s.Tensanpham = tensanpham;
             s.Maloai = maloai;
             s.Mathuonghieu = mathuonghieu;
-            s.Soluongton = soluongton;
             s.Mota = mota;
             s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
             s.Dongia = dongia;
             s.Image = path;
+            await lavenderContext.SaveChangesAsync();
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-            await lavenderContext.SaveChangesAsync();
-
+     
             string NewDir = _env.ContentRootPath + "/wwwroot" + path;
 
             if (!Directory.Exists(NewDir))

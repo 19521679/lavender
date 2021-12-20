@@ -1,63 +1,65 @@
-import React, { Component } from "react";
+import React, { useState, useEffect} from "react";
 import AddModal from "./AddModal";
 import "./style.css";
 import * as productApi from "../../apis/product";
 import ProductItem from "./ProductItem";
 import _ from "lodash";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
-export default class index extends Component {
-  state = {
-    showModal: false,
-    listmobile: [],
-    listlaptop: [],
-  };
-  closeModal() {
-    this.setState({ showModal: false });
+export default function Index (props) {
+  const [showModal, setShowModal] = useState(false);
+  const [listmobile, setListmobile] = useState([]);
+  const [listlaptop, setListlaptop] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  function closeModal() {
+    setShowModal(false);
   }
-  openModal() {
-    this.setState({ showModal: true });
+  function openModal() {
+    setShowModal(true);
   }
 
-  async loadMobile() {
+   async function loadMobile() {
+    setLoading(true);
     await productApi
       .allMobileProduct()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listmobile: success.data.value.$values });
+          setListmobile(success.data.value.$values);
         }
       })
       .catch((error) => {
         console.error(error);
       });
+    setLoading(false);
   }
 
-  async loadLaptop() {
+  async function loadLaptop() {
+    setLoading(true);
     await productApi
       .allLaptopProduct()
       .then((success) => {
         if (success.status === 200) {
-          this.setState({ listlaptop: success.data.value.$values });
+          setListlaptop(success.data.value.$values);
         }
       })
       .catch((error) => {
         console.error(error);
       });
+      setLoading(false);
   }
 
-  async componentDidMount() {
-    this.loadMobile();
-    this.loadLaptop();
-  }
-
-  async editProduct(product) {
+  useEffect(() => {
+      loadMobile();
+      loadLaptop();
+  }, [])
+  
+  async function editProduct(product) {
     var listtemp = null;
-    var stringlist = "";
     if (product.maloai === 1) {
-      listtemp = this.state.listmobile;
-      stringlist = "listmobile";
+      listtemp = listmobile;
     } else {
-      listtemp = this.state.listlaptop;
-      stringlist = "listlaptop";
+      listtemp = listlaptop;
     }
     _.remove(listtemp, (n) => {
       return n.masanpham === product.masanpham;
@@ -65,49 +67,57 @@ export default class index extends Component {
 
     listtemp.push(product);
 
-    await this.setState({ [stringlist]: listtemp });
+    if (product.maloai === 1) {
+      setListmobile([...listtemp]);
+    } else {
+      setListlaptop([...listtemp]);
+    }
+
   }
 
-  async addProduct(product) {
+  async function addProduct(product) {
     var listtemp = null;
-    var stringlist = "";
     if (product.maloai === 1) {
-      listtemp = this.state.listmobile;
-      stringlist = "listmobile";
+      listtemp = listmobile;
     } else {
-      listtemp = this.state.listlaptop;
-      stringlist = "listlaptop";
+      listtemp = listlaptop;
     }
     listtemp.push(product);
 
-    await this.setState({ [stringlist]: listtemp });
+    if (product.maloai === 1) {
+      setListmobile([...listtemp]);
+    } else {
+      setListlaptop([...listtemp]);
+    }
   }
 
-  async deleteProduct(product) {
+  async function deleteProduct(product) {
     var listtemp = null;
-    var stringlist = "";
     if (product.maloai === 1) {
-      listtemp = this.state.listmobile;
-      stringlist = "listmobile";
+      listtemp = listmobile;
     } else {
-      listtemp = this.state.listlaptop;
-      stringlist = "listlaptop";
+      listtemp = listlaptop;
     }
 
     _.remove(listtemp, (n) => {
       return n.masanpham === product.masanpham;
     });
-    await this.setState({ [stringlist]: listtemp });
+
+    if (product.maloai === 1) {
+      setListmobile([...listtemp]);
+    } else {
+      setListlaptop([...listtemp]);
+    }
   }
 
-  render() {
     return (
       <main className="main-content position-relative border-radius-lg left-menu">
         <AddModal
-          showModal={this.state.showModal}
-          closeModal={this.closeModal.bind(this)}
-          addProduct={this.addProduct.bind(this)}
+          showModal={showModal}
+          closeModal={closeModal.bind(this)}
+          addProduct={addProduct.bind(this)}
         ></AddModal>
+        <LoadingContainer loading={loading}></LoadingContainer>
         {/* Navbar */}
         <nav
           className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -144,7 +154,7 @@ export default class index extends Component {
                     </h6>
                     <button
                       className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"
-                      onClick={this.openModal.bind(this)}
+                      onClick={openModal.bind(this)}
                     >
                       + Thêm sản phẩm
                     </button>
@@ -183,21 +193,17 @@ export default class index extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {function () {
-                          var result = null;
-                          result = this.state.listmobile.map((value, key) => {
-                            return (
-                              <ProductItem
-                                product={value}
-                                key={key}
-                                addProduct={this.addProduct.bind(this)}
-                                deleteProduct={this.deleteProduct.bind(this)}
-                                editProduct={this.editProduct.bind(this)}
-                              ></ProductItem>
-                            );
-                          });
-                          return result;
-                        }.bind(this)()}
+                        {listmobile.map((value, key) => {
+                          return (
+                            <ProductItem
+                              product={value}
+                              key={key}
+                              addProduct={addProduct.bind(this)}
+                              deleteProduct={deleteProduct.bind(this)}
+                              editProduct={editProduct.bind(this)}
+                            ></ProductItem>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -219,7 +225,7 @@ export default class index extends Component {
                     </h6>
                     <button
                       className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"
-                      onClick={this.openModal.bind(this)}
+                      onClick={openModal.bind(this)}
                     >
                       + Thêm sản phẩm
                     </button>
@@ -258,21 +264,17 @@ export default class index extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {function () {
-                          var result = null;
-                          result = this.state.listlaptop.map((value, key) => {
-                            return (
-                              <ProductItem
-                                product={value}
-                                key={key}
-                                addProduct={this.addProduct.bind(this)}
-                                deleteProduct={this.deleteProduct.bind(this)}
-                                editProduct={this.editProduct.bind(this)}
-                              ></ProductItem>
-                            );
-                          });
-                          return result;
-                        }.bind(this)()}
+                        {listlaptop.map((value, key) => {
+                          return (
+                            <ProductItem
+                              product={value}
+                              key={key}
+                              addProduct={addProduct.bind(this)}
+                              deleteProduct={deleteProduct.bind(this)}
+                              editProduct={editProduct.bind(this)}
+                            ></ProductItem>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -283,5 +285,5 @@ export default class index extends Component {
         </div>
       </main>
     );
-  }
+
 }
