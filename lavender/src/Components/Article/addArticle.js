@@ -22,26 +22,28 @@ class AddArticle extends Component {
     render() {
         const { editorState } = this.state;
         return (
-            <div className="addArticle ">
+            <div className="addArticle">
                 <div className="mt-7">
-                        <h3>Tạo bài viết</h3>
-                    <Editor
-                        editorState={editorState}
-                        onEditorStateChange={this.onEditorStateChange}
-                        toolbar={{
-                            inline: { inDropdown: true },
-                            list: { inDropdown: true },
-                            textAlign: { inDropdown: true },
-                            link: { inDropdown: true },
-                            history: { inDropdown: true },
-                        }}
-                    />
-                    <textarea
-                        disabled hidden
-                        value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    />
+                    <h3>Tạo bài viết</h3>
+                    <form>
+                        <div className="form-group pt-3">
+                            <h5>tiêu đề</h5>
+                            <input type="text" className="form-control" id="" aria-describedby="emailHelp" placeholder="nhập tiêu đề bài viết" />
+                            <h5>mô tả</h5>
+                            <textarea class="form-control" id="" rows="3" placeholder="nhập mô tả bài viết"></textarea>
+                        </div>
+                        <Editor
+                            wrapperClassName="demo-wrapper"
+                            editorClassName="demo-editor"
+                            onEditorStateChange={this.onEditorStateChange}
+                        />
+                        <textarea className="w-100"
+                            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                        />
+                        <button type="submit" className="btn btn-success">đăng bài viết</button>
+                    </form>
                 </div>
-                <Article></Article>
+                {/* <Article></Article> */}
             </div>
         );
     }
