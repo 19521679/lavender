@@ -226,6 +226,19 @@ namespace Back.Controllers
             return StatusCode(200, Json(listhoadon));
         }
 
+        [Route("/hoadon-cuatoi-danggiao")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> HoadonCuatoiDanggiao(int makhachhang)
+        {
+            var listhoadon = await (from x in lavenderContext.Hoadon
+                                    join y in lavenderContext.Vanchuyen
+                                    on x.Sohoadon equals y.Sohoadon
+                                    where y.Trangthai.Equals("Đang giao")
+                                    select x).ToListAsync();
+            return StatusCode(200, Json(listhoadon));
+        }
+
     }
        
 }

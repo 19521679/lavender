@@ -1,34 +1,52 @@
-import React, {useState, useEffect} from 'react'
-import Chitiethoadon from './Chitiethoadon';
-export default function Danggiao() {
-    return (
-        
-            <div className="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV">
-        <div className="styles__StyledAccountListOrder-sc-6t66uv-0 iOhDoD">
-          <div className="inner">
-            <table>
-              <thead>
-                <tr>
-                  <th>Số hóa đơn 111</th>
-                  <th>Ngày mua</th>
-                  <th>Sản phẩm</th>
-                  <th>Tổng tiền</th>
-                  <th>Trạng thái đơn hàng</th>
-                </tr>
-              </thead>                       
-              <tbody>
-                <tr>
-                  <td><a href="">865997454</a></td>
-                  <td>16/12/2021</td>
-                  <td>Iphone 13</td>
-                  <td>22.390.000 ₫</td>
-                  <td><a href="#/Chitiethoadon">Xem chi tiết</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+import React, { useState, useEffect } from "react";
+import * as billingApi from "../../apis/billing";
+import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+import ItemDangxuly from "./ItemDangxuly";
+import _ from "lodash";
+
+const cookie = new Cookies();
+
+export default function Dangxuly() {
+  const [list, setList] = useState([]);
+
+  const makhachhang = useSelector((state) => state.login.makhachhang);
+
+  const deleteFunction = (sohoadon) => {
+    var listtemp = list;
+
+    _.remove(listtemp, (n) => {
+      return n.sohoadon === sohoadon;
+    });
+    setList([...listtemp]);
+  };
+  useEffect(() => {
+    const token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
+    billingApi
+      .hoadonCuatoiDangxuly(makhachhang, token, refreshtoken)
+      .then((success) => {
+        if (success.status === 200) setList(success.data.value.$values);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [makhachhang]);
+  return (
+    <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV">
+      <div class="styles__StyledAccountListOrder-sc-6t66uv-0 iOhDoD">
+        <div class="inner">
+          {list.map((value, key) => {
+            return (
+              <ItemDangxuly
+                bill={value}
+                key={key}
+                deleteFunction={deleteFunction}
+              ></ItemDangxuly>
+            );
+          })}
         </div>
       </div>
-        
-    )
+    </div>
+  );
 }
