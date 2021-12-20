@@ -149,7 +149,7 @@ namespace Back.Controllers
                               where x.Masanpham == masanpham
                               select x).ToListAsync();
             List<ThongsokithuatForm> thongsokithuatForms = new List<ThongsokithuatForm>();
-            foreach ( var x in temp)
+            foreach (var x in temp)
             {
                 var thongso = new ThongsokithuatForm();
                 thongso.ten = x.Ten;
@@ -226,7 +226,7 @@ namespace Back.Controllers
             if (s == null) return StatusCode(404);
             string[] tokens = tensanpham.Split(' ');
             string dong = tokens[0];
-            string sanpham = tensanpham.Substring(dong.Length+1);
+            string sanpham = tensanpham.Substring(dong.Length + 1);
             string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
             s.Image = path;
@@ -294,11 +294,10 @@ namespace Back.Controllers
             s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
             s.Dongia = dongia;
             s.Image = path;
+
             await lavenderContext.SaveChangesAsync();
 
-            if (image == null || image.Length == 0) return StatusCode(200, Json(s));
-
-     
+            string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
             string NewDir = _env.ContentRootPath + "/wwwroot" + path;
 
             if (!Directory.Exists(NewDir))
@@ -306,6 +305,19 @@ namespace Back.Controllers
                 // Create the directory.
                 Directory.CreateDirectory(NewDir);
             }
+            if (Directory.Exists(OldDir))
+            {
+                foreach (var file in new DirectoryInfo(OldDir).GetFiles())
+                {
+                    file.MoveTo($@"{NewDir}\0.Jpeg");
+                }
+            }
+
+            if (image == null || image.Length == 0)
+            {
+                return StatusCode(200, Json(s));
+            }
+
             using (var memoryStream = new MemoryStream())
             {
                 await image.CopyToAsync(memoryStream);
