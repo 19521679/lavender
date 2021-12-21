@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `baiviet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `baiviet` (
-  `MABAIVIET` int NOT NULL,
+  `MABAIVIET` int NOT NULL AUTO_INCREMENT,
   `TIEUDE` text NOT NULL,
-  `MOTA` text,
-  `NOIDUNG` longtext,
-  `THUMNAIL` longtext,
-  `xacnhan` int NOT NULL DEFAULT '0'
+  `MOTA` text NOT NULL,
+  `NOIDUNG` longtext NOT NULL,
+  `THUMNAIL` longtext NOT NULL,
+  `XACNHAN` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
