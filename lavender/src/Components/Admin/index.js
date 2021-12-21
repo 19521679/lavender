@@ -354,7 +354,7 @@ export default function Index(props) {
             </div>
           </div>
           <div className="col-lg-3 col-md-6">
-            <div className="card h-100" style={{ minWidth: "390px" }}>
+            <div className="card h-70" style={{ minWidth: "390px" }}>
               <div className="card-header pb-0">
                 <h6>Tiếp nhận đơn hàng</h6>
                 <p className="text-sm">
