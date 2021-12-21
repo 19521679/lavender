@@ -152,7 +152,7 @@ class Product extends Component {
                   {this.props.detailCart.tien === 0 ? (
                     "Hết hàng"
                   ) : (
-                    <p>{this.props.detailCart.tien}₫</p>
+                    <p><strong>{this.props.detailCart.tien} ₫</strong></p>
                   )}
                 </span>
               </div>

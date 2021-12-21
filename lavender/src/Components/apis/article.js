@@ -4,13 +4,28 @@ import { refreshToken } from "../service/refreshtoken";
 
 export const allArticle = () => {
   return axiosServices.get(
-    `${API_ENDPOINT}/baiviet`
+    `${API_ENDPOINT}/all-baiviet`
+  );
+};
+export const allArticlePending = () => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/all-baivietpending`
   );
 };
 
 export const getArticle = (mabaiviet) => {
   return axiosServices.get(
-    `${API_ENDPOINT}/baiviet/${mabaiviet}`
+    `${API_ENDPOINT}/chitiet-baiviet/${mabaiviet}`
+  );
+};
+export const vertifyArticle = (mabaiviet) => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/xacnhan-baiviet/${mabaiviet}`
+  );
+};
+export const deleteArticle = (mabaiviet) => {
+  return axiosServices.get(
+    `${API_ENDPOINT}/xoa-baiviet/${mabaiviet}`
   );
 };
 

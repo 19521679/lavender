@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import * as detailProductapi from "../apis/detailProduct";
 import * as evalueteApi from "../apis/evaluete";
 import * as productApi from "../apis/product";
+import { CLIENT_ENDPOINT } from "../../Common/constants";
 
 export default class ProductItem extends Component {
   state = { giamoi: 0, sosao: 0, sodanhgia: 0, thongsokithuat: [] };
@@ -64,7 +65,11 @@ export default class ProductItem extends Component {
                 );
             }.bind(this)()}
 
-            <a onClick={() => { window.location.href = `https://lavender-uit-webshop.web.app${this.props.product.image}` }} className="box-click">
+            <a onClick={() => {
+              var url = CLIENT_ENDPOINT + this.props.product.image;
+              window.location.href = `${url}`
+            }}
+              className="box-click">
               <div className="icon">
                 <img
                   alt="img"

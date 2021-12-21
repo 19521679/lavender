@@ -69,6 +69,8 @@ export default class AddArticle extends Component {
             mota: '',
             noidung: '',
             thumnail: '',
+            disable: false,
+            status: 'đăng bài viết'
             // token:cookie.get("token"),
             // refreshtoken : cookie.get("refreshtoken"),
         }
@@ -85,7 +87,9 @@ export default class AddArticle extends Component {
     }
     submitHandler = e => {
         e.preventDefault();
-        this.state.noidung = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        if (this.state.editorState != undefined) {
+            this.state.noidung = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        }
         this.state.editorState = undefined;//remove state property
         console.log(JSON.stringify(this.state))
         const fd = new FormData();
@@ -99,17 +103,22 @@ export default class AddArticle extends Component {
             .then((success) => {
                 // props.addFunction(success.data.value);
                 myToast.toastSucces("Đã gửi bài viết , chờ phê duyệt");
+                this.setState({
+                    disable: true,
+                    status:'đang xét duyệt'
+                });
                 // props.closeModal();
             })
             .catch((error) => {
                 myToast.toastError("Thêm mới thất bại");
                 console.error(error);
             });
+
     }
 
     //raw text to HTML
     render() {
-        const { editorState, tieude, mota, noidung, thumnail } = this.state;
+        const { editorState,tieude, mota, thumnail, disable ,status} = this.state;
         return (
             <div className="addArticle">
                 <div className="mt-7">
@@ -117,18 +126,18 @@ export default class AddArticle extends Component {
                     <form onSubmit={this.submitHandler}>
                         <div className="form-group pt-3">
                             <h5>tiêu đề</h5>
-                            <input name='tieude' value={tieude} onChange={this.changeHandler} type="text" className="form-control" placeholder="nhập tiêu đề bài viết" />
+                            <input name='tieude' value={tieude} onChange={this.changeHandler} type="text" className="form-control border" placeholder="nhập tiêu đề bài viết" />
                             <h5>mô tả</h5>
-                            <textarea name='mota' value={mota} onChange={this.changeHandler} class="form-control" id="" rows="3" placeholder="nhập mô tả bài viết"></textarea>
+                            <textarea name='mota' value={mota} onChange={this.changeHandler} className="form-control border" id="" rows="3" placeholder="nhập mô tả bài viết"></textarea>
                             <h5>thumnail</h5>
-                            <input name='thumnail' value={thumnail} onChange={this.changeHandler} type="text" className="form-control" placeholder="nhập url thumnail" />
+                            <input name='thumnail' value={thumnail} onChange={this.changeHandler} type="text" className="form-control border" placeholder="nhập url thumnail" />
                         </div>
-                        <Editor
+                        <Editor value={editorState}
                             wrapperClassName="demo-wrapper"
                             editorClassName="demo-editor"
                             onEditorStateChange={this.onEditorStateChange}
                         />
-                        <button type="submit" className="btn btn-success">đăng bài viết</button>
+                        <input type="submit" disabled={disable} value={status} className="btn btn-success"/>
                     </form>
                 </div>
                 {/* <Article></Article> */}

@@ -142,12 +142,11 @@ export const muaHang = async (
   return connect;
 };
 
-
-
 export const tracuuNgaymua = (sohoadon) => {
-  return axiosServices.get(`${API_ENDPOINT}/tracuu-ngaymua-theosohoadon?sohoadon=${sohoadon}`);
+  return axiosServices.get(
+    `${API_ENDPOINT}/tracuu-ngaymua-theosohoadon?sohoadon=${sohoadon}`
+  );
 };
-
 
 export const hoadonCuatoiDangxuly = async (
   makhachhang,
@@ -176,9 +175,6 @@ export const hoadonCuatoiDangxuly = async (
   return connect;
 };
 
-
-
-
 export const hoadonCuatoiDanggiao = async (
   makhachhang,
   token,
@@ -206,3 +202,54 @@ export const hoadonCuatoiDanggiao = async (
   return connect;
 };
 
+export const tuchoiDonhang = async (sohoadon, token, refreshtoken) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/tuchoi-donhang?sohoadon=${sohoadon}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/tuchoi-donhang?sohoadon=${sohoadon}`,
+
+      { headers: { Authorization: `Bearer ${newtoken}` } }
+    );
+  }
+  return connect;
+};
+
+export const tiepnhanDonhang = async (
+  sohoadon,
+  manhanvien,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(
+      `${API_ENDPOINT}/tiepnhan-donhang?sohoadon=${sohoadon}&manhanvien=${manhanvien}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/tiepnhan-donhang?sohoadon=${sohoadon}&manhanvien=${manhanvien}`,
+
+      { headers: { Authorization: `Bearer ${newtoken}` } }
+    );
+  }
+  return connect;
+};

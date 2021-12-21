@@ -324,8 +324,8 @@ class index extends Component {
                             />
                           </label>
                         </div>
-                        <div className="col-2">Đơn giá</div>
-                        <div className="col-3">Số lượng</div>
+                        <div className="col-2"><strong>Đơn giá</strong></div>
+                        <div className="col-3"><strong>Số lượng</strong></div>
                         <div className="col-5">
                           <span className="productsV2__remove-all">
                             <img
@@ -346,6 +346,7 @@ class index extends Component {
                           <div className="styles__StyledIntendedSeller-sc-1dwh2vk-0 kTsjPS">
                             <div className="sellers">
                               <div className="pustProduct">
+                                
                                 {this.pushProduct()}
                               </div>
                             </div>
@@ -388,7 +389,7 @@ class index extends Component {
                       ></AddVoucherModal>
                       <div className="styles__StyledCouponBox-sc-1ibe03g-0 jmylnB">
                         <div className="title-usage">
-                          <p className="coupon-title">Lavender khuyến mãi</p>
+                          <p className="coupon-title"><strong>Khuyến mãi</strong></p>
                           <p className="max-usage">
                             Có thể chọn 1
                             <img
@@ -427,13 +428,13 @@ class index extends Component {
                       <div className="prices">
                         <ul className="prices__items">
                           <li className="prices__item">
-                            <span className="prices__text">Tạm tính</span>
+                            <span className="prices__text"><strong>Tạm tính</strong></span>
                             <span className="prices__value">
                               {this.state.tongtien}đ
                             </span>
                           </li>
                           <li className="prices__item">
-                            <span className="prices__text">Giảm giá</span>
+                            <span className="prices__text"><strong>Giảm giá</strong></span>
                             <span className="prices__value">
                               {this.state.khuyenmai === undefined
                                 ? "0"
@@ -446,12 +447,13 @@ class index extends Component {
                           </li>
                         </ul>
                         <div className="prices__total">
-                          <span className="prices__text">Tổng cộng</span>
+                          <span className="prices__text"><strong>Tổng cộng</strong></span>
                           <div className="prices__content">
                             <div className="prices__value prices__value--empty">
-                              {this.state.tongcong === 0
+                              <strong>{this.state.tongcong === 0
                                 ? "Vui lòng chọn sản phẩm"
-                                : this.state.tongcong + "đ"}
+                                : this.state.tongcong + "đ"}</strong>
+                              
                             </div>
                             <span className="prices__value--noted">
                               (Đã bao gồm VAT nếu có)

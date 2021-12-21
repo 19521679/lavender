@@ -23576,3 +23576,32 @@ p,
 }
 
 
+.btn-xulidonhang{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.btn-tuchoidonhang{
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
+.tiepnhanhoadonmodal .add-khachhang-button{
+  position: absolute!important;
+  right: 19px;
+  top: -7px;
+}
+tiepnhanhoadonmodal .danhsachsanpham-title{
+  z-index: 3
+}
+.tiepnhanhoadonmodal .add-item-modal{
+  z-index: 2;
+  width: 500px;
+}
+.tiepnhanhoadonmodal .form-main-add-edit{
+  padding: 24px 0px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;   
+  overflow: scroll;
+}
