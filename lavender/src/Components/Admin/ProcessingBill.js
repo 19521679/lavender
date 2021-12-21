@@ -41,7 +41,6 @@ export default class ProcessingBill extends Component {
           <h6 className="text-dark text-sm font-weight-bold mb-0">
             {(this.state.product !== undefined) &
               (this.state.product !== null) && this.state.product.tensanpham}
-            , số lượng: soluong
           </h6>
           <h6 className="text-success text-sm font-weight-bolder">
             Đơn giá:{" "}
@@ -59,6 +58,8 @@ export default class ProcessingBill extends Component {
           <p className="text-secondary font-weight-bold text-xs mt-1 mb-0">
             {this.props.bill.ngayhoadon}
           </p>
+          <div className="btn btn-link text-warning px-3 mb-0 btn-xulidonhang"><i class="fad fa-angle-right"></i> Tiếp nhận</div>
+          <div className="btn btn-link text-danger px-3 mb-0 btn-tuchoidonhang"><i class="fas fa-eject"></i> Từ chối</div>
         </div>
       </div>
     );

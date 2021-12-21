@@ -23471,3 +23471,13 @@ Icon colors
 }
 
 
+.btn-xulidonhang{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.btn-tuchoidonhang{
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
