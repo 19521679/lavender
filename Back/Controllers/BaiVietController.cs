@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using Back.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Back.ModelDTO;
+using Back.Models;
+
 
 namespace Back.Controllers
 {
