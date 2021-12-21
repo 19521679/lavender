@@ -42,9 +42,10 @@ namespace Back.Controllers
 
         [Route("/danhsachyeuthich")]
         [HttpGet]
-        public async Task<IActionResult> Danhsachyeuthich()
+        public async Task<IActionResult> Danhsachyeuthich(int makhachhang)
         {
             var favorites = await (from d in lavenderContext.Danhsachyeuthich
+                                   where d.Makhachhang==makhachhang
                                    select d).ToListAsync();
             return StatusCode(200, Json(favorites));
         }
@@ -79,7 +80,10 @@ namespace Back.Controllers
         [HttpGet]
         public async Task<IActionResult> Boyeuthich(int makhachhang, int masanpham)
         {
-            var favorite = await lavenderContext.Danhsachyeuthich.SingleOrDefaultAsync(x => x.Makhachhang == makhachhang && x.Masanpham == masanpham);
+            var favorite = await (from x in lavenderContext.Danhsachyeuthich
+                                  where x.Makhachhang == makhachhang
+                                  && x.Masanpham == masanpham
+                                  select x).FirstOrDefaultAsync();
             if (favorite == null) return StatusCode(404);
             lavenderContext.Remove(favorite);
             await lavenderContext.SaveChangesAsync();

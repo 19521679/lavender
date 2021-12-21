@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./ProductItem.css";
 import * as imageApi from "../apis/image.js";
-import { Link } from "react-router-dom";
 import * as detailProductapi from "../apis/detailProduct";
 import * as evalueteApi from "../apis/evaluete";
 import * as productApi from "../apis/product";
@@ -65,11 +64,14 @@ export default class ProductItem extends Component {
                 );
             }.bind(this)()}
 
-            <a onClick={() => {
-              var url = CLIENT_ENDPOINT + this.props.product.image;
-              window.location.href = `${url}`
-            }}
-              className="box-click">
+            <a
+              href={() => false}
+              onClick={() => {
+                var url = CLIENT_ENDPOINT + this.props.product.image;
+                window.location.href = `${url}`;
+              }}
+              className="box-click"
+            >
               <div className="icon">
                 <img
                   alt="img"

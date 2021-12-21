@@ -82,12 +82,10 @@
     border-radius: 10px
 }
 
-.card1:,
 .card1:focus-within {
     transform: translateY(-1rem) rotateZ(5deg)
 }
 
-.card1:~.card1,
 .card1:focus-within~.card1 {
     transform: translateX(8rem)
 }
@@ -97,22 +95,6 @@
     border-radius: 10px;
     padding: 4px 10px;
     border: 1px solid #ddd
-}
-
-.wrapper {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center
-}
-
-.wrapper {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #E1F5FE
 }
 
 .card9 {

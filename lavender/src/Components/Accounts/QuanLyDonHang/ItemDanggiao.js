@@ -54,7 +54,6 @@ export default function ItemDanggiao(props) {
   }, [props.bill]);
   return (
     <div className="border rounded">
-     /////////////////////////
       <div>
         <div className="GuWdvd">
           <div className="WqnWb-">
