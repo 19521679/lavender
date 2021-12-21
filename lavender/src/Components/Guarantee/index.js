@@ -2,6 +2,7 @@
 import Cookies from "universal-cookie";
 import React, { useState, useEffect, useRef } from "react";
 //import "./style.css";
+import moment from 'moment';
 import * as productApi from "../apis/product";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import * as detailProductApi from "../apis/detailProduct";
@@ -11,6 +12,7 @@ import { Collapse } from 'react-collapse';
 import Item from "./Item";
 import * as detailBillApi from "../apis/detailBill";
 import * as billingApi from "../apis/billing";
+import * as myToast from "../../Common/helper/toastHelper";
 
 export default function Index(props) {
   const a ="";
@@ -18,8 +20,8 @@ export default function Index(props) {
   const [chitietsanpham, setChitietsanpham] = useState(undefined);
   const [sanpham, setSanpham] = useState(undefined);
   const [lichsubaohanh, setLichsubaohanh] = useState([]);
-  const [hoadon, setHoadon] =  useState(undefined);
-  const [chitiethoadon, setChitiethoadon] = useState(undefined);
+  const [ngaymua, setNgaymua] =  useState(undefined);
+  const [sohoadon, setSohoadon] = useState(undefined);
   useEffect(() => {
     //   (async()=>{
     //         await
@@ -48,9 +50,10 @@ export default function Index(props) {
       });
 
     if (chitietsanphamtemp === undefined) {
+      myToast.toastError("Không tìm thấy Imei");
       return;
     }
-    await productApi
+    productApi
       .findProductById(chitietsanphamtemp.masanpham)
       .then((success) => {
         if (success.status === 200) {
@@ -72,29 +75,30 @@ export default function Index(props) {
         console.error(error);
       });
 
-    detailBillApi
+    await detailBillApi
       .detailBillByImei(timkiem)
       .then((success) => {
         if (success.status === 200) {
-          setChitiethoadon(success.data.value.$values);
-          a = success.data.value.$values;
+          billingApi
+          .tracuuNgaymua(success.data.value)
+          .then((success2) => {
+            if (success2.status === 200) {
+              setNgaymua(success2.data.value);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    
+          setSohoadon(success.data.value);
+
         }
       })
       .catch((error) => {
         console.error(error);
       });
 
-      billingApi
-        .tracuuNgaymua(a)
-        .then((success) => {
-          if (success.status === 200) {
-            setHoadon(success.data.value);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-  
+
       
   };
   return (
@@ -426,7 +430,10 @@ export default function Index(props) {
                           </h4>
                         </div>
                       </div>
-                      <Collapse isOpened={chitietsanpham !== undefined}>
+                     {
+                       chitietsanpham!==undefined&&
+                       (
+                        <Collapse isOpened={chitietsanpham !== undefined}>
                         <div className="container">
                           <div id="demo" className="">
                             <div className="d-flex justify-content-center container mt-5">
@@ -445,23 +452,38 @@ export default function Index(props) {
                                     </h6>
                                   </div>
                                 </div>
-                                <div className="stats mt-2">
-                                  <div className="d-flex justify-content-between p-price">
-                                    <span>Màu sắc</span>
-                                    <span>{(chitietsanpham !== undefined && chitietsanpham.mausac !== undefined) && chitietsanpham.mausac}</span>
-                                  </div>
-                                  <div className="d-flex justify-content-between p-price">
-                                    <span>Dung lượng</span>
-                                    <span>{(chitietsanpham !== undefined && chitietsanpham.dungluong !== undefined) && chitietsanpham.dungluong}</span>
-                                  </div>
-                                  <div className="d-flex justify-content-between p-price">
-                                    <span>Giá</span>
-                                    <span>{(chitietsanpham !== undefined && chitietsanpham.giamoi !== undefined) && chitietsanpham.giamoi}</span>
-                                  </div>
+                                <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                                  <span>Màu sắc</span>
+                                  <span>{(chitietsanpham !== undefined && chitietsanpham.mausac !== undefined) && chitietsanpham.mausac}</span>
                                 </div>
                                 <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                                  <span>Thời hạn bảo hành</span>
-                                  <span>1 năm 13 ngày {(hoadon !== undefined) && hoadon} </span>
+                                  <span>Dung lượng</span>
+                                  <span>{(chitietsanpham !== undefined && chitietsanpham.dungluong !== undefined) && chitietsanpham.dungluong}</span>
+                                </div>
+
+                                <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                                  <span>Giá</span>
+                                  <span>{(chitietsanpham !== undefined && chitietsanpham.giamoi !== undefined) && chitietsanpham.giamoi}</span>
+                                </div>
+                                <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                                  <span>Ngày mua </span>
+                                  <span>Ngày {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        moment(ngaymua).date()}&nbsp;
+                                        Tháng  {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        moment(ngaymua).month()}&nbsp;
+                                        Năm  {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        moment(ngaymua).year()}   
+                                  </span>
+                                </div>
+                                <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                                  <span>Thời hạn bảo hành đến ngày </span>
+                                  <span>Ngày {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        moment(ngaymua).date()}&nbsp;
+                                        Tháng  {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        moment(ngaymua).month()}&nbsp;
+                                        Năm  {(ngaymua!==undefined&&sanpham!==undefined&&sanpham.thoigianbaohanh!==undefined) &&
+                                        (moment(ngaymua).year()+ sanpham.thoigianbaohanh)}   
+                                  </span>
                                 </div>
 
                                 <ul class="list-group">
@@ -477,6 +499,8 @@ export default function Index(props) {
                           </div>
                         </div>
                       </Collapse>
+                       )
+                     }
 
                     </div>
                   </div>

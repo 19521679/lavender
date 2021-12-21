@@ -685,6 +685,8 @@ namespace Back.Models
                     .HasColumnType("datetime")
                     .HasColumnName("THOIDIEMRAMAT");
 
+                 entity.Property(e => e.Thoigianbaohanh).HasColumnName("THOIGIANBAOHANH");
+
                 entity.HasOne(d => d.MaloaiNavigation)
                     .WithMany(p => p.Sanphams)
                     .HasForeignKey(d => d.Maloai)

@@ -208,7 +208,7 @@ namespace Back.Controllers
         {
             var ngaymua = await (from x in lavenderContext.Hoadon
                                      where x.Sohoadon == sohoadon
-                                     select x.Ngayhoadon).ToListAsync();
+                                     select x.Ngayhoadon).FirstOrDefaultAsync();
             return StatusCode(200, Json(ngaymua));
         }
 

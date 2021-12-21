@@ -10,3 +10,215 @@
 .btn-import-bill {
   margin-left: -13px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Kalam&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif
+}
+
+
+
+.container {
+    overflow: auto
+}
+
+.cards1 {
+    overflow: auto;
+    min-height: 100px;
+}
+
+.card1 {
+    background: #C996CC;
+    background: linear-gradient(to right, #313030, #e91e63);
+    min-width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: -5px 5px 25px #FFE6E6;
+    padding: 20px;
+    border: none;
+    transition: all .3s ease-in-out
+}
+
+.card1 .text-grey {
+    color: #ccc;
+    font-weight: 500
+}
+
+.card1 .light-grey {
+    color: #aaa;
+    font-weight: 300
+}
+
+.card1 .fs-5 {
+    font-size: 1.15rem !important
+}
+
+.card1 a {
+    color: #fff;
+    text-decoration: none
+}
+
+.card1 .profile img {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 5px 15px rgba(26, 25, 25, 0.329);
+    object-fit: cover;
+    border-radius: 50%
+}
+
+.card1:not(:first-child) {
+    margin-left: -8rem
+}
+
+.cards1::-webkit-scrollbar {
+    height: 10px
+}
+
+.cards1::-webkit-scrollbar-track {
+    background: inherit
+}
+
+.cards1::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+    background: linear-gradient(to right, #ff002b, #002fff);
+    border-radius: 10px
+}
+
+.card1:hover,
+.card1:focus-within {
+    transform: translateY(-1rem) rotateZ(5deg)
+}
+
+.card1:hover~.card1,
+.card1:focus-within~.card1 {
+    transform: translateX(8rem)
+}
+
+.card1 .designation {
+    display: inline;
+    border-radius: 10px;
+    padding: 4px 10px;
+    border: 1px solid #ddd
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #E1F5FE
+}
+
+.card9 {
+  padding: 10px;
+  width: 350px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  position: relative
+}
+
+.coral {
+  transform: rotate(90deg)
+}
+
+.card-details {
+  margin-top: 5px
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.plus {
+  color: #ccc;
+  font-size: 15px
+}
+
+.amount {
+  color: #fff
+}
+
+.number {
+  line-height: 17px;
+  color: #ccc
+}
+
+.upper:hover .card9 {
+  animation: height 1s ease-in forwards
+}
+
+.upper:hover .card-details {
+  animation: card-details 1.5s ease-in forwards
+}
+
+@keyframes card-details {
+  0% {
+      left: 3%;
+      top: 0%
+  }
+
+  100% {
+      margin-top: 5px;
+      left: 4%;
+      top: 29%;
+      position: absolute
+  }
+}
+
+.card9:hover .coral {
+  animation: coral 2s ease-in-out forwards
+}
+
+@keyframes coral {
+  0% {
+      left: 0%
+  }
+
+  100% {
+      left: -89%
+  }
+}
+
+.upper:hover .card-number {
+  top: 45%;
+  position: relative
+}
+
+@keyframes height {
+  0% {
+      height: 70px
+  }
+
+  25% {
+      height: 100px
+  }
+
+  50% {
+      height: 140px
+  }
+
+  50% {
+      height: 150px
+  }
+
+  100% {
+      height: 190px
+  }
+}

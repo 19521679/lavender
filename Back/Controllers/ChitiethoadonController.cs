@@ -47,7 +47,7 @@ namespace Back.Controllers
             
             var sohoadon = await (from c in lavenderContext.Chitiethoadon
                                         where c.Imei == imei
-                                        select c.Sohoadon).ToListAsync();
+                                        select c.Sohoadon).FirstOrDefaultAsync();
             return StatusCode(200, Json(sohoadon));
         }
 
