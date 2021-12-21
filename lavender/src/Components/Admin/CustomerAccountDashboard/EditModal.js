@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as customerAccountApi from "../../apis/customeraccount";
@@ -22,8 +22,14 @@ export default function EditModal(props) {
   const [makhachhang, setMakhachhang] = useState(props.account.makhachhang);
   const [username, setUsername] = useState(props.account.username);
   const [password, setPassword] = useState(props.account.password);
-
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setMakhachhang(props.account.makhachhang);
+    setUsername(props.account.username);
+    setPassword(props.account.password);
+    setProgress(0);
+  }, [props.account]);
 
   function submitHandler() {
     var token = cookie.get("token");
@@ -34,7 +40,7 @@ export default function EditModal(props) {
     fd.append("password", password);
 
     customerAccountApi
-      .editAccount(fd, runProgress, token, refreshtoken)
+      .editAccount(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -44,14 +50,6 @@ export default function EditModal(props) {
         console.error(error);
       });
   }
-
-  const runProgress = (percent) => {
-    if (percent === 100) {
-      myToast.toastSucces("Sửa thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
-  };
 
   return (
     <Modal

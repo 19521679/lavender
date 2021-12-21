@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as staffAccountApi from "../../apis/staffaccount";
@@ -21,8 +21,14 @@ export default function EditModal(props) {
   const [manhanvien, setManhanvien] = useState(props.account.manhanvien);
   const [username, setUsername] = useState(props.account.username);
   const [password, setPassword] = useState(props.account.password);
-
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setManhanvien(props.account.manhanvien);
+    setUsername(props.account.username);
+    setPassword(props.account.password);
+    setProgress(0);
+  }, [props.account]);
 
   function submitHandler() {
     const fd = new FormData();
@@ -33,7 +39,7 @@ export default function EditModal(props) {
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     staffAccountApi
-      .editAccount(fd, runProgress, token, refreshtoken)
+      .editAccount(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -43,14 +49,6 @@ export default function EditModal(props) {
         console.error(error);
       });
   }
-
-  const runProgress = (percent) => {
-    if (percent === 100) {
-      myToast.toastSucces("Sửa thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
-  };
 
   return (
     <Modal

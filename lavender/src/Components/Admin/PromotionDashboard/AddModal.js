@@ -64,7 +64,6 @@ export default function AddModal(props) {
           </div>
 
           <div className="form-main-add-edit">
-
             <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Tên khuyến mãi

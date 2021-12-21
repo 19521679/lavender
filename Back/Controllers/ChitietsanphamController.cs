@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using Back.Common;
 using Back.Models;
 
 using Microsoft.AspNetCore.Authentication;
@@ -304,8 +304,7 @@ namespace Back.Controllers
                                      where p.Masanpham == masanpham
                                      select p.Image).FirstAsync();
 
-            s.Image = productpath + "/" + mausac;
-
+            if (image == null || image.Length == 0)  s.Image = productpath + "/" + mausac;
 
             await lavenderContext.AddAsync(s);
             await lavenderContext.SaveChangesAsync();
@@ -359,13 +358,19 @@ namespace Back.Controllers
                                      where p.Masanpham == masanpham
                                      select p.Image).FirstAsync();
 
-            s.Image = productpath + "/" + mausac;
-
+            string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
+            string NewDir = _env.ContentRootPath + "/wwwroot" + productpath + "/" + mausac;
+            if (image == null || image.Length == 0) s.Image = NewDir;
             await lavenderContext.SaveChangesAsync();
+
+            if (image == null || image.Length == 0 && OldDir != NewDir && Directory.Exists(OldDir))
+            {
+                MyDataHandler.MoveDir(OldDir, NewDir);
+            }
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-            string NewDir = _env.ContentRootPath + "/wwwroot" + s.Image;
+          
 
             if (!Directory.Exists(NewDir))
             {

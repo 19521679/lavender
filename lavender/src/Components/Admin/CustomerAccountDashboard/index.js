@@ -5,11 +5,15 @@ import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
 import Cookies from "universal-cookie";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
+
 const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   function closeModal() {
     setShowModal(false);
   }
@@ -18,6 +22,7 @@ export default function Index(props) {
   }
 
   async function loadaccount() {
+    setLoading(true);
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     await customerAccountApi
@@ -30,6 +35,7 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -61,6 +67,7 @@ export default function Index(props) {
 
   return (
     <main className="main-content position-relative border-radius-lg left-menu">
+      <LoadingContainer loading={loading}></LoadingContainer>
       <AddModal
         showModal={showModal}
         closeModal={closeModal}

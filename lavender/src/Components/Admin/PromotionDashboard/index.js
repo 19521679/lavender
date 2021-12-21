@@ -4,10 +4,12 @@ import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true); //
   function closeModal() {
     setShowModal(false);
   }
@@ -16,6 +18,7 @@ export default function Index(props) {
   }
 
   async function loadPromotion() {
+    setLoading(true);
     await voucherApi
       .allPrromotion()
       .then((success) => {
@@ -26,6 +29,7 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
+      setLoading(false);
   }
 
   useEffect(() => {
@@ -62,6 +66,7 @@ export default function Index(props) {
         closeModal={closeModal}
         addFunction={addFunction}
       ></AddModal>
+        <LoadingContainer loading={loading}></LoadingContainer>
       {/* End Navbar */}
       <div className="container-fluid py-4">
         <div className="row">

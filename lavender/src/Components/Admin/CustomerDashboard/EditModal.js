@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as customerApi from "../../apis/customer";
@@ -34,6 +34,17 @@ export default function EditModal(props) {
   );
   const [progress, setProgress] = useState(0);
 
+  useEffect(() => {
+    setMakhachhang(props.customer.makhachhang);
+    setTenkhachhang(props.customer.tenkhachhang);
+    setEmail(props.customer.email);
+    setSodienthoai(props.customer.sodienthoai);
+    setDiachi(props.customer.diachi);
+    setCccd(props.customer.cccd);
+    setNgaysinh(new Date(props.customer.ngaysinh));
+    setLoaikhachhang(props.customer.loaikhachhang);
+  }, [props.customer]);
+
   function submitHandler() {
     const fd = new FormData();
     fd.append("makhachhang", makhachhang);
@@ -43,13 +54,13 @@ export default function EditModal(props) {
     fd.append("diachi", diachi);
     fd.append("cccd", cccd);
     fd.append("ngaysinh", new Date(ngaysinh).toISOString().split("T")[0]);
-    fd.append("image", image);
+    if (image !== undefined) fd.append("image", image);
     fd.append("loaikhachhang", loaikhachhang);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     customerApi
-      .editCustomer(fd, runProgress, token, refreshtoken)
+      .editCustomer(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.editFunction(success.data.value);
         props.closeModal();
@@ -59,14 +70,6 @@ export default function EditModal(props) {
         console.error(error);
       });
   }
-
-  const runProgress = (percent) => {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
-  };
 
   return (
     <Modal
@@ -91,10 +94,12 @@ export default function EditModal(props) {
                   style={{ width: "80px", height: "80px" }}
                   src={
                     image === undefined
-                      ? imageApi.image(
-                          props.customer.image,
-                          props.customer.makhachhang
-                        )
+                      ? props.customer.image !== "/khachhang"
+                        ? props.customer.image
+                        : imageApi.image(
+                            props.customer.image,
+                            props.customer.makhachhang
+                          )
                       : URL.createObjectURL(image)
                   }
                 ></img>

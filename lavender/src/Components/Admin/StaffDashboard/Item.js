@@ -22,7 +22,7 @@ export default class Item extends Component {
           showModal={this.state.showModal === 2 && true}
           staff={this.props.staff}
           closeModal={this.closeModal.bind(this)}
-          delete={this.props.delete.bind(this)}
+          deleteFunction={this.props.deleteFunction.bind(this)}
         ></DeleteModal>
 
         <td className="align-middle text-center">

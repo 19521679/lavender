@@ -61,7 +61,7 @@ namespace Back.Controllers
             s.Cccd = cccd;
             s.Ngaysinh = DateTime.Parse(ngaysinh).ToLocalTime();
             s.Chucvu = chucvu;
-            s.Image = "/nhanvien";
+            if (image!=null) s.Image = "/nhanvien";
 
 
             await lavenderContext.AddAsync(s);

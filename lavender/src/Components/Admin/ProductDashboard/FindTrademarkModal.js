@@ -7,7 +7,7 @@ import * as trademarkApi from "../../apis/trademark";
 const customStyles = {
   content: {
     top: "45%",
-    left: "79%",
+    left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "reactjs-popup/dist/index.css";
 import Modal from "react-modal";
 import * as voucherApi from "../../apis/voucher";
@@ -21,11 +21,28 @@ const customStyles = {
 
 export default function EditModal(props) {
   const [makhuyenmai, setMakhuyenmai] = useState(props.promotion.makhuyenmai);
-  const [tenkhuyenmai, setTenkhuyenmai] = useState(props.promotion.tenkhuyenmai);
-  const [tilekhuyenmai, setTilekhuyenmai] = useState(props.promotion.tilekhuyenmai);
-  const [ngaybatdau, setNgaybatdau] = useState(new Date(props.promotion.ngaybatdau));
-  const [ngayketthuc, setNgayketthuc] = useState(new Date(props.promotion.ngayketthuc));
+  const [tenkhuyenmai, setTenkhuyenmai] = useState(
+    props.promotion.tenkhuyenmai
+  );
+  const [tilekhuyenmai, setTilekhuyenmai] = useState(
+    props.promotion.tilekhuyenmai
+  );
+  const [ngaybatdau, setNgaybatdau] = useState(
+    new Date(props.promotion.ngaybatdau)
+  );
+  const [ngayketthuc, setNgayketthuc] = useState(
+    new Date(props.promotion.ngayketthuc)
+  );
   const [dieukien, setDieukien] = useState("");
+
+  useEffect(() => {
+    setMakhuyenmai(props.promotion.makhuyenmai);
+    setTenkhuyenmai(props.promotion.tenkhuyenmai);
+    setTilekhuyenmai(props.promotion.tilekhuyenmai);
+    setNgaybatdau(new Date(props.promotion.ngaybatdau));
+    setNgayketthuc(new Date(props.promotion.ngayketthuc));
+    setDieukien("");
+  }, [props.promotion]);
 
   function submitHandler() {
     const fd = new FormData();

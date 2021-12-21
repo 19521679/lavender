@@ -34,7 +34,7 @@ export default function AddModal(props) {
     fd.append("password", password);
 
     customerAccountApi
-      .addAccount(fd, runProgress, token, refreshtoken)
+      .addAccount(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -45,13 +45,6 @@ export default function AddModal(props) {
       });
   }
 
-  function runProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
-  }
   return (
     <Modal
       isOpen={props.showModal}

@@ -266,10 +266,7 @@ export default class Home extends Component {
                 >
                   Xiaomi
                 </Link>
-                <Link
-                  to="/mobile?hang=oppo"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/mobile?hang=oppo" className="btn btn-default btn-sm">
                   OPPO
                 </Link>
                 <Link
@@ -284,10 +281,7 @@ export default class Home extends Component {
                 >
                   Nokia
                 </Link>
-                <Link
-                  to="/mobile?hang=vivo"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/mobile?hang=vivo" className="btn btn-default btn-sm">
                   Vivo
                 </Link>
                 <Link to="/mobile" className="item-related-tag">
@@ -314,22 +308,13 @@ export default class Home extends Component {
             </Link>
             <div className="box-related-tag">
               <div className="list-related-tag">
-                <Link
-                  to="/laptop?hang=mac"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/laptop?hang=mac" className="btn btn-default btn-sm">
                   Mac
                 </Link>
-                <Link
-                  to="/laptop?hang=asus"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/laptop?hang=asus" className="btn btn-default btn-sm">
                   ASUS
                 </Link>
-                <Link
-                  to="/laptop?hang=hp"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/laptop?hang=hp" className="btn btn-default btn-sm">
                   HP
                 </Link>
                 <Link
@@ -338,16 +323,10 @@ export default class Home extends Component {
                 >
                   Surface
                 </Link>
-                <Link
-                  to="/laptop?hang=msi"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/laptop?hang=msi" className="btn btn-default btn-sm">
                   MSI
                 </Link>
-                <Link
-                  to="/laptop?hang=dell"
-                  className="btn btn-default btn-sm"
-                >
+                <Link to="/laptop?hang=dell" className="btn btn-default btn-sm">
                   Dell
                 </Link>
                 <Link to="/laptop" className="item-related-tag">

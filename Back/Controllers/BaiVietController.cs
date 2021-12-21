@@ -26,17 +26,35 @@ namespace Back.Controllers
         public async Task<IActionResult> GetAllBaiViet()
         {
             var baivietlist = await (from bv in lavenderContext.Baiviets
+                                     where bv.xacnhan == 1
                                      select bv).ToListAsync();
             return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
         }
 
-        
+
         [Route("/baiviet/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetBaiViet(int id)
         {
-            var baivietlist = await (from bv in lavenderContext.Baiviets where bv.mabaiviet==id select bv ).ToListAsync();
+            var baivietlist = await (from bv in lavenderContext.Baiviets where bv.xacnhan == 1 && bv.mabaiviet == id select bv).ToListAsync();
             return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
+        }
+
+        [Route("/them-baiviet")]
+        [HttpPost]
+        public async Task<IActionResult> AddArticle([FromForm] BaivietAdd baivietsubmit)
+        {
+
+            Console.WriteLine("Baiviet" + baivietsubmit);
+            Baiviet Baiviet = new Baiviet();
+            Baiviet.tieude = baivietsubmit.tieude;
+            Baiviet.mota = baivietsubmit.mota;
+            Baiviet.noidung = baivietsubmit.noidung;
+            Baiviet.thumnail = baivietsubmit.thumnail;
+            Baiviet.xacnhan = 0;
+            await lavenderContext.AddAsync(Baiviet);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200, JsonConvert.SerializeObject(Baiviet));
         }
     }
 }

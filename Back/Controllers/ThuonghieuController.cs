@@ -106,7 +106,7 @@ namespace Back.Controllers
         }
 
         [Route("/them-thuonghieu")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddTrademark([FromForm] string tenthuonghieu,
             [FromForm] string xuatxu,
@@ -115,7 +115,7 @@ namespace Back.Controllers
             Thuonghieu s = new Thuonghieu();
             s.Tenthuonghieu = tenthuonghieu;
             s.Xuatxu = xuatxu;
-            s.Image = "/thuonghieu";
+            if (image != null) s.Image = "/thuonghieu";
 
 
             await lavenderContext.AddAsync(s);
@@ -147,18 +147,18 @@ namespace Back.Controllers
         }
 
         [Route("/sua-thuonghieu")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditTrademark([FromForm] int mathuonghieu, [FromForm] string tenthuonghieu,
             [FromForm] IFormFile image,
-       [FromForm] string xuatxu)
+        [FromForm] string xuatxu)
         {
             Thuonghieu s = await (from n in lavenderContext.Thuonghieu
                                   where n.Mathuonghieu == mathuonghieu
                                   select n).FirstAsync();
             s.Tenthuonghieu = tenthuonghieu;
             s.Xuatxu = xuatxu;
-            s.Image = "/thuonghieu";
+            if (image != null) s.Image = "/thuonghieu";
 
             await lavenderContext.SaveChangesAsync();
 
@@ -186,7 +186,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-thuonghieu")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteTrademark(int mathuonghieu)
         {

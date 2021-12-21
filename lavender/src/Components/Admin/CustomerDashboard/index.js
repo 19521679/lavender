@@ -4,14 +4,14 @@ import Item from "./Item";
 import _ from "lodash";
 import "./style.css";
 import AddModal from "./AddModal";
-
+import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 import Cookies from "universal-cookie";
 
 const cookie = new Cookies();
 
 export default function Index(props) {
   const [showModal, setShowModal] = useState(false);
-  // const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [loading, setLoading] = useState(true);
   const [listcustomer, setListcustomer] = useState([]);
   function closeModal() {
     setShowModal(false);
@@ -21,6 +21,7 @@ export default function Index(props) {
   }
 
   async function loadCustomer() {
+    setLoading(true);
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     await customerApi
@@ -33,6 +34,7 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -69,6 +71,7 @@ export default function Index(props) {
 
   return (
     <main className="main-content position-relative border-radius-lg left-menu">
+      <LoadingContainer loading={loading}></LoadingContainer>
       <AddModal
         showModal={showModal}
         closeModal={closeModal}

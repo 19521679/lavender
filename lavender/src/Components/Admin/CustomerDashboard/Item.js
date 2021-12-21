@@ -28,10 +28,14 @@ export default function Item(props) {
           <img
             alt="img"
             style={{ width: "80px", height: "80px" }}
-            src={imageApi.image(
-              props.customer.image,
-              props.customer.makhachhang
-            )}
+            src={
+              props.customer.image !== "/khachhang"
+                ? props.customer.image
+                : imageApi.image(
+                    props.customer.image,
+                    props.customer.makhachhang
+                  )
+            }
           ></img>
         </span>
       </td>

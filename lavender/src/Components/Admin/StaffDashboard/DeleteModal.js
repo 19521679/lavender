@@ -32,7 +32,7 @@ export default class DeleteModal extends Component {
       .then((success) => {
         if (success.status) {
           myToast.toastSucces("Xoá nhân viên thành công");
-          this.props.delete(this.props.staff);
+          this.props.deleteFunction(this.props.staff);
           this.props.closeModal();
         }
       })

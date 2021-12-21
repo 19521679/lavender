@@ -124,7 +124,6 @@ namespace Back.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginWithGoogle(JsonElement json)
         {
-            Console.WriteLine(json);
             var khachhang = await (from x in lavenderContext.Khachhang
                                    where x.Email == json.GetString("email")
                                    select x).FirstOrDefaultAsync();

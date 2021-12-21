@@ -29,12 +29,12 @@ export default function AddModal(props) {
     const fd = new FormData();
     fd.append("tenthuonghieu", tenthuonghieu);
     fd.append("xuatxu", xuatxu);
-    fd.append("image", image);
+    if (image !== undefined) fd.append("image", image);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     trademarkApi
-      .addTrademark(fd, runProgress, token, refreshtoken)
+      .addTrademark(fd, setProgress, token, refreshtoken)
       .then((success) => {
         props.addFunction(success.data.value);
         props.closeModal();
@@ -43,14 +43,6 @@ export default function AddModal(props) {
         myToast.toastError("Thêm mới thất bại");
         console.error(error);
       });
-  }
-
-  function runProgress(percent) {
-    if (percent === 100) {
-      myToast.toastSucces("Thêm mới thành công");
-      props.closeModal();
-    }
-    setProgress(percent);
   }
   return (
     <Modal

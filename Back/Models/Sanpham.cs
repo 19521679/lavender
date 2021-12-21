@@ -20,12 +20,17 @@ namespace Back.Models
         public string Tensanpham { get; set; }
         public int Maloai { get; set; }
         public int Mathuonghieu { get; set; }
-        public int Soluongton { get; set; }
         public string Mota { get; set; }
         public string Image { get; set; }
         public DateTime? Thoidiemramat { get; set; }
+<<<<<<< HEAD
         public float Dongia { get; set; }  
         public int Thoigianbaohanh {get; set; }
+=======
+        public float Dongia { get; set; }
+        public int Soluongton { get; set; }
+
+>>>>>>> 957ce737d2dcb546a70b8db6603574e6c7a8a9f6
         public virtual Loaisanpham MaloaiNavigation { get; set; }
         public virtual Thuonghieu MathuonghieuNavigation { get; set; }
         [JsonIgnore]
