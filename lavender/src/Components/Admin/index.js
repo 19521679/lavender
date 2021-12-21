@@ -4,6 +4,7 @@ import * as hoadonAPI from "../apis/billing";
 import BillItem from "./BillItem";
 import ProcessingBill from "./ProcessingBill";
 import Cookies from "universal-cookie";
+import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 
 const cookie = new Cookies();
 
@@ -12,68 +13,75 @@ export default function Index(props) {
   const [processingBilling, setProcessingBilling] = useState([]);
   const [doanhthuthangnay, setDoanhthuthangnay] = useState(0);
   const [doanhthuthangtruoc, setDoanhthuthangtruoc] = useState(0);
+  const [loading, setLoading] = useState(true);
 
+  async function reloadFunction() {
+    setLoading(true);
+    let allBilling = [];
+    let processingBilling = [];
+    let doanhthuthangnay = 0;
+    let doanhthuthangtruoc = 0;
+    await hoadonAPI
+      .twentyhoadon(cookie.get("token"), cookie.get("refreshtoken"))
+      .then((success) => {
+        allBilling = success.data.value.$values;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    var homnay = new Date();
+
+    await hoadonAPI
+      .doanhthutheothang(
+        homnay.getMonth() + 1,
+        homnay.getFullYear(),
+        cookie.get("token"),
+        cookie.get("refreshtoken")
+      )
+      .then((success) => {
+        doanhthuthangnay = success.data.value.tongtien;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    await hoadonAPI
+      .doanhthutheothang(
+        homnay.getMonth(),
+        homnay.getFullYear(),
+        cookie.get("token"),
+        cookie.get("refreshtoken")
+      )
+      .then((success) => {
+        doanhthuthangtruoc = success.data.value.tongtien;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    await hoadonAPI
+      .processingBilling(cookie.get("token"), cookie.get("refreshtoken"))
+      .then((success) => {
+        processingBilling = success.data.value.$values;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    setAllBilling(allBilling);
+    setProcessingBilling(processingBilling);
+    setDoanhthuthangnay(doanhthuthangnay);
+    setDoanhthuthangtruoc(doanhthuthangtruoc);
+    setLoading(false);
+  }
   useEffect(() => {
-    (async () => {
-      let allBilling = [];
-      let processingBilling = [];
-      let doanhthuthangnay = 0;
-      let doanhthuthangtruoc = 0;
-      await hoadonAPI
-        .twentyhoadon(cookie.get("token"), cookie.get("refreshtoken"))
-        .then((success) => {
-          allBilling = success.data.value.$values;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      var homnay = new Date();
-
-      await hoadonAPI
-        .doanhthutheothang(
-          homnay.getMonth() + 1,
-          homnay.getFullYear(),
-          cookie.get("token"),
-          cookie.get("refreshtoken")
-        )
-        .then((success) => {
-          doanhthuthangnay = success.data.value.tongtien;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      await hoadonAPI
-        .doanhthutheothang(
-          homnay.getMonth(),
-          homnay.getFullYear(),
-          cookie.get("token"),
-          cookie.get("refreshtoken")
-        )
-        .then((success) => {
-          doanhthuthangtruoc = success.data.value.tongtien;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      await hoadonAPI
-        .processingBilling(cookie.get("token"), cookie.get("refreshtoken"))
-        .then((success) => {
-          processingBilling = success.data.value.$values;
-        })
-        .catch((error) => {});
-
-      setAllBilling(allBilling);
-      setProcessingBilling(processingBilling);
-      setDoanhthuthangnay(doanhthuthangnay);
-      setDoanhthuthangtruoc(doanhthuthangtruoc);
-    })();
+    reloadFunction();
   }, []);
 
   return (
     <main className="main-content position-relative border-radius-lg left-menu">
+      <LoadingContainer loading={loading}></LoadingContainer>
       <div className="container-fluid py-4  gray-color">
         <div className="row">
           <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -319,7 +327,7 @@ export default function Index(props) {
             </div>
           </div>
           <div className="col-lg-4 col-md-6">
-            <div className="card h-100" style={{minWidth:"420px"}}>
+            <div className="card h-100" style={{ minWidth: "420px" }}>
               <div className="card-header pb-0">
                 <h6>Tiếp nhận đơn hàng</h6>
                 <p className="text-sm">
@@ -327,14 +335,21 @@ export default function Index(props) {
                     className="fa fa-arrow-up text-success"
                     aria-hidden="true"
                   />
-                  <span className="font-weight-bold">{processingBilling.length}</span> đơn hàng
+                  <span className="font-weight-bold">
+                    {processingBilling.length}
+                  </span>{" "}
+                  đơn hàng
                 </p>
               </div>
               <div className="card-body p-3">
                 <div className="timeline timeline-one-side">
                   {processingBilling.map((value, key) => {
                     return (
-                      <ProcessingBill bill={value} key={key}></ProcessingBill>
+                      <ProcessingBill
+                        bill={value}
+                        key={key}
+                        reloadFunction={reloadFunction}
+                      ></ProcessingBill>
                     );
                   })}
                 </div>

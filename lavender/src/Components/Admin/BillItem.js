@@ -21,7 +21,9 @@ export default class BillItem extends Component {
       .then((success) => {
         if (success.status === 200) product = success.data.value;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error)
+      });
 
     token = cookie.get("token");
     refreshtoken = cookie.get("refreshtoken");
@@ -30,7 +32,9 @@ export default class BillItem extends Component {
       .then((success) => {
         if (success.status === 200) customer = success.data.value;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error)
+      });
 
     token = cookie.get("token");
     refreshtoken = cookie.get("refreshtoken");
