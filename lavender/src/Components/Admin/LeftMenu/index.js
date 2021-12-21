@@ -33,6 +33,10 @@ const table = [
     to: "/admin/productdetail",
   },
   {
+    name: "Duyệt bài viết",
+    to: "/admin/article",
+  },
+  {
     name: "Nhân viên",
     to: "/admin/staff",
   },

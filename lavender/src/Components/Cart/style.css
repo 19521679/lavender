@@ -31,7 +31,7 @@
   border-radius: 4px;
   color: rgb(36, 36, 36);
   font-weight: 400;
-  font-size: 13px;
+  /* font-size: 13px; */
   margin-bottom: 12px;
   position: sticky;
   top: 20px;
@@ -51,7 +51,7 @@
 }
 .dioUnE .col-2 {
   width: 100px;
-  padding: 0px 15px;
+  padding: 0px 0px;
 }
 .dioUnE .col-3 {
   width: 130px;
@@ -224,7 +224,7 @@ input[type="checkbox" i] {
 }
 .juqUnC .text {
   display: inline-block;
-  font-size: 14px;
+  /* font-size: 14px; */
   color: rgb(36, 36, 36);
   font-weight: 500;
 }

@@ -21,7 +21,7 @@ namespace Back.Controllers
             this.lavenderContext = lavenderContext;
         }
 
-        [Route("/baiviet")]
+        [Route("/all-baiviet")]
         [HttpGet]
         public async Task<IActionResult> GetAllBaiViet()
         {
@@ -32,19 +32,54 @@ namespace Back.Controllers
         }
 
 
-        [Route("/baiviet/{id}")]
+        [Route("/all-baivietpending")]
         [HttpGet]
-        public async Task<IActionResult> GetBaiViet(int id)
+        public async Task<IActionResult> GetAllBaiVietpending()
         {
-            var baivietlist = await (from bv in lavenderContext.Baiviets where bv.xacnhan == 1 && bv.mabaiviet == id select bv).ToListAsync();
+            var baivietlist = await (from bv in lavenderContext.Baiviets
+                                     where bv.xacnhan == 0
+                                     select bv).ToListAsync();
             return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
         }
+
+
+        [Route("/chitiet-baiviet/{mabaiviet}")]
+        [HttpGet]
+        public async Task<IActionResult> GetBaiViet(int mabaiviet)
+        {
+            var baivietlist = await (from bv in lavenderContext.Baiviets where bv.xacnhan == 1 && bv.mabaiviet == mabaiviet select bv).ToListAsync();
+            return StatusCode(200, JsonConvert.SerializeObject(baivietlist));
+        }
+
+
+        [Route("/xacnhan-baiviet/{mabaiviet}")]
+        [HttpGet]
+        public async Task<IActionResult> xacnhanBaiviet(int mabaiviet)
+        { 
+            Baiviet bv_item = await (from bv in lavenderContext.Baiviets
+                                 where bv.mabaiviet == mabaiviet
+                                 select bv).FirstAsync();
+            bv_item.xacnhan = 1;
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200,mabaiviet);
+        }
+
+        [Route("/xoa-baiviet/{mabaiviet}")]
+        [HttpGet]
+        public async Task<IActionResult> tuchoiBaiviet(int mabaiviet)
+        {
+            var bv_item = await lavenderContext.Baiviets.SingleAsync(x => x.mabaiviet == mabaiviet);
+            lavenderContext.Remove(bv_item);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200,bv_item);
+        }
+
+
 
         [Route("/them-baiviet")]
         [HttpPost]
         public async Task<IActionResult> AddArticle([FromForm] BaivietAdd baivietsubmit)
         {
-
             Console.WriteLine("Baiviet" + baivietsubmit);
             Baiviet Baiviet = new Baiviet();
             Baiviet.tieude = baivietsubmit.tieude;

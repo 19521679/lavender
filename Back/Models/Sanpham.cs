@@ -27,6 +27,15 @@ namespace Back.Models
         public float Dongia { get; set; }  
         public int Thoigianbaohanh {get; set; }
 
+        public int Soluongton { get; set; }
+
+
+
+
+        public float Dongia { get; set; }  
+        public int Thoigianbaohanh {get; set; }
+
+
         public virtual Loaisanpham MaloaiNavigation { get; set; }
         public virtual Thuonghieu MathuonghieuNavigation { get; set; }
         [JsonIgnore]
