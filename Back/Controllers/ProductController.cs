@@ -437,6 +437,7 @@ namespace Back.Controllers
             }
             return StatusCode(200, Json(newlist));
         }
+
     }
 
 }

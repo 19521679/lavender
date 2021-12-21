@@ -2,50 +2,15 @@ import axiosServices from "./axiosServices";
 import { API_ENDPOINT } from "../../Common/constants/index";
 import { refreshToken } from "../service/refreshtoken";
 
-export const findProductByBillId = async (sohoadon, token, refreshtoken) => {
-  var newtoken = undefined;
-  var connect = await axiosServices
-    .get(`${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        newtoken = refreshToken(refreshtoken);
-        return error;
-      }
-    });
-  if (newtoken !== undefined) {
-    return await axiosServices.get(
-      `${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-  }
-  return connect;
+export const findProductByBillId = async (sohoadon) => {
+  return await axiosServices.get(
+    `${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`
+  );
 };
 
-export const findProductById = async (masanpham, token, refreshtoken) => {
-  var newtoken = undefined;
-  var connect = await axiosServices
-    .get(`${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        newtoken = refreshToken(refreshtoken);
-        return error;
-      }
-    });
-  if (newtoken !== undefined) {
+export const findProductById = async (masanpham) => {
     return await axiosServices.get(
-      `${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-  }
-  return connect;
+      `${API_ENDPOINT}/tim-sanpham-theo-masanpham?masanpham=${masanpham}`)
 };
 
 export const addProduct = async (fd, progress, token, refreshtoken) => {

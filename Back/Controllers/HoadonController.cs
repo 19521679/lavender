@@ -243,6 +243,45 @@ namespace Back.Controllers
             return StatusCode(200, Json(listhoadon));
         }
 
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Route("/tuchoi-donhang")]
+        [HttpGet]
+        public async Task<IActionResult> TuchoiDonhang(int sohoadon)
+        {
+            var vanchuyen = await (from x in lavenderContext.Vanchuyen
+                                   where x.Sohoadon == sohoadon
+                                   select x).FirstOrDefaultAsync();
+            if (vanchuyen == null) return StatusCode(404);
+            vanchuyen.Trangthai = "Đã huỷ";
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200);
+        }
+
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Route("/tiepnhan-donhang")]
+        [HttpGet]
+        public async Task<IActionResult> TiepnhanDonhang(int sohoadon, int manhanvien)
+        {
+            var hoadon = await (from x in lavenderContext.Hoadon
+                                where x.Sohoadon == sohoadon
+                                select x).FirstOrDefaultAsync();
+            if (hoadon == null) return StatusCode(404);
+            hoadon.Manhanvien = manhanvien;
+
+            var vanchuyen = await (from x in lavenderContext.Vanchuyen
+                                   where x.Sohoadon == sohoadon
+                                   select x).FirstOrDefaultAsync();
+            if (vanchuyen == null) return StatusCode(404);
+            vanchuyen.Trangthai = "Đang giao";
+
+            var chitietvanchuyen = new Chitietvanchuyen();
+            chitietvanchuyen.Mavanchuyen = vanchuyen.Mavanchuyen;
+            chitietvanchuyen.Thoidiem = DateTime.Now.ToLocalTime();
+            chitietvanchuyen.Trangthai = "Đã xuất kho";
+            await lavenderContext.AddAsync(chitietvanchuyen);
+            await lavenderContext.SaveChangesAsync();
+            return StatusCode(200);
+        }
     }
        
 }
