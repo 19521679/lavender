@@ -56,9 +56,13 @@ namespace Back.Controllers
 
                 var e = lavenderContext.Entry(i);
                 await e.Collection(x => x.Vanchuyens).LoadAsync();
-                if (!i.Vanchuyens.ElementAt(0).Trangthai.Equals("Đang xử lý"))
-                    continue;
-                newlist.Add(i);
+                foreach (var j in i.Vanchuyens)
+                {
+                    if (j.Trangthai.Equals("Đang xử lý"))
+                    {
+                        newlist.Add(i);
+                    }
+                }            
             }
             return StatusCode(200, Json(newlist));
         }

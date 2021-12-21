@@ -671,8 +671,6 @@ namespace Back.Models
                     .HasColumnType("text")
                     .HasColumnName("MOTA");
 
-                entity.Property(e => e.Soluongton).HasColumnName("SOLUONGTON");
-
                 entity.Property(e => e.Dongia).HasColumnName("DONGIA");
 
                 entity.Property(e => e.Tensanpham)
