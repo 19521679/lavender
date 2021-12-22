@@ -1,5 +1,5 @@
 # Lavender
-Hướng dẫn cài đặt 
+# Hướng dẫn cài đặt 
 ## **Bước 1: Chạy file Database Lavender.sql bằng MySQL** 
 
 ## **Bước 2: Chạy Backend Asp.net core**
