@@ -180,12 +180,12 @@ namespace Back.Controllers
 
             giamoi = await (from c in lavenderContext.Chitietsanpham
                             where c.Masanpham == sanphamtemp.Masanpham
-                            && dungluong.Equals("-1")?true:c.Dungluong.Equals(dungluong)
-                            && mausac.Equals("-1")?true:c.Mausac.Equals(mausac)
+                            && dungluong.Equals("-1") ? true : c.Dungluong.Equals(dungluong)
+                            && mausac.Equals("-1") ? true : c.Mausac.Equals(mausac)
                             orderby c.Giamoi ascending
                             select c.Giamoi).FirstOrDefaultAsync();
 
-            if (giamoi == 0) return StatusCode(200, Json(giamoi)); 
+            if (giamoi == 0) return StatusCode(200, Json(giamoi));
             return StatusCode(200, Json(giamoi));
         }
 
@@ -207,10 +207,14 @@ namespace Back.Controllers
         [HttpGet]
         public async Task<IActionResult> XemGiaTheoDungluongMausacMasanpham(int masanpham, string dungluong, string mausac)
         {
-            var chitietsanpham = await lavenderContext.Chitietsanpham.SingleOrDefaultAsync(x => x.Masanpham == masanpham
-            && x.Dungluong.ToLower().Equals(dungluong.ToLower())
-            && x.Mausac.Equals(mausac));
-            if (chitietsanpham == null) return StatusCode(200, Json(new { giamoi = 0}));
+            var chitietsanpham = await (from x in lavenderContext.Chitietsanpham
+                                        where x.Masanpham == masanpham
+                                       && x.Dungluong.ToLower().Equals(dungluong.ToLower())
+                                       && x.Mausac.Equals(mausac)
+                                       && x.Tinhtrang.Equals("Sẵn có")
+                                        select x).FirstOrDefaultAsync();
+
+            if (chitietsanpham == null) return StatusCode(200, Json(0));
             return StatusCode(200, Json(chitietsanpham.Giamoi));
         }
 
@@ -297,21 +301,21 @@ namespace Back.Controllers
             s.Tinhtrang = tinhtrang;
             s.Mausac = mausac;
             s.Dungluong = dungluong;
-           
+
             s.Giamoi = giamoi;
 
             var productpath = await (from p in lavenderContext.Sanpham
                                      where p.Masanpham == masanpham
                                      select p.Image).FirstAsync();
 
-            if (image == null || image.Length == 0)  s.Image = productpath + "/" + mausac;
+            if (image == null || image.Length == 0) s.Image = productpath + "/" + mausac;
 
             await lavenderContext.AddAsync(s);
             await lavenderContext.SaveChangesAsync();
 
             Chitietsanpham temp = await (from n in lavenderContext.Chitietsanpham
-                                    orderby n.Imei descending
-                                    select n).FirstAsync();
+                                         orderby n.Imei descending
+                                         select n).FirstAsync();
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
@@ -342,8 +346,8 @@ namespace Back.Controllers
             [FromForm] string mausac, [FromForm] string dungluong, [FromForm] float giamoi)
         {
             Chitietsanpham s = await (from n in lavenderContext.Chitietsanpham
-                                 where n.Imei.Equals(imei)
-                                 select n).FirstOrDefaultAsync();
+                                      where n.Imei.Equals(imei)
+                                      select n).FirstOrDefaultAsync();
             if (s == null) return StatusCode(404);
             s.Imei = imei;
             s.Masanpham = masanpham;
@@ -370,7 +374,7 @@ namespace Back.Controllers
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-          
+
 
             if (!Directory.Exists(NewDir))
             {
@@ -390,7 +394,7 @@ namespace Back.Controllers
         }
 
         [Route("/xoa-chitietsanpham")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDetail(string imei)
         {
@@ -406,7 +410,7 @@ namespace Back.Controllers
         }
 
         [Route("/tatca-chitietsanpham")]
-       [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpGet]
         public async Task<IActionResult> TatcaChitietsanpham()
         {

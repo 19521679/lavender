@@ -14,6 +14,10 @@ export const timThuonghieu = (timkiem) => {
   return axiosServices.get(`${API_ENDPOINT}/tim-thuonghieu?timkiem=${timkiem}`);
 };
 
+export const TimThuonghieuBangMathuonghieu= (mathuonghieu) => {
+  return axiosServices.get(`${API_ENDPOINT}/tim-thuonghieu-bang-mathuonghieu?mathuonghieu=${mathuonghieu}`);
+};
+
 ////////////////////////////////////////////////////////////////   
 export const addTrademark=async(fd, progress, token, refreshtoken)=>{
   var newtoken = undefined;

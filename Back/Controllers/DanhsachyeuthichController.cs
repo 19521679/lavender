@@ -58,6 +58,7 @@ namespace Back.Controllers
                                    where d.Masanpham == masanpham
                                    && d.Makhachhang == makhachhang
                                    select d).FirstOrDefaultAsync();
+
             Boolean liked = false;
             if (favorites != null) liked = true;
             return StatusCode(200, Json(new { liked = liked }));
@@ -80,13 +81,13 @@ namespace Back.Controllers
         [HttpGet]
         public async Task<IActionResult> Boyeuthich(int makhachhang, int masanpham)
         {
-            Console.WriteLine("a");
-            var favorite = await (from x in lavenderContext.Danhsachyeuthich
+            Danhsachyeuthich favorite = await (from x in lavenderContext.Danhsachyeuthich
                                   where x.Makhachhang == makhachhang
                                   && x.Masanpham == masanpham
                                   select x).FirstOrDefaultAsync();
             if (favorite == null) return StatusCode(404);
-            lavenderContext.Remove(favorite);
+            lavenderContext.Entry(favorite).State = EntityState.Deleted;
+            //lavenderContext.Danhsachyeuthich.Remove(favorite);
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200);
         }

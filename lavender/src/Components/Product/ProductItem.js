@@ -5,9 +5,10 @@ import * as detailProductapi from "../apis/detailProduct";
 import * as evalueteApi from "../apis/evaluete";
 import * as productApi from "../apis/product";
 import { CLIENT_ENDPOINT } from "../../Common/constants";
+import * as trademarkApi from "../apis/trademark"
 
 export default class ProductItem extends Component {
-  state = { giamoi: 0, sosao: 0, sodanhgia: 0, thongsokithuat: [] };
+  state = { giamoi: 0, sosao: 0, sodanhgia: 0, thongsokithuat: [], thuonghieu: undefined };
   componentDidMount() {
     detailProductapi
       .xemgiamoitheomasanpham(this.props.product.masanpham)
@@ -41,6 +42,16 @@ export default class ProductItem extends Component {
       .catch((error) => {
         console.error(error);
       });
+
+      trademarkApi.TimThuonghieuBangMathuonghieu(this.props.product.mathuonghieu)
+      .then(success=>{
+        if (success.status===200){
+          this.setState({thuonghieu: success.data.value})
+        }
+      })
+      .catch(error=>{
+        console.error(error)
+      })
   }
   render() {
     return (
@@ -81,7 +92,7 @@ export default class ProductItem extends Component {
               </div>
               <h4>
                 <div className="product-name text-dark">
-                  {this.props.product.tensanpham}
+                 {this.state.thuonghieu!==undefined&&this.state.thuonghieu.tenthuonghieu}{" "} {this.props.product.tensanpham}
                 </div>
               </h4>
             </a>

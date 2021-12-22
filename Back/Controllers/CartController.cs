@@ -107,7 +107,6 @@ namespace Back.Controllers
         public async Task<IActionResult> MuaHang(int makhachhang, int makhuyenmai, float tongtien, [FromBody] JsonElement json)
         {
             CartPayingObject[] cartpayinglist = Newtonsoft.Json.JsonConvert.DeserializeObject<CartPayingObject[]>(json.ToString());
-            //Console.WriteLine("cart" + cartpayinglist[0]);
             Hoadon hoadon = new Hoadon();
             hoadon.Makhachhang = makhachhang;
             if (makhuyenmai != 0) hoadon.Makhuyenmai = makhuyenmai;
@@ -130,7 +129,7 @@ namespace Back.Controllers
                                                 where x.Masanpham == i.Masanpham
                                                 && x.Dungluong == i.Dungluong
                                                 && x.Mausac == i.Mausac
-                                                && x.Tinhtrang == "Sẵn có"
+                                                && x.Tinhtrang.Equals("Sẵn có")
                                                 select x).FirstOrDefaultAsync();
                     if (chitietsanpham == null)
                     {

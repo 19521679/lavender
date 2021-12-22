@@ -2,7 +2,7 @@ import * as loginApi from "../apis/login";
 import Cookies from "universal-cookie";
 
 export const refreshToken = async (refreshtoken) => {
-  if (refreshtoken===undefined) return;
+  if (refreshtoken === undefined) return;
   var cookie = new Cookies();
   var newojtoken = undefined;
   await loginApi
@@ -11,8 +11,12 @@ export const refreshToken = async (refreshtoken) => {
       if (success.status === 200) newojtoken = success.data.value;
       else newojtoken = undefined;
     })
-    .catch(() => {
-        newojtoken = undefined;
+    .catch((error) => {
+      if (error.response.status === 401) {
+        cookie.remove("token");
+        cookie.remove("refreshtoken");
+      }
+      newojtoken = undefined;
     });
   if (newojtoken !== undefined) {
     let dtoken = new Date();
@@ -36,6 +40,4 @@ export const refreshToken = async (refreshtoken) => {
     });
     return newojtoken.token;
   }
-  cookie.remove("token")
-  cookie.remove("refreshtoken")
 };
