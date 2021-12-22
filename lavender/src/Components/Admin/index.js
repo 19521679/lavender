@@ -194,164 +194,79 @@ export default function Index(props) {
 
     <main className="main-content position-relative border-radius-lg left-menu">
       <LoadingContainer loading={loading}></LoadingContainer>
-      <div className="container-fluid py-4  gray-color">
+      <div className="container-fluid ">
         <div className="row">
-          <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div className="card">
-              <div className="card-header p-3 pt-2">
-                <div
-                  className="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute"
-                  style={{ color: "white", textAlign: "center" }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={30}
-                    height={30}
-                    fill="currentColor"
-                    className="bi bi-coin"
-                    viewBox="0 0 16 16"
-                    style={{ marginTop: "15px" }}
-                  >
-                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                  </svg>
-                </div>
-                <div className="text-end pt-1">
-                  <p className="text-sm mb-0 text-capitalize">Thu tháng này</p>
-                  <h4 className="mb-0">{doanhthuthangnay}</h4>
-                </div>
-              </div>
-              <hr className="dark horizontal my-0" />
-              <div className="card-footer p-3">
-                <p className="mb-0">
-                  <span className="text-success text-sm font-weight-bolder">
-                    {(() => {
-                      let result = null;
-                      let suthaydoi = doanhthuthangnay - doanhthuthangtruoc;
-                      if (suthaydoi > 0) result = <div>+{suthaydoi}</div>;
-                      else result = <div>-{suthaydoi}</div>;
-                      return result;
-                    })()}
-                  </span>
-                  trong tháng
-                </p>
+          <div className="col-md-3">
+            <div className="box h-50">
+              <div className="our-services settings">
+                <div className="icon"> <img src="https://i.imgur.com/6NKPrhO.png" /> </div>
+                <div>
+                  <h6>Doanh thu</h6>
+                  <h4><strong>{doanhthuthangnay}</strong></h4>
+                  <p> {(() => {
+                        let result = null;
+                        let suthaydoi = doanhthuthangnay - doanhthuthangtruoc;
+                        if (suthaydoi > 0) result = <div>+{suthaydoi}</div>;
+                        else result = <div>-{suthaydoi}</div>;
+                        return result;
+                      })()} 
+                  </p>
+                  <p><i>Trong tháng</i></p>
+                </div> 
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div className="card">
-              <div className="card-header p-3 pt-2">
-                <div
-                  className="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute"
-                  style={{ color: "white", textAlign: "center" }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={30}
-                    height={30}
-                    fill="currentColor"
-                    className="bi bi-person"
-                    viewBox="0 0 16 16"
-                    style={{ marginTop: "15px" }}
-                  >
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                  </svg>
+          <div className="col-md-3">
+            <div className="box h-50">
+              <div className="our-services speedup">
+                <div className="icon"> <img src="https://i.imgur.com/KMbnpFF.png" /> </div>
+                <div>
+                  <h6>Lượt xem</h6>
+                  <h4>2,300</h4>
+                  <p>+3%</p>
+                  <p><i>Trong tuần</i></p>
                 </div>
-                <div className="text-end pt-1">
-                  <p className="text-sm mb-0 text-capitalize">Lượt xem</p>
-                  <h4 className="mb-0">2,300</h4>
-                </div>
-              </div>
-              <hr className="dark horizontal my-0" />
-              <div className="card-footer p-3">
-                <p className="mb-0">
-                  <span className="text-success text-sm font-weight-bolder">
-                    +3%{" "}
-                  </span>{" "}
-                  trong tuần
-                </p>
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div className="card">
-              <div className="card-header p-3 pt-2">
-                <div
-                  className="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
-                  style={{ color: "white", textAlign: "center" }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={30}
-                    height={30}
-                    fill="currentColor"
-                    className="bi bi-person"
-                    viewBox="0 0 16 16"
-                    style={{ marginTop: "15px" }}
-                  >
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                  </svg>
+          <div className="col-md-3">
+            <div className="box h-50">
+              <div className="our-services privacy">
+                <div className="icon"> <img src="https://i.imgur.com/AgyneKA.png" /> </div>
+                <div>
+                  <h6>Khách mới</h6>
+                  <h4>3,462</h4>
+                  <p>-2% </p>
+                  <p><i>Trong tuần</i></p>
                 </div>
-                <div className="text-end pt-1">
-                  <p className="text-sm mb-0 text-capitalize">Khách mới</p>
-                  <h4 className="mb-0">3,462</h4>
-                </div>
-              </div>
-              <hr className="dark horizontal my-0" />
-              <div className="card-footer p-3">
-                <p className="mb-0">
-                  <span className="text-danger text-sm font-weight-bolder">
-                    -2%
-                  </span>{" "}
-                  trong tuần
-                </p>
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-sm-6">
-            <div className="card">
-              <div className="card-header p-3 pt-2">
-                <div
-                  className="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
-                  style={{ color: "white", textAlign: "center" }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={30}
-                    height={30}
-                    fill="currentColor"
-                    className="bi bi-bag-plus"
-                    viewBox="0 0 16 16"
-                    style={{ marginTop: "15px" }}
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"
-                    />
-                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                  </svg>
+          <div className="col-md-3">
+            <div className="box h-50">
+              <div className="our-services backups">
+                <div className="icon"> <img src="https://i.imgur.com/vdH9LKi.png" /> </div>
+                <div>
+                  <h6>Sản phẩm</h6>
+                  <h4>$103,430</h4>
+                  <p>+5%</p>
+                  <p><i>Trong tuần</i></p>
                 </div>
-                <div className="text-end pt-1">
-                  <p className="text-sm mb-0 text-capitalize">Sản phẩm bán</p>
-                  <h4 className="mb-0">$103,430</h4>
-                </div>
-              </div>
-              <hr className="dark horizontal my-0" />
-              <div className="card-footer p-3">
-                <p className="mb-0">
-                  <span className="text-success text-sm font-weight-bolder">
-                    +5%{" "}
-                  </span>
-                  trong tuần
-                </p>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="row mb-4">
-          <div className="col-lg-8 col-md-6 mb-md-0 mb-4">
+        <div className="row d-flex justify-content-center pb-2">
+        <div className="col-md-6">
+          <div className="progress">
+            <div className="progress-bar">
+              <div className="progress-shadow" />
+            </div>
+          </div>
+        </div>
+      </div>
+        <div className="row">
+          <div className="col-lg-7 col-md-6 mb-md-0 mb-4">
             <div className="card">
               <div className="card-header pb-0">
                 <div className="row">
@@ -438,8 +353,8 @@ export default function Index(props) {
               </div>
             </div>
           </div>
-          <div className="col-lg-4 col-md-6">
-            <div className="card h-100" style={{ minWidth: "420px" }}>
+          <div className="col-lg-3 col-md-6">
+            <div className="card h-70" style={{ minWidth: "390px" }}>
               <div className="card-header pb-0">
                 <h6>Tiếp nhận đơn hàng</h6>
                 <p className="text-sm">
@@ -470,8 +385,7 @@ export default function Index(props) {
           </div>
         </div>
       </div>
-     
-    
+
     </main>
   );
 }

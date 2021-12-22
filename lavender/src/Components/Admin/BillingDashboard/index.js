@@ -130,12 +130,25 @@ export default class index extends Component {
               );
           })()}
         </>
-
         {/* End Navbar */}
         <div className="container-sm py-4">
           <div className="row">
             <div className="col-lg-8">
               <div className="row">
+                <div className="container ">
+                    <div className="row g-2">
+                      <div className="col-md-6">
+                        <div className="card bg-white p-3 px-4 d-flex justify-content-center">
+                          <h5 className="mb-0">Standard Plan</h5> <span className="price">$19/month</span>
+                          <div className="mt-4">
+                            <div className="d-flex justify-content-between align-items-center"> <span>All features</span> <span>1 Minute trigger</span> </div>
+                            <div className="d-flex justify-content-between align-items-center"> <span>5000 interactions</span> <span>Remove branding</span> </div>
+                            <div className="d-flex justify-content-between align-items-center"> <span>15 bots</span> <span>Priority support</span> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div> 
                 <div className="container pt-4">
                   <div className="d-flex align-items-center cards1">
                     <div className="card1">
@@ -157,9 +170,24 @@ export default class index extends Component {
                             <div className="text-grey fs-5">2</div>
                             <div className="light-grey fs-6">Số phiếu nhập</div>
                             <div className="text-grey fs-5">5</div>
+
                           </div>
+                          <div className="mt-4"> <button className="btn btn-danger">Start Free</button> </div>
                         </div>
                       </div>
+
+                      <div className="col-md-6">
+                        <div className="card">
+                          <div className="d-flex flex-column " >
+                            <div className="pricing-1 d-flex justify-content-between" >
+                              <div> <span className="d-block">Add 5 bots or active flow</span> <span className="font-weight-bold">+ $10/month</span> </div>
+                              <div className="circle"> <span /> <span /> <span /> <span /> </div>
+                            </div>
+                            <div className="pricing-1 d-flex justify-content-between">
+                              <div> <span className="d-block">Add 8 bots or active flow</span> <span className="font-weight-bold">+ $20/month</span> </div>
+                              <div className="circle"> <span /> <span /> <span /> <span /> </div>
+                            </div>
+
                     </div>
                     <div className="card1">
                       <div className="mb-3">
@@ -203,10 +231,29 @@ export default class index extends Component {
                           <div className="ms-2">
                             <div className="light-grey fs-6">Thu</div>
                             <div className="text-grey fs-5">120000000</div>
+
                           </div>
                         </div>
                       </div>
                     </div>
+
+                </div>
+              </div>
+              <div className="row">
+              <div>
+   
+                <div className="d-flex flex-row justify-content-between align-items-center align-content-center"><span className="dot" />
+                  <hr className="flex-fill track-line" /><span className="dot" />
+                  <hr className="flex-fill track-line" /><span className="dot" />
+                  <hr className="flex-fill track-line" /><span className="dot" />
+                  <hr className="flex-fill track-line" /><span className="d-flex justify-content-center align-items-center big-dot dot"><i className="fa fa-check text-white" /></span></div>
+                <div className="d-flex flex-row justify-content-between align-items-center">
+                  <div className="d-flex flex-column align-items-start"><span>15 Mar</span></div>
+                  <div className="d-flex flex-column justify-content-center"><span>15 Mar</span></div>
+                  <div className="d-flex flex-column justify-content-center align-items-center"><span>15 Mar</span></div>
+                  <div className="d-flex flex-column align-items-center"><span>15 Mar</span></div>
+                  <div className="d-flex flex-column align-items-end"><span>15 Mar</span></div>
+
                   </div>
                 </div>
               </div>
@@ -242,16 +289,27 @@ export default class index extends Component {
                       </div>
                     </div>
                   </div>
+
                 </div>
+              </div>              
+     
               </div>
+              
             </div>
             <div className="col-lg-4">
-              <div className="card h-30 card-xuatfile">
+              <div className="card h-auto card-xuatfile">
                 <div className="pb-0 p-3">
                   <div className="row">
-                    <div className="col-6 d-flex align-items-center">
+                    <div className="col-7 d-flex align-items-center">
                       <h6 className="mb-0">Xuất file thống kê</h6>
                     </div>
+
+                    <div className="col-5 text-end">
+                      <button className="btn btn-outline-primary btn-sm mb-0">
+                        View All
+                      </button>
+                    </div>
+
                   </div>
                 </div>
                 <div className="card-body p-3 pb-0">
@@ -373,7 +431,8 @@ export default class index extends Component {
                 </div>
               </div>
             </div>
-          </div>
+              </div>
+            </div>
           <div className="row">
             <div className="col-md-7">
               <div className="card">
@@ -460,6 +519,8 @@ export default class index extends Component {
               </div>
             </div>
           </div>
+        </div>
+        </div>
         </div>
       </main>
     );
