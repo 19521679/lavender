@@ -80,6 +80,7 @@ namespace Back.Controllers
         [HttpGet]
         public async Task<IActionResult> Boyeuthich(int makhachhang, int masanpham)
         {
+            Console.WriteLine("a");
             var favorite = await (from x in lavenderContext.Danhsachyeuthich
                                   where x.Makhachhang == makhachhang
                                   && x.Masanpham == masanpham

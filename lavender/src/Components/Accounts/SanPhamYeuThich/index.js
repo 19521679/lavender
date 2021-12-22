@@ -27,7 +27,7 @@ export default function Index(props) {
   return (
     <div className="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV">
       <div className="styles__StyledAccountWishList-sc-11qh9gl-0 kagiDG">
-        <div className="heading">Danh sách yêu thích (4)</div>
+        <div className="heading">Danh sách yêu thích</div>
         <div className="inner">
           <ul className="list">
             {listyeuthich.map((value, key) => {

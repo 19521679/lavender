@@ -32,8 +32,6 @@ namespace Back.Models
 
 
 
-
-
         public virtual Loaisanpham MaloaiNavigation { get; set; }
         public virtual Thuonghieu MathuonghieuNavigation { get; set; }
         [JsonIgnore]
