@@ -27,6 +27,7 @@ import AddArticle from "../../Components/Article/addArticle"
 import Promotion from "../../Components/Promotion";
 import ForgotPassword from "../../Components/Accounts/ForgotPassword"
 import LMember from "../../Components/Accounts/LMember.js";
+import Privacy from "../../Components/Privacy"
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: "/guarantee",
     exact: false,
     main: () => <Guarantee></Guarantee>
+  },
+  {
+    path: "/privacy",
+    exact: false,
+    main: () => <Privacy></Privacy>
   },
   {
     path: "/login",

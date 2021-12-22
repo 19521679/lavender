@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import "./Footer.css";
+import { Link } from 'react-router-dom';
 
 export default class Footer extends Component {
     render() {
@@ -34,7 +35,7 @@ export default class Footer extends Component {
               <div className="col-md-3 item">
                 <h3>About</h3>
                 <ul>
-                  <li><a href="#">Company</a></li>
+                  <li><Link to = "/privacy">Các điều khoản dịch vụ</Link></li>
                   <li><a href="#">Team</a></li>
                   <li><a href="#">Careers</a></li>
                 </ul>

@@ -86,7 +86,7 @@ namespace Back.Controllers
             await lavenderContext.AddAsync(taikhoankhachhang);
             await lavenderContext.SaveChangesAsync();
             string htmlemail = $"Bạn đã đăng ký tài khoản trên Lavender, " +
-                $"hãy <a href = 'https://localhost:5001/confirm-email?makhachhang={khachhangtemp.Makhachhang}&token={token}'>" +
+                $"hãy <a href = '{MyConstant.API_ENDPOINT}/confirm-email?makhachhang={khachhangtemp.Makhachhang}&token={token}'>" +
                 "bấm vào đây</a> để kích hoạt tài khoản.";
             await sendMailService.SendEmailAsync(registerForm.email, "Lavender xác nhận đăng ký tài khoản", htmlemail);
             return StatusCode(200);
@@ -116,7 +116,7 @@ namespace Back.Controllers
 
                 {
                     tieude = "Xác thực email thành công";
-                    noidung = "Đăng nhập và sử dụng Lavender <a href = 'http://localhost:3000/login'>" +
+                    noidung = $"Đăng nhập và sử dụng Lavender <a href = '{MyConstant.CLIENT_ENDPOINT}/login'>" +
                     "tại đây</a>";
                 }
             }
