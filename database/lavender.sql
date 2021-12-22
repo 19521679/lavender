@@ -30,7 +30,8 @@ CREATE TABLE `baiviet` (
   `MOTA` text NOT NULL,
   `NOIDUNG` longtext NOT NULL,
   `THUMNAIL` longtext NOT NULL,
-  `XACNHAN` int NOT NULL DEFAULT '0'
+  `XACNHAN` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`MABAIVIET`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
