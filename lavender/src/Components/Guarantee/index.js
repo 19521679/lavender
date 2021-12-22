@@ -1,6 +1,5 @@
 //import React, { useState, useEffect  } from "react";
-import Cookies from "universal-cookie";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 //import "./style.css";
 import moment from 'moment';
 import * as productApi from "../apis/product";
@@ -13,6 +12,7 @@ import Item from "./Item";
 import * as detailBillApi from "../apis/detailBill";
 import * as billingApi from "../apis/billing";
 import * as myToast from "../../Common/helper/toastHelper";
+import "./style.css"
 
 export default function Index(props) {
   const a ="";
@@ -22,6 +22,7 @@ export default function Index(props) {
   const [lichsubaohanh, setLichsubaohanh] = useState([]);
   const [ngaymua, setNgaymua] =  useState(undefined);
   const [sohoadon, setSohoadon] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     //   (async()=>{
     //         await
@@ -30,6 +31,7 @@ export default function Index(props) {
   }, []);
 
   const tracuuBaohanh = async () => {
+    setLoading(true);
     let chitietsanphamtemp;
     await detailProductApi
       .timkiemChitietsanphamImei(timkiem)
@@ -99,10 +101,11 @@ export default function Index(props) {
       });
 
 
-      
+      setLoading(false);
   };
   return (
     <div>
+      <LoadingContainer loading={loading}></LoadingContainer>
       <title>Trung tâm bảo hành</title>
       <section id="head-content">
         <div
@@ -157,155 +160,7 @@ export default function Index(props) {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-        <div className="container ">
-          <div className="row mt-2 g-4">
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Mobile</span> <span>Phones</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src="https://i.imgur.com/b9zkoz0.jpg"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Head</span> <span>Phones</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src="https://i.imgur.com/SHWASPG.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Smart</span> <span>Watches</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src=" https://i.imgur.com/Ya0OXCv.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Air</span> <span>Purifiers</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src="https://i.imgur.com/2gvGwbh.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Vacuum</span> <span>Cleaners</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src="https://i.imgur.com/UMQJpSG.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Washing</span> <span>Machines</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src="https://i.imgur.com/e9CyhXR.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Smart</span> <span>Televisions</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      src=" https://i.imgur.com/Zq8VigZ.png"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card p-2">
-                <div className="d-flex justify-content-between align-items-center p-2">
-                  <div className="flex-column lh-1 imagename">
-                    {" "}
-                    <span>Laptops</span>{" "}
-                  </div>
-                  <div>
-                    {" "}
-                    <img
-                      alt=""
-                      src="https://i.imgur.com/6pK5oZl.jpg"
-                      height={100}
-                      width={100}
-                    />{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div className="container mt-5">
           <div className="row d-flex justify-content-center">
             <div className="col-md-12">
@@ -377,7 +232,7 @@ export default function Index(props) {
                 </ul>
                 <div className="tab-content" id="myTabContent">
                   <div
-                    className="tab-pane fade active show"
+                    className="tab-pane fade active show baohanh-noidung"
                     id="faq_tab_1"
                     role="tabpanel"
                     aria-labelledby="faq_tab_1-tab"
