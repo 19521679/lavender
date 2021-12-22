@@ -269,9 +269,9 @@ namespace Back.Models
 
                 entity.ToTable("DANHSACHYEUTHICH");
 
-                entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
+                entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG").IsRequired();
 
-                entity.Property(e => e.Masanpham).HasColumnName("MASANPHAM");
+                entity.Property(e => e.Masanpham).HasColumnName("MASANPHAM").IsRequired();
 
 
                 entity.HasOne(d => d.MakhachhangNavigation)
@@ -906,10 +906,12 @@ namespace Back.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_THONGSOKITHUAT_SANPHAMM");
             });
+           
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }

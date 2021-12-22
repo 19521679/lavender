@@ -4,13 +4,19 @@ import * as imageApi from "../apis/image";
 import * as productApi from "../apis/product";
 import * as detailCartApi from "../apis/detailCart";
 import DeleteDetailCartModal from "./DeleteDetailCartModal";
-import Cookies from "universal-cookie"
+import Cookies from "universal-cookie";
 import logo from "../../Common/images/logo.png";
+import * as trademarkApi from "../apis/trademark";
 
 const cookie = new Cookies();
 
 class Product extends Component {
-  state = { product: {}, checked: false, showModal: false };
+  state = {
+    product: {},
+    checked: false,
+    showModal: false,
+    thuonghieu: undefined,
+  };
   showModal() {
     this.setState({ showModal: true });
   }
@@ -24,7 +30,7 @@ class Product extends Component {
       .deleteDetailCart(
         this.props.detailCart.magiohang,
         this.props.detailCart.masanpham,
-        token, 
+        token,
         refreshtoken
       )
       .then((success) => {
@@ -46,7 +52,7 @@ class Product extends Component {
         this.props.detailCart.dungluong,
         this.props.detailCart.mausac,
         this.props.detailCart.soluong + quantity,
-        token, 
+        token,
         refreshtoken
       )
       .then((success) => {
@@ -67,10 +73,22 @@ class Product extends Component {
   async componentDidMount() {
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
+    var product = undefined;
     await productApi
       .findProductById(this.props.detailCart.masanpham, token, refreshtoken)
       .then((success) => {
+        product = success.data.value;
         this.setState({ product: success.data.value });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    await trademarkApi
+      .TimThuonghieuBangMathuonghieu(product.mathuonghieu)
+      .then((success) => {
+        if (success.status === 200) {
+          this.setState({ thuonghieu: success.data.value });
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -95,7 +113,7 @@ class Product extends Component {
       <div className="styles__StyledIntended-sc-1dwh2vk-1 bQOXDC">
         <div>
           <DeleteDetailCartModal
-          showModal={this.state.showModal}
+            showModal={this.state.showModal}
             closeModal={this.closeModal.bind(this)}
             deleteProduct={this.deleteProduct.bind(this)}
           ></DeleteDetailCartModal>
@@ -105,14 +123,14 @@ class Product extends Component {
                 <div className="intended__images ">
                   <div className="uUhc_B">
                     <label className="stardust-checkbox">
-                      {this.props.detailCart.tien !== 0 && (
+
                         <input
                           className="checkbox-fake border rounded"
                           type="checkbox"
                           onChange={(e) => this.changeCheck(e.target.checked)}
                           checked={this.state.checked}
                         />
-                      )}
+
                     </label>
                   </div>
 
@@ -141,7 +159,11 @@ class Product extends Component {
                         className="intended__icon intended__icon--fast"
                       />
                       <div className="product-name">
-                        {this.state.product.tensanpham} - {this.props.detailCart.dungluong} - {this.props.detailCart.mausac}
+                        {this.state.thuonghieu !== undefined &&
+                          this.state.thuonghieu.tenthuonghieu}
+                        {""} {this.state.product.tensanpham} -{" "}
+                        {this.props.detailCart.dungluong} -{" "}
+                        {this.props.detailCart.mausac}
                       </div>
                     </a>
                   </div>
@@ -152,7 +174,9 @@ class Product extends Component {
                   {this.props.detailCart.tien === 0 ? (
                     "Hết hàng"
                   ) : (
-                    <p><strong>{this.props.detailCart.tien} ₫</strong></p>
+                    <p>
+                      <strong>{this.props.detailCart.tien} ₫</strong>
+                    </p>
                   )}
                 </span>
               </div>

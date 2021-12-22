@@ -95,6 +95,17 @@ namespace Back.Controllers
             return StatusCode(200, Json(ma));
         }
 
+        [Route("/tim-thuonghieu-bang-mathuonghieu")]
+        [HttpGet]
+        public async Task<IActionResult> TimThuonghieuBangMathuonghieu(int mathuonghieu)
+        {
+            var thuonghieu = await (from x in lavenderContext.Thuonghieu
+                                    where x.Mathuonghieu == mathuonghieu
+                                    select x).FirstOrDefaultAsync();
+            if (thuonghieu == null) return StatusCode(404);
+            return StatusCode(200, Json(thuonghieu));
+        }
+
         [Route("/tatca-thuonghieu")]
         [HttpGet]
         public async Task<IActionResult> AllTrademark()

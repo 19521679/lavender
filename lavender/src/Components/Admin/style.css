@@ -23510,14 +23510,6 @@ Icon colors
   opacity: .1
 }
 
-p,
-.paragraph {
-  font-weight: 400;
-  color: #8b8e93;
-  font-size: 15px;
-  line-height: 1.6;
-  font-family: "Open Sans", sans-serif
-}
 
 .icon-bg-yellow::after {
   background: #f6a622 !important

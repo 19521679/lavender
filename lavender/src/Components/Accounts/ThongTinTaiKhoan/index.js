@@ -281,7 +281,7 @@ class index extends Component {
                   <div className="d-flex justify-content-between align-items-center ">
                     <span>Tài khoản</span>
                     <span
-                      className="border rounded px-3 p-1 add-"
+                      className="border rounded px-3 p-1 row"
                       onClick={() =>
                         this.setState({ doimatkhau: !this.state.doimatkhau })
                       }

@@ -106,6 +106,7 @@ section.cps-section
 }
 .box-products {
   width: 100%;
+  height: 500px;
 }
 .block-hotsale .box-products .list-product,
 section.cps-section .block-blackfriday .box-products .list-product {
@@ -182,6 +183,8 @@ element.style {
   text-decoration: none;
 }
 .box-products .list-product .item-product .item-product__box-name p {
+  text-overflow: ellipsis;
+  height: 68px;
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
@@ -383,11 +386,10 @@ element.style {
   margin-left: 20px;
 }
 
-.box-products .swiper-button-prev {
+.block-hotsale .swiper-button-prev {
   padding-right: 10px;
   border-radius: 0 100px 100px 0;
-  left: -32px;
-  left: 0;
+  left: -12px;
   width: 30px;
   height: 60px;
   display: -webkit-box;
@@ -404,12 +406,12 @@ element.style {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   font-size: 1.8rem;
   color: #707070;
-  top: 27%;
+  top: -50%;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   outline: none;
   opacity: 0.5;
-  position: absolute;
+  position: relative;
   z-index: 3;
 }
 .swiper-button-prev {
@@ -430,11 +432,11 @@ element.style {
   background-position: center;
   background-repeat: no-repeat;
 }
-.box-products .swiper-button-next {
+.block-hotsale .swiper-button-next {
   padding-left: 10px;
   border-radius: 100px 0 0 100px;
   z-index: 3;
-  right: 0;
+  right: -98.4%;
   width: 30px;
   height: 60px;
   display: -webkit-box;
@@ -451,10 +453,11 @@ element.style {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   font-size: 1.8rem;
   color: #707070;
-  top: 27%;
+  top: -50%;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   outline: none;
+  position: relative;
   opacity: 0.5;
   background-image: url("https://cdn.cellphones.com.vn/skin/frontend/default/cpsdesktop/css/data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E");
   left: auto;

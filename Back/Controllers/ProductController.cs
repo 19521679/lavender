@@ -72,7 +72,6 @@ namespace Back.Controllers
                 fCount = Directory.GetFiles($"{_env.ContentRootPath}/wwwroot/{loai}/{hang}/{dong}/{sanpham}", "*", SearchOption.TopDirectoryOnly).Length;
                 return StatusCode(200, Json(product, new { sohinhanh = fCount }));
             }
-            Console.WriteLine("product" + product);
             return StatusCode(404);
 
         }

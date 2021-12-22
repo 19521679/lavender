@@ -234,14 +234,16 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <button className="swiper-button-prev" onClick={scrollPrev} >
+      
+        </div>
+        <button className="swiper-button-prev" onClick={scrollPrev} >
             <i class="bi bi-chevron-left"></i>
           </button>
           <button className="swiper-button-next" onClick={scrollNext}>
             <i class="bi bi-chevron-right"></i>
           </button>
-        </div>
       </div>
+   
     </div>
   );
 }
