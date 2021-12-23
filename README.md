@@ -18,7 +18,7 @@
 
 ## **Bước 3: Chạy Frontend React** 
 - Thay đổi API\_ENDPOINT đến Url của backend trong thư mục lavender/lavender/src/Common/constants/index.js
--
+
 - Cài đặt NodeJs bản 17 (mới nhất):  <https://nodejs.org/en/>
  
 - Cài đặt các package
