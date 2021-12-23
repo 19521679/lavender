@@ -148,7 +148,7 @@ namespace Back.Controllers
             return StatusCode(200, Json(mausac));
         }
 
-        [Route("/{loai}/{hang}/{dong}/{sanpham}/xemgia")]
+        [Route("/{loai}/{hang}/{dong}/{sanpham}/-mgia")]
         [HttpGet]
         public async Task<IActionResult> XemGia(string loai, string hang, string dong, string sanpham, string dungluong, string mausac)
         {
@@ -182,6 +182,7 @@ namespace Back.Controllers
                             where c.Masanpham == sanphamtemp.Masanpham
                             && dungluong.Equals("-1") ? true : c.Dungluong.Equals(dungluong)
                             && mausac.Equals("-1") ? true : c.Mausac.Equals(mausac)
+                             && c.Tinhtrang.Equals("Sẵn có")
                             orderby c.Giamoi ascending
                             select c.Giamoi).FirstOrDefaultAsync();
 
@@ -197,6 +198,7 @@ namespace Back.Controllers
 
             giamoi = await (from c in lavenderContext.Chitietsanpham
                             where c.Masanpham == masanpham
+                            && c.Tinhtrang.Equals("Sẵn có")
                             orderby c.Giamoi ascending
                             select c.Giamoi).FirstOrDefaultAsync();
 

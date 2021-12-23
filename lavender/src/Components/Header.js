@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import logo from "../Asset/logo/logo.png";
 import BoxSearch from "./BoxSearch";
 import Social from "./Social";
+import Snowfall from 'react-snowfall'
 
 const menus = [
   {
@@ -78,6 +79,7 @@ class Header extends Component {
   render() {
     return (
       <>
+      
         <Social></Social>
         <header id="header" className="fixed-top">
           <div className="container d-flex align-items-center justify-content-between">

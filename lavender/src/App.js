@@ -10,6 +10,7 @@ import configureStore from "./Components/redux/configureStore";
 import LeftMenu from "./Components/Admin/LeftMenu";
 import CookieConsent from "react-cookie-consent";
 import InitData from "./InitData";
+import { Helmet } from "react-helmet";
 
 const store = configureStore();
 function App(props) {
@@ -33,13 +34,23 @@ function App(props) {
     return <Switch>{result}</Switch>;
   };
 
-  useEffect(() => {
-  },[]);
+  useEffect(() => {}, []);
+
   return (
     <Provider store={store}>
       <ToastContainer />
+
       <InitData></InitData>
       <div>
+        {props.location.pathname==="/" ? (
+          <Helmet
+            bodyAttributes={{ style: "background-color : #6b0a0a" }}
+          ></Helmet>
+        ) : (
+          <Helmet
+            bodyAttributes={{ style: "background-color : #fff" }}
+          ></Helmet>
+        )}
         {props.location.pathname.includes("/admin") ? (
           <LeftMenu>Home</LeftMenu>
         ) : (

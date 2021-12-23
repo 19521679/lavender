@@ -33,7 +33,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    main: () => <Home></Home>,
+    main: () => <Home ></Home>,
   },
   {
     path: "/:loai/:hang/:dong/:sanpham",

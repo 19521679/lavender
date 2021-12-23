@@ -275,7 +275,7 @@ export default function Index(props) {
                     <p className="text-sm mb-0">
                       <i className="fa fa-check text-info" aria-hidden="true" />
                       <span className="font-weight-bold ms-1">
-                        30 done
+                        {allBilling.length} hoá đơn
                       </span>{" "}
                       trong tháng
                     </p>

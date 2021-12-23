@@ -19,7 +19,9 @@ export default class BillItem extends Component {
       .then((success) => {
         product = success.data.value;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error)
+      });
 
     token = cookie.get("token");
     refreshtoken = cookie.get("refreshtoken");
@@ -28,7 +30,9 @@ export default class BillItem extends Component {
       .then((success) => {
         customer = success.data.value;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error)
+      });
 
     this.setState({ product: product, customer: customer });
   }
@@ -66,7 +70,7 @@ export default class BillItem extends Component {
               ></DeleteBill>
             );
         })()}
-        <li className="list-group-item border-0 d-flex p-4 bg-gray-100 border-radius-lg">
+        <li className="list-group-item border-0 d-flex p-4 bg-gray-100 border-radius-lg ">
           <div className="d-flex flex-column">
             <h6 className="text-sm">
               {(this.state.customer !== undefined) &
@@ -102,10 +106,7 @@ export default class BillItem extends Component {
                   (this.state.product !== null) && this.state.product.dongia}
                 {"    "}
               </span>
-              {"    "}Số lượng:{" "}
-              <span className="text-dark ms-sm-2 font-weight-bold">
-                soluong
-              </span>
+
             </span>
             <span className=" mt-2 text-xs">
               Ngày hoá đơn:{" "}
@@ -135,7 +136,9 @@ export default class BillItem extends Component {
               <i class="bi bi-trash"></i>
               {"  "}Xoá
             </div>
+      
           </div>
+          
         </li>
       </>
     );
