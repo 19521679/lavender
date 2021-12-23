@@ -26,8 +26,8 @@ export default function EditModal(props) {
     new Date(props.productdetail.ngaysanxuat)
   );
   const [tinhtrang, setTinhtrang] = useState(props.productdetail.tinhtrang);
-  const [mausac, setMausac] = useState(props.productdetail.mausac);
-  const [dungluong, setDungluong] = useState(props.productdetail.dungluong);
+  const [mausac, setMausac] = useState("Khác");
+  const [dungluong, setDungluong] = useState("Khác");
   const [giamoi, setGiamoi] = useState(props.productdetail.giamoi);
   const [image, setImage] = useState(undefined);
   const [danhsachmausac, setDanhsachmausac] = useState([]);
@@ -35,17 +35,34 @@ export default function EditModal(props) {
   const [mausackhac, setMausackhac] = useState("");
   const [dungluongkhac, setDungluongkhac] = useState("");
   const [progress, setProgress] = useState(0);
-  const [loading, setLoading ] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setImei(props.productdetail.imei)
-    setMasanpham(props.productdetail.masanpham)
-    setNgaysanxuat(props.productdetail.ngaysanxuat)
-    setTinhtrang(props.productdetail.tinhtrang)
-    setMausac(props.productdetail.mausac)
-    setDungluong(props.productdetail.dungluong)
-    setGiamoi(props.productdetail.giamoi)
-  }, [props.productdetail])
+    setImei(props.productdetail.imei);
+    setMasanpham(props.productdetail.masanpham);
+    setNgaysanxuat(props.productdetail.ngaysanxuat);
+    setTinhtrang(props.productdetail.tinhtrang);
+    if (
+      props.productdetail.mausac === undefined ||
+      props.productdetail.mausac == null ||
+      props.productdetail.mausac === "Khác"
+    ) {
+      setMausac("Khác");
+    } else {
+      setMausac(props.productdetail.mausac);
+    }
+    if (
+      props.productdetail.dungluong === undefined ||
+      props.productdetail.dungluong == null ||
+      props.productdetail.dungluong === "Khác"
+    ) {
+      setDungluong("Khác");
+    } else {
+      setDungluong(props.productdetail.dungluong);
+    }
+
+    setGiamoi(props.productdetail.giamoi);
+  }, [props.productdetail]);
 
   const loadMausac = (masanpham) => {
     if (masanpham === "") return;
@@ -61,7 +78,7 @@ export default function EditModal(props) {
       .catch((error) => {
         console.error(error);
       });
-      setLoading(false);
+    setLoading(false);
   };
   const loadDungluong = (masanpham) => {
     if (masanpham === "") return;
@@ -76,7 +93,7 @@ export default function EditModal(props) {
       .catch((error) => {
         console.error(error);
       });
-      setLoading(false);
+    setLoading(false);
   };
   useEffect(() => {
     loadMausac(masanpham);
@@ -111,7 +128,6 @@ export default function EditModal(props) {
         console.error(error);
       });
   }
-
 
   return (
     <Modal
@@ -288,7 +304,7 @@ export default function EditModal(props) {
               </div>
             </div>
 
-            {dungluong === "Khác" && (
+            { dungluong==="Khác"&&
               <div className="row mb-1">
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
@@ -300,7 +316,7 @@ export default function EditModal(props) {
                   ></input>
                 </div>
               </div>
-            )}
+            }
             <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Giá mới</div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">

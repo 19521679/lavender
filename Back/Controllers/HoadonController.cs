@@ -183,6 +183,10 @@ namespace Back.Controllers
                                         select c).ToListAsync();
             foreach (var i in chitiethoadons)
             {
+                var chitietsanpham = await (from x in lavenderContext.Chitietsanpham
+                                            where x.Imei == i.Imei
+                                            select x).FirstOrDefaultAsync();
+                chitietsanpham.Tinhtrang = "Sẵn có";
                 lavenderContext.Remove(i);
             }
             await lavenderContext.SaveChangesAsync();
@@ -201,6 +205,7 @@ namespace Back.Controllers
                 lavenderContext.Remove(i);
             }
 
+           
             await lavenderContext.SaveChangesAsync();
             Hoadon hoadon = await lavenderContext.Hoadon.SingleOrDefaultAsync(x => x.Sohoadon == sohoadon);
             if (hoadon != null)
@@ -259,6 +264,16 @@ namespace Back.Controllers
                                    where x.Sohoadon == sohoadon
                                    select x).FirstOrDefaultAsync();
             if (vanchuyen == null) return StatusCode(404);
+            var chitiethoadon = await (from x in lavenderContext.Chitiethoadon
+                                       where x.Sohoadon == sohoadon
+                                       select x).ToListAsync();
+            foreach (var i in chitiethoadon)
+            {
+                var ctsp = await (from x in lavenderContext.Chitietsanpham
+                                  where x.Imei == i.Imei
+                                  select x).FirstOrDefaultAsync();
+                ctsp.Tinhtrang = "Sẵn có";
+            }
             vanchuyen.Trangthai = "Đã huỷ";
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200);

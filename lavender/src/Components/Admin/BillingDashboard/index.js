@@ -10,7 +10,7 @@ import Cookies from "universal-cookie";
 import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 import * as fileApi from "../../apis/file";
 
-import  {FileDownload} from "js-file-download";
+const  FileDownload = require('js-file-download');
 
 const cookie = new Cookies();
 

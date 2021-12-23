@@ -125,7 +125,7 @@ class Product extends Component {
                     <label className="stardust-checkbox">
 
                         <input
-                          className="checkbox-fake border rounded"
+                          className="form-check-input"
                           type="checkbox"
                           onChange={(e) => this.changeCheck(e.target.checked)}
                           checked={this.state.checked}
@@ -158,7 +158,7 @@ class Product extends Component {
                         alt="tiki-fast"
                         className="intended__icon intended__icon--fast"
                       />
-                      <div className="product-name">
+                      <div className="product-name text-muted">
                         {this.state.thuonghieu !== undefined &&
                           this.state.thuonghieu.tenthuonghieu}
                         {""} {this.state.product.tensanpham} -{" "}
@@ -175,7 +175,7 @@ class Product extends Component {
                     "Hết hàng"
                   ) : (
                     <p>
-                      <strong>{this.props.detailCart.tien} ₫</strong>
+                      <>{this.props.detailCart.tien} ₫</>
                     </p>
                   )}
                 </span>

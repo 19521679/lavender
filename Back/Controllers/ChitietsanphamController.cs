@@ -64,7 +64,7 @@ namespace Back.Controllers
             if (sanphamtemp == null) return StatusCode(404);
             var chitietsanphams = await (from c in lavenderContext.Chitietsanpham
                                          where c.Masanpham == sanphamtemp.Masanpham
-                                         && mausac.Equals("-1") ? true : c.Mausac.Equals(mausac)
+                                         && (mausac.Equals("-1") || c.Mausac.Equals(mausac))
                                          select c).ToListAsync();
             if (chitietsanphams.Count() == 0) return StatusCode(204);
 
@@ -72,7 +72,7 @@ namespace Back.Controllers
             List<dynamic> dungluong = new List<dynamic>();
             foreach (var i in chitietsanphams)
             {
-                var timduoccaimoinaodo = true;
+                bool timduoccaimoinaodo = true;
                 foreach (var j in listsanphamtheodungluong)
                 {
                     if (j.Dungluong.Equals(i.Dungluong))
@@ -120,7 +120,7 @@ namespace Back.Controllers
 
             var chitietsanphams = await (from c in lavenderContext.Chitietsanpham
                                          where c.Masanpham == sanphamtemp.Masanpham
-                                         && dungluong.Equals("-1") ? true : c.Dungluong.Equals(dungluong)
+                                         && (dungluong.Equals("-1") || c.Dungluong.Equals(dungluong))
                                          select c).ToListAsync();
 
             if (chitietsanphams.Count() == 0) return StatusCode(204);
@@ -129,7 +129,7 @@ namespace Back.Controllers
             List<dynamic> mausac = new List<dynamic>();
             foreach (var i in chitietsanphams)
             {
-                var timduoccaimoinaodo = true;
+                bool timduoccaimoinaodo = true;
                 foreach (var j in listsanphamtheomausac)
                 {
                     if (j.Mausac.Equals(i.Mausac))
@@ -148,7 +148,7 @@ namespace Back.Controllers
             return StatusCode(200, Json(mausac));
         }
 
-        [Route("/{loai}/{hang}/{dong}/{sanpham}/-mgia")]
+        [Route("/{loai}/{hang}/{dong}/{sanpham}/xemgia")]
         [HttpGet]
         public async Task<IActionResult> XemGia(string loai, string hang, string dong, string sanpham, string dungluong, string mausac)
         {
@@ -176,18 +176,17 @@ namespace Back.Controllers
             var sanphamtemp = await lavenderContext.Sanpham.SingleOrDefaultAsync(x => x.Maloai == maloai && x.Tensanpham.Contains(dong) && x.Tensanpham.Contains(sanpham) && x.Mathuonghieu == thuonghieuid);
             if (sanphamtemp == null) return StatusCode(404);
 
-            float giamoi = 0;
+            var chitietsanpham = await (from c in lavenderContext.Chitietsanpham
+                                        where c.Masanpham == sanphamtemp.Masanpham
+                                        && c.Tinhtrang.Equals("Sẵn có")
+                                        && (dungluong.Equals("-1") || c.Dungluong.Equals(dungluong))
+                                        && (mausac.Equals("-1") || c.Mausac.Equals(mausac))
+                                        orderby c.Giamoi ascending
+                                        select c).FirstOrDefaultAsync();
 
-            giamoi = await (from c in lavenderContext.Chitietsanpham
-                            where c.Masanpham == sanphamtemp.Masanpham
-                            && dungluong.Equals("-1") ? true : c.Dungluong.Equals(dungluong)
-                            && mausac.Equals("-1") ? true : c.Mausac.Equals(mausac)
-                             && c.Tinhtrang.Equals("Sẵn có")
-                            orderby c.Giamoi ascending
-                            select c.Giamoi).FirstOrDefaultAsync();
 
-            if (giamoi == 0) return StatusCode(200, Json(giamoi));
-            return StatusCode(200, Json(giamoi));
+            if (chitietsanpham == null) return StatusCode(200, Json(0));
+            return StatusCode(200, Json(chitietsanpham.Giamoi));
         }
 
         [Route("xem-gia-theo-masanpham")]
@@ -446,6 +445,3 @@ namespace Back.Controllers
     }
 
 }
-
-
-

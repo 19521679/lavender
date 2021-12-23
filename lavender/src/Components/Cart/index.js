@@ -441,8 +441,8 @@ class index extends Component {
                                 ? "0"
                                 : (
                                   numberHelper.numberWithCommas(this.state.khuyenmai.tilekhuyenmai *
-                                    this.state.tongtien)
-                                  ).toFixed(0)}
+                                    this.state.tongtien
+                                  ))}
                               đ
                             </span>
                           </li>

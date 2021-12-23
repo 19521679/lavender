@@ -83,6 +83,11 @@ export default function Item(props) {
       </td>
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
+          {props.productdetail.dungluong}
+        </span>
+      </td>
+      <td className="align-middle text-center">
+        <span className="text-secondary text-xs font-weight-bold">
           {props.productdetail.giamoi}
         </span>
       </td>

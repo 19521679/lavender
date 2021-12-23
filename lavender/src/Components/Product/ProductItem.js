@@ -4,12 +4,19 @@ import * as imageApi from "../apis/image.js";
 import * as detailProductapi from "../apis/detailProduct";
 import * as evalueteApi from "../apis/evaluete";
 import * as productApi from "../apis/product";
-import { CLIENT_ENDPOINT } from "../../Common/constants";
-import * as trademarkApi from "../apis/trademark"
+// import { CLIENT_ENDPOINT } from "../../Common/constants";
+import * as trademarkApi from "../apis/trademark";
 import * as numberHelper from "../../Common/helper/numberHelper";
+import { Link } from "react-router-dom";
 
 export default class ProductItem extends Component {
-  state = { giamoi: 0, sosao: 0, sodanhgia: 0, thongsokithuat: [], thuonghieu: undefined };
+  state = {
+    giamoi: 0,
+    sosao: 0,
+    sodanhgia: 0,
+    thongsokithuat: [],
+    thuonghieu: undefined,
+  };
   componentDidMount() {
     detailProductapi
       .xemgiamoitheomasanpham(this.props.product.masanpham)
@@ -44,15 +51,16 @@ export default class ProductItem extends Component {
         console.error(error);
       });
 
-      trademarkApi.TimThuonghieuBangMathuonghieu(this.props.product.mathuonghieu)
-      .then(success=>{
-        if (success.status===200){
-          this.setState({thuonghieu: success.data.value})
+    trademarkApi
+      .TimThuonghieuBangMathuonghieu(this.props.product.mathuonghieu)
+      .then((success) => {
+        if (success.status === 200) {
+          this.setState({ thuonghieu: success.data.value });
         }
       })
-      .catch(error=>{
-        console.error(error)
-      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   render() {
     return (
@@ -76,41 +84,50 @@ export default class ProductItem extends Component {
                 );
             }.bind(this)()}
 
-            <a
-              href={() => false}
-              onClick={() => {
-                var url = CLIENT_ENDPOINT + this.props.product.image;
-                window.location.href = `${url}`;
-              }}
+            <Link
+              // href={() => false}
+              // onClick={() => {
+              //   var url = CLIENT_ENDPOINT + this.props.product.image;
+              //   window.location.href = `${url}`;
+              // }}
+              to={this.props.product.image}
               className="box-click"
             >
               <div className="icon">
                 <img
-                  alt="img"
+                  alt=""
                   src={imageApi.image(this.props.product.image)}
                 ></img>
                 <i className="bx bxl-dribbble" />
               </div>
-              <h4>
-                <div className="product-name text-dark">
-                 {this.state.thuonghieu!==undefined&&this.state.thuonghieu.tenthuonghieu}{" "} {this.props.product.tensanpham}
-                </div>
-              </h4>
-            </a>
+              <div>
+                <h5 className="product-name text-dark">
+                  {this.state.thuonghieu !== undefined &&
+                    this.state.thuonghieu.tenthuonghieu}{" "}
+                  {this.props.product.tensanpham}
+                </h5>
+              </div>
+            </Link>
             <div className="row product-price">
               <div className="">
                 {function () {
                   var result = [];
                   if (this.state.giamoi !== this.props.product.dongia) {
                     result.push(
-                      <p className="old-price">{numberHelper.numberWithCommas(this.props.product.dongia)}₫</p>
+                      <p className="old-price">
+                        {numberHelper.numberWithCommas(
+                          this.props.product.dongia
+                        )}
+                        ₫
+                      </p>
                     );
                   }
                   result.push(
                     <a href={() => false}>
                       {this.state.giamoi === 0
                         ? "Hết hàng"
-                        : numberHelper.numberWithCommas(this.state.giamoi) + "₫"}{" "}
+                        : numberHelper.numberWithCommas(this.state.giamoi) +
+                          "₫"}{" "}
                     </a>
                   );
                   return result;

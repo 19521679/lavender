@@ -140,7 +140,8 @@
   border-radius: 14px;
   transition: all ease-in-out 0.75s;
   border-color: #fff;
-  box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px, -4px 65px 90px 20px #ed00000d;
+  box-shadow: rgba(247, 5, 158, 0.1) 1px 5px 100px 5px, rgba(130, 6, 208, 0.15) 0px 5px 10px 10px, -4px 65px 90px 65px #c730300d;
+
 }
 .icon-box .product-info {
   margin: 0 10px 0 10px;

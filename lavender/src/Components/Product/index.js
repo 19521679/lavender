@@ -16,7 +16,7 @@ import Evaluete from "../Evaluete";
 import * as evalueteApi from "../apis/evaluete";
 import Specifications from "./Specifications";
 import * as myToast from "../../Common/helper/toastHelper";
-import Comment from "../Facebook/Comment/index.js"
+
 import Cookies from "universal-cookie";
 import * as numberHelper from "../../Common/helper/numberHelper";
 
@@ -28,7 +28,7 @@ class index extends Component {
     product: {},
     sohinhanh: 0,
     active: 0,
-    dongia: 0,
+    dongia: undefined,
     dungluong: [],
     mausac: [],
     chondungluong: "-1",
@@ -54,7 +54,8 @@ class index extends Component {
   };
   renderItem(n) {
     switch (n) {
-      case 0: <Article product={this.state.product}></Article>
+      case 0:
+        <Article product={this.state.product}></Article>;
         return;
       case 1:
         return <Specifications product={this.state.product}></Specifications>;
@@ -111,7 +112,40 @@ class index extends Component {
     var { dong } = this.props.match.params;
     var { sanpham } = this.props.match.params;
 
-    var request = {
+    if (this.state.chondungluong === "-1" && this.state.chonmausac === "-1") {
+      var request1 = {
+        loai: loai,
+        hang: hang,
+        dong: dong,
+        sanpham: sanpham,
+        dungluong: "-1",
+        mausac: "-1",
+      };
+      detailProductApi
+        .xemgiatheodungluongvamausac(request1)
+        .then((success) => {
+          if (success.status === 200) {
+            this.setState({
+              dongia: success.data.value,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      return;
+    }
+    if (this.state.chondungluong === "-1") {
+      this.setState({ dongia: -1 });
+      return;
+    }
+
+    if (this.state.chonmausac === "-1") {
+      this.setState({ dongia: -2 });
+      return;
+    }
+
+    var request2 = {
       loai: loai,
       hang: hang,
       dong: dong,
@@ -121,7 +155,7 @@ class index extends Component {
     };
 
     detailProductApi
-      .xemgiatheodungluongvamausac(request)
+      .xemgiatheodungluongvamausac(request2)
       .then((success) => {
         if (success.status === 200) {
           this.setState({
@@ -233,15 +267,17 @@ class index extends Component {
       return;
     }
     var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");  
+    var refreshtoken = cookie.get("refreshtoken");
     cartActionCreators.addToCartReport(
       {
-      makhachhang: this.props.makhachhang,
-      masanpham: product.masanpham,
-      dungluong: this.state.chondungluong,
-      mausac: this.state.chonmausac,
-    },
-    token, refreshtoken);
+        makhachhang: this.props.makhachhang,
+        masanpham: product.masanpham,
+        dungluong: this.state.chondungluong,
+        mausac: this.state.chonmausac,
+      },
+      token,
+      refreshtoken
+    );
   };
   xemdanhgia = async () => {
     await evalueteApi
@@ -309,7 +345,13 @@ class index extends Component {
               </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div id="price" className="price mt-5">
-                  {numberHelper.numberWithCommas(this.state.dongia)}₫
+                  {this.state.dongia !== undefined && (this.state.dongia === 0
+                    ? "Hết hàng"
+                    : this.state.dongia === -1
+                    ? "Vui lòng chọn dung lượng"
+                    : this.state.dongia === -2
+                    ? "Vui lòng chọn màu sắc"
+                    : numberHelper.numberWithCommas(this.state.dongia) + "₫")}
                 </div>
                 <div className="box-linked">
                   <div className="box-title">
@@ -323,17 +365,17 @@ class index extends Component {
                           <a
                             className={
                               key ===
-                                (() => {
-                                  var i = 0;
-                                  for (; i < this.state.dungluong.length; i++) {
-                                    if (
-                                      this.state.dungluong[i].dungluong ===
-                                      this.state.chondungluong
-                                    )
-                                      break;
-                                  }
-                                  return i;
-                                })()
+                              (() => {
+                                var i = 0;
+                                for (; i < this.state.dungluong.length; i++) {
+                                  if (
+                                    this.state.dungluong[i].dungluong ===
+                                    this.state.chondungluong
+                                  )
+                                    break;
+                                }
+                                return i;
+                              })()
                                 ? "item-linked box-shadow selected"
                                 : "item-linked box-shadow"
                             }
@@ -355,16 +397,13 @@ class index extends Component {
                                 })()
                               ) {
                                 await this.setState({ chondungluong: "-1" });
-                                if (this.state.chonmausac === "-1")
-                                  this.xemGia();
-                              } else
+                              } else {
                                 await this.setState({
                                   chondungluong:
                                     this.state.dungluong[key].dungluong,
                                 });
-                              this.loadMausac();
-                              if (this.state.chonmausac === "-1") return;
-
+                                this.loadMausac();
+                              }
                               this.xemGia();
                             }}
                           >
@@ -391,19 +430,20 @@ class index extends Component {
                             <li
                               key={key}
                               id="option161"
+                              role="button"
                               className={
                                 key ===
-                                  (() => {
-                                    var i = 0;
-                                    for (; i < this.state.mausac.length; i++) {
-                                      if (
-                                        this.state.mausac[i].mausac ===
-                                        this.state.chonmausac
-                                      )
-                                        break;
-                                    }
-                                    return i;
-                                  })()
+                                (() => {
+                                  var i = 0;
+                                  for (; i < this.state.mausac.length; i++) {
+                                    if (
+                                      this.state.mausac[i].mausac ===
+                                      this.state.chonmausac
+                                    )
+                                      break;
+                                  }
+                                  return i;
+                                })()
                                   ? "item-color option-b-c  wide-swatch swatch box-shadow selected"
                                   : "item-color option-b-c  wide-swatch swatch box-shadow "
                               }
@@ -435,20 +475,18 @@ class index extends Component {
                                     })()
                                   ) {
                                     await this.setState({ chonmausac: "-1" });
-                                    if (this.state.chondungluong === "-1")
-                                      this.xemGia();
-                                  } else
+                                  } else {
                                     await this.setState({
                                       chonmausac: this.state.mausac[key].mausac,
                                     });
-                                  this.loadDungluong();
-                                  if (this.state.chondungluong === "-1") return;
+                                    this.loadDungluong();
+                                  }
                                   this.xemGia();
                                 }}
                               >
                                 <img
                                   className="cpslazy loaded"
-                                  alt={value.mausac}
+                                  alt=""
                                   title={value.mausac}
                                   data-ll-status="loaded"
                                   src={imageApi.image(value.image)}
@@ -530,7 +568,15 @@ class index extends Component {
                     <strong>MUA NGAY</strong>
                     <span>(Giao tận nơi hoặc lấy tại cửa hàng)</span>
                   </a>
-                  <div class="fb-like" data-href={window.location.href} data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                  <div
+                    class="fb-like"
+                    data-href={window.location.href}
+                    data-width=""
+                    data-layout="standard"
+                    data-action="like"
+                    data-size="large"
+                    data-share="true"
+                  ></div>
                   {/* <div class="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="large">
                           Share
                         </div> */}
@@ -673,7 +719,12 @@ class index extends Component {
                 </div>
               </div>
               <div className="col-9">
-                <div class="fb-comments" data-href={window.location.href} data-width="100%" data-numposts="5"></div>
+                <div
+                  class="fb-comments"
+                  data-href={window.location.href}
+                  data-width="100%"
+                  data-numposts="5"
+                ></div>
                 {/* End Tabs with icons on Card */}
               </div>
             </div>

@@ -113,6 +113,9 @@ export default function Index(props) {
                           <b>Ngày sản xuất</b>
                         </th>
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                          <b>Tình trạng</b>
+                        </th>
+                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Màu sắc</b>
                         </th>
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

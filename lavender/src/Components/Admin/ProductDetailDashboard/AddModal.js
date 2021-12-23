@@ -6,7 +6,6 @@ import "./style.css";
 import * as productdetailApi from "../../apis/productdetail";
 import FindProductModal from "./FindProductModal";
 import Cookies from "universal-cookie";
-import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 
 const cookie = new Cookies();
 
@@ -37,11 +36,9 @@ export default function AddModal(props) {
   const [dungluongkhac, setDungluongkhac] = useState("");
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const loadMausac = (masanpham) => {
     if (masanpham === "") return;
-    setLoading(true);
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
@@ -54,11 +51,9 @@ export default function AddModal(props) {
       .catch((error) => {
         console.error(error);
       });
-    setLoading(false);
   };
   const loadDungluong = (masanpham) => {
     if (masanpham === "") return;
-    setLoading(true);
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     productdetailApi
@@ -71,7 +66,6 @@ export default function AddModal(props) {
       .catch((error) => {
         console.error(error);
       });
-    setLoading(false);
   };
   useEffect(() => {
     // Update the document title using the browser API
@@ -114,7 +108,6 @@ export default function AddModal(props) {
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <LoadingContainer loading={loading}></LoadingContainer>
       <FindProductModal
         showModal={showModal}
         closeModal={() => setShowModal(false)}

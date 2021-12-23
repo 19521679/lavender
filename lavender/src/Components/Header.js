@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import logo from "../Asset/logo/logo.png";
 import BoxSearch from "./BoxSearch";
 import Social from "./Social";
-import Snowfall from 'react-snowfall'
 
 const menus = [
   {
@@ -79,7 +78,6 @@ class Header extends Component {
   render() {
     return (
       <>
-      
         <Social></Social>
         <header id="header" className="fixed-top">
           <div className="container d-flex align-items-center justify-content-between">
@@ -92,18 +90,20 @@ class Header extends Component {
             <div id="navbar" className="navbar">
               <ul>
                 {showMenu(menus)}
-                <li>
-                  <Link
-                    className="getstarted scrollto button-to-cart"
-                    to="/cart"
-                  >
-                    <i
-                      className="fas fa-shopping-cart icon-getstarted"
-                      style={{ fontSize: "17px" }}
-                    ></i>
-                    GIỎ HÀNG
-                  </Link>
-                </li>
+                {this.props.makhachhang !== undefined ? (
+                  <li>
+                    <Link
+                      className="getstarted scrollto button-to-cart"
+                      to="/cart"
+                    >
+                      <i
+                        className="fas fa-shopping-cart icon-getstarted"
+                        style={{ fontSize: "17px" }}
+                      ></i>
+                      GIỎ HÀNG
+                    </Link>
+                  </li>
+                ):(<li style={{width: '150px'}}></li>)}
                 {this.props.makhachhang !== undefined && (
                   <li>
                     <Link
