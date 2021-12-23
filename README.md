@@ -14,7 +14,7 @@
  
 - Cấp quyền truy câp internet cho backend
 
--Truy cập vào đường dẫn tới server (mặc định <https://localhost:5001>) xuất hiện màn hình báo lỗi truy cập, chọn nâng cao, và chấp thuận.
+- Truy cập vào đường dẫn tới server (mặc định <https://localhost:5001>) xuất hiện màn hình báo lỗi truy cập, chọn nâng cao, và chấp thuận.
 
 ## **Bước 3: Chạy Frontend React** 
 - Thay đổi API\_ENDPOINT đến Url của backend trong thư mục lavender/lavender/src/Common/constants/index.js
@@ -23,13 +23,13 @@
  
 - Cài đặt các package
 
-\+ Mở terminal hoặc powershell tới đường dẫn: /lavender/lavender
+- Mở terminal hoặc powershell tới đường dẫn: /lavender/lavender
 
-\+ Cài đặt Yarn: npm install –global yarn
+- Cài đặt Yarn: npm install –global yarn
 
-\+ Cài đặt các thư viện có trong project: yarn
+- Cài đặt các thư viện có trong project: yarn
 
-\+ Khởi động server: yarn start
+- Khởi động server: yarn start
 
 
 
