@@ -23,6 +23,7 @@ export default class AddBill extends Component {
       manhanvien:
         this.props.bill !== undefined ? this.props.bill.manhanvien : 0,
       tongtien: this.props.bill !== undefined ? this.props.bill.tongtien : 0,
+      vanchuyen: (this.props.vanchuyen!==undefined && this.props.vanchuyen!==null )&& this.props.vanchuyentransport,
       chitiethoadon: [],
     };
   }
@@ -53,6 +54,7 @@ export default class AddBill extends Component {
       manhanvien: parseInt(this.state.manhanvien),
       tongtien: parseInt(this.state.tongtien),
       chitiethoadon: this.state.chitiethoadon,
+      trangthai: this.state.trangthai,
     };
     let hadDone = false;
     var token = cookie.get("token");
@@ -67,6 +69,7 @@ export default class AddBill extends Component {
       })
       .catch((error) => {
         myToast.toastError("Thất bại");
+        console.error(error);
       });
 
     if (hadDone) this.props.handleSave();
@@ -99,9 +102,9 @@ export default class AddBill extends Component {
               className="form-control border "
               id="makhachhang"
               placeholder=""
-              onChange={((e) => {
+              onChange={(e) => {
                 this.setState({ makhachhang: e.target.value });
-              })}
+              }}
               value={this.state.makhachhang}
             ></input>
           </div>
@@ -155,6 +158,27 @@ export default class AddBill extends Component {
             ></input>
           </div>
         </div>
+
+        <div className="row mb-1">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Trạng thái</div>
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+          <select
+                  className="form-control border"
+                  id="loaikhachhang"
+                  name="loaikhachhang"
+                  placeholder=""
+                  onChange={(e) => {
+                    this.setState({trangthai:e.target.value});
+                  }}
+                  value={this.state.trangthai}
+                >
+                  <option value="Đang xử lý">Đang xử lý</option>
+                  <option value="Đang giao">Đang giao</option>
+                  <option value="Đã giao">Đã giao</option>
+                </select>
+          </div>
+        </div>
+
         <div className="row mb-1">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Tổng tiền</div>
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
@@ -169,6 +193,7 @@ export default class AddBill extends Component {
             ></input>
           </div>
         </div>
+
         <hr></hr>
 
         {function () {

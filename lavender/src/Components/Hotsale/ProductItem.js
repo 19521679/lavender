@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as imageApi from "../apis/image";
 import * as detailProductapi from "../apis/detailProduct";
 import * as evalueteApi from "../apis/evaluete";
+import * as numberHelper from "../../Common/helper/numberHelper";
 
 export default function ProductItem(props) {
   const [giamoi, setGiamoi] = useState(0);
@@ -59,13 +60,13 @@ export default function ProductItem(props) {
         <p className="special-price">
           {giamoi !== props.product.dongia && (
             <a href={() => false}>
-              {giamoi === 0 ? "Hết hàng" : giamoi + "₫"}{" "}
+              {giamoi === 0 ? "Hết hàng" : numberHelper.numberWithCommas(giamoi) + "₫"}{" "}
             </a>
           )}
           &nbsp;
         </p>
 
-        <p className="old-price">{props.product.dongia}&nbsp;₫</p>
+        <p className="old-price">{numberHelper.numberWithCommas(props.product.dongia)}&nbsp;₫</p>
       </div>
       <div className="item-product__box-raiting">
         <i className={sosao<1?"fas fa-star":"fas fa-star checked"} />

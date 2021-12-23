@@ -131,6 +131,14 @@ namespace Back.Controllers
                 hoadon.Ngayhoadon = temp.Ngayhoadon;
                 hoadon.Manhanvien = temp.Manhanvien;
                 hoadon.Tongtien = temp.Tongtien;
+
+                var vanchuyen = await (from x in lavenderContext.Vanchuyen
+                                       where x.Sohoadon == hoadon.Sohoadon
+                                       select x).FirstOrDefaultAsync();
+                if (vanchuyen!=null)
+                {
+                    vanchuyen.Trangthai = json.GetString("trangthai");
+                }
                 await lavenderContext.SaveChangesAsync();
 
             }
@@ -179,11 +187,17 @@ namespace Back.Controllers
             }
             await lavenderContext.SaveChangesAsync();
 
+      
+
             var vanchuyens = await (from v in lavenderContext.Vanchuyen
                                     where v.Sohoadon == sohoadon
                                     select v).ToListAsync();
             foreach (var i in vanchuyens)
             {
+                var chitietvanchuyenlist = await (from x in lavenderContext.Chitietvanchuyen
+                                                  where x.Mavanchuyen == i.Mavanchuyen
+                                                  select x).ToListAsync();
+                lavenderContext.RemoveRange(chitietvanchuyenlist);
                 lavenderContext.Remove(i);
             }
 
@@ -198,17 +212,6 @@ namespace Back.Controllers
 
             return StatusCode(200);
         }
-
-
-        //[Route("/twenty-hoadon")]
-        //[HttpGet]
-        //public async Task<IActionResult> xemHoadon()
-        //{
-        //    var hoadonlist = await (from h in lavenderContext.Hoadon
-        //                            select h).OrderByDescending(x => x.Ngayhoadon).Take(20).ToListAsync();
-        //    if (hoadonlist.Count == 0) return StatusCode(404);
-        //    return StatusCode(200, Json(hoadonlist));
-        //}
 
         [Route("/tracuu-ngaymua-theosohoadon")]
         [HttpGet]

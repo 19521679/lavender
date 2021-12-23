@@ -4,11 +4,12 @@ import * as customerApi from "../../apis/customer";
 import AddBill from "./AddBill";
 import DeleteBill from "./DeleteBill";
 import Cookies from "universal-cookie";
+import * as transportApi from "../../apis/transport";
 
 const cookie = new Cookies();
 
 export default class BillItem extends Component {
-  state = { product: undefined, customer: undefined, modal: 0 };
+  state = { product: undefined, customer: undefined, modal: 0 , vanchuyen : undefined};
   async componentDidMount() {
     let product = undefined;
     let customer = undefined;
@@ -29,6 +30,16 @@ export default class BillItem extends Component {
       .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
       .then((success) => {
         customer = success.data.value;
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+
+      await transportApi.vanchuyenBangSohoadon(this.props.bill.sohoadon)
+      .then((success) => {
+        if (success.status === 200){
+          this.setState({vanchuyen: success.data.value})
+        }
       })
       .catch((error) => {
         console.error(error)
@@ -56,6 +67,7 @@ export default class BillItem extends Component {
                   this.props.handleSave();
                 })}
                 bill={this.props.bill}
+                transport= {this.state.vanchuyen}
               ></AddBill>
             );
           else if (this.state.modal === 2)
@@ -112,6 +124,11 @@ export default class BillItem extends Component {
               Ngày hoá đơn:{" "}
               <span className="text-dark ms-sm-2 font-weight-bold">
                 {this.props.bill.ngayhoadon}
+              </span>
+
+              {"   "} Trạng thái :{" "}
+              <span className="text-dark ms-sm-2 font-weight-bold">
+                {(this.state.vanchuyen!==undefined&&this.state.vanchuyen!==null&&this.state.vanchuyen.trangthai!==undefined&&this.state.vanchuyen.trangthai!==null)&&this.state.vanchuyen.trangthai}
               </span>
             </span>
             <span className=" mt-2 text-xs">

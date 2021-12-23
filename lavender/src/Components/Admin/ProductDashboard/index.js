@@ -113,8 +113,8 @@ export default function Index(props) {
     <main className="main-content position-relative border-radius-lg left-menu">
       <AddModal
         showModal={showModal}
-        closeModal={closeModal.bind(this)}
-        addProduct={addProduct.bind(this)}
+        closeModal={closeModal}
+        addProduct={addProduct}
       ></AddModal>
       <LoadingContainer loading={loading}></LoadingContainer>
       {/* Navbar */}
@@ -153,7 +153,7 @@ export default function Index(props) {
                   </h6>
                   <button
                     className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"
-                    onClick={openModal.bind(this)}
+                    onClick={openModal}
                   >
                     + Thêm sản phẩm
                   </button>
@@ -197,9 +197,9 @@ export default function Index(props) {
                           <ProductItem
                             product={value}
                             key={key}
-                            addProduct={addProduct.bind(this)}
-                            deleteProduct={deleteProduct.bind(this)}
-                            editProduct={editProduct.bind(this)}
+                            addProduct={addProduct}
+                            deleteProduct={deleteProduct}
+                            editProduct={editProduct}
                           ></ProductItem>
                         );
                       })}
@@ -224,7 +224,7 @@ export default function Index(props) {
                   </h6>
                   <button
                     className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"
-                    onClick={openModal.bind(this)}
+                    onClick={openModal}
                   >
                     + Thêm sản phẩm
                   </button>
@@ -268,9 +268,9 @@ export default function Index(props) {
                           <ProductItem
                             product={value}
                             key={key}
-                            addProduct={addProduct.bind(this)}
-                            deleteProduct={deleteProduct.bind(this)}
-                            editProduct={editProduct.bind(this)}
+                            addProduct={addProduct}
+                            deleteProduct={deleteProduct}
+                            editProduct={editProduct}
                           ></ProductItem>
                         );
                       })}

@@ -28,7 +28,7 @@ export default function ProductItem(props) {
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, [props.product.masanpham, props.product.mathuonghieu]);
 
   function closeModal() {
     setShowModal(0);

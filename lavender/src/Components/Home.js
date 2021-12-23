@@ -259,7 +259,7 @@ export default class Home extends Component {
           </Link>
 
           <div className="row mt-2 promotion2">
-            <Hotsale className=""></Hotsale>
+            <Hotsale></Hotsale>
           </div>
           {/* Điện thoại nổi bật */}
 
