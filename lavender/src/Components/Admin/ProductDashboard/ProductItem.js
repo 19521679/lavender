@@ -73,11 +73,11 @@ export default function ProductItem(props) {
           {props.product.mathuonghieu}
         </span>
       </td>
-      <td className="align-middle text-center">
+      {/* <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
           {props.product.soluongton}
         </span>
-      </td>
+      </td> */}
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
           {props.product.dongia}
