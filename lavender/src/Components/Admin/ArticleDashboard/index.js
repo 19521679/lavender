@@ -75,12 +75,12 @@ function ArticleDashboard() {
   return (
     <div>
       <LoadingContainer loading={loading}></LoadingContainer>
-      <section>
+    
         <div id="wrapper">
           <div className="container">
             <div className="row">
-              <div className="col-1"></div>
-              <div className="col-10">
+              <div className="col-lg-3"></div>
+              <div className="col">
                 <div className="page-wrapper">
                   <div className="blog-top clearfix mb-5">
                     <h3>Bài viết cần phê duyệt</h3>
@@ -125,7 +125,7 @@ function ArticleDashboard() {
             </div>
           </div>
         </div>
-      </section>
+    
     </div>
   );
 }

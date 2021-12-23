@@ -24,11 +24,8 @@ function Article() {
   return (
     <div>
       <LoadingContainer loading={loading}></LoadingContainer>
-      <div className="row">
-        <div className="col-lg-3">
-
-        </div>
-        <div className="col">
+   
+        <section>
       
           <div id="wrapper">
             <div className="container">
@@ -71,8 +68,8 @@ function Article() {
             </div>
           </div>
   
-        </div>
-      </div>
+        </section>
+     
     </div>
   );
 }
