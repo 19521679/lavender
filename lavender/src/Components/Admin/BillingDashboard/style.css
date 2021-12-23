@@ -23,80 +23,82 @@
 }
 
 .cards1 {
-    overflow: auto;
-    min-height: 100px;
+  overflow: auto;
+  min-height: 180px
 }
 
 .card1 {
-    background: #C996CC;
-    background: linear-gradient(to right, #313030, #e91e63);
-    min-width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    box-shadow: -5px 5px 25px #FFE6E6;
-    padding: 20px;
-    border: none;
-    transition: all .3s ease-in-out
+  background: #3a3a3a;
+  background: linear-gradient(to right, #474747, #222);
+  min-width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 25px #0000009d;
+  padding: 20px;
+  border: none;
+  transition: all .3s ease-in-out
 }
 
 .card1 .text-grey {
-    color: #ccc;
-    font-weight: 500
+  color: #ccc;
+  font-weight: 500
 }
 
 .card1 .light-grey {
-    color: #aaa;
-    font-weight: 300
+  color: #aaa;
+  font-weight: 300
 }
 
 .card1 .fs-5 {
-    font-size: 1.15rem !important
+  font-size: 1.15rem !important
 }
 
 .card1 a {
-    color: #fff;
-    text-decoration: none
+  color: #fff;
+  text-decoration: none
 }
 
 .card1 .profile img {
-    width: 60px;
-    height: 60px;
-    box-shadow: 0 5px 15px rgba(26, 25, 25, 0.329);
-    object-fit: cover;
-    border-radius: 50%
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 5px 15px rgba(26, 25, 25, 0.329);
+  object-fit: cover;
+  border-radius: 50%
 }
 
 .card1:not(:first-child) {
-    margin-left: -8rem
+  margin-left: -8rem
 }
 
 .cards1::-webkit-scrollbar {
-    height: 10px
+  height: 10px
 }
 
 .cards1::-webkit-scrollbar-track {
-    background: inherit
+  background: inherit
 }
 
 .cards1::-webkit-scrollbar-thumb {
-    background-color: #3a3a3a;
-    background: linear-gradient(to right, #ff002b, #002fff);
-    border-radius: 10px
+  background-color: #3a3a3a;
+  background: linear-gradient(to right, #ff002b, #002fff);
+  border-radius: 10px
 }
 
+.card1:hover,
 .card1:focus-within {
-    transform: translateY(-1rem) rotateZ(5deg)
+  transform: translateY(-1rem) rotateZ(5deg)
 }
 
+.card1:hover~.card1,
 .card1:focus-within~.card1 {
-    transform: translateX(8rem)
+  transform: translateX(8rem)
 }
 
 .card1 .designation {
-    display: inline;
-    border-radius: 10px;
-    padding: 4px 10px;
-    border: 1px solid #ddd
+  display: inline;
+  border-radius: 10px;
+  padding: 4px 10px;
+  border: 1px solid #ddd
 }
 
 .card9 {
@@ -279,7 +281,7 @@
 
 .track-line {
   height: 2px !important;
-  background-color: green
+  background-color: green;
 }
 /* 
 .dot {
@@ -306,4 +308,172 @@
 
 .big-dot i {
   font-size: 12px
-} */
+}
+
+.card4 {
+  padding-left: 10px;
+  width: 300px;
+  height: 200px;
+  border: none;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #eee;
+  background: rgb(131, 58, 180);
+  background: -moz-linear-gradient(309deg, rgba(131, 58, 180, 1) 0%, rgba(200, 42, 18, 0.87718837535014) 64%);
+  background: -webkit-linear-gradient(309deg, rgba(131, 58, 180, 1) 0%, rgba(200, 42, 18, 0.87718837535014) 64%);
+  background: linear-gradient(309deg, rgba(131, 58, 180, 1) 0%, rgba(200, 42, 18, 0.87718837535014) 64%)
+}
+
+.name {
+  margin-top: -6px;
+  opacity: 0
+}
+
+.visa {
+  opacity: 0
+}
+
+.cardnumber {
+  color: #fff
+}
+
+.card4:hover .visa {
+  animation: anim 0.8s ease-in forwards
+}
+
+.card4:hover .name {
+  animation: anim 0.8s ease-in-out forwards
+}
+
+@keyframes anim {
+  0% {
+      opacity: 0
+  }
+
+  50% {
+      opacity: 0.3
+  }
+
+  75% {
+      opacity: 0.7
+  }
+
+  100% {
+      opacity: 1
+  }
+}
+
+.card5 {
+  height: 200px;
+  width: 300px;
+  background-image: linear-gradient(to right top, #1D3634, #2C514C);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer
+}
+
+.card5 .circle {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0.1;
+  top: -60px;
+  right: -60px;
+  transition: all 0.5s
+}
+
+.card5:hover .circle {
+  height: 200px;
+  width: 200px
+}
+
+.top-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative
+}
+
+.chip-image {
+  padding: 15px
+}
+
+.chip-image img {
+  width: 30px
+}
+
+.plus-sign {
+  position: absolute;
+  top: 0px;
+  right: 70px
+}
+
+.plus-sign::before {
+  content: '';
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: #fff;
+  top: 25px;
+  left: 31px;
+  transform: rotate(45deg)
+}
+
+.plus-sign span:nth-child(1) {
+  position: absolute;
+  height: 70px;
+  width: 2px;
+  left: 35px;
+  background-color: #fff
+}
+
+.plus-sign span:nth-child(2) {
+  position: absolute;
+  height: 2px;
+  width: 70px;
+  top: 30px;
+  background-color: #fff
+}
+
+.card5-details {
+  padding: 0 12px;
+  margin-top: 25px
+}
+
+.card5-number {
+  font-size: 20px;
+  color: #fff
+}
+
+.card5-number span {
+  padding: 0px 4px
+}
+
+.card5-details .date {
+  padding: 0px 4px;
+  color: #BDC3CB;
+  font-size: 13px
+}
+
+.ownername {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0px 20px
+}
+
+.ownername span {
+  font-size: 13px;
+  text-transform: uppercase
+}
+
+.ownername img {
+  width: 30px
+}
+*/

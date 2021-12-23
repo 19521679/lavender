@@ -268,11 +268,11 @@ export default function Index(props) {
         <div className="row">
           <div className="col-lg-7 col-md-6 mb-md-0 mb-4">
             <div className="card">
-              <div className="card-header pb-0">
+              <div style={{background: '#E93B81', color: 'white'}} className="card-header pb-0">
                 <div className="row">
                   <div className="col-lg-6 col-7">
                     <h6>Hoá đơn giao dịch</h6>
-                    <p className="text-sm mb-0">
+                    <p className="text-sm">
                       <i className="fa fa-check text-info" aria-hidden="true" />
                       <span className="font-weight-bold ms-1">
                         {allBilling.length} hoá đơn
@@ -355,7 +355,7 @@ export default function Index(props) {
           </div>
           <div className="col-lg-3 col-md-6">
             <div className="card h-70" style={{ minWidth: "390px" }}>
-              <div className="card-header pb-0">
+              <div style={{background: '#E93B81', color: 'white'}}  className="card-header pb-0">
                 <h6>Tiếp nhận đơn hàng</h6>
                 <p className="text-sm">
                   <i

@@ -34,10 +34,10 @@ export default class Footer extends Component {
               </div>
               <div className="col-md-3 item">
                 <h3>About</h3>
-                <ul >
-                  <li><Link to = "/privacy" className= "text-white">Các điều khoản dịch vụ</Link></li>
-                  <li><a className= "text-white" href={()=>false}>Team</a></li>
-                  <li><a className= "text-white" href={()=>false}>Careers</a></li>
+                <ul>
+                  <li><Link to = "/privacy" style={{color: 'white'}}>Các điều khoản dịch vụ</Link></li>
+                  <li><a style={{color: 'white'}} href="#">Team</a></li>
+                  <li><a style={{color: 'white'}} href="#">Careers</a></li>
                 </ul>
               </div>
               <div className="col-md-3 item text">
@@ -45,19 +45,19 @@ export default class Footer extends Component {
                     <ul>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:0914630145" className= "text-white">Gọi mua hàng: 0914630145</a>
+                        <a style={{color: 'white'}} href="tel:0914630145" >Gọi mua hàng: 0914630145</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:01423456789" className= "text-white">Gọi khiếu nại</a>
+                        <a style={{color: 'white'}} href="tel:01423456789" >Gọi khiếu nại</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:0123456789" className= "text-white">Gọi bảo hành</a>
+                        <a style={{color: 'white'}} href="tel:0123456789" >Gọi bảo hành</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="https://www.facebook.com/bii.nhok.1" className= "text-white">Bảo trợ truyền thông</a>
+                        <a style={{color: 'white'}} href="https://www.facebook.com/bii.nhok.1" >Bảo trợ truyền thông</a>
                       </li>
                     </ul>
                   </div>
