@@ -62,7 +62,7 @@ namespace Back.Controllers
                     {
                         newlist.Add(i);
                     }
-                }            
+                }
             }
             return StatusCode(200, Json(newlist));
         }
@@ -100,7 +100,10 @@ namespace Back.Controllers
         {
             var sohoadon = int.Parse(json.GetString("sohoadon"));
             var makhachhang = int.Parse(json.GetString("makhachhang"));
-            var makhuyenmai = int.Parse(json.GetString("makhuyenmai"));
+
+            int? makhuyenmai = null;
+            if (json.GetString("makhuyenmai") != null ) int.Parse(json.GetString("makhuyenmai"));
+
             var ngayhoadon = DateTime.Parse(json.GetString("ngayhoadon")).ToLocalTime();
             var manhanvien = int.Parse(json.GetString("manhanvien"));
             var tongtien = int.Parse(json.GetString("tongtien"));
@@ -112,6 +115,7 @@ namespace Back.Controllers
                 temp.Sohoadon = sohoadon;
             }
             temp.Makhachhang = makhachhang;
+
             temp.Makhuyenmai = makhuyenmai;
             temp.Ngayhoadon = ngayhoadon;
             temp.Manhanvien = manhanvien;
@@ -211,8 +215,8 @@ namespace Back.Controllers
         public async Task<IActionResult> tracuuNgaymua(int sohoadon)
         {
             var ngaymua = await (from x in lavenderContext.Hoadon
-                                     where x.Sohoadon == sohoadon
-                                     select x.Ngayhoadon).FirstOrDefaultAsync();
+                                 where x.Sohoadon == sohoadon
+                                 select x.Ngayhoadon).FirstOrDefaultAsync();
             return StatusCode(200, Json(ngaymua));
         }
 
@@ -283,5 +287,5 @@ namespace Back.Controllers
             return StatusCode(200);
         }
     }
-       
+
 }

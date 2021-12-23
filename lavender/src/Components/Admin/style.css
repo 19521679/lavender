@@ -3239,184 +3239,6 @@ fieldset:disabled .btn {
   color: #fff;
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 0 solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.75rem;
-}
-.card > hr {
-  margin-right: 0;
-  margin-left: 0;
-}
-.card > .list-group {
-  border-top: inherit;
-  border-bottom: inherit;
-}
-.card > .list-group:first-child {
-  border-top-width: 0;
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
-}
-.card > .list-group:last-child {
-  border-bottom-width: 0;
-  border-bottom-right-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
-}
-.card > .card-header + .list-group,
-.card > .list-group + .card-footer {
-  border-top: 0;
-}
-
-.card-body {
-  flex: 1 1 auto;
-  padding: 1rem 1rem;
-}
-
-.card-title {
-  margin-bottom: 0.5rem;
-}
-
-.card-subtitle {
-  margin-top: -0.25rem;
-  margin-bottom: 0;
-}
-
-.card-text:last-child {
-  margin-bottom: 0;
-}
-
-.card-link + .card-link {
-  margin-left: 1rem;
-}
-
-.card-header {
-  padding: 0.5rem 1rem;
-  margin-bottom: 0;
-  background-color: #fff;
-  border-bottom: 0 solid rgba(0, 0, 0, 0.125);
-}
-.card-header:first-child {
-  border-radius: 0.75rem 0.75rem 0 0;
-}
-
-.card-footer {
-  padding: 0.5rem 1rem;
-  background-color: #fff;
-  border-top: 0 solid rgba(0, 0, 0, 0.125);
-}
-.card-footer:last-child {
-  border-radius: 0 0 0.75rem 0.75rem;
-}
-
-.card-header-tabs {
-  margin-right: -0.5rem;
-  margin-bottom: -0.5rem;
-  margin-left: -0.5rem;
-  border-bottom: 0;
-}
-
-.card-header-pills {
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
-}
-
-.card-img-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  border-radius: 0.75rem;
-}
-
-.card-img,
-.card-img-top,
-.card-img-bottom {
-  width: 100%;
-}
-
-.card-img,
-.card-img-top {
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
-}
-
-.card-img,
-.card-img-bottom {
-  border-bottom-right-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
-}
-
-.card-group > .card {
-  margin-bottom: 0.75rem;
-}
-
-@media (min-width: 576px) {
-  .card-group {
-    display: flex;
-    flex-flow: row wrap;
-  }
-  .card-group > .card {
-    flex: 1 0 0%;
-    margin-bottom: 0;
-  }
-  .card-group > .card + .card {
-    margin-left: 0;
-    border-left: 0;
-  }
-  .card-group > .card:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .card-group > .card:not(:last-child) .card-img-top,
-  .card-group > .card:not(:last-child) .card-header {
-    border-top-right-radius: 0;
-  }
-  .card-group > .card:not(:last-child) .card-img-bottom,
-  .card-group > .card:not(:last-child) .card-footer {
-    border-bottom-right-radius: 0;
-  }
-  .card-group > .card:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .card-group > .card:not(:first-child) .card-img-top,
-  .card-group > .card:not(:first-child) .card-header {
-    border-top-left-radius: 0;
-  }
-  .card-group > .card:not(:first-child) .card-img-bottom,
-  .card-group > .card:not(:first-child) .card-footer {
-    border-bottom-left-radius: 0;
-  }
-}
-
-.accordion-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 1rem 0rem;
-  font-size: 1rem;
-  color: #7b809a;
-  text-align: left;
-  background-color: transparent;
-  border: 0;
-  border-radius: 0;
-  overflow-anchor: none;
-  transition: all 0.15s ease-in, border-radius 0.15s ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  .accordion-button {
-    transition: none;
-  }
-}
 .accordion-button:not(.collapsed) {
   color: #344767;
   background-color: transparent;
@@ -23596,4 +23418,138 @@ tiepnhanhoadonmodal .danhsachsanpham-title{
   display: flex;
   flex-direction: column;   
   overflow: scroll;
+}
+
+/*-----------------------------------------*/
+
+
+
+.mt-100 {
+  margin-top: 20%
+}
+
+.progress {
+  background-color: #e5e9eb;
+  height: 0.45em;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px
+}
+
+.progress-bar {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: width;
+  background: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+  background-size: 24em 0.25em;
+  height: 100%;
+  position: relative
+}
+
+.progress-shadow {
+  background-image: linear-gradient(to bottom, #eaecee, transparent);
+  height: 4em;
+  position: absolute;
+  top: 100%;
+  transform: skew(45deg);
+  transform-origin: 0 0;
+  width: 100%
+}
+
+@keyframes width {
+
+  0%,
+  100% {
+      transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85)
+  }
+
+  0% {
+      width: 0
+  }
+
+  100% {
+      width: 100%
+  }
+}
+
+@-webkit-keyframes width {
+
+  0%,
+  100% {
+      transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85)
+  }
+
+  0% {
+      width: 0
+  }
+
+  100% {
+      width: 100%
+  }
+}
+/*-------------------------------*/
+.box {
+    position: relative;
+    width: 100%;
+    padding-right: 1px;
+    padding-left: 1px
+    
+}
+
+.our-services {
+    margin-top: 50px;
+    padding-bottom: 30px;
+    padding: 0 60px;
+    min-height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: all .4s ease-in-out;
+    box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
+}
+
+.our-services .icon {
+    margin-bottom: -21px;
+    transform: translateY(-50%);
+    text-align: center
+}
+
+.our-services:hover h4,
+.our-services:hover p {
+    color: #fff
+}
+
+.speedup:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #fb0054 0%, #f55b2a 100%)
+}
+
+.settings:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #34b5bf 0%, #210c59 100%)
+}
+
+.privacy:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #3615e7 0%, #44a2f6 100%)
+}
+
+.backups:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #fc6a0e 0%, #fdb642 100%)
+}
+
+.ssl:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #8d40fb 0%, #5a57fb 100%)
+}
+
+.database:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #27b88d 0%, #22dd73 100%)
 }

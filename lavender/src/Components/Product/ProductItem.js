@@ -6,6 +6,7 @@ import * as evalueteApi from "../apis/evaluete";
 import * as productApi from "../apis/product";
 import { CLIENT_ENDPOINT } from "../../Common/constants";
 import * as trademarkApi from "../apis/trademark"
+import * as numberHelper from "../../Common/helper/numberHelper";
 
 export default class ProductItem extends Component {
   state = { giamoi: 0, sosao: 0, sodanhgia: 0, thongsokithuat: [], thuonghieu: undefined };
@@ -102,14 +103,14 @@ export default class ProductItem extends Component {
                   var result = [];
                   if (this.state.giamoi !== this.props.product.dongia) {
                     result.push(
-                      <p className="old-price">{this.props.product.dongia}₫</p>
+                      <p className="old-price">{numberHelper.numberWithCommas(this.props.product.dongia)}₫</p>
                     );
                   }
                   result.push(
                     <a href={() => false}>
                       {this.state.giamoi === 0
                         ? "Hết hàng"
-                        : this.state.giamoi + "₫"}{" "}
+                        : numberHelper.numberWithCommas(this.state.giamoi) + "₫"}{" "}
                     </a>
                   );
                   return result;

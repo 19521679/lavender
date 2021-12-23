@@ -18,6 +18,7 @@ import Specifications from "./Specifications";
 import * as myToast from "../../Common/helper/toastHelper";
 import Comment from "../Facebook/Comment/index.js"
 import Cookies from "universal-cookie";
+import * as numberHelper from "../../Common/helper/numberHelper";
 
 const cookie = new Cookies();
 
@@ -308,7 +309,7 @@ class index extends Component {
               </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div id="price" className="price mt-5">
-                  {this.state.dongia}₫
+                  {numberHelper.numberWithCommas(this.state.dongia)}₫
                 </div>
                 <div className="box-linked">
                   <div className="box-title">

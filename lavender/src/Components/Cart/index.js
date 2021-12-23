@@ -14,6 +14,7 @@ import * as myToast from "../../Common/helper/toastHelper";
 import LoadingContainer from "../../Common/helper/loading/LoadingContainer";
 import Cookies from "universal-cookie";
 import * as customerApi from "../apis/customer";
+import * as numberHelper from "../../Common/helper/numberHelper";
 
 var cookie = new Cookies();
 
@@ -430,7 +431,7 @@ class index extends Component {
                           <li className="prices__item">
                             <span className="prices__text"><strong>Tạm tính</strong></span>
                             <span className="prices__value">
-                              {this.state.tongtien}đ
+                              { numberHelper.numberWithCommas(this.state.tongtien)}đ
                             </span>
                           </li>
                           <li className="prices__item">
@@ -439,8 +440,8 @@ class index extends Component {
                               {this.state.khuyenmai === undefined
                                 ? "0"
                                 : (
-                                    this.state.khuyenmai.tilekhuyenmai *
-                                    this.state.tongtien
+                                  numberHelper.numberWithCommas(this.state.khuyenmai.tilekhuyenmai *
+                                    this.state.tongtien)
                                   ).toFixed(0)}
                               đ
                             </span>

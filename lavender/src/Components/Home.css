@@ -298,3 +298,12 @@ section.cps-section
   border-radius: 10px;
 
 }
+.homewallpaper{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -61px;
+}
+.section-home{
+  margin-top: 40%;
+}

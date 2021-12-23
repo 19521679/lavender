@@ -8,7 +8,7 @@ const reducer = (state = initialState, action) => {
       return { ...state};
     }
     case registerConst.POST_REGISTER_SUCCESS: {  
-      myToast.toastSucces("Đăng ký thành công");
+      myToast.toastSucces("Đăng ký thành công, vui lòng kiểm tra email để xác thực");
             return {
         ...state
       };

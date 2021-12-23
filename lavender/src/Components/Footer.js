@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import "./Footer.css";
+import { Link } from 'react-router-dom';
 
 export default class Footer extends Component {
     render() {
@@ -34,9 +35,9 @@ export default class Footer extends Component {
               <div className="col-md-3 item">
                 <h3>About</h3>
                 <ul>
-                  <li><a href="#">Company</a></li>
-                  <li><a href="#">Team</a></li>
-                  <li><a href="#">Careers</a></li>
+                  <li><Link to = "/privacy" style={{color: 'white'}}>Các điều khoản dịch vụ</Link></li>
+                  <li><a style={{color: 'white'}} href="#">Team</a></li>
+                  <li><a style={{color: 'white'}} href="#">Careers</a></li>
                 </ul>
               </div>
               <div className="col-md-3 item text">
@@ -44,19 +45,19 @@ export default class Footer extends Component {
                     <ul>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:0914630145" >Gọi mua hàng: 0914630145</a>
+                        <a style={{color: 'white'}} href="tel:0914630145" >Gọi mua hàng: 0914630145</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:01423456789" >Gọi khiếu nại</a>
+                        <a style={{color: 'white'}} href="tel:01423456789" >Gọi khiếu nại</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="tel:0123456789" >Gọi bảo hành</a>
+                        <a style={{color: 'white'}} href="tel:0123456789" >Gọi bảo hành</a>
                       </li>
                       <li>
                         <i className="bx bx-chevron-right" />{" "}
-                        <a href="https://www.facebook.com/bii.nhok.1" >Bảo trợ truyền thông</a>
+                        <a style={{color: 'white'}} href="https://www.facebook.com/bii.nhok.1" >Bảo trợ truyền thông</a>
                       </li>
                     </ul>
                   </div>

@@ -4,6 +4,7 @@ import * as hoadonApi from "../../apis/billing";
 import * as myToast from "../../../Common/helper/toastHelper";
 import * as detailBill from "../../apis/detailBill";
 import Cookies from "universal-cookie";
+
 const cookie = new Cookies();
 
 export default class AddBill extends Component {
@@ -54,8 +55,10 @@ export default class AddBill extends Component {
       chitiethoadon: this.state.chitiethoadon,
     };
     let hadDone = false;
+    var token = cookie.get("token");
+    var refreshtoken = cookie.get("refreshtoken");
     await hoadonApi
-      .addOrUpdateBilling(hoadon)
+      .addOrUpdateBilling(hoadon, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) {
           myToast.toastSucces("Thành công");
