@@ -176,9 +176,9 @@ export default function Index(props) {
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Thương hiệu</b>
                         </th>
-                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {/* <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Số lượng tồn</b>
-                        </th>
+                        </th> */}
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b> Đơn giá</b>
                         </th>
@@ -247,9 +247,9 @@ export default function Index(props) {
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Thương hiệu</b>
                         </th>
-                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        {/* <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b>Số lượng tồn</b>
-                        </th>
+                        </th> */}
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                           <b> Đơn giá</b>
                         </th>
