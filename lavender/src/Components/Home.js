@@ -38,34 +38,33 @@ export default class Home extends Component {
 
   async componentDidMount() {
 
-      // document.body.style.backgroundColor = "872625"
-
-    mobileApi
+    await mobileApi
       .mobile()
       .then((success) => {
         if (success.status === 200) {
           this.setState({
             listmobile: success.data.value.$values,
-            loading: false,
+
           });
         }
       })
       .catch((error) => {
         console.log(error);
       });
-    laptopApi
+    await laptopApi
       .laptop()
       .then((success) => {
         if (success.status === 200) {
           this.setState({
             listlaptop: success.data.value.$values,
-            loading: false,
           });
         }
       })
       .catch((error) => {
         console.log(error);
       });
+
+      this.setState({loading: false})
   }
   render() {
     return (

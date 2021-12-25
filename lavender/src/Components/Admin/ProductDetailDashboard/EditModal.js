@@ -44,7 +44,8 @@ export default function EditModal(props) {
     setTinhtrang(props.productdetail.tinhtrang);
     if (
       props.productdetail.mausac === undefined ||
-      props.productdetail.mausac == null ||
+      props.productdetail.mausac === null ||
+      props.productdetail.mausac === "null" ||
       props.productdetail.mausac === "Khác"
     ) {
       setMausac("Khác");
@@ -53,7 +54,8 @@ export default function EditModal(props) {
     }
     if (
       props.productdetail.dungluong === undefined ||
-      props.productdetail.dungluong == null ||
+      props.productdetail.dungluong === null ||
+      props.productdetail.dungluong === "null"  ||
       props.productdetail.dungluong === "Khác"
     ) {
       setDungluong("Khác");
@@ -72,7 +74,6 @@ export default function EditModal(props) {
       .then((success) => {
         if (success.status === 200) {
           setDanhsachmausac(success.data.value.$values, mausac);
-          console.log(success.data.value.$values);
         }
       })
       .catch((error) => {
@@ -218,8 +219,9 @@ export default function EditModal(props) {
                   id="ngaysanxuat"
                   name="trip-start"
                   onChange={(e) => setNgaysanxuat(new Date(e.target.value))}
-                  value={ngaysanxuat}
-                ></input>
+                  value={ngaysanxuat.toString().split("T")[0]}
+                 
+                > {console.log(ngaysanxuat)}</input>
               </div>
             </div>
 
