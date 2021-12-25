@@ -8,10 +8,8 @@ import { Link } from "react-router-dom";
 import LoadingContainer from "../Common/helper/loading/LoadingContainer";
 import Hotsale from "./Hotsale";
 import promotion from "../Asset/logo/promotion.png";
-import ChristmasTreeMain from "./Effect/ChristmasTreeMain";
 import christmashome from "../Asset/wallpaper/christmashome.jpg";
 import Snowfall from "react-snowfall";
-import {Helmet} from 'react-helmet';
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
