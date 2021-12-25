@@ -305,5 +305,13 @@ section.cps-section
   top: -61px;
 }
 .section-home{
-  margin-top: 60%;
+  margin-top: 720px;
+}
+
+.titlehome{
+  position: absolute;
+  left: 27%;
+  top: 300px;
+  width: calc(47vw);
+  z-index: 99;
 }

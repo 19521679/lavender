@@ -42,7 +42,7 @@ function App(props) {
 
       <InitData></InitData>
       <div>
-        {/* {props.location.pathname==="/" ? (
+        {props.location.pathname==="/" ? (
           <Helmet
             bodyAttributes={{ style: "background-color : #6b0a0a" }}
           ></Helmet>
@@ -50,7 +50,7 @@ function App(props) {
           <Helmet
             bodyAttributes={{ style: "background-color : #fff" }}
           ></Helmet>
-        )} */}
+        )}
         {props.location.pathname.includes("/admin") ? (
           <LeftMenu>Home</LeftMenu>
         ) : (

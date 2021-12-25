@@ -10,6 +10,7 @@ import Hotsale from "./Hotsale";
 import promotion from "../Asset/logo/promotion.png";
 import christmashome from "../Asset/wallpaper/christmashome.jpg";
 import Snowfall from "react-snowfall";
+import titlehome from "../Asset/wallpaper/titlehome.png"
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
@@ -76,9 +77,13 @@ export default class Home extends Component {
           snowflakeCount={200}
           className="z-index-3"
         ></Snowfall>
-        <div className="homewallpaper">
-          <img alt="homewallpaper" src={christmashome}></img>
+         <div className="titlehome z-index-2">
+          <img alt="" src={titlehome}></img>
         </div>
+        <div className="homewallpaper z-index-0">
+          <img alt="" src={christmashome}></img>
+        </div>
+       
         <section className="container section-home">
           <LoadingContainer loading={this.state.loading}></LoadingContainer>
           {/* <ChristmasTreeMain></ChristmasTreeMain> */}
