@@ -40,7 +40,7 @@ export default function EditModal(props) {
   useEffect(() => {
     setImei(props.productdetail.imei);
     setMasanpham(props.productdetail.masanpham);
-    setNgaysanxuat(new Date(props.productdetail.ngaysanxuat));
+    setNgaysanxuat(props.productdetail.ngaysanxuat);
     setTinhtrang(props.productdetail.tinhtrang);
     if (
       props.productdetail.mausac === undefined ||
@@ -55,7 +55,7 @@ export default function EditModal(props) {
     if (
       props.productdetail.dungluong === undefined ||
       props.productdetail.dungluong === null ||
-      props.productdetail.dungluong === "null" ||
+      props.productdetail.dungluong === "null"  ||
       props.productdetail.dungluong === "Khác"
     ) {
       setDungluong("Khác");
@@ -219,8 +219,9 @@ export default function EditModal(props) {
                   id="ngaysanxuat"
                   name="trip-start"
                   onChange={(e) => setNgaysanxuat(new Date(e.target.value))}
-                  value={ngaysanxuat.toISOString().split("T")[0]}
-                ></input>
+                  value={ngaysanxuat.toString().split("T")[0]}
+                 
+                > {console.log(ngaysanxuat)}</input>
               </div>
             </div>
 
@@ -305,7 +306,7 @@ export default function EditModal(props) {
               </div>
             </div>
 
-            {dungluong === "Khác" && (
+            { dungluong==="Khác"&&
               <div className="row mb-1">
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
@@ -317,7 +318,7 @@ export default function EditModal(props) {
                   ></input>
                 </div>
               </div>
-            )}
+            }
             <div className="row mb-1">
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">Giá mới</div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">

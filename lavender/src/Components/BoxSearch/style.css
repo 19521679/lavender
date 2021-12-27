@@ -44,13 +44,10 @@
     white-space: nowrap;
     top: 0px;
     right:0px;
-    margin-right: 10px;
+    
   }
   .close-group-btn .fas{
     cursor: pointer;
-  }
-  .input-group-btn .bi-search{
-    margin-bottom: 7px;
   }
   .cps-input {
     width: calc(100% - 26px);
