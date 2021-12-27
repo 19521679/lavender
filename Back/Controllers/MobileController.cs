@@ -32,36 +32,58 @@ namespace Back.Controllers
         [Route("/mobile")]
         public async Task<IActionResult> GetAllMobile()
         {
-            var sanpham = await lavenderContext.Sanpham.Where(s => s.Maloai == 1 ).ToListAsync();
-            return StatusCode(200, Json(sanpham));
+            var mobile = await (from x in lavenderContext.Sanpham
+                                where x.Maloai == 1
+                                select x).ToListAsync();
+            return StatusCode(200, Json(mobile));
         }
 
-
-        [Route("/mobile-dess")]
-        public async Task<IActionResult> GetAllDesMobile()
+        [Route("/mobile-with-new-price")]
+        [HttpGet]
+        public async Task<IActionResult> MobileWithNewPrice()
         {
             var sanphams = await (from x in lavenderContext.Sanpham
-                                  where x.Maloai==1
-                                  select x).ToArrayAsync();
+                                  where x.Maloai == 1
+                                  select x).ToListAsync();
 
-            List<dynamic> listnew = new List<dynamic>();
-            foreach (var i in sanphams)
+            var customTasks = sanphams.Select(async i =>
             {
                 float giamoi = 0;
                 giamoi = await (from c in lavenderContext.Chitietsanpham
                                 where c.Masanpham == i.Masanpham
-                               
                                 && c.Tinhtrang.Equals("Sẵn có")
                                 orderby c.Giamoi ascending
                                 select c.Giamoi).FirstOrDefaultAsync();
+                var thuonghieutemp = await (from x in lavenderContext.Thuonghieu
+                                            where x.Mathuonghieu == i.Mathuonghieu
+                                            select x).FirstOrDefaultAsync();
+                return new
+                {
+                    sanpham = i,
+                    giamoi = giamoi,
+                    tenthuonghieu = thuonghieutemp.Tenthuonghieu
+                };
+            });
 
-                listnew.Add(new { masanpham = i.Masanpham, tensanpham = i.Tensanpham, maloai = i.Maloai, mathuonghieu = i.Mathuonghieu, mota = i.Mota, image = i.Image, thoidiemramat = i.Thoidiemramat, dongia = i.Dongia, thoigianbaohanh = i.Thoigianbaohanh, giamoi = giamoi });
-            }
-
-            listnew = listnew.OrderByDescending(x => x.giamoi).ToList();
+            List<dynamic> listnew = (await Task.WhenAll(customTasks)).Select(i =>
+             new
+             {
+                 masanpham = i.sanpham.Masanpham,
+                 tensanpham = i.sanpham.Tensanpham,
+                 tenthuonghieu = i.tenthuonghieu,
+                 maloai = i.sanpham.Maloai,
+                 mathuonghieu = i.sanpham.Mathuonghieu,
+                 mota = i.sanpham.Mota,
+                 image = i.sanpham.Image,
+                 thoidiemramat = i.sanpham.Thoidiemramat,
+                 dongia = i.sanpham.Dongia,
+                 thoigianbaohanh = i.sanpham.Thoigianbaohanh,
+                 giamoi = i.giamoi
+             }).AsEnumerable().ToList<dynamic>();
 
             return StatusCode(200, Json(listnew));
         }
+
     }
 }
 

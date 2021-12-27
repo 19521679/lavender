@@ -51,8 +51,9 @@ export default function AddModal(props) {
       onRequestClose={props.closeModal}
       style={customStyles}
       contentLabel="Example Modal"
+
     >
-      <div class="add-item-modal taikhoankhachhang" role="document">
+      <div class=" add-item-modal taikhoankhachhang" role="document">
         <div class="">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">

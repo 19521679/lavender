@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -15,6 +16,7 @@ namespace Back.Models
         public lavenderContext(DbContextOptions<lavenderContext> options)
             : base(options)
         {
+
         }
         public virtual DbSet<Baiviet> Baiviets { get; set; }
         public virtual DbSet<Baohanh> Baohanhs { get; set; }
@@ -909,6 +911,7 @@ namespace Back.Models
            
 
             OnModelCreatingPartial(modelBuilder);
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

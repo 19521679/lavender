@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useEffect, useState} from "react";
 import "./ProductItem.css";
 import * as imageApi from "../apis/image.js";
 import * as detailProductapi from "../apis/detailProduct";
@@ -9,33 +9,20 @@ import * as trademarkApi from "../apis/trademark";
 import * as numberHelper from "../../Common/helper/numberHelper";
 import { Link } from "react-router-dom";
 
-export default class ProductItem extends Component {
-  state = {
-    giamoi: 0,
-    sosao: 0,
-    sodanhgia: 0,
-    thongsokithuat: [],
-    thuonghieu: undefined,
-  };
-  componentDidMount() {
-    detailProductapi
-      .xemgiamoitheomasanpham(this.props.product.masanpham)
-      .then((success) => {
-        if (success.status === 200)
-          this.setState({ giamoi: success.data.value });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+export default function ProductItem (props) {
 
+  const [sosao, setSosao] = useState(0);
+  const [sodanhgia, setSodanhgia] = useState(0);
+  const [thongsokithuat, setThongsokithuat] = useState([]);
+
+
+  useEffect(() =>{
     evalueteApi
-      .evalueteByProductId(this.props.product.masanpham)
+      .evalueteByProductId(props.product.masanpham)
       .then((success) => {
         if (success.status === 200) {
-          this.setState({
-            sosao: success.data.value.trungbinh,
-            sodanhgia: success.data.value.sodanhgia,
-          });
+         setSosao(success.data.value.trungbinh)
+            setSodanhgia(success.data.value.sodanhgia)
         }
       })
       .catch((error) => {
@@ -43,68 +30,56 @@ export default class ProductItem extends Component {
       });
 
     productApi
-      .thongsokithuatBangMasanpham(this.props.product.masanpham)
+      .thongsokithuatBangMasanpham(props.product.masanpham)
       .then((success) => {
-        this.setState({ thongsokithuat: success.data.value.$values });
+        setThongsokithuat(success.data.value.$values)
       })
       .catch((error) => {
         console.error(error);
       });
 
-    trademarkApi
-      .TimThuonghieuBangMathuonghieu(this.props.product.mathuonghieu)
-      .then((success) => {
-        if (success.status === 200) {
-          this.setState({ thuonghieu: success.data.value });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-  render() {
+  },[props.product])
     return (
       <div className="product-item " data-aos="zoom-in" data-aos-delay={100}>
         <div className="icon-box iconbox-blue">
           <div className="row">
             {function () {
-              if (this.state.giamoi === 0) return;
-              if (this.state.giamoi < this.props.product.dongia)
+              if (props.product.giamoi === 0) return;
+              if (props.product.giamoi  < props.product.dongia)
                 return (
                   <div className="box-item-sticker-percent">
                     <p>
                       Giảm{""}
                       {(
                         100 -
-                        (this.state.giamoi / this.props.product.dongia) * 100
+                        (props.product.giamoi  / props.product.dongia) * 100
                       ).toFixed(0)}
                       %
                     </p>
                   </div>
                 );
-            }.bind(this)()}
+            }()}
 
             <Link
               // href={() => false}
               // onClick={() => {
-              //   var url = CLIENT_ENDPOINT + this.props.product.image;
+              //   var url = CLIENT_ENDPOINT + props.product.image;
               //   window.location.href = `${url}`;
               // }}
-              to={this.props.product.image}
+              to={props.product.image}
               className="box-click"
             >
               <div className="icon">
                 <img
                   alt=""
-                  src={imageApi.image(this.props.product.image)}
+                  src={imageApi.image(props.product.image)}
                 ></img>
                 <i className="bx bxl-dribbble" />
               </div>
               <div>
                 <h5 className="product-name text-dark">
-                  {this.state.thuonghieu !== undefined &&
-                    this.state.thuonghieu.tenthuonghieu}{" "}
-                  {this.props.product.tensanpham}
+                    {props.product.tenthuonghieu}{" "}
+                  {props.product.tensanpham}
                 </h5>
               </div>
             </Link>
@@ -112,11 +87,11 @@ export default class ProductItem extends Component {
               <div className="">
                 {function () {
                   var result = [];
-                  if (this.state.giamoi !== this.props.product.dongia) {
+                  if (props.product.giamoi  !== props.product.dongia) {
                     result.push(
                       <p className="old-price">
                         {numberHelper.numberWithCommas(
-                          this.props.product.dongia
+                          props.product.dongia
                         )}
                         ₫
                       </p>
@@ -124,42 +99,42 @@ export default class ProductItem extends Component {
                   }
                   result.push(
                     <a href={() => false}>
-                      {this.state.giamoi === 0
+                      {props.product.giamoi  === 0
                         ? "Hết hàng"
-                        : numberHelper.numberWithCommas(this.state.giamoi) +
+                        : numberHelper.numberWithCommas(props.product.giamoi) +
                           "₫"}{" "}
                     </a>
                   );
                   return result;
-                }.bind(this)()}
+                }()}
               </div>
               <div className="item-product__box-raiting mt-4 ">
                 <i
                   className={
-                    this.state.sosao < 1 ? "fas fa-star" : "fas fa-star checked"
+                    sosao < 1 ? "fas fa-star" : "fas fa-star checked"
                   }
                 />
                 <i
                   className={
-                    this.state.sosao < 2 ? "fas fa-star" : "fas fa-star checked"
+                    sosao < 2 ? "fas fa-star" : "fas fa-star checked"
                   }
                 />
                 <i
                   className={
-                    this.state.sosao < 3 ? "fas fa-star" : "fas fa-star checked"
+                    sosao < 3 ? "fas fa-star" : "fas fa-star checked"
                   }
                 />
                 <i
                   className={
-                    this.state.sosao < 4 ? "fas fa-star" : "fas fa-star checked"
+                    sosao < 4 ? "fas fa-star" : "fas fa-star checked"
                   }
                 />
                 <i
                   className={
-                    this.state.sosao < 5 ? "fas fa-star" : "fas fa-star checked"
+                    sosao < 5 ? "fas fa-star" : "fas fa-star checked"
                   }
                 />
-                &nbsp;{this.state.sodanhgia} đánh giá
+                &nbsp;{sodanhgia} đánh giá
               </div>
             </div>
           </div>
@@ -167,7 +142,7 @@ export default class ProductItem extends Component {
           <div className="product-info row">
             <p className="">
               {(() => {
-                var x = this.state.thongsokithuat.find((obj) => {
+                var x = thongsokithuat.find((obj) => {
                   return obj.ten === "cpu" || obj.ten === "chip";
                 });
                 if (x !== undefined) {
@@ -177,7 +152,7 @@ export default class ProductItem extends Component {
             </p>
             <p>
               {(() => {
-                var x = this.state.thongsokithuat.find((obj) => {
+                var x = thongsokithuat.find((obj) => {
                   return obj.ten === "ram" || obj.ten === "dung lượng";
                 });
                 if (x !== undefined) {
@@ -187,7 +162,7 @@ export default class ProductItem extends Component {
             </p>
             <p>
               {(() => {
-                var x = this.state.thongsokithuat.find((obj) => {
+                var x = thongsokithuat.find((obj) => {
                   return (
                     obj.ten === "ssd" ||
                     obj.ten === "bộ nhớ" ||
@@ -203,5 +178,4 @@ export default class ProductItem extends Component {
         </div>
       </div>
     );
-  }
 }

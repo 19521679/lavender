@@ -11,10 +11,11 @@ const cookie = new Cookies();
 
 const customStyles = {
   content: {
-    top: "40%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
+    height : "80%",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
@@ -110,7 +111,7 @@ export default function EditModal(props) {
   function themthongsokithuat() {
     let newchitiet = thongsokithuat;
     newchitiet.push({ ten: "", noidung: "" });
-    setThongsokithuat(newchitiet);
+    setThongsokithuat([...newchitiet]);
   }
 
   return (
