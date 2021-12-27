@@ -32,6 +32,7 @@
   align-items: center;
   margin: 0 10px 0 0;
   font-size: 1rem;
+  padding-left: 788px;
 }
 .detail-product__box-name
   .cps-container
@@ -135,6 +136,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: 16px;
 }
 /* Chọn màu*/
 .box-product-option{
@@ -152,7 +154,7 @@
 }
 .box-product-option .box-title .box-title__title{
   margin-bottom: 10px;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 .box-product-option .box-content{
   width: 100%;
@@ -250,7 +252,7 @@ select option{
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 22px;
   color: #444444;
