@@ -184,7 +184,6 @@ section.cps-section
   flex-wrap: wrap;
   overflow-x: auto;
   overflow-y: hidden;
-
 }
 .brands .brand-body .brand-items .brch-row,
 .brands .brand-body .brand-items .brch-row-page {
@@ -217,7 +216,7 @@ section.cps-section
 }
 .brands .brand-body .brand-items .brch-row .brand-item img,
 .brands .brand-body .brand-items .brch-row-page .brand-item img {
-  height:65px;
+  height: 65px;
   width: 100%;
   margin: 0 auto;
 }
@@ -231,19 +230,17 @@ section.cps-section
   box-shadow: rgba(60, 64, 67, 0.1) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-.promotion1 .promotion-carousel{
+.promotion1 .promotion-carousel {
   border-radius: 10px;
 }
-.item-banner-right{
+.item-banner-right {
   width: 33%;
 }
-
 
 .maincard {
   position: absolute;
   width: 220px;
-  height: 89px
- 
+  height: 89px;
 }
 
 .thecard {
@@ -251,11 +248,11 @@ section.cps-section
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: all 0.8s ease
+  transition: all 0.8s ease;
 }
 
 .thecard:hover {
-  transform: rotateY(180deg)
+  transform: rotateY(180deg);
 }
 
 .thefront {
@@ -264,12 +261,12 @@ section.cps-section
   height: 100%;
   background-color: hidden;
   background: #fff;
-  color: #3D087B;
+  color: #3d087b;
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #eee;
   box-shadow: 5px 6px 6px 2px #e9ecef;
-  padding: 10px
+  padding: 10px;
 }
 
 .theback {
@@ -278,37 +275,34 @@ section.cps-section
   height: 100%;
   cursor: pointer;
   background-color: hidden;
-  background: #3D087B;
+  background: #3d087b;
   color: #fff;
   border-radius: 10px;
   transform: rotateY(180deg);
   border: 1px solid #eee;
   box-shadow: 5px 6px 6px 2px #e9ecef;
-  padding: 10px
+  padding: 10px;
 }
-
 
 .about {
-  font-size: 10px
+  font-size: 10px;
 }
-.promotion4{
+.promotion4 {
   margin-top: 20px;
 }
-.promotion4 img{
+.promotion4 img {
   border-radius: 10px;
-
 }
-.homewallpaper{
+.homewallpaper {
   position: absolute;
   left: 0;
   right: 0;
   top: -61px;
 }
-.section-home{
+.section-home {
   margin-top: 720px;
 }
-
-.titlehome{
+.titlehome {
   position: absolute;
   left: 27%;
   top: 300px;
