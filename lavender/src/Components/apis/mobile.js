@@ -8,6 +8,9 @@ export const mobile=()=>{
 
     return axiosServices.get(API_ENDPOINT+url);
 };
+export const mobileDess=()=>{
+    return axiosServices.get(`${API_ENDPOINT}/mobile-dess`);
+};
 export const mobileInfo=(query)=>{
     return axiosServices.get(API_ENDPOINT+query);
 };

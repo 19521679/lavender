@@ -50,6 +50,17 @@ export default function Index(props) {
     })()
   }, [props.location])
 
+  async function sapxepgiacao(){
+    await mobileApi
+    .mobileDess()
+    .then((success) => {
+      setData(success.data.value.$values);   
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   return (
     <div className="container" id="mobile">
     <section className="section-mobile">
@@ -136,7 +147,7 @@ export default function Index(props) {
             <p className="box-title">Sắp xếp theo</p>
           </div>
           <div className="list-filter">
-            <div className="cps-select item-filter">
+            <div className="cps-select item-filter" onClick={sapxepgiacao}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
