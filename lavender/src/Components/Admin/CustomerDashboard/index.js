@@ -78,7 +78,6 @@ export default function Index(props) {
         addFunction={addFunction}
       ></AddModal>
       {/* End Navbar */}
-      {console.log(listcustomer)}
       <div className="container-fluid py-4">
         <div className="row">
           <div className="col-12">
