@@ -125,11 +125,11 @@ export default class AddArticle extends Component {
                     <h3>Tạo bài viết</h3>
                     <form onSubmit={this.submitHandler}>
                         <div className="form-group pt-3">
-                            <h5>tiêu đề</h5>
+                            <h5>Tiêu đề</h5>
                             <input name='tieude' value={tieude} onChange={this.changeHandler} type="text" className="form-control border" placeholder="nhập tiêu đề bài viết" />
-                            <h5>mô tả</h5>
+                            <h5>Mô tả</h5>
                             <textarea name='mota' value={mota} onChange={this.changeHandler} className="form-control border" id="" rows="3" placeholder="nhập mô tả bài viết"></textarea>
-                            <h5>thumnail</h5>
+                            <h5>Thumnail</h5>
                             <input name='thumnail' value={thumnail} onChange={this.changeHandler} type="text" className="form-control border" placeholder="nhập url thumnail" />
                         </div>
                         <Editor value={editorState}

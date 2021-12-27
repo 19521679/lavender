@@ -72,7 +72,7 @@ box-title a.box-title__title > h2 {
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 22px;
-  color: #444444;
+  color: yellow !important;
 }
 .box-related-tag .list-related-tag {
   padding-top: 0;
