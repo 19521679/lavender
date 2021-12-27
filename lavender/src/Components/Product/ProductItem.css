@@ -1,6 +1,4 @@
-.item-product .item-product__box-price{
-  text-align: center;
-}
+
 .product-item {
   width: calc(25%);
   padding: 0 6px 0 0;
@@ -434,16 +432,7 @@
 
 /* rating*/
 .item-product__box-raiting {
-  /* float: left;
+  float: left;
   margin-bottom: 1rem;
-  font-size: 1.2rem; */
-  text-align: center;
-  margin-bottom: 16px;
   font-size: 1.2rem;
-}
-.item-product__box-raiting .fa-star {
-  color: #707070;
-}
-.icon-box .product-name{
-  margin-top: 20px;
 }

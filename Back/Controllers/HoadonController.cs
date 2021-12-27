@@ -102,7 +102,7 @@ namespace Back.Controllers
             var makhachhang = int.Parse(json.GetString("makhachhang"));
 
             int? makhuyenmai = null;
-            if (json.GetString("makhuyenmai") != null) int.Parse(json.GetString("makhuyenmai"));
+            if (json.GetString("makhuyenmai") != null ) int.Parse(json.GetString("makhuyenmai"));
 
             var ngayhoadon = DateTime.Parse(json.GetString("ngayhoadon")).ToLocalTime();
             var manhanvien = int.Parse(json.GetString("manhanvien"));
@@ -135,7 +135,7 @@ namespace Back.Controllers
                 var vanchuyen = await (from x in lavenderContext.Vanchuyen
                                        where x.Sohoadon == hoadon.Sohoadon
                                        select x).FirstOrDefaultAsync();
-                if (vanchuyen != null)
+                if (vanchuyen!=null)
                 {
                     vanchuyen.Trangthai = json.GetString("trangthai");
                 }
@@ -191,7 +191,7 @@ namespace Back.Controllers
             }
             await lavenderContext.SaveChangesAsync();
 
-
+      
 
             var vanchuyens = await (from v in lavenderContext.Vanchuyen
                                     where v.Sohoadon == sohoadon
@@ -205,7 +205,7 @@ namespace Back.Controllers
                 lavenderContext.Remove(i);
             }
 
-
+           
             await lavenderContext.SaveChangesAsync();
             Hoadon hoadon = await lavenderContext.Hoadon.SingleOrDefaultAsync(x => x.Sohoadon == sohoadon);
             if (hoadon != null)
@@ -237,9 +237,7 @@ namespace Back.Controllers
             var listhoadon = await (from x in lavenderContext.Hoadon
                                     join y in lavenderContext.Vanchuyen
                                     on x.Sohoadon equals y.Sohoadon
-                                    where x.Makhachhang == makhachhang
-                                      && y.Trangthai.Equals("Đang xử lý")
-                                  
+                                    where y.Trangthai.Equals("Đang xử lý")
                                     select x).ToListAsync();
             return StatusCode(200, Json(listhoadon));
         }
@@ -252,9 +250,7 @@ namespace Back.Controllers
             var listhoadon = await (from x in lavenderContext.Hoadon
                                     join y in lavenderContext.Vanchuyen
                                     on x.Sohoadon equals y.Sohoadon
-                                    where x.Makhachhang == makhachhang
-                                     && y.Trangthai.Equals("Đang giao")
-                                        
+                                    where y.Trangthai.Equals("Đang giao")
                                     select x).ToListAsync();
             return StatusCode(200, Json(listhoadon));
         }
