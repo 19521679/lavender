@@ -85,6 +85,7 @@ export default class BillItem extends Component {
         <li className="list-group-item border-0 d-flex p-4 bg-gray-100 border-radius-lg ">
           <div className="d-flex flex-column">
             <h6 className="text-sm">
+              SOHD: {this.props.bill.sohoadon} - {"  "}
               {(this.state.customer !== undefined) &
                 (this.state.customer !== null) &&
                 this.state.customer.tenkhachhang}

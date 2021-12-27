@@ -98,44 +98,36 @@ namespace Back.Controllers
         [HttpPost]
         public async Task<IActionResult> AddOrUpdateHoadon(JsonElement json)
         {
-            var sohoadon = int.Parse(json.GetString("sohoadon"));
+
+
+            int? sohoadon = int.Parse(json.GetString("sohoadon"));
             var makhachhang = int.Parse(json.GetString("makhachhang"));
 
             int? makhuyenmai = null;
-            if (json.GetString("makhuyenmai") != null ) int.Parse(json.GetString("makhuyenmai"));
+            if (!string.IsNullOrEmpty(json.GetString("makhuyenmai"))) int.Parse(json.GetString("makhuyenmai"));
 
             var ngayhoadon = DateTime.Parse(json.GetString("ngayhoadon")).ToLocalTime();
-            var manhanvien = int.Parse(json.GetString("manhanvien"));
+
+            int? manhanvien = null;
+
+            if (!string.IsNullOrEmpty(json.GetString("manhanvien"))) manhanvien = int.Parse(json.GetString("manhanvien"));
             var tongtien = int.Parse(json.GetString("tongtien"));
             Chitiethoadon[] chitiethoadons = Newtonsoft.Json.JsonConvert.DeserializeObject<Chitiethoadon[]>(json.GetString("chitiethoadon"));
 
-            Hoadon temp = new Hoadon();
-            if (sohoadon != 0)
+
+            if (!string.IsNullOrEmpty(json.GetString("sohoadon")))
             {
-                temp.Sohoadon = sohoadon;
-            }
-            temp.Makhachhang = makhachhang;
-
-            temp.Makhuyenmai = makhuyenmai;
-            temp.Ngayhoadon = ngayhoadon;
-            temp.Manhanvien = manhanvien;
-            temp.Tongtien = tongtien;
-
-            Hoadon hoadon = null;
-
-            if (temp.Sohoadon != null)
-            {
-                hoadon = await lavenderContext.Hoadon.SingleOrDefaultAsync(b => b.Sohoadon == temp.Sohoadon);
-                hoadon.Makhachhang = temp.Makhachhang;
-                hoadon.Makhuyenmai = temp.Makhuyenmai;
-                hoadon.Ngayhoadon = temp.Ngayhoadon;
-                hoadon.Manhanvien = temp.Manhanvien;
-                hoadon.Tongtien = temp.Tongtien;
+                var hoadon = await lavenderContext.Hoadon.SingleOrDefaultAsync(b => b.Sohoadon == sohoadon);
+                hoadon.Makhachhang = makhachhang;
+                hoadon.Makhuyenmai = makhuyenmai;
+                hoadon.Ngayhoadon = ngayhoadon;
+                hoadon.Manhanvien = manhanvien;
+                hoadon.Tongtien = tongtien;
 
                 var vanchuyen = await (from x in lavenderContext.Vanchuyen
                                        where x.Sohoadon == hoadon.Sohoadon
                                        select x).FirstOrDefaultAsync();
-                if (vanchuyen!=null)
+                if (vanchuyen != null)
                 {
                     vanchuyen.Trangthai = json.GetString("trangthai");
                 }
@@ -144,17 +136,26 @@ namespace Back.Controllers
             }
             else
             {
+                Hoadon temp = new Hoadon();
+                temp.Makhachhang = makhachhang;
+                temp.Makhuyenmai = makhuyenmai;
+                temp.Ngayhoadon = ngayhoadon;
+                temp.Manhanvien = manhanvien;
+                temp.Tongtien = tongtien;
+
                 await lavenderContext.AddAsync(temp);
                 await lavenderContext.SaveChangesAsync();
-                hoadon = await (from h in lavenderContext.Hoadon
-                                select h).OrderByDescending(x => x.Ngayhoadon).FirstOrDefaultAsync();
+                sohoadon = await (from x in lavenderContext.Hoadon
+                                  orderby x.Ngayhoadon descending
+                                  select x.Sohoadon).FirstOrDefaultAsync();
 
             }
+
 
             foreach (var i in chitiethoadons)
             {
                 var chitiet = await (from c in lavenderContext.Chitiethoadon
-                                     where c.Sohoadon == hoadon.Sohoadon
+                                     where c.Sohoadon == sohoadon
                                      && c.Imei == i.Imei
                                      select c).FirstOrDefaultAsync();
                 if (chitiet != null)
@@ -163,7 +164,7 @@ namespace Back.Controllers
                 }
                 else
                 {
-                    i.Sohoadon = (int)hoadon.Sohoadon;
+                    i.Sohoadon = (int)sohoadon;
                     await lavenderContext.AddAsync(i);
                 }
                 await lavenderContext.SaveChangesAsync();
@@ -191,7 +192,7 @@ namespace Back.Controllers
             }
             await lavenderContext.SaveChangesAsync();
 
-      
+
 
             var vanchuyens = await (from v in lavenderContext.Vanchuyen
                                     where v.Sohoadon == sohoadon
@@ -205,7 +206,7 @@ namespace Back.Controllers
                 lavenderContext.Remove(i);
             }
 
-           
+
             await lavenderContext.SaveChangesAsync();
             Hoadon hoadon = await lavenderContext.Hoadon.SingleOrDefaultAsync(x => x.Sohoadon == sohoadon);
             if (hoadon != null)
