@@ -199,7 +199,7 @@ select option{
 .box-product-option .box-content .list-colors .item-color > a{
   display: flex!important;
   flex-direction: row;
-  /* justify-content: center; */
+  justify-content: center; 
   align-items: flex-start;
   padding: 0!important;
   text-decoration: none!important;
@@ -243,7 +243,7 @@ select option{
 }
 .box-promotion .box-title .box-title__title{
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 17px;
   color: #D70018;
 }
 .box-title .box-title__title{
@@ -341,6 +341,7 @@ a {
 }
 strong {
   font-weight: bold;
+  padding-top: 5px;
 }
 img {
   border: 0;
