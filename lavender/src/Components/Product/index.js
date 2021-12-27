@@ -121,6 +121,8 @@ class index extends Component {
         dungluong: "-1",
         mausac: "-1",
       };
+      this.loadDungluong();
+      this.loadMausac();
       detailProductApi
         .xemgiatheodungluongvamausac(request1)
         .then((success) => {
@@ -137,12 +139,22 @@ class index extends Component {
     }
     if (this.state.chondungluong === "-1") {
       this.setState({ dongia: -1 });
+      this.loadDungluong();
       return;
     }
 
     if (this.state.chonmausac === "-1") {
       this.setState({ dongia: -2 });
+      this.loadMausac();
       return;
+    }
+
+    if (this.state.chondungluong !== "-1"){
+      this.loadMausac();
+    }
+
+    if (this.state.chonmausac !== "-1"){
+      this.loadDungluong();
     }
 
     var request2 = {
@@ -168,14 +180,14 @@ class index extends Component {
       });
   }
 
-  async loadDungluong() {
+   loadDungluong() {
     var { loai } = this.props.match.params;
     var { hang } = this.props.match.params;
     var { dong } = this.props.match.params;
     var { sanpham } = this.props.match.params;
     var query;
     query = `/${loai}/${hang}/${dong}/${sanpham}/dungluong?mausac=${this.state.chonmausac}`;
-    await detailProductApi
+     detailProductApi
       .dungluong(query)
       .then((success) => {
         if (success.status === 200) {
@@ -187,14 +199,14 @@ class index extends Component {
       });
   }
 
-  async loadMausac() {
+   loadMausac() {
     var { loai } = this.props.match.params;
     var { hang } = this.props.match.params;
     var { dong } = this.props.match.params;
     var { sanpham } = this.props.match.params;
     var query;
     query = `/${loai}/${hang}/${dong}/${sanpham}/mausac?dungluong=${this.state.chondungluong}`;
-    await detailProductApi
+     detailProductApi
       .mausac(query)
       .then((success) => {
         if (success.status === 200) {
@@ -402,7 +414,6 @@ class index extends Component {
                                   chondungluong:
                                     this.state.dungluong[key].dungluong,
                                 });
-                                this.loadMausac();
                               }
                               this.xemGia();
                             }}
@@ -479,7 +490,6 @@ class index extends Component {
                                     await this.setState({
                                       chonmausac: this.state.mausac[key].mausac,
                                     });
-                                    this.loadDungluong();
                                   }
                                   this.xemGia();
                                 }}
