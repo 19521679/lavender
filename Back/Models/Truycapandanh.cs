@@ -5,19 +5,15 @@ using Newtonsoft.Json;
 
 namespace Back.Models
 {
-    public partial class Khachhangdangnhap
+    public partial class Truycapandanh
     {
-        public Khachhangdangnhap()
+        public Truycapandanh()
         {
         }
-        public string Refreshtoken { get; set; }
-        public int Makhachhang { get; set; }
-      
-        public string Ip { get; set; }
-        public string Location { get; set; }
-        public DateTime Thoidiem { get; set; }
 
-        public virtual  Khachhang MakhachhangNavigation { get; set; }
+        public int Matruycap { get; set; }
+        public string Ip { get; set; }
+        public DateTime Thoidiem { get; set; }
 
         public override string ToString()
         {

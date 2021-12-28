@@ -78,11 +78,13 @@ namespace Back
                      ;
              }));
 
-            services.AddDbContext<lavenderContext>(options =>
-            {
-                string connectstring = Configuration.GetConnectionString("AppMvcConnectionString");
-                options.UseMySQL(connectstring);
-            });
+            //services.AddDbContext<lavenderContext>(options =>
+            //{
+            //    string connectstring = Configuration.GetConnectionString("AppMvcConnectionString");
+            //    options.UseMySQL(connectstring);
+
+            //}, ServiceLifetime.Transient);
+            services.AddTransient<lavenderContext, lavenderContext>();
             services.AddControllers(options =>
             {
                 options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();

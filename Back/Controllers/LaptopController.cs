@@ -46,40 +46,41 @@ namespace Back.Controllers
                                   where x.Maloai == 2
                                   select x).ToListAsync();
 
-            var customTasks = sanphams.Select(async i =>
-            {
-                float giamoi = 0;
-                giamoi = await (from c in lavenderContext.Chitietsanpham
-                                where c.Masanpham == i.Masanpham
-                                && c.Tinhtrang.Equals("Sẵn có")
-                                orderby c.Giamoi ascending
-                                select c.Giamoi).FirstOrDefaultAsync();
-                var thuonghieutemp = await (from x in lavenderContext.Thuonghieu
-                                            where x.Mathuonghieu == i.Mathuonghieu
-                                            select x).FirstOrDefaultAsync();
-                return new
-                {
-                    sanpham = i,
-                    giamoi = giamoi,
-                    tenthuonghieu = thuonghieutemp.Tenthuonghieu
-                };
-            });
 
-            List<dynamic> listnew = (await Task.WhenAll(customTasks)).Select(i =>
-             new
-             {
-                 masanpham = i.sanpham.Masanpham,
-                 tensanpham = i.sanpham.Tensanpham,
-                 tenthuonghieu = i.tenthuonghieu,
-                 maloai = i.sanpham.Maloai,
-                 mathuonghieu = i.sanpham.Mathuonghieu,
-                 mota = i.sanpham.Mota,
-                 image = i.sanpham.Image,
-                 thoidiemramat = i.sanpham.Thoidiemramat,
-                 dongia = i.sanpham.Dongia,
-                 thoigianbaohanh = i.sanpham.Thoigianbaohanh,
-                 giamoi = i.giamoi
-             }).AsEnumerable().ToList<dynamic>();
+            List<Task> tasks = new List<Task>();
+            List<dynamic> listnew = new List<dynamic>();
+            foreach (var i in sanphams)
+            {
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    float giamoi = 0;
+                    giamoi = await (from c in context.Chitietsanpham
+                                    where c.Masanpham == i.Masanpham
+                                    && c.Tinhtrang.Equals("Sẵn có")
+                                    orderby c.Giamoi ascending
+                                    select c.Giamoi).FirstOrDefaultAsync();
+                    var thuonghieutemp = await (from x in context.Thuonghieu
+                                                where x.Mathuonghieu == i.Mathuonghieu
+                                                select x).FirstOrDefaultAsync();
+                    listnew.Add(new
+                    {
+                        masanpham = i.Masanpham,
+                        tensanpham = i.Tensanpham,
+                        tenthuonghieu = thuonghieutemp.Tenthuonghieu,
+                        maloai = i.Maloai,
+                        mathuonghieu = i.Mathuonghieu,
+                        mota = i.Mota,
+                        image = i.Image,
+                        thoidiemramat = i.Thoidiemramat,
+                        dongia = i.Dongia,
+                        thoigianbaohanh = i.Thoigianbaohanh,
+                        giamoi = giamoi
+                    });
+                });
+                tasks.Add(task);
+            }
+            await Task.WhenAll(tasks);
 
             return StatusCode(200, Json(listnew));
         }

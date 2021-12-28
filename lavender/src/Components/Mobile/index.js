@@ -23,25 +23,24 @@ export default function Index(props) {
 
   useEffect(() => {
     select();
-  }, [])
+  }, []);
   useEffect(() => {
-    if (data===undefined|| data.length===0) return;
+    if (data === undefined || data.length === 0) return;
     reduceData([...dataTemp]);
   }, [props.location]);
 
-  function reduceData(list){
+  function reduceData(list) {
     const params = new URLSearchParams(props.location.search);
     const hang = params.get("hang");
     var temp = list;
-    if (hang !== undefined && hang !== null && hang !== "null") 
-    {  
+    if (hang !== undefined && hang !== null && hang !== "null") {
       _.remove(temp, function (n) {
         return !n.tenthuonghieu.toString().toLowerCase().includes(hang);
       });
       setData([...temp]);
       return;
     }
-    setData([...list])
+    setData([...list]);
   }
 
   async function loadData() {
@@ -63,6 +62,7 @@ export default function Index(props) {
     if (selectMode === i) {
       i = 0;
     }
+    setSelectMode(i);
     switch (i) {
       case 0:
         setData([...dataTemp]);
@@ -77,12 +77,18 @@ export default function Index(props) {
         temp2.sort((a, b) => parseFloat(a.giamoi) - parseFloat(b.giamoi));
         setData(temp2);
         break;
+      case 3:
+        var temp3 = data;
+        temp3.sort(
+          (a, b) => new Date(b.thoidiemramat) - new Date(a.thoidiemramat)
+        );
+        setData(temp3);
+        break;
       default:
         await loadData();
         break;
     }
-    if (i===undefined) i=0;
-    setSelectMode(i);
+    if (i === undefined) i = 0;
     setLoading(false);
   }
 
@@ -158,7 +164,7 @@ export default function Index(props) {
             ></Trademark>
           </div>
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div>
             <a href={() => false} className="recommend-item">
               Điện thoại phổ thông
@@ -167,59 +173,83 @@ export default function Index(props) {
               Mới ra mắt
             </a>
           </div>
-        </div>
-
-        <div className="row">
-          <div className="block-filter">
-            <div className="">
-              <p className="box-title">Sắp xếp theo</p>
-            </div>
-            <div className="list-filter">
-              <div className={selectMode===1?"cps-select item-filter trademark-selected":"cps-select item-filter"} onClick={() => select(1)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-sort-up"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
-                </svg>
-                Giá cao
+        </div> */}
+        {data !== undefined && (
+          <div className="row">
+            <div className="block-filter">
+              <div className="">
+                <p className="box-title">Sắp xếp theo</p>
               </div>
-
-              <div className={selectMode===2?"cps-select item-filter trademark-selected":"cps-select item-filter"} onClick={() => select(2)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-sort-down"
-                  viewBox="0 0 16 16"
+              <div className="list-filter">
+                <div
+                  className={
+                    selectMode === 1
+                      ? "cps-select item-filter trademark-selected"
+                      : "cps-select item-filter"
+                  }
+                  onClick={() => select(1)}
                 >
-                  <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
-                </svg>
-                Giá thấp
-              </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-sort-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                  </svg>
+                  Giá cao
+                </div>
 
-              <div className={selectMode===3?"cps-select item-filter trademark-selected":"cps-select item-filter"}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-eye"
-                  viewBox="0 0 16 16"
+                <div
+                  className={
+                    selectMode === 2
+                      ? "cps-select item-filter trademark-selected"
+                      : "cps-select item-filter"
+                  }
+                  onClick={() => select(2)}
                 >
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                </svg>
-                Bán chạy
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-sort-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                  </svg>
+                  Giá thấp
+                </div>
+
+                <div
+                  style={{ width: "150px" }}
+                  className={
+                    selectMode === 3
+                      ? "cps-select item-filter trademark-selected"
+                      : "cps-select item-filter"
+                  }
+                  onClick={() => select(3)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-eye"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                  </svg>
+                  Mới ra mắt
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+
         {/* list-item */}
 
         <div id="highlight" className="highlight section-bg">

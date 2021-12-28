@@ -12,6 +12,7 @@ import CookieConsent from "react-cookie-consent";
 import InitData from "./InitData";
 import { Helmet } from "react-helmet";
 
+
 const store = configureStore();
 function App(props) {
   const showContentMenus = (routes) => {
@@ -34,7 +35,8 @@ function App(props) {
     return <Switch>{result}</Switch>;
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  }, []);
 
   return (
     <Provider store={store}>
@@ -42,7 +44,7 @@ function App(props) {
 
       <InitData></InitData>
       <div>
-        {props.location.pathname==="/" ? (
+        {props.location.pathname === "/" ? (
           <Helmet
             bodyAttributes={{ style: "background-color : #6b0a0a" }}
           ></Helmet>
