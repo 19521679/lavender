@@ -272,7 +272,7 @@ namespace Back.Controllers
                                   select x).FirstOrDefaultAsync();
                 ctsp.Tinhtrang = "Sẵn có";
             }
-            vanchuyen.Trangthai = "Đã huỷ";
+            vanchuyen.Trangthai = "Đã hủy";
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200);
         }
@@ -301,6 +301,20 @@ namespace Back.Controllers
             await lavenderContext.AddAsync(chitietvanchuyen);
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200);
+        }
+
+
+        [Route("/hoadon-cuatoi-dahuy")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> HoadonCuatoiDahuy(int makhachhang)
+        {
+            var listhoadon = await (from x in lavenderContext.Hoadon
+                                    join y in lavenderContext.Vanchuyen
+                                    on x.Sohoadon equals y.Sohoadon
+                                    where y.Trangthai.Equals("Đã hủy")
+                                    select x).ToListAsync();
+            return StatusCode(200, Json(listhoadon));
         }
     }
 
