@@ -140,7 +140,7 @@ export default class index extends Component {
               <div className="row">
                 <div className="container mt-3">
                   <div className="d-flex align-items-center cards1">
-                    <div className="card1">
+                    <div className="card1" style={{marginLeft: "0.5rem"}}>
                                   <div className="mb-3">
                                     {" "}
                                     <span className="text-grey fs-5">Thống kê</span>
@@ -167,7 +167,7 @@ export default class index extends Component {
                             
                 
                     </div>
-                    <div className="card1">
+                    <div className="card1" style={{marginLeft: "11.5rem"}}>
                                   <div className="mb-3">
                                     {" "}
                                     <span className="text-grey fs-5">
@@ -190,7 +190,7 @@ export default class index extends Component {
                                     </div>
                                   </div>
                     </div>
-                    <div className="card1">
+                    <div className="card1"  style={{marginLeft: "23rem"}}>
                                   <div className="mb-3">
                                     {" "}
                                     <span className="text-grey fs-5">
@@ -218,7 +218,7 @@ export default class index extends Component {
                 </div> 
   <div className="col-lg-6">
   <div className="container p-2">
-        <div className="card5-outer">
+        <div className="card5-outer" style={{marginTop: "50px"}}>
           <div className="card5"> <span className="circle" />
             <div className="top-div">
               <div className="chip-image"> <img src="https://i.imgur.com/lRG4VIS.png" /> </div>
@@ -235,7 +235,7 @@ export default class index extends Component {
   </div>
   <div className="col-lg-6">
     <div className="container p-2">
-      <div className="card4">
+      <div className="card4" style={{marginTop: "50px"}}>
         <div className="name text-left mb-3"> <img src="https://i.imgur.com/5ld43yc.png" width={100} /> </div>
         <div className="cardnumber d-flex justify-content-between align-items-center px-3 mb-3"> <span>4535</span> <span>9898</span> <span>4234</span> <span>5566</span> </div>
         <div className="text-right visa"> <img src="https://i.imgur.com/HW3MltH.png" width={80} /> </div>
