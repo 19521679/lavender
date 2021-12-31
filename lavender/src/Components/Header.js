@@ -9,6 +9,7 @@ import logo from "../Asset/logo/logo.png";
 import BoxSearch from "./BoxSearch";
 import Social from "./Social";
 
+
 const menus = [
   {
     name: "Trang chủ",
@@ -75,6 +76,10 @@ var showMenu = (temps) => {
 };
 
 class Header extends Component {
+  async componentDidMount() {
+
+
+  }
   render() {
     return (
       <>

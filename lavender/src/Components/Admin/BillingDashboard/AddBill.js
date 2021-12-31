@@ -23,7 +23,7 @@ export default class AddBill extends Component {
       manhanvien:
         this.props.bill !== undefined ? this.props.bill.manhanvien : 0,
       tongtien: this.props.bill !== undefined ? this.props.bill.tongtien : 0,
-      vanchuyen: (this.props.vanchuyen!==undefined && this.props.vanchuyen!==null )&& this.props.vanchuyentransport,
+      trangthai: (this.props.transport!==undefined && this.props.transport!==null )&& this.props.transport.trangthai,
       chitiethoadon: [],
     };
   }
@@ -175,6 +175,7 @@ export default class AddBill extends Component {
                   <option value="Đang xử lý">Đang xử lý</option>
                   <option value="Đang giao">Đang giao</option>
                   <option value="Đã giao">Đã giao</option>
+                  <option value="Đã huỷ">Đã huỷ</option>
                 </select>
           </div>
         </div>

@@ -9,43 +9,49 @@ import * as transportApi from "../../apis/transport";
 const cookie = new Cookies();
 
 export default class BillItem extends Component {
-  state = { product: undefined, customer: undefined, modal: 0 , vanchuyen : undefined};
+  state = {
+    product: undefined,
+    customer: undefined,
+    modal: 0,
+    vanchuyen: undefined,
+  };
   async componentDidMount() {
-    let product = undefined;
-    let customer = undefined;
-    var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");
-    await productApi
-      .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        product = success.data.value;
-      })
-      .catch((error) => {
-        console.error(error)
-      });
+    var task1 = () => {
+      var token = cookie.get("token");
+      var refreshtoken = cookie.get("refreshtoken");
+      productApi
+        .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
+        .then((success) => {})
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    var task2 = () => {
+      var token = cookie.get("token");
+      var refreshtoken = cookie.get("refreshtoken");
+      customerApi
+        .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
+        .then((success) => {
+          this.setState({ customer: success.data.value });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
 
-    token = cookie.get("token");
-    refreshtoken = cookie.get("refreshtoken");
-    await customerApi
-      .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        customer = success.data.value;
-      })
-      .catch((error) => {
-        console.error(error)
-      });
-
-      await transportApi.vanchuyenBangSohoadon(this.props.bill.sohoadon)
-      .then((success) => {
-        if (success.status === 200){
-          this.setState({vanchuyen: success.data.value})
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      });
-
-    this.setState({ product: product, customer: customer });
+    var task3 = () => {
+      transportApi
+        .vanchuyenBangSohoadon(this.props.bill.sohoadon)
+        .then((success) => {
+          if (success.status === 200) {
+            this.setState({ vanchuyen: success.data.value });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    Promise.allSettled([task1(), task2(), task3()]);
   }
 
   showModal = (index) => {
@@ -62,22 +68,22 @@ export default class BillItem extends Component {
             return (
               <AddBill
                 handleClose={this.hideModal.bind(this)}
-                handleSave={(() => {
+                handleSave={() => {
                   this.hideModal.bind(this)();
                   this.props.handleSave();
-                })}
+                }}
                 bill={this.props.bill}
-                transport= {this.state.vanchuyen}
+                transport={this.state.vanchuyen}
               ></AddBill>
             );
           else if (this.state.modal === 2)
             return (
               <DeleteBill
                 handleClose={this.hideModal.bind(this)}
-                handleSave={(() => {
+                handleSave={() => {
                   this.hideModal.bind(this)();
                   this.props.handleSave();
-                })}
+                }}
                 bill={this.props.bill}
               ></DeleteBill>
             );
@@ -85,6 +91,7 @@ export default class BillItem extends Component {
         <li className="list-group-item border-0 d-flex p-4 bg-gray-100 border-radius-lg ">
           <div className="d-flex flex-column">
             <h6 className="text-sm">
+              SOHD: {this.props.bill.sohoadon} - {"  "}
               {(this.state.customer !== undefined) &
                 (this.state.customer !== null) &&
                 this.state.customer.tenkhachhang}
@@ -104,31 +111,18 @@ export default class BillItem extends Component {
                   (this.state.customer !== null) && this.state.customer.email}
               </span>
             </span>
-            <span className="text-xs">
-              Tên sản phẩm:{" "}
-              <span className="text-dark ms-sm-2 font-weight-bold">
-                {(this.state.product !== undefined) &
-                  (this.state.product !== null) &&
-                  this.state.product.tensanpham}
-                {"    "}
-              </span>
-              {"    "}Đơn giá:{" "}
-              <span className="text-dark ms-sm-2 font-weight-bold">
-                {(this.state.product !== undefined) &
-                  (this.state.product !== null) && this.state.product.dongia}
-                {"    "}
-              </span>
-
-            </span>
             <span className=" mt-2 text-xs">
               Ngày hoá đơn:{" "}
               <span className="text-dark ms-sm-2 font-weight-bold">
                 {this.props.bill.ngayhoadon}
               </span>
-
               {"   "} Trạng thái :{" "}
               <span className="text-dark ms-sm-2 font-weight-bold">
-                {(this.state.vanchuyen!==undefined&&this.state.vanchuyen!==null&&this.state.vanchuyen.trangthai!==undefined&&this.state.vanchuyen.trangthai!==null)&&this.state.vanchuyen.trangthai}
+                {this.state.vanchuyen !== undefined &&
+                  this.state.vanchuyen !== null &&
+                  this.state.vanchuyen.trangthai !== undefined &&
+                  this.state.vanchuyen.trangthai !== null &&
+                  this.state.vanchuyen.trangthai}
               </span>
             </span>
             <span className=" mt-2 text-xs">
@@ -153,9 +147,7 @@ export default class BillItem extends Component {
               <i class="bi bi-trash"></i>
               {"  "}Xoá
             </div>
-      
           </div>
-          
         </li>
       </>
     );

@@ -253,6 +253,21 @@ namespace Back.Controllers
             }
             return StatusCode(200, Json(s));
         }
+
+        [Route("/khachhangmoi-trongthang")]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        [HttpGet]
+        public async Task<IActionResult> LuotxemTrongthang(int thang, int nam)
+        {
+            int khachhangmoi = 0;
+            var khachhangs = await (from x in lavenderContext.Khachhang
+                                   select x).ToListAsync();
+            khachhangmoi = (from x in khachhangs
+                            where x.Ngaydangky.Year == nam && x.Ngaydangky.Month == thang
+                            select x).Count();
+
+            return StatusCode(200, Json(khachhangmoi));
+        }
     }
 
 }

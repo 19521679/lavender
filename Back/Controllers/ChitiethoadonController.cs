@@ -51,5 +51,29 @@ namespace Back.Controllers
             return StatusCode(200, Json(sohoadon));
         }
 
+        [Route("/sanpham-ban-trongthang")]
+        [HttpGet]
+        [Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        public async Task<IActionResult> SanphamBanTrongthang(int thang, int nam)
+        {
+            var sosanpham = 0;
+            var sanphams = await (from x in lavenderContext.Chitiethoadon
+                                  join y in lavenderContext.Hoadon
+                                  on x.Sohoadon equals y.Sohoadon
+                                  select new { imei = x.Imei, ngayhoadon = y.Ngayhoadon }).ToListAsync();
+            sosanpham += (from x in sanphams
+                          where x.ngayhoadon.Year == nam && x.ngayhoadon.Month == thang
+                          select x).Count();
+            return StatusCode(200, Json(sosanpham));
+        }
+
+        //[Route("/sanpham-trong-hoadon")]
+        //[HttpGet]
+        //[Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        //public async Task<IActionResult> SanphamTrongHoadon(int sohoadonbatdau, int soluong)
+        //{
+        //    var 
+        //    var imei = await (from x in lavenderContext.Chitiethoadon)
+        //}
     }
 }

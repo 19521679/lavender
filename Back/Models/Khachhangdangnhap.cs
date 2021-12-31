@@ -15,6 +15,7 @@ namespace Back.Models
       
         public string Ip { get; set; }
         public string Location { get; set; }
+        public DateTime Thoidiem { get; set; }
 
         public virtual  Khachhang MakhachhangNavigation { get; set; }
 

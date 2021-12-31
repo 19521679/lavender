@@ -11,10 +11,11 @@ const cookie = new Cookies();
 
 const customStyles = {
   content: {
-    top: "40%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
+    height : "80%",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
@@ -82,11 +83,11 @@ export default function EditModal(props) {
         <div class="">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">
-              Thêm mới khách hàng
+              Sửa khách hàng
             </h5>
           </div>
 
-          <div className="form-main-add-edit">
+          <div className="">
             <div className="row mb-3">
               <span className="text-secondary text-xs font-weight-bold">
                 <img

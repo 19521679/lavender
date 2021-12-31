@@ -233,7 +233,8 @@ namespace Back.Controllers
             List<dynamic> mausac = new List<dynamic>();
             foreach (var i in chitietsanphams)
             {
-                var timduoccaimoinaodo = true;
+                if (i.Mausac == null) continue;
+                bool timduoccaimoinaodo = true;
                 foreach (var j in listsanphamtheomausac)
                 {
                     if (j.Mausac.Equals(i.Mausac))
@@ -266,7 +267,8 @@ namespace Back.Controllers
             List<dynamic> dungluong = new List<dynamic>();
             foreach (var i in chitietsanphams)
             {
-                var timduoccaimoinaodo = true;
+                if (i.Dungluong == null) continue;
+                bool timduoccaimoinaodo = true;
                 foreach (var j in listsanphamtheodungluong)
                 {
                     if (j.Dungluong.Equals(i.Dungluong))
@@ -368,14 +370,14 @@ namespace Back.Controllers
             if (image == null || image.Length == 0) s.Image = NewDir;
             await lavenderContext.SaveChangesAsync();
 
-            if (image == null || image.Length == 0 && OldDir != NewDir && Directory.Exists(OldDir))
+            if (image != null && image.Length != 0 && OldDir != NewDir)
             {
                 MyDataHandler.MoveDir(OldDir, NewDir);
             }
-
-            if (image == null || image.Length == 0) return StatusCode(200, Json(s));
-
-
+            else
+            {
+                return StatusCode(200, Json(s));
+            }
 
             if (!Directory.Exists(NewDir))
             {

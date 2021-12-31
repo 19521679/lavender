@@ -79,30 +79,7 @@ export default function Index(props) {
         closeModal={closeModal}
         add={add}
       ></AddModal>
-      {/* Navbar */}
-      <nav
-        className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
-        id="navbarBlur"
-        navbar-scroll="true"
-      >
-        <div className="container-fluid py-1 px-3">
-          <nav aria-label="breadcrumb">
-            <h6 className="font-weight-bolder mb-0">Bảng sản nhân viên</h6>
-          </nav>
-          <div
-            className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-            id="navbar"
-          >
-            <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-              <div className="input-group input-group-outline">
-                <label className="form-label">Type here...</label>
-                <input type="text" className="form-control" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-      {/* End Navbar */}
+
       {/* dienthoai */}
       <div className="container-fluid py-4">
         <div className="row">
@@ -111,7 +88,7 @@ export default function Index(props) {
               <div className="card-header p-0 position-relative mt-n4 mx-3">
                 <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                   <h6 className="text-white text-capitalize ps-3 danhsachsanpham-title">
-                    Danh sách điện thoại
+                    Danh sách nhân viên
                   </h6>
                   <button
                     className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"

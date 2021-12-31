@@ -3,7 +3,7 @@
     right: 19px;
     top: -7px;
 }
-khuyenmai-modal .danhsachsanpham-title{
+.khuyenmai-modal .danhsachsanpham-title{
     z-index: 3
 }
 .khuyenmai-modal .add-item-modal{
@@ -12,8 +12,7 @@ khuyenmai-modal .danhsachsanpham-title{
 }
 .khuyenmai-modal .form-main-add-edit{
     padding: 24px 0px;
-    height: 250px;
+    height: 300px;
     display: flex;
     flex-direction: column;   
-    overflow: scroll;
 }

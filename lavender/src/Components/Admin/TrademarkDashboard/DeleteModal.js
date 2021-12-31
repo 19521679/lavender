@@ -44,7 +44,7 @@ export default function DeleteModal(props) {
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <div class="add-item-modal khachhangmodal" role="document">
+      <div class="add-item-modal thuonghieumodal" role="document">
         <div class="">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">

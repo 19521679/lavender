@@ -62,7 +62,6 @@ export default function Index(props) {
     _.remove(listtemp, (n) => {
       return n.imei === productdetail.imei;
     });
-    console.log(listtemp);
     await setList([...listtemp]);
   }
 

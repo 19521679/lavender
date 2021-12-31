@@ -28,6 +28,7 @@ export const test = () => {
     headers: { "Access-Control-Allow-Origin": "*" },
   });
 };
-export const refreshToken = (refreshtoken) => {
-  return axiosServices.get(`${API_ENDPOINT}/refresh-token?refreshtoken=${refreshtoken}`);
+export const refreshToken = (refreshtoken, ip) => {
+  return axiosServices.post(`${API_ENDPOINT}/refresh-token`, {refreshtoken, ip});
 };
+  

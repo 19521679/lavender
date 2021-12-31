@@ -72,7 +72,7 @@ box-title a.box-title__title > h2 {
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 22px;
-  color: #444444;
+  color: yellow !important;
 }
 .box-related-tag .list-related-tag {
   padding-top: 0;
@@ -305,5 +305,13 @@ section.cps-section
   top: -61px;
 }
 .section-home{
-  margin-top: 60%;
+  margin-top: 720px;
+}
+
+.titlehome{
+  position: absolute;
+  left: 27%;
+  top: 300px;
+  width: calc(47vw);
+  z-index: 99;
 }

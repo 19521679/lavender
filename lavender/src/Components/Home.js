@@ -8,10 +8,9 @@ import { Link } from "react-router-dom";
 import LoadingContainer from "../Common/helper/loading/LoadingContainer";
 import Hotsale from "./Hotsale";
 import promotion from "../Asset/logo/promotion.png";
-import ChristmasTreeMain from "./Effect/ChristmasTreeMain";
 import christmashome from "../Asset/wallpaper/christmashome.jpg";
 import Snowfall from "react-snowfall";
-import {Helmet} from 'react-helmet';
+import titlehome from "../Asset/wallpaper/titlehome.png";
 
 export default class Home extends Component {
   state = { listmobile: [], listlaptop: [], loading: true };
@@ -37,39 +36,38 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
-
-    await mobileApi
-      .mobile()
-      .then((success) => {
-        if (success.status === 200) {
-          this.setState({
-            listmobile: success.data.value.$values,
-
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    await laptopApi
-      .laptop()
-      .then((success) => {
-        if (success.status === 200) {
-          this.setState({
-            listlaptop: success.data.value.$values,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-      this.setState({loading: false})
+    await Promise.allSettled([
+       mobileApi
+        .mobileWithNewPrice()
+        .then((success) => {
+          if (success.status === 200) {
+            this.setState({
+              listmobile: success.data.value.$values,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        }),
+         laptopApi
+        .laptopWithNewPrice()
+        .then((success) => {
+          if (success.status === 200) {
+            this.setState({
+              listlaptop: success.data.value.$values,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      ]).then(() => {
+      this.setState({ loading: false });
+    });
   }
   render() {
     return (
       <>
-
         <Snowfall
           // color="white"
           // Applied to the canvas element
@@ -78,9 +76,13 @@ export default class Home extends Component {
           snowflakeCount={200}
           className="z-index-3"
         ></Snowfall>
-        <div className="homewallpaper">
-          <img alt="homewallpaper" src={christmashome}></img>
+        <div className="titlehome z-index-2">
+          <img alt="" src={titlehome}></img>
         </div>
+        <div className="homewallpaper z-index-0">
+          <img alt="" src={christmashome}></img>
+        </div>
+
         <section className="container section-home">
           <LoadingContainer loading={this.state.loading}></LoadingContainer>
           {/* <ChristmasTreeMain></ChristmasTreeMain> */}
@@ -265,7 +267,7 @@ export default class Home extends Component {
           <div className="row">
             <div className="box-title">
               <Link to="/mobile" className="box-title__title">
-                <h2 className= "text-white">Điện thoại nổi bật nhất</h2>
+                <h2 className="text-white">Điện thoại nổi bật nhất</h2>
               </Link>
               <div className="box-related-tag">
                 <div className="list-related-tag">
@@ -323,7 +325,9 @@ export default class Home extends Component {
 
           <div id="highlight" className="highlight section-bg">
             <div className="container list-item " data-aos="fade-up">
-              <div className="row row-item">{this.renderListMobile()}</div>
+              <div className="row row-item">
+                {this.state.listmobile.length !== 0 && this.renderListMobile()}
+              </div>
             </div>
           </div>
 
@@ -331,7 +335,7 @@ export default class Home extends Component {
           <div className="row">
             <div className=" box-title">
               <Link to="/laptop" className="box-title__title">
-                <h2 className= "text-white">Laptop</h2>
+                <h2 className="text-white">Laptop</h2>
               </Link>
               <div className="box-related-tag">
                 <div className="list-related-tag">
@@ -379,7 +383,9 @@ export default class Home extends Component {
 
           <div className="highlight section-bg laptopnoibat">
             <div className="container list-item2 " data-aos="fade-up">
-              <div className="row row-item">{this.renderListLaptop()}</div>
+              <div className="row row-item">
+                {this.state.listlaptop.length !== 0 && this.renderListLaptop()}
+              </div>
             </div>
           </div>
 
