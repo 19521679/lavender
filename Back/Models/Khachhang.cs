@@ -25,6 +25,7 @@ namespace Back.Models
         public string Loaikhachhang { get; set; }
         public string Image { get; set; }
         public string Cccd { get; set; }
+        public DateTime Ngaydangky { get; set; }
 
         public virtual ICollection<Danhsachyeuthich> Danhsachyeuthichs { get; set; }
         [JsonIgnore]

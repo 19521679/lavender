@@ -175,6 +175,7 @@ export default class AddBill extends Component {
                   <option value="Đang xử lý">Đang xử lý</option>
                   <option value="Đang giao">Đang giao</option>
                   <option value="Đã giao">Đã giao</option>
+                  <option value="Đã huỷ">Đã huỷ</option>
                 </select>
           </div>
         </div>

@@ -10,7 +10,8 @@ const cookie = new Cookies();
 
 const customStyles = {
   content: {
-    top: "40%",
+    top: "50%",
+    height : "80%",
     left: "50%",
     right: "auto",
     bottom: "auto",

@@ -11,11 +11,12 @@ const cookie = new Cookies();
 
 const customStyles = {
   content: {
-    top: "40%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
+    height : "80%",
     transform: "translate(-50%, -50%)",
   },
 };
@@ -88,7 +89,7 @@ export default function AddModal(props) {
   function themthongsokithuat() {
     let newchitiet = thongsokithuat;
     newchitiet.push({ ten: "", noidung: "" });
-    setThongsokithuat(newchitiet);
+    setThongsokithuat([...newchitiet]);
   }
 
   return (
@@ -97,6 +98,7 @@ export default function AddModal(props) {
       onRequestClose={props.closeModal}
       style={customStyles}
       contentLabel="Example Modal"
+    
     >
       <FindTrademarkModal
         showModal={showModal}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,10 +32,60 @@ namespace Back.Controllers
         [Route("/laptop")]
         public async Task<IActionResult> GetAlLaptop()
         {
-            var sanpham = await lavenderContext.Sanpham.Where(s => s.Maloai==2).ToListAsync();
-            return StatusCode(200, Json(sanpham));
+            var laptop = await (from x in lavenderContext.Sanpham
+                                where x.Maloai == 2
+                                select x).ToListAsync();
+            return StatusCode(200, Json(laptop));
         }
 
+        [Route("/laptop-with-new-price")]
+        [HttpGet]
+        public async Task<IActionResult> LaptopWithNewPrice()
+        {
+            var sanphams = await (from x in lavenderContext.Sanpham
+                                  where x.Maloai == 2
+                                  select x).ToListAsync();
+
+
+            List<Task> tasks = new List<Task>();
+            List<dynamic> listnew = new List<dynamic>();
+            foreach (var i in sanphams)
+            {
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    float giamoi = 0;
+                    giamoi = await (from c in context.Chitietsanpham
+                                    where c.Masanpham == i.Masanpham
+                                    && c.Tinhtrang.Equals("Sẵn có")
+                                    orderby c.Giamoi ascending
+                                    select c.Giamoi).FirstOrDefaultAsync();
+                    var thuonghieutemp = await (from x in context.Thuonghieu
+                                                where x.Mathuonghieu == i.Mathuonghieu
+                                                select x).FirstOrDefaultAsync();
+                    listnew.Add(new
+                    {
+                        masanpham = i.Masanpham,
+                        tensanpham = i.Tensanpham,
+                        tenthuonghieu = thuonghieutemp.Tenthuonghieu,
+                        maloai = i.Maloai,
+                        mathuonghieu = i.Mathuonghieu,
+                        mota = i.Mota,
+                        image = i.Image,
+                        thoidiemramat = i.Thoidiemramat,
+                        dongia = i.Dongia,
+                        thoigianbaohanh = i.Thoigianbaohanh,
+                        giamoi = giamoi
+                    });
+                });
+                tasks.Add(task);
+            }
+            await Task.WhenAll(tasks);
+
+            return StatusCode(200, Json(listnew));
+        }
+
+    
     }
 }
 

@@ -72,24 +72,17 @@ namespace Back.Controllers
         [HttpGet]
         public async Task<IActionResult> DoanhThuTheoThang([FromQuery] int thang, int nam)
         {
+            double? tongtien = 0;
 
             var hoadonlist = await (from h in lavenderContext.Hoadon
-                                        //where h.Ngayhoadon.Month.ToString().Equals(thang.ToString())
-                                        //&& h.Ngayhoadon.Year.ToString().Equals(nam.ToString())
                                     select h).ToListAsync();
 
             if (hoadonlist == null || hoadonlist.Count == 0) return StatusCode(200, Json(new { tongtien = 0 }));
-            var newlist = new List<Hoadon>();
-            foreach (var i in hoadonlist)
-            {
-                if (((DateTime)i.Ngayhoadon).Month == thang && ((DateTime)i.Ngayhoadon).Year == nam)
-                    newlist.Add(i);
-            }
-            if (newlist == null || newlist.Count == 0) return StatusCode(200, Json(new { tongtien = 0 }));
 
-            var tongtien = newlist.Sum(h => h.Tongtien);
-            //return StatusCode(200, Json(new {tongtien = tongtien}) );
-            return StatusCode(200, Json(new { tongtien = tongtien }));
+            tongtien += (from x in hoadonlist
+                         where x.Ngayhoadon.Month == thang && x.Ngayhoadon.Year == nam
+                         select x.Tongtien).Sum();
+            return StatusCode(200, Json( tongtien));
 
         }
 

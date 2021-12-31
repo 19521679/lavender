@@ -149,11 +149,11 @@ class index extends Component {
       return;
     }
 
-    if (this.state.chondungluong !== "-1"){
+    if (this.state.chondungluong !== "-1") {
       this.loadMausac();
     }
 
-    if (this.state.chonmausac !== "-1"){
+    if (this.state.chonmausac !== "-1") {
       this.loadDungluong();
     }
 
@@ -180,14 +180,14 @@ class index extends Component {
       });
   }
 
-   loadDungluong() {
+  loadDungluong() {
     var { loai } = this.props.match.params;
     var { hang } = this.props.match.params;
     var { dong } = this.props.match.params;
     var { sanpham } = this.props.match.params;
     var query;
     query = `/${loai}/${hang}/${dong}/${sanpham}/dungluong?mausac=${this.state.chonmausac}`;
-     detailProductApi
+    detailProductApi
       .dungluong(query)
       .then((success) => {
         if (success.status === 200) {
@@ -199,14 +199,14 @@ class index extends Component {
       });
   }
 
-   loadMausac() {
+  loadMausac() {
     var { loai } = this.props.match.params;
     var { hang } = this.props.match.params;
     var { dong } = this.props.match.params;
     var { sanpham } = this.props.match.params;
     var query;
     query = `/${loai}/${hang}/${dong}/${sanpham}/mausac?dungluong=${this.state.chondungluong}`;
-     detailProductApi
+    detailProductApi
       .mausac(query)
       .then((success) => {
         if (success.status === 200) {
@@ -223,7 +223,7 @@ class index extends Component {
     if (this.props.makhachhang === undefined) {
       return;
     }
-    await favoriteApi
+    favoriteApi
       .checklike(this.props.makhachhang, this.state.product.masanpham)
       .then((success) => {
         if (success.status === 200 && success.data.value.liked) {
@@ -236,31 +236,37 @@ class index extends Component {
   }
 
   async componentDidMount() {
-    var { loai } = this.props.match.params;
-    var { hang } = this.props.match.params;
-    var { dong } = this.props.match.params;
-    var { sanpham } = this.props.match.params;
+    this.setState({loading:true});
+    var task1 = () => {
+      var { loai } = this.props.match.params;
+      var { hang } = this.props.match.params;
+      var { dong } = this.props.match.params;
+      var { sanpham } = this.props.match.params;
 
-    this.loadDungluong();
-    this.loadMausac();
+      var query = `/${loai}/${hang}/${dong}/${sanpham}`;
+      laptopApi
+        .laptopInfo(query)
+        .then((success) => {
+          if (success.status === 200) {
+            this.setState({
+              product: success.data.value,
+              sohinhanh: success.data.serializerSettings.sohinhanh,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("error" + error);
+        });
+    };
 
-    var query = `/${loai}/${hang}/${dong}/${sanpham}`;
-    await laptopApi
-      .laptopInfo(query)
-      .then((success) => {
-        if (success.status === 200) {
-          this.setState({
-            product: success.data.value,
-            sohinhanh: success.data.serializerSettings.sohinhanh,
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("error" + error);
-      });
-    await this.xemGia();
-    await this.checked();
-    await this.xemdanhgia();
+    await Promise.allSettled([
+      task1(),
+      this.loadDungluong(),
+      this.loadMausac(),
+      this.xemGia(),
+      this.checked(),
+      this.xemdanhgia(),
+    ]);
     this.setState({ loading: false });
   }
   addToCart = () => {
@@ -292,7 +298,7 @@ class index extends Component {
     );
   };
   xemdanhgia = async () => {
-    await evalueteApi
+    evalueteApi
       .evalueteByProductId(this.state.product.masanpham)
       .then((success) => {
         if (success.status === 200) {
@@ -357,13 +363,14 @@ class index extends Component {
               </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div id="price" className="price mt-5">
-                  {this.state.dongia !== undefined && (this.state.dongia === 0
-                    ? "Hết hàng"
-                    : this.state.dongia === -1
-                    ? "Vui lòng chọn dung lượng"
-                    : this.state.dongia === -2
-                    ? "Vui lòng chọn màu sắc"
-                    : numberHelper.numberWithCommas(this.state.dongia) + "₫")}
+                  {this.state.dongia !== undefined &&
+                    (this.state.dongia === 0
+                      ? "Hết hàng"
+                      : this.state.dongia === -1
+                      ? "Vui lòng chọn dung lượng"
+                      : this.state.dongia === -2
+                      ? "Vui lòng chọn màu sắc"
+                      : numberHelper.numberWithCommas(this.state.dongia) + "₫")}
                 </div>
                 <div className="box-linked">
                   <div className="box-title">

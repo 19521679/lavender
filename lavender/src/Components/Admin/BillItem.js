@@ -10,44 +10,46 @@ const cookie = new Cookies();
 export default class BillItem extends Component {
   state = { product: null, customer: null, ship: null };
   async componentDidMount() {
-    let product = null;
-    let customer = null;
-    let ship = null;
-
-    var token = cookie.get("token");
-    var refreshtoken = cookie.get("refreshtoken");
-    await productApi
-      .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        if (success.status === 200) product = success.data.value;
-      })
-      .catch((error) => {
-        console.error(error)
-      });
-
-    token = cookie.get("token");
-    refreshtoken = cookie.get("refreshtoken");
-    await customerApi
-      .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        if (success.status === 200) customer = success.data.value;
-      })
-      .catch((error) => {
-        console.error(error)
-      });
-
-    token = cookie.get("token");
-    refreshtoken = cookie.get("refreshtoken");
-    await shipApi
-      .findShipByBillId(this.props.bill.sohoadon, token, refreshtoken)
-      .then((success) => {
-        console.log(success.data.value);
-        if (success.status === 200) ship = success.data.value;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    this.setState({ product: product, customer: customer, ship: ship });
+    var task1 = () => {
+      var token = cookie.get("token");
+      var refreshtoken = cookie.get("refreshtoken");
+      productApi
+        .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
+        .then((success) => {
+          if (success.status === 200)
+            this.setState({ product: success.data.value });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    var task2 = () => {
+      var token = cookie.get("token");
+      var refreshtoken = cookie.get("refreshtoken");
+      customerApi
+        .findCustomerByBillId(this.props.bill.sohoadon, token, refreshtoken)
+        .then((success) => {
+          if (success.status === 200)
+            this.setState({ customer: success.data.value });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    var task3 = () => {
+      var token = cookie.get("token");
+      var refreshtoken = cookie.get("refreshtoken");
+      shipApi
+        .findShipByBillId(this.props.bill.sohoadon, token, refreshtoken)
+        .then((success) => {
+          if (success.status === 200)
+            this.setState({ ship: success.data.value });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    Promise.allSettled([task1(), task2(), task3()]);
   }
   render() {
     return (

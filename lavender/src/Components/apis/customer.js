@@ -74,9 +74,13 @@ export const findCustomerByCustomerId = async (makhachhang) => {
 export const thayDoiSDT = async (makhachhang, sdt, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .put(`${API_ENDPOINT}/khachhang/thaydoi/sdt`, {makhachhang, sdt}, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    .put(
+      `${API_ENDPOINT}/khachhang/thaydoi/sdt`,
+      { makhachhang, sdt },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
@@ -86,7 +90,7 @@ export const thayDoiSDT = async (makhachhang, sdt, token, refreshtoken) => {
   if (newtoken !== undefined) {
     return await axiosServices.put(
       `${API_ENDPOINT}/khachhang/thaydoi/sdt`,
-      {makhachhang, sdt},
+      { makhachhang, sdt },
       { headers: { Authorization: `Bearer ${newtoken}` } }
     );
   }
@@ -96,9 +100,13 @@ export const thayDoiSDT = async (makhachhang, sdt, token, refreshtoken) => {
 export const thayDoiEmail = async (makhachhang, email, token, refreshtoken) => {
   var newtoken = undefined;
   var connect = await axiosServices
-    .put(`${API_ENDPOINT}/khachhang/thaydoi/email`, {makhachhang, email}, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    .put(
+      `${API_ENDPOINT}/khachhang/thaydoi/email`,
+      { makhachhang, email },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
     .catch((error) => {
       if (error.response.status === 401) {
         newtoken = refreshToken(refreshtoken);
@@ -109,7 +117,7 @@ export const thayDoiEmail = async (makhachhang, email, token, refreshtoken) => {
   if (newtoken !== undefined) {
     return await axiosServices.put(
       `${API_ENDPOINT}/khachhang/thaydoi/email`,
-      {makhachhang, email},
+      { makhachhang, email },
       { headers: { Authorization: `Bearer ${newtoken}` } }
     );
   }
@@ -215,6 +223,32 @@ export const hoadonDagiao = async (makhachhang, token, refreshtoken) => {
       {
         headers: { Authorization: `Bearer ${token}` },
       }
+    );
+  }
+  return connect;
+};
+
+export const khachhangmoiTrongthang = async (
+  thang,
+  nam,
+  token,
+  refreshtoken
+) => {
+  var newtoken = undefined;
+  var connect = await axiosServices
+    .get(`${API_ENDPOINT}/khachhangmoi-trongthang?thang=${thang}&nam=${nam}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        newtoken = refreshToken(refreshtoken);
+        return error;
+      }
+    });
+  if (newtoken !== undefined) {
+    return await axiosServices.get(
+      `${API_ENDPOINT}/khachhangmoi-trongthang?thang=${thang}&nam=${nam}`,
+      { headers: { Authorization: `Bearer ${newtoken}` } }
     );
   }
   return connect;
