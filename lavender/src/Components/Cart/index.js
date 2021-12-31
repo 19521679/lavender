@@ -352,7 +352,8 @@ class index extends Component {
           closeModal={this.closeModal.bind(this)}
           deleteAllProduct={this.deleteAllProduct.bind(this)}
         ></DeleteAllModal>
-        <ReactCanvasConfetti
+  
+          <ReactCanvasConfetti
           // set the styles as for a usual react component
           style={style}
           // set the class name as for a usual react component
@@ -368,6 +369,7 @@ class index extends Component {
           // set the callback on reset canvas
           onReset={this.onReset}
         />
+      
         <Success fire={this.state.fire}></Success>
         <section>
           {this.props.makhachhang === undefined && (
@@ -564,8 +566,6 @@ class index extends Component {
                   </div>
                 </div>
               </div>
-              <button onClick={this.onClickFire}>Fire</button>
-          <button onClick={this.onClickReset}>Reset</button>
             </div>
           </div>
           ):(<div className="" style={{height:"2000px"}}>

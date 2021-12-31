@@ -55,8 +55,8 @@ class index extends Component {
   renderItem(n) {
     switch (n) {
       case 0:
-        <Article product={this.state.product}></Article>;
-        return;
+        return <Article product={this.state.product}></Article>;
+      
       case 1:
         return <Specifications product={this.state.product}></Specifications>;
       case 2:
