@@ -32,10 +32,24 @@ namespace Back.Controllers
         [Route("/laptop")]
         public async Task<IActionResult> GetAlLaptop()
         {
-            var laptop = await (from x in lavenderContext.Sanpham
-                                where x.Maloai == 2
-                                select x).ToListAsync();
-            return StatusCode(200, Json(laptop));
+            var sanphams = await (from x in lavenderContext.Sanpham
+                                  join y in lavenderContext.Thuonghieu
+                                  on x.Mathuonghieu equals y.Mathuonghieu
+                                  where x.Maloai == 2
+                                  select new
+                                  {
+                                      masanpham = x.Masanpham,
+                                      tensanpham = x.Tensanpham,
+                                      tenthuonghieu = y.Tenthuonghieu,
+                                      maloai = x.Maloai,
+                                      mathuonghieu = x.Mathuonghieu,
+                                      mota = x.Mota,
+                                      image = x.Image,
+                                      thoidiemramat = x.Thoidiemramat,
+                                      dongia = x.Dongia,
+                                      thoigianbaohanh = x.Thoigianbaohanh
+                                  }).ToListAsync();
+            return StatusCode(200, Json(sanphams));
         }
 
         [Route("/laptop-with-new-price")]

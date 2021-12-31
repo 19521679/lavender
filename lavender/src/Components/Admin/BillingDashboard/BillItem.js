@@ -111,21 +111,6 @@ export default class BillItem extends Component {
                   (this.state.customer !== null) && this.state.customer.email}
               </span>
             </span>
-            <span className="text-xs">
-              Tên sản phẩm:{" "}
-              <span className="text-dark ms-sm-2 font-weight-bold">
-                {(this.state.product !== undefined) &
-                  (this.state.product !== null) &&
-                  this.state.product.tensanpham}
-                {"    "}
-              </span>
-              {"    "}Đơn giá:{" "}
-              <span className="text-dark ms-sm-2 font-weight-bold">
-                {(this.state.product !== undefined) &
-                  (this.state.product !== null) && this.state.product.dongia}
-                {"    "}
-              </span>
-            </span>
             <span className=" mt-2 text-xs">
               Ngày hoá đơn:{" "}
               <span className="text-dark ms-sm-2 font-weight-bold">

@@ -8,7 +8,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies();
 
 export default class BillItem extends Component {
-  state = { product: null, customer: null, ship: null };
+  state = { product: undefined, customer: undefined, ship: undefined };
   async componentDidMount() {
     var task1 = () => {
       var token = cookie.get("token");
@@ -16,8 +16,9 @@ export default class BillItem extends Component {
       productApi
         .findProductByBillId(this.props.bill.sohoadon, token, refreshtoken)
         .then((success) => {
-          if (success.status === 200)
-            this.setState({ product: success.data.value });
+          if (success.status === 200) {
+            this.setState({ product: success.data.value.$values });
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -53,57 +54,65 @@ export default class BillItem extends Component {
   }
   render() {
     return (
-      <tr>
-        <td>
-          <div className="d-flex px-2 py-1">
-            <div>
-              <img
-                src={
-                  (this.state.product !== undefined) &
-                  (this.state.product !== null)
-                    ? imageApi.image(this.state.product.image)
-                    : ""
-                }
-                className="avatar avatar-sm me-3"
-                alt="xd"
-              />
-            </div>
-            <div className="d-flex flex-column justify-content-center">
-              <h6 className="mb-0 text-sm">
-                {(this.state.product !== undefined) &
-                  (this.state.product !== null) &&
-                  this.state.product.tensanpham}
-              </h6>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div className="avatar-group mt-2">
-            <h6 className="mb-0 text-sm">
-              {(this.state.customer !== undefined) &
-                (this.state.customer !== null) &&
-                this.state.customer.sodienthoai}{" "}
-            </h6>
-          </div>
-        </td>
-        <td className="align-middle text-center text-sm">
-          <div className="avatar-group mt-2">
-            <h6 className="mb-0 text-sm">
-              {(this.state.customer !== undefined) &
-                (this.state.customer !== null) &&
-                this.state.customer.tenkhachhang}{" "}
-            </h6>
-          </div>
-        </td>
-        <td className="align-middle">
-          <div className="avatar-group mt-2">
-            <h6 className="mb-0 text-sm">
-              {(this.state.ship !== undefined) & (this.state.ship !== null) &&
-                this.state.ship.trangthai}{" "}
-            </h6>
-          </div>
-        </td>
-      </tr>
+      <>
+        {this.state.product !== undefined && this.state.customer !== undefined && (
+          <>
+            <tr>
+              <td>
+                <div className="text-center avatar-group mt-2">
+                  <h6 className="mb-0 text-sm">
+                    {this.state.customer.sodienthoai}{" "}
+                  </h6>
+                </div>
+              </td>
+              <td className="align-middle text-center text-sm">
+                <div className="avatar-group mt-2">
+                  <h6 className="mb-0 text-sm">
+                    {this.state.customer.tenkhachhang}{" "}
+                  </h6>
+                </div>
+              </td>
+              <td className="align-middle">
+                <div className="avatar-group mt-2">
+                  <h6 className="mb-0 text-sm">
+                    {this.state.ship !== undefined
+                      ? this.state.ship.trangthai
+                      : "Không có thông tin"}{" "}
+                  </h6>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td className="row text-center" >
+                {this.state.product.map((value, key) => {
+                  return (
+                    <div className="d-flex px-5 py-1 text-center " key={key}>
+                      <div>
+                        <img
+                          src={
+                            value.image !== null && value.image !== undefined
+                              ? imageApi.image(value.image)
+                              : ""
+                          }
+                          className="avatar avatar-sm me-3"
+                          alt="xd"
+                        />
+                      </div>
+                      <div className="d-flex flex-column justify-content-center">
+                        <h6 className="mb-0 text-sm">
+                          {/* {this.state.product.tenthuonghieu}{" "} */}
+                          {value.tensanpham}
+                        </h6>
+                      </div>
+                    </div>
+                  );
+                })}
+              </td>
+            </tr>
+          </>
+        )}
+       
+      </>
     );
   }
 }

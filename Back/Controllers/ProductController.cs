@@ -84,40 +84,51 @@ namespace Back.Controllers
                                   where c.Sohoadon == sohoadon
                                   select c.Imei).ToListAsync();
             var listproductid = new List<int>();
+            List<Task> tasks1 = new List<Task>();
             foreach (var i in listimei)
             {
-                var temp = await (from s in lavenderContext.Chitietsanpham
-                                  where s.Imei == i
-                                  select s.Masanpham).ToListAsync();
-                if (temp != null && temp.Count() != 0) listproductid.AddRange(temp);
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    int? id = await (from x in context.Chitietsanpham
+                                    where x.Imei == i
+                                    select x.Masanpham).FirstOrDefaultAsync();
+                    Console.WriteLine(id);
+                    if (id != null)
+                    {
+                        listproductid.Add((int)id);
+                    }
+                });
+                tasks1.Add(task);
             }
-
+            await Task.WhenAll(tasks1);
 
             var listproduct = new List<Sanpham>();
+            List<Task> tasks2 = new List<Task>();
             foreach (var i in listproductid)
             {
-                var temp = await (from s in lavenderContext.Sanpham
-                                  where s.Masanpham == i
-                                  select s).ToListAsync();
-                if (temp != null && temp.Count() != 0) listproduct.AddRange(temp);
-            }
-            return StatusCode(200, Json(listproduct));
-        }
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    var temp = await (from s in context.Sanpham
+                                      where s.Masanpham == i
+                                      select s).ToListAsync();
+                    if (temp != null && temp.Count() != 0)
+                    {
+                        foreach( var t in temp)
+                        {
+                            if (t != null)
+                            {
+                                listproduct.Add(t);
+                            }
+                        }
+                    }
 
-        [Route("/tim-sanpham-theo-sohoadon")]
-        [HttpGet]
-        public async Task<IActionResult> FindProductByBillId(int sohoadon)
-        {
-            var imei = await (from c in lavenderContext.Chitiethoadon
-                              where c.Sohoadon == sohoadon
-                              select c.Imei).FirstOrDefaultAsync();
-            var productid = await (from c in lavenderContext.Chitietsanpham
-                                   where c.Imei == imei
-                                   select c.Masanpham).FirstOrDefaultAsync();
-            var product = await (from p in lavenderContext.Sanpham
-                                 where p.Masanpham == productid
-                                 select p).FirstOrDefaultAsync();
-            return StatusCode(200, Json(product));
+                });
+                tasks2.Add(task);
+            }
+            await Task.WhenAll(tasks2);
+            return StatusCode(200, Json(listproduct));
         }
 
         [Route("/tim-sanpham-theo-masanpham")]
@@ -199,14 +210,15 @@ namespace Back.Controllers
             [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia
             )
         {
-            Sanpham s = new Sanpham();
-            s.Tensanpham = tensanpham;
-            s.Maloai = maloai;
-            s.Mathuonghieu = mathuonghieu;
-            s.Mota = mota;
-            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
-            s.Dongia = dongia;
-
+            {
+                var tensanphamtrung = await (from x in lavenderContext.Sanpham
+                                             where x.Tensanpham.Equals(tensanpham)
+                                             && x.Mathuonghieu == mathuonghieu
+                                             && x.Maloai == maloai
+                                             select x).FirstOrDefaultAsync();
+                if (tensanphamtrung != null) return StatusCode(500);
+                
+            }
             string loai = "";
             switch (maloai)
             {
@@ -219,6 +231,13 @@ namespace Back.Controllers
                 default:
                     break;
             }
+            Sanpham s = new Sanpham();
+            s.Tensanpham = tensanpham;
+            s.Maloai = maloai;
+            s.Mathuonghieu = mathuonghieu;
+            s.Mota = mota;
+            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
+            s.Dongia = dongia;
 
             string hang = await (from t in lavenderContext.Thuonghieu
                                  where t.Mathuonghieu == mathuonghieu
@@ -261,6 +280,15 @@ namespace Back.Controllers
         public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
             [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
         {
+            {
+                var tensanphamtrung = await (from x in lavenderContext.Sanpham
+                                             where x.Tensanpham.Equals(tensanpham)
+                                             && x.Mathuonghieu == mathuonghieu
+                                             && x.Maloai == maloai
+                                             select x).FirstOrDefaultAsync();
+                if (tensanphamtrung != null) return StatusCode(500);
+
+            }
             string loai = "";
             switch (maloai)
             {

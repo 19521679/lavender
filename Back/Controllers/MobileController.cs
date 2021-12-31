@@ -32,10 +32,24 @@ namespace Back.Controllers
         [Route("/mobile")]
         public async Task<IActionResult> GetAllMobile()
         {
-            var mobile = await (from x in lavenderContext.Sanpham
-                                where x.Maloai == 1
-                                select x).ToListAsync();
-            return StatusCode(200, Json(mobile));
+            var sanphams = await (from x in lavenderContext.Sanpham
+                                  join y in lavenderContext.Thuonghieu
+                                  on x.Mathuonghieu equals y.Mathuonghieu
+                                  where x.Maloai == 1
+                                  select new
+                                  {
+                                      masanpham = x.Masanpham,
+                                      tensanpham = x.Tensanpham,
+                                      tenthuonghieu = y.Tenthuonghieu,
+                                      maloai = x.Maloai,
+                                      mathuonghieu = x.Mathuonghieu,
+                                      mota = x.Mota,
+                                      image = x.Image,
+                                      thoidiemramat = x.Thoidiemramat,
+                                      dongia = x.Dongia,
+                                      thoigianbaohanh = x.Thoigianbaohanh
+                                  }).ToListAsync();
+            return StatusCode(200, Json(sanphams));
         }
 
         [Route("/mobile-with-new-price")]
@@ -80,46 +94,8 @@ namespace Back.Controllers
                 tasks.Add(task);
             }
             await Task.WhenAll(tasks);
-
-            //var customTasks = sanphams.Select(async i =>
-            //{
-            //    float giamoi = 0;
-            //    giamoi = await (from c in lavenderContext.Chitietsanpham
-            //                    where c.Masanpham == i.Masanpham
-            //                    && c.Tinhtrang.Equals("Sẵn có")
-            //                    orderby c.Giamoi ascending
-            //                    select c.Giamoi).FirstOrDefaultAsync();
-            //    var thuonghieutemp = await (from x in lavenderContext.Thuonghieu
-            //                                where x.Mathuonghieu == i.Mathuonghieu
-            //                                select x).FirstOrDefaultAsync();
-            //    Console.WriteLine(i.Masanpham);
-            //    return new
-            //    {
-            //        sanpham = i,
-            //        giamoi = giamoi,
-            //        tenthuonghieu = thuonghieutemp.Tenthuonghieu
-            //    };
-            //});
-
-            //List<dynamic> listnew = (await Task.WhenAll(customTasks)).Select(i =>
-            // new
-            // {
-            //     masanpham = i.sanpham.Masanpham,
-            //     tensanpham = i.sanpham.Tensanpham,
-            //     tenthuonghieu = i.tenthuonghieu,
-            //     maloai = i.sanpham.Maloai,
-            //     mathuonghieu = i.sanpham.Mathuonghieu,
-            //     mota = i.sanpham.Mota,
-            //     image = i.sanpham.Image,
-            //     thoidiemramat = i.sanpham.Thoidiemramat,
-            //     dongia = i.sanpham.Dongia,
-            //     thoigianbaohanh = i.sanpham.Thoigianbaohanh,
-            //     giamoi = i.giamoi
-            // }).AsEnumerable().ToList<dynamic>();
-
             return StatusCode(200, Json(listnew));
         }
-
     }
 }
 
