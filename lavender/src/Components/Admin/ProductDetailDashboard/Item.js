@@ -56,7 +56,7 @@ export default function Item(props) {
       </td>
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
-          {product.tensanpham}
+        {product.tenthuonghieu}{" "}{product.tensanpham}
         </span>
       </td>
       <td className="align-middle text-center">

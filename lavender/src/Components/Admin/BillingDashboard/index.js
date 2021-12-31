@@ -10,7 +10,7 @@ import Cookies from "universal-cookie";
 import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
 import * as fileApi from "../../apis/file";
 
-const  FileDownload = require('js-file-download');
+const FileDownload = require("js-file-download");
 
 const cookie = new Cookies();
 
@@ -32,7 +32,6 @@ export default class index extends Component {
     this.setState({ modal: 0 });
   };
   async loadBill() {
-    this.setState({ loading: true });
     let billing = [];
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
@@ -40,18 +39,15 @@ export default class index extends Component {
       .twentyhoadon(token, refreshtoken)
       .then((success) => {
         billing = success.data.value.$values;
+        this.setState({
+          billing: billing,
+        });
       })
       .catch((error) => {
         console.error(error);
       });
-
-
-
-    this.setState({
-      billing: billing,
-    });
-    this.setState({ loading: false });
   }
+
   async loadImport() {
     this.setState({ loading: true });
     let importBilling = [];
@@ -61,14 +57,23 @@ export default class index extends Component {
       .importNote(token, refreshtoken)
       .then((success) => {
         importBilling = success.data.value.$values;
+        this.setState({ importBilling: importBilling });
       })
-      .catch((error) => {});
-    this.setState({ importBilling: importBilling });
-    this.setState({ loading: false });
+      .catch((error) => {
+        console.error(error);
+      });
   }
+
   async componentDidMount() {
-    this.loadBill();
-    this.loadImport();
+    this.setState({ loading: true });
+    await Promise.allSettled([this.loadBill(), this.loadImport()])
+      .then((results) =>
+        results.forEach((result) => console.log(result.status))
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+    this.setState({ loading: false });
   }
 
   xuatFileHoadon() {
@@ -162,10 +167,8 @@ export default class index extends Component {
                                       </div>
                             </div>
                           </div>
-                          
-                          
-                            
-                
+                        </div>
+                      </div>
                     </div>
                     <div className="card1" style={{marginLeft: "11.5rem"}}>
                                   <div className="mb-3">
@@ -258,7 +261,6 @@ export default class index extends Component {
                         View All
                       </button>
                     </div>
-
                   </div>
                 </div>
                 <div className="card-body p-3 pb-0">
@@ -380,7 +382,7 @@ export default class index extends Component {
                 </div>
               </div>
             </div>
-          </div>
+
           <div className="row">
             <div className="col-md-7">
               <div className="card">
@@ -467,7 +469,6 @@ export default class index extends Component {
               </div>
             </div>
           </div>
-        </div>
       </main>
     );
   }

@@ -11,11 +11,12 @@ const cookie = new Cookies();
 
 const customStyles = {
   content: {
-    top: "40%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
+    height : "80%",
     transform: "translate(-50%, -50%)",
   },
 };
@@ -28,6 +29,7 @@ export default function AddModal(props) {
   const [image, setImage] = useState();
   const [thoidiemramat, setThoidiemramat] = useState(new Date());
   const [dongia, setDongia] = useState();
+  const [thoigianbaohanh, setThoigianbaohanh] = useState();
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(0);
   const [thongsokithuat, setThongsokithuat] = useState([]);
@@ -47,6 +49,7 @@ export default function AddModal(props) {
     );
     fd.append("dongia", dongia);
     fd.append("thongsokithuat", thongsokithuat);
+    fd.append("thoigianbaohanh", thoigianbaohanh);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
@@ -88,7 +91,7 @@ export default function AddModal(props) {
   function themthongsokithuat() {
     let newchitiet = thongsokithuat;
     newchitiet.push({ ten: "", noidung: "" });
-    setThongsokithuat(newchitiet);
+    setThongsokithuat([...newchitiet]);
   }
 
   return (
@@ -97,6 +100,7 @@ export default function AddModal(props) {
       onRequestClose={props.closeModal}
       style={customStyles}
       contentLabel="Example Modal"
+    
     >
       <FindTrademarkModal
         showModal={showModal}
@@ -229,6 +233,23 @@ export default function AddModal(props) {
                       setDongia(e.target.value);
                     }}
                     value={dongia}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row mb-1">
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  Thời gian bảo hành
+                </div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                  <input
+                    className="form-control border"
+                    id="thoigianbaohanh"
+                    placeholder=""
+                    onChange={(e) => {
+                      setThoigianbaohanh(e.target.value);
+                    }}
+                    value={thoigianbaohanh}
                   ></input>
                 </div>
               </div>

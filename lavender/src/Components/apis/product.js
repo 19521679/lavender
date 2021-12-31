@@ -4,7 +4,7 @@ import { refreshToken } from "../service/refreshtoken";
 
 export const findProductByBillId = async (sohoadon) => {
   return await axiosServices.get(
-    `${API_ENDPOINT}/tim-sanpham-theo-sohoadon?sohoadon=${sohoadon}`
+    `${API_ENDPOINT}/tim-cacsanpham-theo-sohoadon?sohoadon=${sohoadon}`
   );
 };
 

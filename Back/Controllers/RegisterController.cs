@@ -69,6 +69,7 @@ namespace Back.Controllers
             khachhang.Sodienthoai = registerForm.sodienthoai;
             khachhang.Ngaysinh = DateTime.Parse(registerForm.ngaysinh).ToLocalTime();
             khachhang.Loaikhachhang = "Thành viên";
+            khachhang.Ngaydangky = DateTime.Now.ToLocalTime();
             await lavenderContext.AddAsync(khachhang);
             await lavenderContext.SaveChangesAsync();
 

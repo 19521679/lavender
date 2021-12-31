@@ -1,5 +1,6 @@
 import * as loginApi from "../../apis/login";
 import * as loginConst from "../constrants/loginConst";
+import * as accessApi from "../../apis/access";
 
 export const postLogin = () => {
   return {
@@ -53,7 +54,8 @@ export const postRefreshSuccess = (data) => {
   };
 };
 
-export const postRefreshFailed = (error) => {
+export const postRefreshFailed = (error, ip) => {
+  postAccessAnonymous(ip)
   return {
     type: loginConst.POST_REFRESH_FAILED,
     payload: {
@@ -61,20 +63,27 @@ export const postRefreshFailed = (error) => {
     },
   };
 };
-export const postRefreshReport = (refreshtoken) => {
+export const postRefreshReport = (refreshtoken, ip) => {
   return async (dispatch) => {
     await loginApi
-      .refreshToken(refreshtoken)
+      .refreshToken(refreshtoken, ip)
       .then((success) => {
         if (success.status === 200) {
           dispatch(postRefreshSuccess(success.data));
-        } else dispatch(postRefreshFailed(success));
+        } else dispatch(postRefreshFailed(success, ip));
       })
       .catch((error) => {
-        dispatch(postRefreshFailed(error));
+        dispatch(postRefreshFailed(error, ip));
       });
   };
 };
+
+export const postAccessAnonymous= (ip)=>{
+   accessApi.truycapAndanh(ip)
+  .then(success =>{
+  })
+  .catch(error =>console.error(error))
+}
 
 //logout
 

@@ -3,12 +3,10 @@ import * as imageApi from "../../apis/image";
 import * as detailProductApi from "../../apis/detailProduct";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
-import * as trademarkApi from "../../apis/trademark";
 
 export default function ProductItem(props) {
   const [giamoi, setGiamoi] = useState(0);
   const [showModal, setShowModal] = useState();
-  const [thuonghieu, setThuonghieu] = useState();
   useEffect(() => {
     detailProductApi
       .xemgiamoitheomasanpham(props.product.masanpham)
@@ -18,17 +16,7 @@ export default function ProductItem(props) {
       .catch((error) => {
         console.error(error);
       });
-    trademarkApi
-      .TimThuonghieuBangMathuonghieu(props.product.mathuonghieu)
-      .then((success) => {
-        if (success.status === 200) {
-          setThuonghieu(success.data.value);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [props.product.masanpham, props.product.mathuonghieu]);
+  }, [props.product]);
 
   function closeModal() {
     setShowModal(0);
@@ -50,8 +38,7 @@ export default function ProductItem(props) {
 
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
-          {thuonghieu !== undefined && thuonghieu.tenthuonghieu}{" "}
-          {props.product.tensanpham}
+        {props.product.tenthuonghieu}{" "}{props.product.tensanpham}
         </span>
       </td>
       <td className="align-middle text-center">

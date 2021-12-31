@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -15,6 +16,7 @@ namespace Back.Models
         public lavenderContext(DbContextOptions<lavenderContext> options)
             : base(options)
         {
+
         }
         public virtual DbSet<Baiviet> Baiviets { get; set; }
         public virtual DbSet<Baohanh> Baohanhs { get; set; }
@@ -41,6 +43,17 @@ namespace Back.Models
         public virtual DbSet<Khachhangdangnhap> Khachhangdangnhap { get; set; }
         public virtual DbSet<Nhanviendangnhap> Nhanviendangnhap { get; set; }
         public virtual DbSet<Thongsokithuat> Thongsokithuat { get; set; }
+        public virtual DbSet<Truycapandanh> Truycapandanh { get; set; }
+
+        private const string connectionString = @"Server=lavender-uit-webshop-database.mysql.database.azure.com; Port=3306; Database=lavender; Uid=bongdungyeuem27; Pwd=0914630145kK@; SslMode=Preferred;";
+
+        // Phương thức OnConfiguring gọi mỗi khi một đối tượng DbContext được tạo
+        // Nạp chồng nó để thiết lập các cấu hình, như thiết lập chuỗi kết nối
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySQL(connectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -464,6 +477,9 @@ namespace Back.Models
                     .IsUnicode(false)
                     .HasColumnName("TENKHACHHANG");
 
+                entity.Property(e => e.Ngaydangky)
+                .HasColumnType("datetime")
+                .HasColumnName("NGAYDANGKY");
 
             });
 
@@ -832,6 +848,10 @@ namespace Back.Models
                    .IsUnicode(false)
                    .HasColumnName("IP");
 
+                entity.Property(e => e.Thoidiem)
+                   .HasColumnType("datetime")
+                   .HasColumnName("THOIDIEM");
+
                 entity.Property(e => e.Location)
                  .HasMaxLength(1024)
                  .IsUnicode(false)
@@ -865,6 +885,10 @@ namespace Back.Models
                    .HasMaxLength(45)
                    .IsUnicode(false)
                    .HasColumnName("IP");
+
+                entity.Property(e => e.Thoidiem)
+                    .HasColumnType("datetime")
+                    .HasColumnName("THOIDIEM");
 
                 entity.Property(e => e.Location)
                  .HasMaxLength(1024)
@@ -906,9 +930,30 @@ namespace Back.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_THONGSOKITHUAT_SANPHAMM");
             });
-           
+
+            modelBuilder.Entity<Truycapandanh>(entity =>
+            {
+                entity.HasKey(e => e.Matruycap)
+                    .IsClustered(false);
+
+                entity.ToTable("TRUYCAPANDANH");
+
+                entity.Property(e => e.Matruycap).HasColumnName("MATRUYCAP");
+
+                entity.Property(e => e.Ip)
+                        .HasMaxLength(45)
+                 .IsUnicode(false)
+                 .HasColumnName("IP");
+
+                entity.Property(e => e.Thoidiem)
+                    .HasColumnType("datetime")
+                    .HasColumnName("THOIDIEM");
+
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

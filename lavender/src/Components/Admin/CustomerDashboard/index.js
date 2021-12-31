@@ -85,7 +85,7 @@ export default function Index(props) {
               <div className="card-header p-0 position-relative mt-n4 mx-3">
                 <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                   <h6 className="text-white text-capitalize ps-3 danhsachsanpham-title">
-                    Danh sách điện thoại
+                    Danh sách khách hàng
                   </h6>
                   <button
                     className="btn bg-gradient-dark mb-0 mt-4 add-khachhang-button"

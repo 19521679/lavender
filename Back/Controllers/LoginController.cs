@@ -190,10 +190,12 @@ namespace Back.Controllers
         }
 
         [Route("/refresh-token")]
-        [HttpGet]
-        public async Task<IActionResult> RefreshToken(string refreshtoken)
+        [HttpPost]
+        public async Task<IActionResult> RefreshToken(JsonElement json)
         {
-           
+            string refreshtoken = json.GetString("refreshtoken");
+            string ip = json.GetString("ip");
+
             Dictionary<string, string> payload = MyTokenHandler.TokenPayloadHandler(refreshtoken);
             if (payload["role"].Equals(MyTokenHandler.GUEST))
             {
@@ -213,6 +215,8 @@ namespace Back.Controllers
                 var newkhachhangdangnhap = new Khachhangdangnhap();
                 newkhachhangdangnhap.Refreshtoken = newrefreshtoken;
                 newkhachhangdangnhap.Makhachhang = khachhangdangnhap.Makhachhang;
+                newkhachhangdangnhap.Ip = ip;
+                newkhachhangdangnhap.Thoidiem = DateTime.Now.ToLocalTime();
                 lavenderContext.Remove(khachhangdangnhap);
 
                 await lavenderContext.AddAsync(newkhachhangdangnhap);
@@ -239,6 +243,8 @@ namespace Back.Controllers
                 var newnhanviendangnhap = new Nhanviendangnhap();
                 newnhanviendangnhap.Refreshtoken = newrefreshtoken;
                 newnhanviendangnhap.Manhanvien = nhanviendangnhap.Manhanvien;
+                newnhanviendangnhap.Ip = ip;
+                newnhanviendangnhap.Thoidiem = DateTime.Now.ToLocalTime();
                 lavenderContext.Remove(nhanviendangnhap);
 
                 await lavenderContext.AddAsync(newnhanviendangnhap);
@@ -318,8 +324,8 @@ namespace Back.Controllers
                 return StatusCode(200, Json(nhanviendangnhap));
             }
             return StatusCode(204);
-
-
         }
+
+
     }
 }
