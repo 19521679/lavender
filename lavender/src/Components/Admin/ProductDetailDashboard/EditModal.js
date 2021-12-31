@@ -103,6 +103,10 @@ export default function EditModal(props) {
     // Update the document title using the browser API
   }, [masanpham]);
   function submitHandler() {
+    if(giamoi < 0 || isNaN(giamoi)){
+      myToast.toastError("Giá mới không hợp lệ");
+      return;
+    }
     myToast.toastLoading();
     const fd = new FormData();
     fd.append("imei", imei);

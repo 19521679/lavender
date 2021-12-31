@@ -72,6 +72,19 @@ function Index(props) {
   }, [manhanvien]);
 
   function submitHandler() {
+    if(sodienthoai < 0 || isNaN(sodienthoai)){
+      myToast.toastError("Số điện thoại không hợp lệ");
+      return;
+    }
+    if(cccd < 0 || isNaN(cccd)){
+      myToast.toastError("CCCD không hợp lệ.");
+      return;
+    }
+    
+    if(ngaysinh.getFullYear() > ngayvaolam.getFullYear() || (ngayvaolam.getFullYear() - ngaysinh.getFullYear())<18){
+      myToast.toastError("Ngày vào làm không hợp lệ.");
+      return;
+    }
     myToast.toastLoading();
     const fd = new FormData();
     fd.append("manhanvien", manhanvien);

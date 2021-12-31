@@ -22,6 +22,7 @@ const customStyles = {
 };
 
 export default function AddModal(props) {
+
   const [imei, setImei] = useState("");
   const [masanpham, setMasanpham] = useState("");
   const [tensanpham, setTensanpham] = useState("");
@@ -72,6 +73,10 @@ export default function AddModal(props) {
     // Update the document title using the browser API
   }, []);
   function submitHandler() {
+    if(giamoi < 0 || isNaN(giamoi)){
+      myToast.toastError("Giá mới không hợp lệ");
+      return;
+    }
     const fd = new FormData();
     fd.append("imei", imei);
     fd.append("masanpham", masanpham);

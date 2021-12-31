@@ -28,6 +28,10 @@ export default function AddModal(props) {
   const [image, setImage] = useState();
 
   const submitHandler = () => {
+    if(sodienthoai < 0 || isNaN(sodienthoai)){
+      myToast.toastError("Số điện thoại không hợp lệ");
+      return;
+    }
     const fd = new FormData();
     fd.append("tennhacungcap", tennhacungcap);
     fd.append("email", email);
