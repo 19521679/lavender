@@ -60,6 +60,7 @@
   border: 0;
   margin: 5px;
   color: white;
+  z-index: 3;
   border-radius: 4px;
   position: relative;
   left: 200px;

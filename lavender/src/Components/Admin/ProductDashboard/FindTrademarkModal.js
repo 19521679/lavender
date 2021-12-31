@@ -66,10 +66,10 @@ export default function FindTrademarkModal(props) {
                     <div className="border rounded px-3">
                       <div target="_blank">
                         <p className="price"> {value.tenthuonghieu}</p>
-                        <p className="name">
+                        <div className="">
                           Mã thương hiệu: {value.mathuonghieu}
                           <button
-                            className="add-to-build btn btn-primary"
+                            className="add-to-build btn btn-info"
                             type="button"
                             onClick={() => {
                               props.chooseFunction(value);
@@ -78,7 +78,7 @@ export default function FindTrademarkModal(props) {
                           >
                             Chọn
                           </button>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

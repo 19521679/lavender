@@ -24,7 +24,7 @@ const customStyles = {
 export default function EditModal(props) {
   const [tensanpham, setTensanpham] = useState(props.product.tensanpham);
   const [maloai, setMaloai] = useState(props.product.maloai);
-  const [mathuonghieu, setMathuonghieu] = useState(props.product.mathuonghieu);
+  const [trademark, setTrademark] = useState({mathuonghieu: props.product.mathuonghieu});
   const [mota, setMota] = useState(props.product.mota);
   const [image, setImage] = useState();
   const [thoidiemramat, setThoidiemramat] = useState(
@@ -39,7 +39,7 @@ export default function EditModal(props) {
   useEffect(() => {
     setTensanpham(props.product.tensanpham);
     setMaloai(props.product.maloai);
-    setMathuonghieu(props.product.mathuonghieu);
+    setTrademark({mathuonghieu: props.product.mathuonghieu});
     setMota(props.product.mota);
     setThoidiemramat(new Date(props.product.thoidiemramat));
     setDongia(props.product.dongia);
@@ -59,7 +59,7 @@ export default function EditModal(props) {
   }, [props.product.masanpham]);
 
   function chooseFunction(trademark) {
-    setMathuonghieu(trademark.mathuonghieu);
+    setTrademark(trademark);
   }
 
   const submitHandler = () => {
@@ -72,7 +72,7 @@ export default function EditModal(props) {
     fd.append("masanpham", props.product.masanpham);
     fd.append("tensanpham", tensanpham);
     fd.append("maloai", maloai);
-    fd.append("mathuonghieu", mathuonghieu);
+    fd.append("mathuonghieu", trademark.mathuonghieu);
     fd.append("mota", mota);
     if (image !== undefined) fd.append("image", image);
     fd.append(
@@ -201,19 +201,33 @@ export default function EditModal(props) {
                 </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input
+                  disabled
                     className="form-control border"
                     id="mathuonghieu"
                     placeholder=""
-                    onChange={(e) => {
-                      setMathuonghieu(e.target.value);
-                    }}
-                    value={mathuonghieu}
+                    value={trademark.mathuonghieu}
                   ></input>
                   <div className="mr-1" onClick={() => setShowModal(true)}>
                     <div onClick={() => setShowModal(true)}>
                       <i class="bi bi-arrow-right-circle "></i>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div className="row mb-1">
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  Mã thương hiệu
+                </div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                  <input
+                  disabled
+                    className="form-control border"
+                    id="mathuonghieu"
+                    placeholder=""
+                    value={trademark.tenthuonghieu}
+                  ></input>
+                  
                 </div>
               </div>
 

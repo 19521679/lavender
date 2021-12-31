@@ -33,6 +33,7 @@
     "react": "^16.0.0",
     "react-bootstrap": "^2.0.0",
     "react-button": "^1.2.1",
+    "react-canvas-confetti": "^1.2.1",
     "react-collapse": "^5.1.1",
     "react-cookie": "^4.1.1",
     "react-cookie-consent": "^6.4.1",

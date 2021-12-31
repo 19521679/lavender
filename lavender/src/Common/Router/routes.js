@@ -28,6 +28,8 @@ import Promotion from "../../Components/Promotion";
 import ForgotPassword from "../../Components/Accounts/ForgotPassword"
 import LMember from "../../Components/Accounts/LMember.js";
 import Privacy from "../../Components/Privacy"
+import ThayDoiSDT from "../../Components/Accounts/ThongTinTaiKhoan/ThayDoiSDT";
+import ThayDoiEmail from "../../Components/Accounts/ThongTinTaiKhoan/ThayDoiEmail";
 
 const routes = [
   {
@@ -169,6 +171,16 @@ const routes = [
     path: "/admin/myaccount",
     exact: true,
     main: () => <MyAccountDashboard></MyAccountDashboard>
+  },
+  {
+    path: "/lmember/thongtintaikhoan/sdt",
+    exact: true,
+    main: () => <ThayDoiSDT></ThayDoiSDT>
+  },
+  {
+    path: "/lmember/thongtintaikhoan/email",
+    exact: true,
+    main: () => <ThayDoiEmail></ThayDoiEmail>
   },
   {
     path: "/lmember",
