@@ -47,6 +47,14 @@ export default function EditModal(props) {
   }, [props.customer]);
 
   function submitHandler() {
+    if(sodienthoai < 0 || isNaN(sodienthoai)){
+      myToast.toastError("Số điện thoại không hợp lệ");
+      return;
+    }
+    if(cccd < 0 || isNaN(cccd)){
+      myToast.toastError("CCCD không hợp lệ.");
+      return;
+    }
     const fd = new FormData();
     fd.append("makhachhang", makhachhang);
     fd.append("tenkhachhang", tenkhachhang);

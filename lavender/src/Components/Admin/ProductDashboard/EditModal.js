@@ -61,6 +61,10 @@ export default function EditModal(props) {
   }
 
   const submitHandler = () => {
+    if(dongia < 0 || isNaN(dongia)){
+      myToast.toastError("Đơn giá không hợp lệ");
+      return;
+    }
     setProgress(0);
     const fd = new FormData();
     fd.append("masanpham", props.product.masanpham);

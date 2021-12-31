@@ -78,7 +78,7 @@ export default class index extends Component {
 
   xuatFileHoadon() {
     fileApi
-      .xuatHoadon(
+      .xuatHoadon(     
         new Date(this.state.tungay1).toISOString().split("T")[0],
         new Date(this.state.denngay1).toISOString().split("T")[0],
         cookie.get("token"),

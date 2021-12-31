@@ -22,6 +22,7 @@ const customStyles = {
 };
 
 export default function AddModal (props) {
+  
   const [tennhanvien, setTennhanvien] = useState("")
   const [email, setEmail] = useState("");
   const [sodienthoai, setSodienthoai] = useState("");
@@ -33,6 +34,19 @@ export default function AddModal (props) {
   const [chucvu, setChucvu] = useState("");
   const [image, setImage] = useState();
   const submitHandler = () => {
+    if(sodienthoai < 0 || isNaN(sodienthoai)){
+      myToast.toastError("Số điện thoại không hợp lệ");
+      return;
+    }
+    if(cccd < 0 || isNaN(cccd)){
+      myToast.toastError("CCCD không hợp lệ.");
+      return;
+    }
+    
+    if(ngaysinh.getFullYear() > ngayvaolam.getFullYear() || (ngayvaolam.getFullYear() - ngaysinh.getFullYear())<18){
+      myToast.toastError("Ngày vào làm không hợp lệ.");
+      return;
+    }
     const fd = new FormData();
     fd.append("tennhanvien", tennhanvien);
     fd.append("email", email);

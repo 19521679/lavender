@@ -35,6 +35,10 @@ export default function EditModal(props) {
   }, [props.suplier]);
 
   const submitHandler = () => {
+    if(sodienthoai < 0 || isNaN(sodienthoai)){
+      myToast.toastError("Số điện thoại không hợp lệ");
+      return;
+    }
     const fd = new FormData();
     fd.append("manhacungcap", props.suplier.manhacungcap);
     fd.append("tennhacungcap", tennhacungcap);
