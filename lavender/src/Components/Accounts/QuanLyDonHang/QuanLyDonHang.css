@@ -39,7 +39,7 @@
     background: #fff;
 }
 ._1DPpu5, .WqnWb- {
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 .WqnWb- {
@@ -49,17 +49,14 @@
 ._1DPpu5 {
     white-space: nowrap;
 }
-._1DPpu5, .WqnWb- {
-    display: flex;
-    align-items: center;
-}
+
 ._2lVoQ1:first-child {
     margin: 0;
     border: 0;
 }
 ._2lVoQ1 {
     margin: 10px 0 0;
-    border-top: 1px solid rgba(0,0,0,.09);
+    /* border-top: 1px solid rgba(0,0,0,.09); */
 }
 ._1limL3:last-child ._3tEHtP {
     display: none;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as productApi from "../../apis/product";
 import SanphamItem from "./SanphamItem";
-
+import { numberWithCommas } from '../../../Common/helper/numberHelper';
 export default function Hoadon(props) {
     const [list, setList]= useState([]);
     useEffect(()=>{
@@ -26,7 +26,7 @@ export default function Hoadon(props) {
          }
         <div className="_1CH8fe mt-3">
           <div className="_1mmoh8">Tổng số tiền:</div>
-          <div className="_1MS3t2">{props.bill.tongtien}₫</div>
+          <div className="_1MS3t2">{numberWithCommas(props.bill.tongtien)}₫</div>
         </div>
       </div>
     </div>
