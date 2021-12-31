@@ -241,13 +241,13 @@ class index extends Component {
                       <span>{this.state.sdt}</span>
                     </div>
                   </div>
-                  <div className="status">
+                  <div className="status" >
                     <span />
                     <Link
                       to="/lmember/thongtintaikhoan/sdt"
-                      className="btn btn-primary"
+                      className="btn btn-primary "  style={{marginLeft: "29px"}}
                     >
-                      Cập nhật
+                      Sửa
                     </Link>
                   </div>
                 </div>
@@ -270,7 +270,7 @@ class index extends Component {
                       to="/lmember/thongtintaikhoan/email"
                       className="btn btn-primary"
                     >
-                      Cập nhật
+                      Sửa
                     </Link>
                   </div>
                 </div>

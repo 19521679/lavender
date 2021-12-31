@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Dangxuly from './Dangxuly';
 import Danggiao from './Danggiao';
+import Dahuy from './Dahuy';
+import { numberWithCommas } from '../../../Common/helper/numberHelper';
+
 
 class index extends Component {
   state = { active: 0}
@@ -16,6 +19,8 @@ class index extends Component {
         return <i className="">Đang giao</i>;
       case 2:
         return <i className="">Đã giao</i>;
+      case 3: 
+        return<i className="">Đã hủy</i>;
       default:
         return;
     }
@@ -31,6 +36,8 @@ class index extends Component {
         return (<Danggiao></Danggiao>);
       case 2:
         return (<HoadonDagiao makhachhang={this.props.makhachhang}></HoadonDagiao>);
+      case 3:
+          return (<Dahuy></Dahuy>);
       default:
         return;
     }
@@ -48,7 +55,7 @@ class index extends Component {
                     <ul className="nav nav-tabs" data-tabs="tabs">
                       {function () {
                         var result = [];
-                        for (var i = 0; i < 3; i++) {
+                        for (var i = 0; i < 4; i++) {
                           if (i === this.state.active) {
                             result.push(
                               <li
@@ -93,7 +100,7 @@ class index extends Component {
                 <div className="tab-content text-center">
                   {function () {
                     var result = [];
-                    for (var i = 0; i < 3; i++) {
+                    for (var i = 0; i < 4; i++) {
                       if (i === this.state.active) {
                         result.push(
                           <div className="tab-pane active" id="tab-pane">

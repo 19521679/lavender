@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import * as imageApi from "../../apis/image";
 import * as productApi from "../../apis/product";
+import { numberWithCommas } from '../../../Common/helper/numberHelper';
+
 
 export default function Chitietsanpham(props) {
     const [item, setItem] = useState();
@@ -45,7 +47,7 @@ export default function Chitietsanpham(props) {
                       <div className="_1kvNGb text-warning">
                         <div>
                           Đơn giá:{" "}
-                          <span >{item.dongia}₫</span>
+                          <span >{numberWithCommas(item.dongia)}₫</span>
                         </div>
                       </div>
                       <div className="_1kvNGb text-secondary">

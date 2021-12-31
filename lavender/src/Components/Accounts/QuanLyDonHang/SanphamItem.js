@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as imageApi from "../../apis/image";
 import { Link } from "react-router-dom";
 import DanhgiaModal from "./DanhgiaModal";
-
+import { numberWithCommas } from '../../../Common/helper/numberHelper';
 export default function SanphamItem(props) {
   const [showModal, setShowModal] = useState(false);
   function closeModal() {
@@ -54,7 +54,7 @@ export default function SanphamItem(props) {
                     </div>
                     <div className="_1kvNGb">
                       <div>
-                        <span className="mBERmM">{props.product.dongia}₫</span>
+                        <span className="mBERmM">{numberWithCommas(props.product.dongia)}₫</span>
                       </div>
                     </div>
                   </span>

@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import AddModal from "./AddModal";
 import DeleteModal from "./DeleteModal";
 import * as detailBillApi from "../apis/detailBill";
+import { numberWithCommas } from "../../Common/helper/numberHelper";
 
 const cookie = new Cookies();
 
@@ -61,7 +62,7 @@ export default function ProcessingBill(props) {
             Số hoá đơn: {props.bill.sohoadon}
           </h6>
           <h6 className="text-success text-sm font-weight-bolder">
-            Tổng tiền: {props.bill.tongtien}
+            Tổng tiền: {numberWithCommas(props.bill.tongtien)} đ
           </h6>
           <h6 className="text-success text-sm font-weight-bolder">
             {(customer !== undefined) & (customer !== null) &&
