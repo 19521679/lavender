@@ -153,7 +153,7 @@ namespace Back.Models
                     .HasForeignKey(d => d.Magiohang)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CHITIETG_REFERENCE_GIOHANG");
-
+                
                 entity.HasOne(d => d.MasanphamNavigation)
                     .WithMany(p => p.Chitietgiohangs)
                     .HasForeignKey(d => d.Masanpham)
@@ -446,6 +446,7 @@ namespace Back.Models
                    .HasMaxLength(20)
                    .IsUnicode(false)
                    .HasColumnName("CCCD");
+                entity.HasIndex(e => e.Cccd).IsUnique();
 
                 entity.Property(e => e.Image)
                     .HasMaxLength(1000)
@@ -457,6 +458,7 @@ namespace Back.Models
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("EMAIL");
+                entity.HasIndex(e => e.Email).IsUnique();
 
                 entity.Property(e => e.Loaikhachhang)
                     .HasMaxLength(30)
@@ -471,6 +473,7 @@ namespace Back.Models
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("SODIENTHOAI");
+                entity.HasIndex(e => e.Sodienthoai).IsUnique();
 
                 entity.Property(e => e.Tenkhachhang)
                     .HasMaxLength(100)
@@ -556,12 +559,14 @@ namespace Back.Models
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("EMAIL");
+                entity.HasIndex(e => e.Email).IsUnique();
 
                 entity.Property(e => e.Sodienthoai)
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("SODIENTHOAI");
+                entity.HasIndex(e => e.Sodienthoai).IsUnique();
 
                 entity.Property(e => e.Tennhacungcap)
                     .IsRequired()
@@ -584,6 +589,7 @@ namespace Back.Models
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("CCCD");
+                entity.HasIndex(e => e.Cccd).IsUnique();
 
                 entity.Property(e => e.Image)
                     .HasColumnType("text")
@@ -606,6 +612,7 @@ namespace Back.Models
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("EMAIL");
+                entity.HasIndex(e => e.Email).IsUnique();
 
                 entity.Property(e => e.Ngaysinh)
                     .HasColumnType("datetime")
@@ -620,6 +627,7 @@ namespace Back.Models
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("SODIENTHOAI");
+                entity.HasIndex(e => e.Sodienthoai).IsUnique();
 
                 entity.Property(e => e.Tennhanvien)
                     .IsRequired()
@@ -725,6 +733,7 @@ namespace Back.Models
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("USERNAME");
+                entity.HasIndex(e => e.Username).IsUnique();
 
                 entity.Property(e => e.Password)
                  .HasMaxLength(300)
@@ -732,6 +741,7 @@ namespace Back.Models
                  .HasColumnName("PASSWORD");
 
                 entity.Property(e => e.Makhachhang).HasColumnName("MAKHACHHANG");
+                entity.HasIndex(e => e.Makhachhang).IsUnique();
 
                 entity.Property(e => e.Tokenemail)
                     .HasMaxLength(4000)
@@ -763,8 +773,10 @@ namespace Back.Models
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("USERNAME");
+                entity.HasIndex(e => e.Username).IsUnique();
 
                 entity.Property(e => e.Manhanvien).HasColumnName("MANHANVIEN");
+                entity.HasIndex(e => e.Manhanvien).IsUnique();
 
                 entity.Property(e => e.Password)
                     .IsRequired()

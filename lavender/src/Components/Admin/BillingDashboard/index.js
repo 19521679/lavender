@@ -230,11 +230,6 @@ export default class index extends Component {
                       <h6 className="mb-0">Xuất file thống kê</h6>
                     </div>
 
-                    <div className="col-5 text-end">
-                      <button className="btn btn-outline-primary btn-sm mb-0">
-                        View All
-                      </button>
-                    </div>
                   </div>
                 </div>
                 <div className="card-body p-3 pb-0">
