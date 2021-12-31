@@ -54,7 +54,7 @@ export default function DetailBillItem(props) {
 
             <div className="col-md-6">
               <label className="labels">Tên sản phẩm: </label>
-              <span className="mx-3">{sanpham.tensanpham}</span>
+              <span className="mx-3">{sanpham.tenthuonghieu}{" "}{sanpham.tensanpham}</span>
             </div>
 
             <div className="col-md-6">

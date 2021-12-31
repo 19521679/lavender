@@ -315,10 +315,7 @@ export default function Index(props) {
                   <table className="table align-items-center mb-0">
                     <thead>
                       <tr>
-                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                          Tên sản phẩm
-                        </th>
-                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                           Số điện thoại
                         </th>
                         <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

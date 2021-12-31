@@ -66,5 +66,14 @@ namespace Back.Controllers
                           select x).Count();
             return StatusCode(200, Json(sosanpham));
         }
+
+        //[Route("/sanpham-trong-hoadon")]
+        //[HttpGet]
+        //[Authorize(Roles = "ADMINISTRATOR, STAFF")]
+        //public async Task<IActionResult> SanphamTrongHoadon(int sohoadonbatdau, int soluong)
+        //{
+        //    var 
+        //    var imei = await (from x in lavenderContext.Chitiethoadon)
+        //}
     }
 }

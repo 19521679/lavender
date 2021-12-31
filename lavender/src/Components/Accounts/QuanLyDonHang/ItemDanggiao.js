@@ -5,7 +5,7 @@ import Chitietsanpham from "./Chitietsanpham";
 import * as billingApi from "../../apis/billing";
 import Cookies from "universal-cookie";
 import * as myToast from "../../../Common/helper/toastHelper";
-
+import { numberWithCommas } from '../../../Common/helper/numberHelper';
 const cookie = new Cookies();
 
 const customStyles = {
@@ -73,7 +73,7 @@ export default function ItemDanggiao(props) {
           <th scope="row"> Số HD: {props.bill.sohoadon}</th>
           <td>Ngày HD: {props.bill.ngayhoadon}</td>
           <td>Mã KM: {props.bill.makhuyenmai}</td>
-          <td> <strong>Thành tiền: {props.bill.tongtien} đ</strong> </td>
+          <td> <strong>Thành tiền: {numberWithCommas(props.bill.tongtien)} đ</strong> </td>
         </tr>
       </div>
       <div className="_1J7vLy">

@@ -38,7 +38,7 @@ export default function ProductItem(props) {
 
       <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">
-          {props.product.tensanpham}
+        {props.product.tenthuonghieu}{" "}{props.product.tensanpham}
         </span>
       </td>
       <td className="align-middle text-center">

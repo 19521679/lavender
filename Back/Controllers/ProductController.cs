@@ -84,40 +84,64 @@ namespace Back.Controllers
                                   where c.Sohoadon == sohoadon
                                   select c.Imei).ToListAsync();
             var listproductid = new List<int>();
+            List<Task> tasks1 = new List<Task>();
             foreach (var i in listimei)
             {
-                var temp = await (from s in lavenderContext.Chitietsanpham
-                                  where s.Imei == i
-                                  select s.Masanpham).ToListAsync();
-                if (temp != null && temp.Count() != 0) listproductid.AddRange(temp);
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    int? id = await (from x in context.Chitietsanpham
+                                    where x.Imei == i
+                                    select x.Masanpham).FirstOrDefaultAsync();
+                    if (id != null)
+                    {
+                        listproductid.Add((int)id);
+                    }
+                });
+                tasks1.Add(task);
             }
+            await Task.WhenAll(tasks1);
 
-
-            var listproduct = new List<Sanpham>();
+            var listproduct = new List<dynamic>();
+            List<Task> tasks2 = new List<Task>();
             foreach (var i in listproductid)
             {
-                var temp = await (from s in lavenderContext.Sanpham
-                                  where s.Masanpham == i
-                                  select s).ToListAsync();
-                if (temp != null && temp.Count() != 0) listproduct.AddRange(temp);
-            }
-            return StatusCode(200, Json(listproduct));
-        }
+                lavenderContext context = new lavenderContext();
+                Task task = Task.Run(async () =>
+                {
+                    var temp = await (from s in context.Sanpham
+                                      join k in context.Thuonghieu
+                                      on s.Mathuonghieu equals k.Mathuonghieu
+                                      where s.Masanpham == i
+                                      select new
+                                      {
+                                          masanpham = s.Masanpham,
+                                          tensanpham = s.Tensanpham,
+                                          tenthuonghieu = k.Tenthuonghieu,
+                                          maloai = s.Maloai,
+                                          mathuonghieu = s.Mathuonghieu,
+                                          mota = s.Mota,
+                                          image = s.Image,
+                                          thoidiemramat = s.Thoidiemramat,
+                                          dongia = s.Dongia,
+                                          thoigianbaohanh = s.Thoigianbaohanh,
+                                      }).ToListAsync();
+                    if (temp != null && temp.Count() != 0)
+                    {
+                        foreach( var t in temp)
+                        {
+                            if (t != null)
+                            {
+                                listproduct.Add(t);
+                            }
+                        }
+                    }
 
-        [Route("/tim-sanpham-theo-sohoadon")]
-        [HttpGet]
-        public async Task<IActionResult> FindProductByBillId(int sohoadon)
-        {
-            var imei = await (from c in lavenderContext.Chitiethoadon
-                              where c.Sohoadon == sohoadon
-                              select c.Imei).FirstOrDefaultAsync();
-            var productid = await (from c in lavenderContext.Chitietsanpham
-                                   where c.Imei == imei
-                                   select c.Masanpham).FirstOrDefaultAsync();
-            var product = await (from p in lavenderContext.Sanpham
-                                 where p.Masanpham == productid
-                                 select p).FirstOrDefaultAsync();
-            return StatusCode(200, Json(product));
+                });
+                tasks2.Add(task);
+            }
+            await Task.WhenAll(tasks2);
+            return StatusCode(200, Json(listproduct));
         }
 
         [Route("/tim-sanpham-theo-masanpham")]
@@ -196,17 +220,18 @@ namespace Back.Controllers
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia
+            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia, [FromForm] int thoigianbaohanh
             )
         {
-            Sanpham s = new Sanpham();
-            s.Tensanpham = tensanpham;
-            s.Maloai = maloai;
-            s.Mathuonghieu = mathuonghieu;
-            s.Mota = mota;
-            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
-            s.Dongia = dongia;
-
+            {
+                var tensanphamtrung = await (from x in lavenderContext.Sanpham
+                                             where x.Tensanpham.Equals(tensanpham)
+                                             && x.Mathuonghieu == mathuonghieu
+                                             && x.Maloai == maloai
+                                             select x).FirstOrDefaultAsync();
+                if (tensanphamtrung != null) return StatusCode(500);
+                
+            }
             string loai = "";
             switch (maloai)
             {
@@ -219,6 +244,14 @@ namespace Back.Controllers
                 default:
                     break;
             }
+            Sanpham s = new Sanpham();
+            s.Tensanpham = tensanpham;
+            s.Maloai = maloai;
+            s.Mathuonghieu = mathuonghieu;
+            s.Mota = mota;
+            s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
+            s.Dongia = dongia;
+            s.Thoigianbaohanh = thoigianbaohanh;
 
             string hang = await (from t in lavenderContext.Thuonghieu
                                  where t.Mathuonghieu == mathuonghieu
@@ -259,7 +292,7 @@ namespace Back.Controllers
         [Authorize(Roles = "ADMINISTRATOR, STAFF")]
         [HttpPost]
         public async Task<IActionResult> EditProduct([FromForm] int masanpham, [FromForm] string tensanpham, [FromForm] int maloai,
-            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia)
+            [FromForm] int mathuonghieu, [FromForm] string mota, [FromForm] IFormFile image, [FromForm] string thoidiemramat, [FromForm] float dongia, [FromForm] int thoigianbaohanh)
         {
             string loai = "";
             switch (maloai)
@@ -279,10 +312,37 @@ namespace Back.Controllers
                                  select t.Tenthuonghieu).FirstOrDefaultAsync();
             if (hang == null) return StatusCode(404);
             string[] tokens = tensanpham.Split(' ');
-            string dong = tokens[0];
-            string sanpham = tensanpham.Substring(dong.Length + 1);
-            string path = $"/{loai}/{hang}/{dong}/{sanpham}";
 
+            int i = 0;
+            for (;i<tokens.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(tokens[i])) {
+                    break;
+                }
+                else if (i== tokens.Length-1)
+                {
+                    return StatusCode(304);
+                }
+            }
+            string dong = "";
+            string sanpham = "";
+
+            if (tokens.Length - i == 1)
+            {
+                dong = "";
+                sanpham = tokens[0];
+            }
+            else if (tokens.Length - i > 1)
+            {
+                dong = tokens[i];
+                int beforelength = 0;
+                for (int t = 0; t <= i; t++)
+                {
+                    beforelength += tokens[t].Length;
+                }
+                sanpham = tensanpham.Substring(beforelength + 1);
+            }
+            string path = $"/{loai}/{hang}/{dong}/{sanpham}";
             var s = await (from p in lavenderContext.Sanpham
                            where p.Masanpham == masanpham
                            select p).FirstOrDefaultAsync();
@@ -293,36 +353,31 @@ namespace Back.Controllers
             s.Mota = mota;
             s.Thoidiemramat = DateTime.Parse(thoidiemramat).ToLocalTime();
             s.Dongia = dongia;
-
-            string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
-            string NewDir = _env.ContentRootPath + "/wwwroot" + path;
-
-            if (image == null || image.Length == 0 && OldDir != NewDir && Directory.Exists(OldDir))
-            {
-                MyDataHandler.MoveDir(OldDir, NewDir);
-            }
-
+            s.Thoigianbaohanh = thoigianbaohanh;
             s.Image = path;
             await lavenderContext.SaveChangesAsync();
 
-            if (image == null || image.Length == 0)
+            string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
+            string NewDir = _env.ContentRootPath + "/wwwroot" + path;
+            if (OldDir != NewDir)
             {
-                return StatusCode(200, Json(s));
+                MyDataHandler.MoveDir(OldDir, NewDir);
             }
-
-
-            if (!Directory.Exists(NewDir))
+            if (image != null && image.Length != 0  )
             {
-                // Create the directory.
-                Directory.CreateDirectory(NewDir);
-            }
-            using (var memoryStream = new MemoryStream())
-            {
-                await image.CopyToAsync(memoryStream);
-                using (var img = Image.FromStream(memoryStream))
+                if (!Directory.Exists(NewDir))
                 {
-                    // TODO: ResizeImage(img, 100, 100);
-                    img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
+                    // Create the directory.
+                    Directory.CreateDirectory(NewDir);
+                }
+                using (var memoryStream = new MemoryStream())
+                {
+                    Console.WriteLine("c");
+                    await image.CopyToAsync(memoryStream);
+                    using (var img = Image.FromStream(memoryStream))
+                    {
+                        img.Save(_env.ContentRootPath + "/wwwroot" + path + "/0.Jpeg", ImageFormat.Jpeg);
+                    }
                 }
             }
             return StatusCode(200, Json(s));
@@ -368,28 +423,6 @@ namespace Back.Controllers
             }
             await lavenderContext.SaveChangesAsync();
             return StatusCode(200, Json(masanpham));
-        }
-
-        [Route("/tatca-dienthoai")]
-        [HttpGet]
-        public async Task<IActionResult> AllMobileProduct()
-        {
-            var listproduct = await (from s in lavenderContext.Sanpham
-                                     where s.Maloai == 1
-                                     orderby s.Mathuonghieu ascending
-                                     select s).ToListAsync();
-            return StatusCode(200, Json(listproduct));
-        }
-
-        [Route("/tatca-laptop")]
-        [HttpGet]
-        public async Task<IActionResult> AllLaptopProduct()
-        {
-            var listproduct = await (from s in lavenderContext.Sanpham
-                                     where s.Maloai == 2
-                                     orderby s.Mathuonghieu ascending
-                                     select s).ToListAsync();
-            return StatusCode(200, Json(listproduct));
         }
 
         [Route("/tim-sanpham")]

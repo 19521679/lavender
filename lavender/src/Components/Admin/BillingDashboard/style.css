@@ -34,7 +34,8 @@
   box-shadow: -5px 5px 25px #0000009d;
   padding: 20px;
   border: none;
-  transition: all .3s ease-in-out
+  transition: all .3s ease-in-out;
+  position: absolute;
 }
 
 .card1 .text-grey {

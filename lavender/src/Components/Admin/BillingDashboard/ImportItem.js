@@ -82,7 +82,7 @@ export default class ImportItem extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+            <div className="d-flex align-items-center text-sm font-weight-bold" style={{color: "red"}}>
               <p>{this.props.bill.tiennhap}</p>
             </div>
           </div>
