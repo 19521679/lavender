@@ -78,6 +78,13 @@ export default function Index(props) {
         temp2.sort((a, b) => parseFloat(a.giamoi) - parseFloat(b.giamoi));
         setData(temp2);
         break;
+      case 3:
+        var temp3 = data;
+        temp3.sort(
+          (a, b) => new Date(b.thoidiemramat) - new Date(a.thoidiemramat)
+        );
+        setData(temp3);
+        break;
       default:
         await loadData();
         break;
@@ -85,6 +92,7 @@ export default function Index(props) {
     if (i === undefined) i = 0;
     setLoading(false);
   }
+
 
   return (
     <div className="container" id="mobile">
