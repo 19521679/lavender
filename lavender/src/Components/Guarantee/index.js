@@ -42,17 +42,20 @@ export default function Index(props) {
         }
         else {
           setChitietsanpham(undefined);
+          setLoading(false);
           return;
         }
       })
       .catch((error) => {
         console.error(error);
         setChitietsanpham(undefined)
+        setLoading(false);
         return;
       });
 
     if (chitietsanphamtemp === undefined) {
       myToast.toastError("Không tìm thấy Imei");
+      setLoading(false);
       return;
     }
     productApi
@@ -99,8 +102,6 @@ export default function Index(props) {
       .catch((error) => {
         console.error(error);
       });
-
-
       setLoading(false);
   };
   return (

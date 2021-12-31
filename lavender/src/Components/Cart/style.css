@@ -45,16 +45,17 @@
   margin: 0px -15px;
 }
 .dioUnE .col-1 {
-  width: 389px !important;
+  width: 410px !important;
   padding: 0px 0px;
 }
 .dioUnE .col-2 {
-  padding: 0px 0px 0px 50px;
+  width: 138px;
+  padding: 0px 0px 0px 22px;
 }
 .dioUnE .col-3 {
-  width: 130px;
+  width: 117px;
   margin: auto;
-  padding: 0px 15px;
+  padding: 0px 3px;
 }
 .dioUnE .col-4 {
   width: 120px;

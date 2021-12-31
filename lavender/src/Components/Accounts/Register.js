@@ -22,6 +22,8 @@ function Register(props) {
       myToast.toastError("Nhập lại mật khẩu sai");
       return;
     }
+    var now = new Date();
+    now.getFullYear();
     myToast.toastLoading();
     var bodyFormData = new FormData();
     bodyFormData.append("hovaten", hovaten);

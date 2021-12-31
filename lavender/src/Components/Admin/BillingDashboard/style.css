@@ -2,13 +2,11 @@
   margin: auto;
 }
 .btn-add-bill {
-  margin-left: 93px;
 }
 .card-xuatfile {
   margin-bottom: 0px !important;
 }
 .btn-import-bill {
-  margin-left: -13px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Kalam&display=swap');
@@ -26,6 +24,7 @@
 }
 
 .card1 {
+  width: 100px;
   background: #3a3a3a;
   background: linear-gradient(to right, #474747, #222);
   min-width: 300px;

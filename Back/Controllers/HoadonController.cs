@@ -37,6 +37,7 @@ namespace Back.Controllers
         public async Task<IActionResult> TwentyHoadon()
         {
             var hoadonlist = await (from h in lavenderContext.Hoadon
+                                    orderby h.Ngayhoadon descending
                                     select h).OrderByDescending(x => x.Ngayhoadon).Take(20).ToListAsync();
             if (hoadonlist.Count == 0) return StatusCode(404);
             return StatusCode(200, Json(hoadonlist));

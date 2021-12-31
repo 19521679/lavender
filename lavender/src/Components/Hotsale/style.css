@@ -157,6 +157,7 @@ section.cps-section .block-blackfriday .box-products .list-product {
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+  height: 160px;
 }
 .box-products .list-product .item-product .item-product__box-img img {
   height: 160px;
