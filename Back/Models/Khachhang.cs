@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 #nullable disable
@@ -15,7 +17,7 @@ namespace Back.Models
             Hoadons = new HashSet<Hoadon>();
             Taikhoankhachhangs = new HashSet<Taikhoankhachhang>();
         }
-
+  
         public int Makhachhang { get; set; }
         public string Tenkhachhang { get; set; }
         public string Email { get; set; }

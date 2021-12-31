@@ -115,20 +115,22 @@ namespace Back.Controllers
                                       select t.Mathuonghieu).FirstOrDefaultAsync();
             if (thuonghieuid == 0) return StatusCode(404);
 
-            var sanphamtemp = await lavenderContext.Sanpham.SingleOrDefaultAsync(x => x.Maloai == maloai && x.Tensanpham.Contains(dong) && x.Tensanpham.Contains(sanpham) && x.Mathuonghieu == thuonghieuid);
+            var sanphamtemp = await (from x in lavenderContext.Sanpham
+                                     where x.Maloai == maloai && x.Tensanpham.Contains(dong) && x.Tensanpham.Contains(sanpham) && x.Mathuonghieu == thuonghieuid
+                                     select x).FirstOrDefaultAsync();
             if (sanphamtemp == null) return StatusCode(404);
-
+            Console.WriteLine(sanphamtemp);
             var chitietsanphams = await (from c in lavenderContext.Chitietsanpham
                                          where c.Masanpham == sanphamtemp.Masanpham
-                                         && (dungluong.Equals("-1") || c.Dungluong.Equals(dungluong))
+                                         && (dungluong==null || dungluong.Equals("-1") || c.Dungluong.Equals(dungluong))
                                          select c).ToListAsync();
-
             if (chitietsanphams.Count() == 0) return StatusCode(204);
 
             List<Chitietsanpham> listsanphamtheomausac = new List<Chitietsanpham>();
             List<dynamic> mausac = new List<dynamic>();
             foreach (var i in chitietsanphams)
             {
+                Console.WriteLine(i);
                 bool timduoccaimoinaodo = true;
                 foreach (var j in listsanphamtheomausac)
                 {

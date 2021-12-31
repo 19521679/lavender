@@ -27,6 +27,14 @@ export default function AddModal(props) {
   const [dieukien, setDieukien] = useState("");
 
   function submitHandler() {
+    if(tilekhuyenmai <= 0 || tilekhuyenmai >= 1 || isNaN(tilekhuyenmai)){
+      myToast.toastError("Tỉ lệ khuyến mãi không hợp lệ");
+      return;
+    }
+    if(ngaybatdau > new Date() || ngayketthuc < ngaybatdau){
+      myToast.toastError("Ngày khuyến mãi không hợp lệ");
+      return;
+    }
     const fd = new FormData();
     fd.append("tenkhuyenmai", tenkhuyenmai);
     fd.append("tilekhuyenmai", tilekhuyenmai);
