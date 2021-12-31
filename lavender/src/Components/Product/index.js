@@ -320,7 +320,7 @@ class index extends Component {
           <div className="detail-product__box-name">
             <div className="cps-container">
               <div className="box-name__box-product-name">
-                <h1>{this.state.product.tensanpham} </h1>
+                <h1>{this.props.match.params.hang} {this.props.match.params.dong!=="sub"&&this.props.match.params+" "}{this.props.match.params.sanpham} </h1>
               </div>
               <div className="box-name__box-raiting">
                 <i

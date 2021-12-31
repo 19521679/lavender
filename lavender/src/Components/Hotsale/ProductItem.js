@@ -38,7 +38,7 @@ export default function ProductItem(props) {
         <Link to={props.product.image}>
           <img
             className="cpslazy loaded"
-            alt="Product-promotion"
+            alt=""
             data-ll-status="loaded"
             src={imageApi.image(props.product.image)}
           />

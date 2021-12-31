@@ -155,8 +155,9 @@
   }
   .box-search + .box-search-result ul > li .box-price .special-price {
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
+    margin-left: 15px!important;
     line-height: 1.4;
     color: #d70018;
   }
@@ -164,7 +165,7 @@
     display: inline-block;
     margin: 0 0 0 10px !important;
     float: left;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.4;
     text-decoration: line-through;
     color: #707070;
