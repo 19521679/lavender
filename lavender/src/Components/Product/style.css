@@ -237,6 +237,7 @@ select option{
   border: 1px solid #FEE2E2;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 .box-promotion .box-title{
   width: 100%;

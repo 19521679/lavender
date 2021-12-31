@@ -88,6 +88,8 @@ Dự án demo
 
 <!-- TABLE_GENERATE_START -->
 
+<<<<<<< HEAD
+=======
 | First Header  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
@@ -96,5 +98,6 @@ Dự án demo
 <!-- TABLE_GENERATE_END -->
 
 
+>>>>>>> d1ff970e6d0a12d50a32d5c65ffff35ac2300bba
 
 

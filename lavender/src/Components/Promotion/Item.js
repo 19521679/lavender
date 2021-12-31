@@ -81,7 +81,7 @@ export default function Item(props) {
             <div className="sc-giAqHp bYgUJS"></div>
 
             <div>
-              <h4 className="sc-hBMUJo ifIyhA voucher-title">{props.voucher.tenkhuyenmai}</h4>
+              <h6 className="sc-hBMUJo ifIyhA">{props.voucher.tenkhuyenmai}</h6>
               <p className="sc-fnVZcZ hmqpxx">{props.voucher.dieukien}</p>
               <p className="sc-fnVZcZ hmqpxx">
                 Giảm {(props.voucher.tilekhuyenmai * 100).toFixed(0)}%
