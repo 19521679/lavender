@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import React from "react";
 export const toastError = (message) => {
   toast.error(message, {
     position: "top-right",

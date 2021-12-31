@@ -372,7 +372,6 @@ namespace Back.Controllers
                 }
                 using (var memoryStream = new MemoryStream())
                 {
-                    Console.WriteLine("c");
                     await image.CopyToAsync(memoryStream);
                     using (var img = Image.FromStream(memoryStream))
                     {

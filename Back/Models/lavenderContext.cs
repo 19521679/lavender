@@ -443,9 +443,11 @@ namespace Back.Models
                     .HasColumnName("DIACHI");
 
                 entity.Property(e => e.Cccd)
-                   .HasMaxLength(20)
-                   .IsUnicode(false)
-                   .HasColumnName("CCCD");
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CCCD");
+
+                entity.HasIndex(e => e.Cccd).IsUnique();
 
                 entity.Property(e => e.Image)
                     .HasMaxLength(1000)

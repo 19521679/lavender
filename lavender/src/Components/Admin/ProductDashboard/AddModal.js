@@ -35,6 +35,14 @@ export default function AddModal(props) {
   const [thongsokithuat, setThongsokithuat] = useState([]);
 
   const submitHandler = async () => {
+    if (dongia<0){
+      myToast.toastError("Đơn giá không được âm");
+      return;
+    }
+    if (isNaN(dongia)){
+      myToast.toastError("Đơn giá phải là số");
+      return;
+    }
     setProgress(0);
     const fd = new FormData();
     fd.append("tensanpham", tensanpham);
