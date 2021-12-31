@@ -229,7 +229,7 @@ namespace Back.Models
                     .HasColumnName("GIAMOI");
 
                 entity.Property(e => e.Image)
-                    .HasMaxLength(45)
+                    .HasMaxLength(400)
                     .IsUnicode(false)
                     .HasColumnName("IMAGE");
 

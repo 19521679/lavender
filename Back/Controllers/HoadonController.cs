@@ -314,6 +314,7 @@ namespace Back.Controllers
                                     join y in lavenderContext.Vanchuyen
                                     on x.Sohoadon equals y.Sohoadon
                                     where y.Trangthai.Equals("Đã hủy")
+                                    && x.Makhachhang== makhachhang
                                     select x).ToListAsync();
             return StatusCode(200, Json(listhoadon));
         }

@@ -93,6 +93,62 @@ namespace Back.Controllers
             return StatusCode(200, Json(dungluong));
         }
 
+        [Route("{loai}/{hang}/{dong}/{sanpham}/mausac")]
+        [HttpGet]
+        public async Task<IActionResult> Sokieumausac(string loai, string hang, string dong, string sanpham, string dungluong)
+        {
+            int maloai = 0;
+            switch (loai)
+            {
+                case "mobile":
+                    maloai = 1;
+                    break;
+                case "laptop":
+                    maloai = 2;
+                    break;
+                default:
+                    break;
+            }
+
+            int thuonghieuid = await (from t in lavenderContext.Thuonghieu
+                                      where t.Tenthuonghieu.Equals(hang)
+                                      select t.Mathuonghieu).FirstOrDefaultAsync();
+            if (thuonghieuid == 0) return StatusCode(404);
+
+            var sanphamtemp = await (from x in lavenderContext.Sanpham
+                                     where x.Maloai == maloai && x.Tensanpham.Contains(dong) && x.Tensanpham.Contains(sanpham) && x.Mathuonghieu == thuonghieuid
+                                     select x).FirstOrDefaultAsync();
+            if (sanphamtemp == null) return StatusCode(404);
+            Console.WriteLine(sanphamtemp);
+            var chitietsanphams = await (from c in lavenderContext.Chitietsanpham
+                                         where c.Masanpham == sanphamtemp.Masanpham
+                                         && (dungluong == null || dungluong.Equals("-1") || c.Dungluong.Equals(dungluong))
+                                         select c).ToListAsync();
+            if (chitietsanphams.Count() == 0) return StatusCode(204);
+
+            List<Chitietsanpham> listsanphamtheomausac = new List<Chitietsanpham>();
+            List<dynamic> mausac = new List<dynamic>();
+            foreach (var i in chitietsanphams)
+            {
+                Console.WriteLine(i);
+                bool timduoccaimoinaodo = true;
+                foreach (var j in listsanphamtheomausac)
+                {
+                    if (j.Mausac.Equals(i.Mausac))
+                    {
+                        timduoccaimoinaodo = false;
+                        break;
+                    }
+                }
+
+                if (timduoccaimoinaodo == true)
+                {
+                    listsanphamtheomausac.Add(i);
+                    mausac.Add(new { mausac = i.Mausac, image = i.Image });
+                }
+            }
+            return StatusCode(200, Json(mausac));
+        }
 
         [Route("/{loai}/{hang}/{dong}/{sanpham}/xemgia")]
         [HttpGet]
@@ -259,7 +315,9 @@ namespace Back.Controllers
                                      where p.Masanpham == masanpham
                                      select p.Image).FirstAsync();
 
-            if (image == null || image.Length == 0) s.Image = productpath + "/" + mausac;
+            var path = productpath + "/" + mausac;
+            
+            s.Image = path;
 
             await lavenderContext.AddAsync(s);
             await lavenderContext.SaveChangesAsync();
@@ -270,7 +328,7 @@ namespace Back.Controllers
 
             if (image == null || image.Length == 0) return StatusCode(200, Json(s));
 
-            string NewDir = _env.ContentRootPath + "/wwwroot" + s.Image;
+            string NewDir = _env.ContentRootPath + "/wwwroot" + path;
 
             if (!Directory.Exists(NewDir))
             {
@@ -312,13 +370,13 @@ namespace Back.Controllers
             var productpath = await (from p in lavenderContext.Sanpham
                                      where p.Masanpham == masanpham
                                      select p.Image).FirstAsync();
-
+            var path = productpath + "/" + mausac;
             string OldDir = _env.ContentRootPath + "/wwwroot" + s.Image;
-            string NewDir = _env.ContentRootPath + "/wwwroot" + productpath + "/" + mausac;
-            if (image == null || image.Length == 0) s.Image = NewDir;
+            string NewDir = _env.ContentRootPath + "/wwwroot"+ path;
+            s.Image = path;
             await lavenderContext.SaveChangesAsync();
 
-            if (image != null && image.Length != 0 && OldDir != NewDir)
+            if (image != null && image.Length != 0)
             {
                 MyDataHandler.MoveDir(OldDir, NewDir);
             }

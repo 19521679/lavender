@@ -41,10 +41,14 @@ class Product extends Component {
       });
   }
   setValue(quantity) {
+
     let soluong = 0;
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
     soluong = this.props.detailCart.soluong + quantity;
+    if (soluong < 1) {
+      return;
+    }
     detailCartApi
       .setQuantityForDetailCart(
         this.props.detailCart.magiohang,
