@@ -83,7 +83,7 @@ export default function EditModal(props) {
         <div class="">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">
-              Thêm mới khách hàng
+              Sửa khách hàng
             </h5>
           </div>
 

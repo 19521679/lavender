@@ -3,7 +3,7 @@
     right: 19px;
     top: -7px;
 }
-taikhoankhachhang .danhsachsanpham-title{
+.taikhoankhachhang .danhsachsanpham-title{
     z-index: 3
 }
 .taikhoankhachhang .add-item-modal{
@@ -12,7 +12,7 @@ taikhoankhachhang .danhsachsanpham-title{
 }
 .taikhoankhachhang .form-main-add-edit{
     padding: 24px 0px;
-    height: 150px;
+    height: 180px;
     display: flex;
     flex-direction: column;   
     overflow: scroll;

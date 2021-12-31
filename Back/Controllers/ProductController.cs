@@ -362,13 +362,11 @@ namespace Back.Controllers
             if (OldDir != NewDir)
             {
                 MyDataHandler.MoveDir(OldDir, NewDir);
-                Console.WriteLine("A");
             }
             if (image != null && image.Length != 0  )
             {
                 if (!Directory.Exists(NewDir))
                 {
-                    Console.WriteLine("b");
                     // Create the directory.
                     Directory.CreateDirectory(NewDir);
                 }
