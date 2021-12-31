@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AddModal from "./AddModal";
 import "./style.css";
-import * as productApi from "../../apis/product";
+import * as mobileApi from "../../apis/mobile";
+import * as laptopApi from "../../apis/laptop";
+import * as trademarkApi from "../../apis/trademark";
 import ProductItem from "./ProductItem";
 import _ from "lodash";
 import LoadingContainer from "../../../Common/helper/loading/LoadingContainer";
@@ -21,8 +23,8 @@ export default function Index(props) {
 
   async function loadMobile() {
     setLoading(true);
-    await productApi
-      .allMobileProduct()
+    await mobileApi
+      .mobile()
       .then((success) => {
         if (success.status === 200) {
           setListmobile(success.data.value.$values);
@@ -36,8 +38,8 @@ export default function Index(props) {
 
   async function loadLaptop() {
     setLoading(true);
-    await productApi
-      .allLaptopProduct()
+    await laptopApi
+      .laptop()
       .then((success) => {
         if (success.status === 200) {
           setListlaptop(success.data.value.$values);
@@ -61,11 +63,33 @@ export default function Index(props) {
     } else {
       listtemp = listlaptop;
     }
-    _.remove(listtemp, (n) => {
-      return n.masanpham === product.masanpham;
-    });
 
-    listtemp.push(product);
+    var result = undefined;
+    for (var i = 0; i < listtemp.length; i++) {
+      if (listtemp[i].masanpham === product.masanpham) {
+        result = listtemp[i];
+      }
+    }
+    if (result === undefined) return;
+
+    var tenthuonghieu = undefined;
+
+    await trademarkApi
+      .TimThuonghieuBangMathuonghieu(product.mathuonghieu)
+      .then((success) => {
+        if (success.status === 200) {
+          tenthuonghieu = success.data.value.tenthuonghieu;
+        }
+      });
+    result.tenthuonghieu = tenthuonghieu;
+    result.tensanpham = product.tensanpham;
+    result.maloai = product.maloai;
+    result.mathuonghieu = product.mathuonghieu;
+    result.mota = product.mota;
+    result.image = product.image;
+    result.thoidiemramat = product.thoidiemramat;
+    result.dongia = product.dongia;
+    result.thoigianbaohanh = product.thoigianbaohanh;
 
     if (product.maloai === 1) {
       setListmobile([...listtemp]);

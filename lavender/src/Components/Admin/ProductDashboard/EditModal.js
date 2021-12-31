@@ -33,6 +33,7 @@ export default function EditModal(props) {
   const [dongia, setDongia] = useState(props.product.dongia);
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(0);
+  const [thoigianbaohanh, setThoigianbaohanh] = useState(props.product.thoigianbaohanh);
   const [thongsokithuat, setThongsokithuat] = useState([]);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function EditModal(props) {
     setMota(props.product.mota);
     setThoidiemramat(new Date(props.product.thoidiemramat));
     setDongia(props.product.dongia);
+    setThoigianbaohanh(props.product.thoigianbaohanh);
   }, [props.product]);
   useEffect(() => {
     productApi
@@ -74,6 +76,7 @@ export default function EditModal(props) {
       new Date(thoidiemramat).toISOString().split("T")[0]
     );
     fd.append("dongia", dongia);
+    fd.append("thoigianbaohanh", thoigianbaohanh);
 
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
@@ -126,7 +129,6 @@ export default function EditModal(props) {
         closeModal={() => setShowModal(false)}
         chooseFunction={chooseFunction}
       ></FindTrademarkModal>
-      {props.showModal && console.log(props.product)}
       <div className="add-product-item-modal" role="document">
         <div className="">
           <div className="modal-header">
@@ -154,7 +156,6 @@ export default function EditModal(props) {
               <div className="row mb-1">
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   Tên sản phẩm
-                  {props.showModal && console.log(props.product.tensanpham)}
                 </div>
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                   <input
@@ -258,6 +259,23 @@ export default function EditModal(props) {
                       setDongia(e.target.value);
                     }}
                     value={dongia}
+                  ></input>
+                </div>
+              </div>
+
+              <div className="row mb-1">
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  Thời gian bảo hành
+                </div>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                  <input
+                    className="form-control border"
+                    id="thoigianbaohanh"
+                    placeholder=""
+                    onChange={(e) => {
+                      setThoigianbaohanh(e.target.value);
+                    }}
+                    value={thoigianbaohanh}
                   ></input>
                 </div>
               </div>

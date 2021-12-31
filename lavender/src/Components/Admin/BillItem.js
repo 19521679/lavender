@@ -82,11 +82,11 @@ export default class BillItem extends Component {
                 </div>
               </td>
             </tr>
-            <tr>
-              <td className="row text-center" >
+            <tr >
+              <td colspan="100" className="row text-center"  style={{maxWidth: "500px"}}>
                 {this.state.product.map((value, key) => {
                   return (
-                    <div className="d-flex px-5 py-1 text-center " key={key}>
+                    <div className="d-flex px-5 py-1  "  key={key}>
                       <div>
                         <img
                           src={
@@ -100,7 +100,7 @@ export default class BillItem extends Component {
                       </div>
                       <div className="d-flex flex-column justify-content-center">
                         <h6 className="mb-0 text-sm">
-                          {/* {this.state.product.tenthuonghieu}{" "} */}
+                          {value.tenthuonghieu}{" "}
                           {value.tensanpham}
                         </h6>
                       </div>
