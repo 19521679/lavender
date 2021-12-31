@@ -86,5 +86,15 @@ Dự án demo
 | "new customer ID"  | camelCase    | `newCustomerId`        | `newCustomerID`       |  
 
 
+<!-- TABLE_GENERATE_START -->
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+<!-- TABLE_GENERATE_END -->
+
+
 
 
