@@ -124,9 +124,10 @@ class index extends Component {
   }
 
   async deleteAllProduct() {
+    this.setState({loading: true});
     var token = cookie.get("token");
     var refreshtoken = cookie.get("refreshtoken");
-    detailCartApi
+    await detailCartApi
       .deleteAllDetailCart(this.state.cart.magiohang, token, refreshtoken)
       .then((success) => {
         if (success.status === 200) this.loadCart();
@@ -134,6 +135,7 @@ class index extends Component {
       .catch((error) => {
         console.error(error);
       });
+      this.setState({loading: false});
   }
 
   showModal() {
@@ -527,8 +529,8 @@ class index extends Component {
                                 {this.state.khuyenmai === undefined
                                   ? "0"
                                   : numberHelper.numberWithCommas(
-                                      this.state.khuyenmai.tilekhuyenmai *
-                                        this.state.tongtien
+                                      (this.state.khuyenmai.tilekhuyenmai *
+                                        this.state.tongtien).toFixed(0)
                                     )}
                                 đ
                               </span>
@@ -543,7 +545,7 @@ class index extends Component {
                                 <strong>
                                   {this.state.tongcong === 0
                                     ? "Vui lòng chọn sản phẩm"
-                                    : this.state.tongcong + "đ"}
+                                    : numberHelper.numberWithCommas(this.state.tongcong.toFixed(0)) + "đ"}
                                 </strong>
                               </div>
                               <span className="prices__value--noted">

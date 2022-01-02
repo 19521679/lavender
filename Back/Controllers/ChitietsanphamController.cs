@@ -376,9 +376,9 @@ namespace Back.Controllers
             s.Image = path;
             await lavenderContext.SaveChangesAsync();
 
-            if (image != null && image.Length != 0 && OldDir!= NewDir)
+            if (image != null && image.Length != 0 )
             {
-                MyDataHandler.MoveDir(OldDir, NewDir);
+               if (OldDir != NewDir) MyDataHandler.MoveDir(OldDir, NewDir);
             }
             else
             {
