@@ -5,15 +5,6 @@
 ## Các công nghệ mới sử dụng trong đồ án
 Có nhiều công nghệ mới sử dụng trong đồ án như là Reactjs, JWT Token, API,...
 
-## Giới thiệu thành viên nhóm
-|       Họ tên          |     MSSV     |    Địa chỉ Facebook    |     Số điện thoại     |       Nhiệm vụ                                     |Hoàn thành|
-|-----------------------|--------------|------------------------|-----------------------|----------------------------------------------------|----------|  
-|  Lê Mai Duy Khánh      |   19521679   |[Link](https://www.facebook.com/bii.nhok.1)| 0914630145 |Phụ trách trang chủ,trang admin, giỏ hàng, bài viết, đăng ký, đăng nhập, thiết kế cơ sở dữ liệu| 100% | 
-|  Nguyễn Ngọc Châu  Pha    |   19521986  |[Link](https://www.facebook.com/chaupha.nguyen1808)| 0385276400 |Phụ trách trang admin, thiết kế và chỉnh sửa giao diện, thiết kế cơ sở dữ liệu, nhập dữ liệu| 100% |
-|  Ngô Tường Vy      |   19522545   |[Link](https://www.facebook.com/tuongvy.ngo.52012)| 0902538763 |Phụ trách trang admin, thiết kế và chỉnh sửa giao diện, thiết kế cơ sở dữ liệu, nhập dữ liệu| 100% |
-|  Nguyễn Lê Nguyên Khang     |   19521666   |[Link](https://www.facebook.com/nguyenkhang1531)| 0327403627 |Phụ trách trang quản lý tài khoản khách hàng, trang admin, chỉnh sửa giao diện, thiết kế cơ sở dữ liệu, nhập dữ liệu| 100% |
-
-
 ## Hình ảnh trang chủ của Website
 ![Ảnh trang chủ](https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/270046390_3044287319179166_6035350275120142555_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=Y36YsiJJgfsAX9yW2pq&_nc_ht=scontent.fdad1-1.fna&oh=00_AT8P9J99-6iBZp6VX3KjWy25rXgEFh5IoBB1eas8-LJq9g&oe=61D3EF75)
 
