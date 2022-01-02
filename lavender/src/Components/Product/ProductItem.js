@@ -62,10 +62,10 @@ export default function ProductItem (props) {
 
             <Link
               href={() => false}
-              onClick={() => {
-                var url = CLIENT_ENDPOINT + props.product.image;
-                window.location.href = `${url}`;
-              }}
+              // onClick={() => {
+              //   var url = CLIENT_ENDPOINT + props.product.image;
+              //   window.location.href = `${url}`;
+              // }}
               to={props.product.image}
               className="box-click"
             >
