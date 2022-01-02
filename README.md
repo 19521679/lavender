@@ -46,8 +46,6 @@ Có nhiều công nghệ mới sử dụng trong đồ án như là Reactjs, JWT
 
 - Khởi động server: yarn start
 
-### Lời kết luận
- Cảm ơn anh Nguyễn Minh Nhựt đã tận tình hướng dẫn chúng em, tuy dự án web vẫn chưa hoàn thiện nhưng đó cũng là thành quả sau hơn ba tháng nổ lực. Trong thời gian tới, nhóm sẽ tiếp tục hoàn thiện trang web cũng như mong nhận được góp ý từ mọi người để có những điều chỉnh tốt hơn. Xin cảm ơn! 
 
 
 
