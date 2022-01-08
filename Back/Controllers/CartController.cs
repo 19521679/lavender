@@ -120,9 +120,6 @@ namespace Back.Controllers
                                    && h.Makhuyenmai == hoadon.Makhuyenmai
                                    orderby h.Ngayhoadon descending
                                    select h).FirstOrDefaultAsync();
-             var magiohang = await (from gh in lavenderContext.Giohang
-                                   where gh.Makhachhang == makhachhang
-                                   select gh.Magiohang).FirstOrDefaultAsync();
             List<Chitietsanpham> listsanphamban = new List<Chitietsanpham>();
             hoadon = newhoadon;
             foreach (var i in cartpayinglist)
@@ -151,12 +148,6 @@ namespace Back.Controllers
                     chitiethoadon.Tien = chitietsanpham.Giamoi;
 
                     await lavenderContext.AddAsync(chitiethoadon);
-                    await lavenderContext.SaveChangesAsync();
-                     var cart_item = await lavenderContext.Chitietgiohang.SingleAsync(
-                        x => x.Masanpham == i.Masanpham &&
-                        x.Magiohang == magiohang
-                        );
-                    lavenderContext.Remove(cart_item);
                     await lavenderContext.SaveChangesAsync();
                 }
 
