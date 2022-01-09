@@ -6,7 +6,7 @@
 Có nhiều công nghệ mới sử dụng trong đồ án như là Reactjs, JWT Token, API,...
 
 ## Hình ảnh trang chủ của Website
-![Ảnh trang chủ](https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/270046390_3044287319179166_6035350275120142555_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=Y36YsiJJgfsAX9yW2pq&_nc_ht=scontent.fdad1-1.fna&oh=00_AT8P9J99-6iBZp6VX3KjWy25rXgEFh5IoBB1eas8-LJq9g&oe=61D3EF75)
+![Ảnh trang chủ](https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/270046390_3044287319179166_6035350275120142555_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=iWSHCG1KY2UAX-BR2RA&_nc_ht=scontent.fdad1-1.fna&oh=00_AT9MD2zAuohNWCvpqptsuF9kxOFiC3WclINw_OeKZGPYBQ&oe=61DFCCF5)
 
 ## Link Deloy website của dự án
 [Click vào đây để đến với website](https://lavender-uit-webshop.web.app/)
@@ -17,8 +17,8 @@ Có nhiều công nghệ mới sử dụng trong đồ án như là Reactjs, JWT
 
 ### **Bước 2: Chạy Backend Asp.net core**
 - Cài đặt các thư viện sau (đã tải lên git, không cần cài lại)
-![Ảnh thư viện](https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/270241963_3044294972511734_9140383735054285317_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=FaY4cdPNn7EAX-j0lQY&_nc_ht=scontent.fdad1-1.fna&oh=00_AT8VxyB2Qvcx9b2xbqrqZ4ii_oAU9ZVa_ipGFntVeH7Dyg&oe=61D58194)
-![Ảnh thư viện](https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/270252352_3044294785845086_5709618262599065895_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=OXHRLAm17ncAX_-3L8Z&tn=NHrAlX3B9vpysKo6&_nc_ht=scontent.fdad1-3.fna&oh=00_AT_5Bd7vlSe60m6shR94PlcJ2ZG63gBefT-kzSVJSrN93w&oe=61D5118B)
+![Ảnh thư viện](https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/270241963_3044294972511734_9140383735054285317_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=LAGnsIPJaTcAX-Hr89Y&_nc_ht=scontent.fdad1-1.fna&oh=00_AT-1pHz0h0FI8P0j_OngPVRdbAgGU-ba_mSUIXelGgNWDA&oe=61DF64D4)
+![Ảnh thư viện](https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/270252352_3044294785845086_5709618262599065895_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=dbeb18&_nc_ohc=faupple52UAAX9VrxAD&tn=NHrAlX3B9vpysKo6&_nc_ht=scontent.fdad1-3.fna&oh=00_AT-W8j3vXtSUTaBK3GEv01M62a2QxvCrCALNYq-ltAZYwQ&oe=61DEF4CB)
 - Thay đổi AppMvcConnectionString phù hợp với MySQL
 
 - Thay đổi launchUrl phù hợp với địa chỉ IP và Port của máy.
