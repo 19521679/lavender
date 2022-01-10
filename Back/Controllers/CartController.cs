@@ -153,12 +153,7 @@ namespace Back.Controllers
                     await lavenderContext.AddAsync(chitiethoadon);
                     await lavenderContext.SaveChangesAsync();
                     
-                    var cart_item = lavenderContext.Chitietgiohang.First(
-                        x => x.Masanpham == i.Masanpham &&
-                        x.Magiohang == magiohang
-                        );
-                    lavenderContext.Remove(cart_item);
-                    await lavenderContext.SaveChangesAsync();
+
                 }
 
             }
