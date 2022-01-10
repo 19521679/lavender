@@ -155,6 +155,12 @@ namespace Back.Controllers
                     
 
                 }
+                var cart_item = lavenderContext.Chitietgiohang.First(
+                        x => x.Masanpham == i.Masanpham &&
+                        x.Magiohang == magiohang
+                        );
+                    lavenderContext.Remove(cart_item);
+                    await lavenderContext.SaveChangesAsync();
 
             }
 
